@@ -44,12 +44,56 @@ export default function NewsSection({
     setTimeout(() => setToast(null), 3000);
   };
 
+  // Robust clipboard copy function with fallback for all browser security contexts
+  const copyToClipboard = async (text: string): Promise<boolean> => {
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch (err) {
+        return fallbackCopy(text);
+      }
+    } else {
+      return fallbackCopy(text);
+    }
+  };
+
+  const fallbackCopy = (text: string): boolean => {
+    try {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      const successful = document.execCommand('copy');
+      document.body.removeChild(textArea);
+      return successful;
+    } catch (err) {
+      return false;
+    }
+  };
+
   // Fetch official announcements from API
   useEffect(() => {
     api.getAnnouncements()
       .then((data) => setAnnouncements(Array.isArray(data) ? data : []))
       .catch(() => {});
   }, []);
+
+  // Auto-open news modal if URL contains ?id= or ?newsId=
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const targetId = params.get('id') || params.get('newsId');
+    if (targetId && combinedList.length > 0 && !selectedNews) {
+      const found = combinedList.find(n => String(n.id) === String(targetId) || n.id === 'anc_' + targetId);
+      if (found) {
+        setSelectedNews(found);
+      }
+    }
+  }, [newsList.length, announcements.length]);
 
   const handleOpenNews = (news: NewsItem) => {
     setSelectedNews(news);
@@ -409,54 +453,64 @@ export default function NewsSection({
                 </h4>
 
                 <div className="flex flex-wrap items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const shareUrl = encodeURIComponent(window.location.href);
-                      window.open(`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`, '_blank');
-                    }}
-                    className="flex items-center space-x-1.5 px-3.5 py-2 bg-[#1877F2]/10 hover:bg-[#1877F2]/20 text-[#1877F2] rounded-xl text-xs font-bold transition-all cursor-pointer border border-[#1877F2]/20"
-                  >
-                    <Facebook size={14} />
-                    <span>Facebook</span>
-                  </button>
+                  {(() => {
+                    const articleUrl = `${window.location.origin}/news?id=${selectedNews.id}`;
+                    const encodedUrl = encodeURIComponent(articleUrl);
+                    const encodedTitle = encodeURIComponent(lang === 'th' ? selectedNews.title : selectedNews.titleEn);
+                    return (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, '_blank');
+                          }}
+                          className="flex items-center space-x-1.5 px-3.5 py-2 bg-[#1877F2]/10 hover:bg-[#1877F2]/20 text-[#1877F2] rounded-xl text-xs font-bold transition-all cursor-pointer border border-[#1877F2]/20"
+                        >
+                          <Facebook size={14} />
+                          <span>Facebook</span>
+                        </button>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const shareUrl = encodeURIComponent(window.location.href);
-                      window.open(`https://social-plugins.line.me/lineit/share?url=${shareUrl}`, '_blank');
-                    }}
-                    className="flex items-center space-x-1.5 px-3.5 py-2 bg-[#06C755]/10 hover:bg-[#06C755]/20 text-[#06C755] rounded-xl text-xs font-bold transition-all cursor-pointer border border-[#06C755]/20"
-                  >
-                    <MessageCircle size={14} />
-                    <span>LINE</span>
-                  </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            window.open(`https://social-plugins.line.me/lineit/share?url=${encodedUrl}`, '_blank');
+                          }}
+                          className="flex items-center space-x-1.5 px-3.5 py-2 bg-[#06C755]/10 hover:bg-[#06C755]/20 text-[#06C755] rounded-xl text-xs font-bold transition-all cursor-pointer border border-[#06C755]/20"
+                        >
+                          <MessageCircle size={14} />
+                          <span>LINE</span>
+                        </button>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const shareUrl = encodeURIComponent(window.location.href);
-                      const shareText = encodeURIComponent(lang === 'th' ? selectedNews.title : selectedNews.titleEn);
-                      window.open(`https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareText}`, '_blank');
-                    }}
-                    className="flex items-center space-x-1.5 px-3.5 py-2 bg-slate-900/10 dark:bg-white/10 hover:bg-slate-900/20 text-slate-800 dark:text-slate-100 rounded-xl text-xs font-bold transition-all cursor-pointer border border-slate-900/15 dark:border-white/15"
-                  >
-                    <Twitter size={14} />
-                    <span>X (Twitter)</span>
-                  </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            window.open(`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`, '_blank');
+                          }}
+                          className="flex items-center space-x-1.5 px-3.5 py-2 bg-slate-900/10 dark:bg-white/10 hover:bg-slate-900/20 text-slate-800 dark:text-slate-100 rounded-xl text-xs font-bold transition-all cursor-pointer border border-slate-900/15 dark:border-white/15"
+                        >
+                          <Twitter size={14} />
+                          <span>X (Twitter)</span>
+                        </button>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      navigator.clipboard.writeText(window.location.href);
-                      triggerToast(lang === 'th' ? 'คัดลอกลิงก์ข่าวสารเรียบร้อยแล้ว!' : 'Copied news link to clipboard!');
-                    }}
-                    className="flex items-center space-x-1.5 px-3.5 py-2 bg-mcu-pink-soft hover:bg-mcu-pink-light/60 text-mcu-pink-deep rounded-xl text-xs font-bold transition-all cursor-pointer border border-mcu-pink-light/40 sm:ml-auto"
-                  >
-                    <LinkIcon size={14} />
-                    <span>{lang === 'th' ? 'คัดลอกลิงก์ข่าว' : 'Copy Link'}</span>
-                  </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            copyToClipboard(articleUrl).then((success) => {
+                              if (success) {
+                                triggerToast(lang === 'th' ? 'คัดลอกลิงก์ข่าวสารเรียบร้อยแล้ว!' : 'Copied news link to clipboard!');
+                              } else {
+                                triggerToast(lang === 'th' ? 'ไม่สามารถคัดลอกลิงก์ได้' : 'Failed to copy link', 'error');
+                              }
+                            });
+                          }}
+                          className="flex items-center space-x-1.5 px-3.5 py-2 bg-mcu-pink-soft hover:bg-mcu-pink-light/60 text-mcu-pink-deep rounded-xl text-xs font-bold transition-all cursor-pointer border border-mcu-pink-light/40 sm:ml-auto"
+                        >
+                          <LinkIcon size={14} />
+                          <span>{lang === 'th' ? 'คัดลอกลิงก์ข่าว' : 'Copy Link'}</span>
+                        </button>
+                      </>
+                    );
+                  })()}
                 </div>
               </div>
 

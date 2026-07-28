@@ -35,6 +35,50 @@ export default function NewsPage({ lang }: NewsPageProps) {
     }).catch(() => {});
   };
 
+  // Robust clipboard copy function with fallback for all browser security contexts
+  const copyToClipboard = async (text: string): Promise<boolean> => {
+    if (navigator.clipboard && window.isSecureContext) {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch (err) {
+        return fallbackCopy(text);
+      }
+    } else {
+      return fallbackCopy(text);
+    }
+  };
+
+  const fallbackCopy = (text: string): boolean => {
+    try {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      const successful = document.execCommand('copy');
+      document.body.removeChild(textArea);
+      return successful;
+    } catch (err) {
+      return false;
+    }
+  };
+
+  // Auto-open news modal if URL contains ?id= or ?newsId=
+  React.useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const targetId = params.get('id') || params.get('newsId');
+    if (targetId && newsList.length > 0 && !selectedNews) {
+      const found = newsList.find(n => String(n.id) === String(targetId) || n.id === 'anc_' + targetId);
+      if (found) {
+        setSelectedNews(found);
+      }
+    }
+  }, [newsList.length]);
+
   // Lightbox Gallery State
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [lightboxUrls, setLightboxUrls] = useState<string[]>([]);
@@ -397,47 +441,57 @@ export default function NewsPage({ lang }: NewsPageProps) {
                   <span>{lang === 'th' ? 'แชร์ข่าวสารนี้' : 'Share this news'}</span>
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  <button
-                    onClick={() => {
-                      const shareUrl = encodeURIComponent(window.location.href);
-                      window.open(`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`, '_blank');
-                    }}
-                    className="flex items-center space-x-1.5 px-3 py-1.5 bg-[#1877F2]/10 hover:bg-[#1877F2]/25 text-[#1877F2] rounded-lg text-[11px] font-semibold transition-colors cursor-pointer border border-[#1877F2]/20"
-                  >
-                    <Facebook size={12} />
-                    <span>Facebook</span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      const shareUrl = encodeURIComponent(window.location.href);
-                      window.open(`https://social-plugins.line.me/lineit/share?url=${shareUrl}`, '_blank');
-                    }}
-                    className="flex items-center space-x-1.5 px-3 py-1.5 bg-[#06C755]/10 hover:bg-[#06C755]/25 text-[#06C755] rounded-lg text-[11px] font-semibold transition-colors cursor-pointer border border-[#06C755]/20"
-                  >
-                    <MessageCircle size={12} />
-                    <span>LINE</span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      const shareUrl = encodeURIComponent(window.location.href);
-                      const shareText = encodeURIComponent(lang === 'th' ? selectedNews.title : selectedNews.titleEn);
-                      window.open(`https://twitter.com/intent/tweet?url=${shareUrl}&text=${shareText}`, '_blank');
-                    }}
-                    className="flex items-center space-x-1.5 px-3 py-1.5 bg-slate-900/10 hover:bg-slate-900/20 text-slate-800 rounded-lg text-[11px] font-semibold transition-colors cursor-pointer border border-slate-900/15"
-                  >
-                    <Twitter size={12} />
-                    <span>X (Twitter)</span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(window.location.href);
-                      triggerToast(lang === 'th' ? 'คัดลอกลิงก์ข่าวไปยังคลิปบอร์ดแล้ว' : 'Copied news link to clipboard!');
-                    }}
-                    className="flex items-center space-x-1.5 px-3 py-1.5 bg-mcu-pink-soft/25 hover:bg-mcu-pink-soft/50 text-mcu-pink-deep rounded-lg text-[11px] font-semibold transition-colors cursor-pointer border border-mcu-pink-light/30 ml-auto"
-                  >
-                    <LinkIcon size={12} />
-                    <span>{lang === 'th' ? 'คัดลอกลิงก์ข่าว' : 'Copy Link'}</span>
-                  </button>
+                  {(() => {
+                    const articleUrl = `${window.location.origin}/news?id=${selectedNews.id}`;
+                    const encodedUrl = encodeURIComponent(articleUrl);
+                    const encodedTitle = encodeURIComponent(lang === 'th' ? selectedNews.title : selectedNews.titleEn);
+                    return (
+                      <>
+                        <button
+                          onClick={() => {
+                            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`, '_blank');
+                          }}
+                          className="flex items-center space-x-1.5 px-3 py-1.5 bg-[#1877F2]/10 hover:bg-[#1877F2]/25 text-[#1877F2] rounded-lg text-[11px] font-semibold transition-colors cursor-pointer border border-[#1877F2]/20"
+                        >
+                          <Facebook size={12} />
+                          <span>Facebook</span>
+                        </button>
+                        <button
+                          onClick={() => {
+                            window.open(`https://social-plugins.line.me/lineit/share?url=${encodedUrl}`, '_blank');
+                          }}
+                          className="flex items-center space-x-1.5 px-3 py-1.5 bg-[#06C755]/10 hover:bg-[#06C755]/25 text-[#06C755] rounded-lg text-[11px] font-semibold transition-colors cursor-pointer border border-[#06C755]/20"
+                        >
+                          <MessageCircle size={12} />
+                          <span>LINE</span>
+                        </button>
+                        <button
+                          onClick={() => {
+                            window.open(`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`, '_blank');
+                          }}
+                          className="flex items-center space-x-1.5 px-3 py-1.5 bg-slate-900/10 hover:bg-slate-900/20 text-slate-800 rounded-lg text-[11px] font-semibold transition-colors cursor-pointer border border-slate-900/15"
+                        >
+                          <Twitter size={12} />
+                          <span>X (Twitter)</span>
+                        </button>
+                        <button
+                          onClick={() => {
+                            copyToClipboard(articleUrl).then((success) => {
+                              if (success) {
+                                triggerToast(lang === 'th' ? 'คัดลอกลิงก์ข่าวไปยังคลิปบอร์ดแล้ว' : 'Copied news link to clipboard!');
+                              } else {
+                                triggerToast(lang === 'th' ? 'ไม่สามารถคัดลอกลิงก์ได้' : 'Failed to copy link', 'error');
+                              }
+                            });
+                          }}
+                          className="flex items-center space-x-1.5 px-3 py-1.5 bg-mcu-pink-soft/25 hover:bg-mcu-pink-soft/50 text-mcu-pink-deep rounded-lg text-[11px] font-semibold transition-colors cursor-pointer border border-mcu-pink-light/30 ml-auto"
+                        >
+                          <LinkIcon size={12} />
+                          <span>{lang === 'th' ? 'คัดลอกลิงก์ข่าว' : 'Copy Link'}</span>
+                        </button>
+                      </>
+                    );
+                  })()}
                 </div>
               </div>
 
