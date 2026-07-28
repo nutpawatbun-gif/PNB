@@ -1,0 +1,4216 @@
+{
+  "users": [
+    {
+      "id": "u0",
+      "username": "akkharadet",
+      "passwordHash": "43a72817bf02c68917f90a8c91f28429c31ac3f56f92e971a7e2a3b27d289545",
+      "name": "นายอัครเดช บุญหิรัญไพศาล (Super Admin)",
+      "role": "Super Admin",
+      "email": "superadmin@mcu.ac.th",
+      "department": "ผู้ดูแลระบบสารสนเทศกลาง",
+      "status": "active",
+      "mustChangePassword": false,
+      "is2FAEnabled": false,
+      "createdAt": "2026-07-22T11:12:05.118Z",
+      "lastLoginAt": "2026-07-26T03:11:14.291Z",
+      "failedLoginAttempts": 0,
+      "updatedAt": "2026-07-25T20:04:42.990Z",
+      "customPermissions": [
+        "view",
+        "create",
+        "edit_own",
+        "edit_all",
+        "delete",
+        "publish",
+        "approve",
+        "export",
+        "manage_users",
+        "manage_settings"
+      ]
+    },
+    {
+      "id": "u1",
+      "username": "admin",
+      "passwordHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+      "name": "พระมหาสมชาย สุขจิตฺโต (Super Admin)",
+      "role": "Admin",
+      "email": "superadmin@mcu.ac.th",
+      "department": "ผู้ดูแลระบบสารสนเทศกลาง",
+      "status": "active",
+      "customPermissions": [
+        "view",
+        "create",
+        "edit_own",
+        "edit_all",
+        "delete",
+        "publish",
+        "approve",
+        "export",
+        "manage_users"
+      ],
+      "lastLoginAt": "2026-07-26T06:42:11.951Z",
+      "updatedAt": "2026-07-25T18:07:44.627Z"
+    },
+    {
+      "id": "u3",
+      "username": "editor",
+      "passwordHash": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+      "name": "นายสมชาย ใจดี (Editor)",
+      "role": "Editor",
+      "email": "editor@mcu.ac.th",
+      "department": "ศูนย์ประชาสัมพันธ์และบรรณาธิการ",
+      "status": "active",
+      "customPermissions": [
+        "view",
+        "create",
+        "edit_own",
+        "edit_all",
+        "approve",
+        "export"
+      ]
+    },
+    {
+      "id": "u4",
+      "username": "author",
+      "passwordHash": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+      "name": "อาจารย์สุรศักดิ์ นักเขียน (Author)",
+      "role": "Author",
+      "email": "author@mcu.ac.th",
+      "department": "สาขาวิชาพระพุทธศาสนา",
+      "status": "active",
+      "customPermissions": [
+        "view",
+        "create",
+        "edit_own"
+      ]
+    },
+    {
+      "id": "u5",
+      "username": "viewer",
+      "passwordHash": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+      "name": "นางสาวนภา ดูงาน (Viewer)",
+      "role": "Viewer",
+      "email": "viewer@mcu.ac.th",
+      "department": "งานประกันคุณภาพการศึกษา",
+      "status": "active",
+      "customPermissions": [
+        "view"
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "m_home",
+      "labelTh": "หน้าแรก",
+      "labelEn": "Home",
+      "url": "/",
+      "target": "_self",
+      "isVisible": true,
+      "order": 1,
+      "icon": "Home",
+      "submenus": []
+    },
+    {
+      "id": "m_about",
+      "labelTh": "เกี่ยวกับเรา",
+      "labelEn": "About College",
+      "url": "/about",
+      "target": "_self",
+      "isVisible": true,
+      "order": 2,
+      "icon": "Building",
+      "submenus": [
+        {
+          "id": "sm_history",
+          "labelTh": "ประวัติความเป็นมา",
+          "labelEn": "History",
+          "url": "/about#history"
+        },
+        {
+          "id": "sm_philosophy",
+          "labelTh": "ปรัชญา ปณิธาน อัตลักษณ์",
+          "labelEn": "Philosophy & Identity",
+          "url": "/about#philosophy"
+        },
+        {
+          "id": "sm_executives",
+          "labelTh": "ผู้บริหารวิทยาลัย",
+          "labelEn": "Executives",
+          "url": "/about#executives"
+        },
+        {
+          "id": "sm_personnel",
+          "labelTh": "ทำเนียบบุคลากร",
+          "labelEn": "Personnel Directory",
+          "url": "/personnel"
+        }
+      ]
+    },
+    {
+      "id": "m_courses",
+      "labelTh": "หลักสูตรที่เปิดสอน",
+      "labelEn": "Academic Programs",
+      "url": "/courses",
+      "target": "_self",
+      "isVisible": true,
+      "order": 3,
+      "icon": "GraduationCap",
+      "submenus": [
+        {
+          "id": "sm_b1",
+          "labelTh": "ระดับปริญญาตรี (พุทธศาสตรบัณฑิต)",
+          "labelEn": "Bachelor Programs (B.A.)",
+          "url": "/courses?level=bachelor"
+        },
+        {
+          "id": "sm_m1",
+          "labelTh": "ระดับปริญญาโท (พุทธศาสตรมหาบัณฑิต)",
+          "labelEn": "Master Programs (M.A.)",
+          "url": "/courses?level=master"
+        },
+        {
+          "id": "sm_d1",
+          "labelTh": "ระดับปริญญาเอก (พุทธศาสตรดุษฎีบัณฑิต)",
+          "labelEn": "Doctoral Programs (Ph.D.)",
+          "url": "/courses?level=doctor"
+        },
+        {
+          "id": "sm_c1",
+          "labelTh": "หลักสูตรประกาศนียบัตร",
+          "labelEn": "Certificate Programs",
+          "url": "/courses?level=certificate"
+        }
+      ]
+    },
+    {
+      "id": "m_academic",
+      "labelTh": "ผลงานวิชาการ",
+      "labelEn": "Academic Works",
+      "url": "/academic",
+      "target": "_self",
+      "isVisible": true,
+      "order": 4,
+      "icon": "BookOpen",
+      "submenus": [
+        {
+          "id": "sm_ac_all",
+          "labelTh": "คลังผลงานวิชาการทั้งหมด",
+          "labelEn": "All Publications",
+          "url": "/academic"
+        },
+        {
+          "id": "sm_ac_res",
+          "labelTh": "โครงการงานวิจัย",
+          "labelEn": "Research Projects",
+          "url": "/academic?cat=research"
+        },
+        {
+          "id": "sm_ac_res_art",
+          "labelTh": "บทความวิจัย",
+          "labelEn": "Research Articles",
+          "url": "/academic?cat=research_article"
+        },
+        {
+          "id": "sm_ac_art",
+          "labelTh": "บทความวิชาการ",
+          "labelEn": "Academic Papers",
+          "url": "/academic?cat=academic_article"
+        },
+        {
+          "id": "sm_ac_book",
+          "labelTh": "หนังสือวิชาการ",
+          "labelEn": "Academic Books",
+          "url": "/academic?cat=book"
+        },
+        {
+          "id": "sm_ac_textbook",
+          "labelTh": "ตำราเรียน",
+          "labelEn": "Textbooks",
+          "url": "/academic?cat=textbook"
+        },
+        {
+          "id": "sm_ac_teach",
+          "labelTh": "เอกสารประกอบการสอน",
+          "labelEn": "Instructional Materials",
+          "url": "/academic?cat=teaching_material"
+        }
+      ]
+    },
+    {
+      "id": "m_news",
+      "labelTh": "ข่าวสารและกิจกรรม",
+      "labelEn": "News & Events",
+      "url": "/news",
+      "target": "_self",
+      "isVisible": true,
+      "order": 5,
+      "icon": "Newspaper",
+      "submenus": [
+        {
+          "id": "sm_news_all",
+          "labelTh": "ข่าวสารทั้งหมด",
+          "labelEn": "All News Feed",
+          "url": "/news"
+        },
+        {
+          "id": "sm_news_cal",
+          "labelTh": "ปฏิทินกิจกรรมวิทยาลัย",
+          "labelEn": "Activity Calendar",
+          "url": "/calendar"
+        }
+      ]
+    },
+    {
+      "id": "m_admission",
+      "labelTh": "รับสมัครนักศึกษา",
+      "labelEn": "Admissions",
+      "url": "/admission",
+      "target": "_self",
+      "isVisible": true,
+      "order": 6,
+      "icon": "UserPlus",
+      "submenus": [
+        {
+          "id": "sm_adm_info",
+          "labelTh": "ประกาศและระเบียบการ",
+          "labelEn": "Announcements",
+          "url": "/admission/announcements"
+        },
+        {
+          "id": "sm_adm_steps",
+          "labelTh": "ขั้นตอนการสมัครเรียน",
+          "labelEn": "Admission Steps",
+          "url": "/admission/steps"
+        },
+        {
+          "id": "sm_adm_apply",
+          "labelTh": "สมัครเรียนออนไลน์ 2569",
+          "labelEn": "Apply Online 2026",
+          "url": "/admission/apply"
+        },
+        {
+          "id": "sm_adm_status",
+          "labelTh": "ตรวจสอบสถานะผู้สมัคร",
+          "labelEn": "Track Application Status",
+          "url": "/admission/status"
+        }
+      ]
+    },
+    {
+      "id": "m_downloads",
+      "labelTh": "คลังเอกสารดาวน์โหลด",
+      "labelEn": "Document Center",
+      "url": "/downloads",
+      "target": "_self",
+      "isVisible": true,
+      "order": 7,
+      "icon": "FileText",
+      "submenus": [
+        {
+          "id": "sm_dl_std",
+          "labelTh": "เอกสารสำหรับนิสิต",
+          "labelEn": "Student Forms",
+          "url": "/downloads?cat=student"
+        },
+        {
+          "id": "sm_dl_stf",
+          "labelTh": "เอกสารสำหรับอาจารย์และบุคลากร",
+          "labelEn": "Faculty & Staff Forms",
+          "url": "/downloads?cat=staff"
+        },
+        {
+          "id": "sm_dl_rul",
+          "labelTh": "ระเบียบ ข้อบังคับ และข้อตกลง",
+          "labelEn": "Regulations & Bylaws",
+          "url": "/downloads?cat=rules"
+        }
+      ]
+    },
+    {
+      "id": "m_services",
+      "labelTh": "ระบบบริการออนไลน์",
+      "labelEn": "Online Services",
+      "url": "/services",
+      "target": "_self",
+      "isVisible": true,
+      "order": 8,
+      "icon": "LayoutGrid",
+      "submenus": []
+    },
+    {
+      "id": "m_contact",
+      "labelTh": "ติดต่อเรา",
+      "labelEn": "Contact Us",
+      "url": "/contact",
+      "target": "_self",
+      "isVisible": true,
+      "order": 9,
+      "icon": "Phone",
+      "submenus": []
+    }
+  ],
+  "newsCategories": [
+    {
+      "id": "cat_pr",
+      "nameTh": "ข่าวประชาสัมพันธ์",
+      "nameEn": "PR & Announcements",
+      "slug": "pr-news",
+      "color": "bg-blue-500"
+    },
+    {
+      "id": "cat_academic",
+      "nameTh": "ข่าววิชาการ",
+      "nameEn": "Academic News",
+      "slug": "academic-news",
+      "color": "bg-purple-500"
+    },
+    {
+      "id": "cat_activity",
+      "nameTh": "กิจกรรมวิทยาลัย",
+      "nameEn": "College Activities",
+      "slug": "college-activities",
+      "color": "bg-emerald-500"
+    },
+    {
+      "id": "cat_admission",
+      "nameTh": "ข่าวการรับสมัคร",
+      "nameEn": "Admissions",
+      "slug": "admissions",
+      "color": "bg-pink-500"
+    },
+    {
+      "id": "cat_buddhism",
+      "nameTh": "ข่าวศาสนกิจและคุณธรรม",
+      "nameEn": "Dhamma & Religion",
+      "slug": "dhamma-religion",
+      "color": "bg-amber-500"
+    }
+  ],
+  "newsTags": [
+    {
+      "id": "tag1",
+      "name": "รับสมัคร2569",
+      "slug": "admission-2569"
+    },
+    {
+      "id": "tag2",
+      "name": "วิชาการ",
+      "slug": "academic"
+    },
+    {
+      "id": "tag3",
+      "name": "สัมมนา",
+      "slug": "seminar"
+    },
+    {
+      "id": "tag4",
+      "name": "กิจกรรมนิสิต",
+      "slug": "student-activity"
+    },
+    {
+      "id": "tag5",
+      "name": "เพชรบูรณ์",
+      "slug": "phetchabun"
+    },
+    {
+      "id": "tag6",
+      "name": "ทุนการศึกษา",
+      "slug": "scholarship"
+    }
+  ],
+  "news": [
+    {
+      "id": "n_1785007848544",
+      "title": "ทดสอบอัพโหลดภาพ",
+      "summary": "ทดสอบอัพโหลดภาพ",
+      "content": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มุ่งมั่นที่จะจัดการศึกษาระดับอุดมศึกษาทางพระพุทธศาสนาบูรณาการกับศาสตร์สมัยใหม่ เพื่อพัฒนาบัณฑิตให้เป็นผู้มีปัญญา ศีลธรรม และความเชี่ยวชาญในวิชาชีพ นำหลักธรรมทางพระพุทธศาสนาไปประยุกต์ใช้ในการขับเคลื่อนสังคมให้เกิดความสงบสุขร่มเย็น”",
+      "category": "ข่าวประชาสัมพันธ์",
+      "imageUrl": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=800",
+      "author": "ฝ่ายประชาสัมพันธ์",
+      "status": "Published",
+      "isPinned": false,
+      "views": 0,
+      "publishedAt": "2026-07-25",
+      "createdAt": "2026-07-25T19:30:48.544Z",
+      "updatedAt": "2026-07-25T19:34:15.145Z",
+      "titleEn": "",
+      "categoryLabel": "ข่าวประชาสัมพันธ์",
+      "isFeatured": false,
+      "slug": "news-1785007887451",
+      "tags": [
+        "#รับสมัคร2569",
+        "#วิชาการ"
+      ],
+      "date": "2026-07-25",
+      "scheduledAt": "",
+      "expiredAt": "",
+      "authorName": "งานประชาสัมพันธ์ วิทยาลัยสงฆ์พ่อขุนผาเมือง",
+      "authorRole": "เจ้าหน้าที่ประชาสัมพันธ์",
+      "excerpt": "ทดสอบอัพโหลดภาพ",
+      "galleryUrls": [
+        "https://drive.google.com/file/d/1qMQBCb71QDx6kvT-of1Yqk6EuL5cuk5e/view?usp=drive_link",
+        "https://drive.google.com/file/d/1qMQBCb71QDx6kvT-of1Yqk6EuL5cuk5e/view?usp=drive_link",
+        "https://drive.google.com/file/d/1qMQBCb71QDx6kvT-of1Yqk6EuL5cuk5e/view?usp=drive_link",
+        "https://drive.google.com/file/d/1qMQBCb71QDx6kvT-of1Yqk6EuL5cuk5e/view?usp=drive_link",
+        "https://drive.google.com/file/d/1qMQBCb71QDx6kvT-of1Yqk6EuL5cuk5e/view?usp=drive_link",
+        "https://drive.google.com/file/d/1qMQBCb71QDx6kvT-of1Yqk6EuL5cuk5e/view?usp=drive_link"
+      ],
+      "videoUrl": "",
+      "attachments": [],
+      "seoTitle": "ทดสอบอัพโหลดภาพ",
+      "seoKeywords": "มจร, รับสมัครนิสิต, ปริญญาตรี, เพชรบูรณ์",
+      "seoDescription": "ทดสอบอัพโหลดภาพ"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt_1785049788235",
+      "title": "สอบข้อสอบกลางภาค",
+      "startDate": "2026-07-29",
+      "endDate": "2026-07-29",
+      "startTime": "",
+      "endTime": "",
+      "isAllDay": true,
+      "isMultiDay": false,
+      "recurrence": "none",
+      "location": "อาคารเรียนรวม",
+      "organizer": "สำนักงานวิชาการ",
+      "details": "“วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มุ่งมั่นที่จะจัดการศึกษาระดับอุดมศึกษาทางพระพุทธศาสนาบูรณาการกับศาสตร์สมัยใหม่ เพื่อพัฒนาบัณฑิตให้เป็นผู้มีปัญญา ศีลธรรม และความเชี่ยวชาญในวิชาชีพ นำหลักธรรมทางพระพุทธศาสนาไปประยุกต์ใช้ในการขับเคลื่อนสังคมให้เกิดความสงบสุขร่มเย็น”",
+      "imageUrl": "",
+      "registrationUrl": "",
+      "onlineLink": "",
+      "meetingPlatform": "zoom",
+      "category": "academic",
+      "categoryLabel": "วิชาการ / สัมมนา",
+      "color": "#2563eb",
+      "reminderMinutes": 60,
+      "attachments": [],
+      "date": "29",
+      "month": "ก.ค.",
+      "year": "2569",
+      "time": "ตลอดวัน",
+      "createdAt": "2026-07-26T07:09:48.235Z",
+      "updatedAt": "2026-07-26T07:11:10.666Z"
+    },
+    {
+      "id": "evt_1785008978539",
+      "title": "เข้าตรวจสอบงาน",
+      "startDate": "2026-07-25",
+      "endDate": "2026-07-25",
+      "startTime": "09:00",
+      "endTime": "12:00",
+      "isAllDay": true,
+      "isMultiDay": false,
+      "recurrence": "none",
+      "location": "อาคารเรียนรวม",
+      "organizer": "ฝ่ายวิชาการ",
+      "details": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มุ่งมั่นที่จะจัดการศึกษาระดับอุดมศึกษาทางพระพุทธศาสนาบูรณาการกับศาสตร์สมัยใหม่ เพื่อพัฒนาบัณฑิตให้เป็นผู้มีปัญญา ศีลธรรม และความเชี่ยวชาญในวิชาชีพ นำหลักธรรมทางพระพุทธศาสนาไปประยุกต์ใช้ในการขับเคลื่อนสังคมให้เกิดความสงบสุขร่มเย็น”",
+      "imageUrl": "",
+      "registrationUrl": "https://drive.google.com/drive/u/0/home",
+      "onlineLink": "",
+      "meetingPlatform": "zoom",
+      "category": "admission",
+      "categoryLabel": "รับสมัคร / แนะแนว",
+      "color": "#e11d48",
+      "reminderMinutes": 60,
+      "attachments": [],
+      "date": "25",
+      "month": "ก.ค.",
+      "year": "2569",
+      "time": "ตลอดวัน",
+      "createdAt": "2026-07-25T19:49:38.539Z",
+      "updatedAt": "2026-07-25T19:49:38.539Z"
+    },
+    {
+      "id": "e2",
+      "title": "พิธีถวายเทียนจำนำพรรษาและผ้าอาบน้ำฝน เพื่อส่งเสริมบุญกิริยาวัตถุ ณ วัดป่าเขาอุ้มธรรม",
+      "startDate": "2026-07-28",
+      "endDate": "2026-07-28",
+      "startTime": "13:00",
+      "endTime": "17:00",
+      "isAllDay": false,
+      "isMultiDay": false,
+      "recurrence": "yearly",
+      "location": "วัดป่าเขาอุ้มธรรม ต.นาซำ อ.หล่มเก่า จ.เพชรบูรณ์",
+      "organizer": "สโมสรนิสิต มจร เพชรบูรณ์",
+      "details": "สโมสรนิสิตร่วมประสานงานพุทธศาสนิกชนท้องถิ่น สืบสานกิจกรรมประเพณีวัฒนธรรมอันดีงามในพุทธศาสน์เนื่องในวันเข้าพรรษา",
+      "imageUrl": "https://images.unsplash.com/photo-1544717305-2782549b5136?w=800",
+      "category": "buddhism",
+      "categoryLabel": "ศาสนพิธี",
+      "color": "#d97706",
+      "onlineLink": "",
+      "registrationUrl": "",
+      "reminderMinutes": 1440,
+      "attachments": [],
+      "date": "28",
+      "month": "ก.ค.",
+      "year": "2569",
+      "time": "13:00 น. - 17:00 น."
+    },
+    {
+      "id": "e6",
+      "title": "พิธีประสาทปริญญาบัตร มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย ประจำปีการศึกษา 2569",
+      "startDate": "2026-11-15",
+      "endDate": "2026-11-16",
+      "startTime": "07:00",
+      "endTime": "17:00",
+      "isAllDay": true,
+      "isMultiDay": true,
+      "recurrence": "yearly",
+      "location": "อาคาร มจร อ.วังน้อย จ.พระนครศรีอยุธยา",
+      "organizer": "ส่วนงานบริหาร มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+      "details": "พิธีมอบปริญญาบัตรแก่ดุษฎีบัณฑิต มหาบัณฑิต และบัณฑิต ประจำปีการศึกษา 2569 พร้อมพิธีประสาทเข็มเกียรติคุณ",
+      "imageUrl": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800",
+      "category": "ceremony",
+      "categoryLabel": "พิธีการทางวิชาการ",
+      "color": "#7c3aed",
+      "onlineLink": "",
+      "registrationUrl": "",
+      "reminderMinutes": 1440,
+      "attachments": [],
+      "date": "15",
+      "month": "พ.ย.",
+      "year": "2569",
+      "time": "ตลอดวัน (15-16 พ.ย. 2569)"
+    }
+  ],
+  "courses": [
+    {
+      "id": "b1",
+      "code": "B.A. (RP)",
+      "name": "หลักสูตรพุทธศาสตรบัณฑิต สาขาวิชาศาสนาและปรัชญา",
+      "nameTh": "หลักสูตรพุทธศาสตรบัณฑิต สาขาวิชาศาสนาและปรัชญา",
+      "titleTh": "หลักสูตรพุทธศาสตรบัณฑิต สาขาวิชาศาสนาและปรัชญา",
+      "nameEn": "Bachelor of Arts Program in Religion and Philosophy",
+      "degreeLevel": "bachelor",
+      "degree": "พุทธศาสตรบัณฑิต (พธ.บ.)",
+      "degreeEn": "Bachelor of Arts Program in Religion and Philosophy",
+      "major": "สาขาวิชาศาสนาและปรัชญา",
+      "faculty": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+      "duration": "4 ปี (8 ภาคการศึกษา)",
+      "totalCredits": 120,
+      "tuitionFee": "ฟรีสำหรับพระภิกษุสามเณร / ค่าธรรมเนียมตามประกาศมหาวิทยาลัย",
+      "studyMode": "4 ปี (8 ภาคการศึกษา)",
+      "description": "มุ่งสร้างบัณฑิตที่มีความรู้ความเข้าใจอย่างลึกซึ้งในหลักศาสนา ปรัชญาตะวันออกและตะวันตก เพื่อประยุกต์ใช้ในการวิเคราะห์สังคมและพัฒนาปัญญา",
+      "qualifications": [
+        "สำเร็จการศึกษาระดับมัธยมศึกษาตอนปลาย (ม.6) หรือเทียบเท่า",
+        "สำเร็จการศึกษาพระปริยัติธรรมแผนกธรรมชั้นเอก หรือแผนกบาลีประโยค 1-2 ขึ้นไป",
+        "เป็นภิกษุ สามเณร หรือคฤหัสถ์ทั่วไปที่มีความประพฤติเรียบร้อย"
+      ],
+      "careerOpportunities": [
+        "นักวิชาการศาสนาและปรัชญา",
+        "อาจารย์สอนศีลธรรมและวิชาสังคมศึกษา",
+        "บุคลากรในหน่วยงานภาครัฐและเอกชน",
+        "นักวิจัยด้านพุทธศาสนาและสังคมศาสตร์"
+      ],
+      "status": "inactive",
+      "applyUrl": "/admission/apply",
+      "applyMethod": "internal",
+      "coverImageUrl": "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=800",
+      "level": "bachelor",
+      "highlights": [],
+      "qualification": [
+        "สำเร็จการศึกษาระดับมัธยมศึกษาตอนปลาย (ม.6) หรือเทียบเท่า",
+        "สำเร็จการศึกษาพระปริยัติธรรมแผนกธรรมชั้นเอก หรือแผนกบาลีประโยค 1-2 ขึ้นไป",
+        "เป็นภิกษุ สามเณร หรือคฤหัสถ์ทั่วไปที่มีความประพฤติเรียบร้อย"
+      ],
+      "structure": [],
+      "estimatedFee": "ฟรีสำหรับพระภิกษุสามเณร / ค่าธรรมเนียมตามประกาศมหาวิทยาลัย",
+      "careerPath": [
+        "นักวิชาการศาสนาและปรัชญา",
+        "อาจารย์สอนศีลธรรมและวิชาสังคมศึกษา",
+        "บุคลากรในหน่วยงานภาครัฐและเอกชน",
+        "นักวิจัยด้านพุทธศาสนาและสังคมศาสตร์"
+      ],
+      "instructors": [],
+      "documents": [],
+      "galleryUrls": [],
+      "seo": {
+        "title": "",
+        "description": "",
+        "keywords": ""
+      },
+      "updatedAt": "2026-07-26T06:11:54.657Z"
+    },
+    {
+      "id": "b2",
+      "code": "B.A. (BUD)",
+      "name": "หลักสูตรพุทธศาสตรบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "nameTh": "หลักสูตรพุทธศาสตรบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "titleTh": "หลักสูตรพุทธศาสตรบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "nameEn": "Bachelor of Arts Program in Buddhism",
+      "degreeLevel": "bachelor",
+      "degree": "พุทธศาสตรบัณฑิต (พธ.บ.)",
+      "degreeEn": "Bachelor of Arts Program in Buddhism",
+      "major": "สาขาวิชาพระพุทธศาสนา",
+      "faculty": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+      "duration": "4 ปี (8 ภาคการศึกษา)",
+      "totalCredits": 120,
+      "tuitionFee": "ประมาณ 2,500 - 3,500 บาท ต่อภาคการศึกษา",
+      "studyMode": "4 ปี (8 ภาคการศึกษา)",
+      "description": "เน้นการศึกษาคัมภีร์พระไตรปิฎก ประวัติศาสตร์พระพุทธศาสนา และการเผยแผ่พุทธธรรมในยุคดิจิทัล",
+      "qualifications": [
+        "สำเร็จการศึกษาระดับมัธยมศึกษาตอนปลาย (ม.6) หรือเทียบเท่า",
+        "สำเร็จการศึกษาพระปริยัติธรรมแผนกธรรมชั้นเอก หรือบาลีประโยค 1-2",
+        "เป็นภิกษุ สามเณร หรือคฤหัสถ์ผู้สนใจพระพุทธศาสนา"
+      ],
+      "careerOpportunities": [
+        "พระธรรมทูต/นักเผยแผ่พระพุทธศาสนา",
+        "นักวิชาการประจำสำนักงานพระพุทธศาสนาแห่งชาติ",
+        "ครูผู้สอนวิชาพระพุทธศาสนา",
+        "นักพัฒนาชุมชนแนวพุทธ"
+      ],
+      "status": "inactive",
+      "applyUrl": "/admission/apply",
+      "applyMethod": "internal",
+      "coverImageUrl": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=800",
+      "level": "bachelor",
+      "highlights": [],
+      "qualification": [
+        "สำเร็จการศึกษาระดับมัธยมศึกษาตอนปลาย (ม.6) หรือเทียบเท่า",
+        "สำเร็จการศึกษาพระปริยัติธรรมแผนกธรรมชั้นเอก หรือบาลีประโยค 1-2",
+        "เป็นภิกษุ สามเณร หรือคฤหัสถ์ผู้สนใจพระพุทธศาสนา"
+      ],
+      "structure": [],
+      "estimatedFee": "ประมาณ 2,500 - 3,500 บาท ต่อภาคการศึกษา",
+      "careerPath": [
+        "พระธรรมทูต/นักเผยแผ่พระพุทธศาสนา",
+        "นักวิชาการประจำสำนักงานพระพุทธศาสนาแห่งชาติ",
+        "ครูผู้สอนวิชาพระพุทธศาสนา",
+        "นักพัฒนาชุมชนแนวพุทธ"
+      ],
+      "instructors": [],
+      "documents": [],
+      "galleryUrls": [],
+      "seo": {
+        "title": "",
+        "description": "",
+        "keywords": ""
+      },
+      "updatedAt": "2026-07-26T06:11:42.596Z"
+    },
+    {
+      "id": "b3",
+      "code": "B.P.A. (PA)",
+      "name": "หลักสูตรรัฐประศาสนศาสตรบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "nameTh": "หลักสูตรรัฐประศาสนศาสตรบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "titleTh": "หลักสูตรรัฐประศาสนศาสตรบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "nameEn": "Bachelor of Public Administration Program in Public Administration",
+      "degreeLevel": "bachelor",
+      "degree": "พุทธศาสตรบัณฑิต (พธ.บ.)",
+      "degreeEn": "Bachelor of Public Administration Program in Public Administration",
+      "major": "สาขาวิชารัฐประศาสนศาสตร์",
+      "faculty": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+      "duration": "4 ปี (8 ภาคการศึกษา)",
+      "totalCredits": 140,
+      "tuitionFee": "ประมาณ 3,500 - 6,000 บาท ต่อภาคการศึกษา",
+      "studyMode": "4 ปี (8 ภาคการศึกษา)",
+      "description": "มุ่งผลิตนักบริหารที่มีธรรมรัฐ มีความเชี่ยวชาญการบริหารงานภาครัฐ องค์กรปกครองส่วนท้องถิ่น และนโยบายสาธารณะ",
+      "qualifications": [
+        "สำเร็จการศึกษาระดับมัธยมศึกษาตอนปลาย (ม.6) หรือเทียบเท่า",
+        "ข้าราชการ พนักงานรัฐวิสาหกิจ ผู้บริหารท้องถิ่น หรือประชาชนทั่วไป"
+      ],
+      "careerOpportunities": [
+        "ปลัดอำเภอและข้าราชการพลเรือน",
+        "นักวิเคราะห์นโยบายและแผน",
+        "นักบริหารงานส่วนท้องถิ่น (อบต., เทศบาล, อบจ.)",
+        "ผู้จัดการฝ่ายบริหารทรัพยากรบุคคล"
+      ],
+      "status": "inactive",
+      "applyUrl": "/admission/apply",
+      "applyMethod": "internal",
+      "coverImageUrl": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800",
+      "highlights": [],
+      "structure": [],
+      "instructors": [],
+      "documents": [],
+      "galleryUrls": [],
+      "seo": {
+        "title": "",
+        "description": "",
+        "keywords": ""
+      },
+      "updatedAt": "2026-07-26T05:56:49.644Z",
+      "level": "bachelor",
+      "qualification": [
+        "สำเร็จการศึกษาระดับมัธยมศึกษาตอนปลาย (ม.6) หรือเทียบเท่า",
+        "ข้าราชการ พนักงานรัฐวิสาหกิจ ผู้บริหารท้องถิ่น หรือประชาชนทั่วไป"
+      ],
+      "estimatedFee": "ประมาณ 3,500 - 6,000 บาท ต่อภาคการศึกษา",
+      "careerPath": [
+        "ปลัดอำเภอและข้าราชการพลเรือน",
+        "นักวิเคราะห์นโยบายและแผน",
+        "นักบริหารงานส่วนท้องถิ่น (อบต., เทศบาล, อบจ.)",
+        "ผู้จัดการฝ่ายบริหารทรัพยากรบุคคล"
+      ]
+    },
+    {
+      "id": "m1",
+      "code": "M.A. (BUD)",
+      "name": "หลักสูตรพุทธศาสตรมหาบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "nameTh": "หลักสูตรพุทธศาสตรมหาบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "titleTh": "หลักสูตรพุทธศาสตรมหาบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "nameEn": "Master of Arts Program in Buddhism",
+      "degreeLevel": "master",
+      "degree": "พุทธศาสตรมหาบัณฑิต (พธ.ม.)",
+      "degreeEn": "Master of Arts Program in Buddhism",
+      "major": "สาขาวิชาพระพุทธศาสนา",
+      "faculty": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+      "duration": "2 ปี (4 ภาคการศึกษา)",
+      "totalCredits": 36,
+      "tuitionFee": "ประมาณ 15,000 - 20,000 บาท ต่อภาคการศึกษา",
+      "studyMode": "2 ปี (4 ภาคการศึกษา)",
+      "description": "การศึกษาวิจัยเชิงลึกในพระไตรปิฎกและการประยุกต์ใช้พุทธธรรมเพื่อแก้ไขปัญหาร่วมสมัยในสังคม",
+      "qualifications": [
+        "สำเร็จการศึกษาระดับปริญญาตรีทุกสาขาวิชา จากสถาบันการศึกษาที่รับรอง",
+        "เป็นภิกษุ สามเณร หรือคฤหัสถ์ทั่วไป"
+      ],
+      "careerOpportunities": [
+        "นักวิชาการพุทธศาสนาระดับสูง",
+        "อาจารย์ระดับอุดมศึกษา",
+        "นักวิจัยสถาบันวิจัยพุทธศาสตร์",
+        "ผู้บริหารองค์กรทางพระพุทธศาสนา"
+      ],
+      "status": "inactive",
+      "applyUrl": "/admission/apply",
+      "applyMethod": "internal",
+      "coverImageUrl": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800",
+      "level": "master",
+      "highlights": [],
+      "qualification": [
+        "สำเร็จการศึกษาระดับปริญญาตรีทุกสาขาวิชา จากสถาบันการศึกษาที่รับรอง",
+        "เป็นภิกษุ สามเณร หรือคฤหัสถ์ทั่วไป"
+      ],
+      "structure": [],
+      "estimatedFee": "ประมาณ 15,000 - 20,000 บาท ต่อภาคการศึกษา",
+      "careerPath": [
+        "นักวิชาการพุทธศาสนาระดับสูง",
+        "อาจารย์ระดับอุดมศึกษา",
+        "นักวิจัยสถาบันวิจัยพุทธศาสตร์",
+        "ผู้บริหารองค์กรทางพระพุทธศาสนา"
+      ],
+      "instructors": [],
+      "documents": [],
+      "galleryUrls": [],
+      "seo": {
+        "title": "",
+        "description": "",
+        "keywords": ""
+      },
+      "updatedAt": "2026-07-26T06:12:11.656Z"
+    },
+    {
+      "id": "m2",
+      "code": "M.P.A. (PA)",
+      "name": "หลักสูตรรัฐประศาสนศาสตรมหาบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "nameTh": "หลักสูตรรัฐประศาสนศาสตรมหาบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "titleTh": "หลักสูตรรัฐประศาสนศาสตรมหาบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "nameEn": "Master of Public Administration Program in Public Administration",
+      "degreeLevel": "master",
+      "degree": "พุทธศาสตรมหาบัณฑิต (พธ.ม.)",
+      "degreeEn": "Master of Public Administration Program in Public Administration",
+      "major": "สาขาวิชารัฐประศาสนศาสตร์",
+      "faculty": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+      "duration": "2 ปี (4 ภาคการศึกษา)",
+      "totalCredits": 36,
+      "tuitionFee": "ประมาณ 18,000 - 25,000 บาท ต่อภาคการศึกษา",
+      "studyMode": "2 ปี (4 ภาคการศึกษา)",
+      "description": "ยกระดับสมรรถนะนักบริหารภาครัฐและท้องถิ่นด้วยภาวะผู้นำเชิงยุทธศาสตร์ ",
+      "qualifications": [
+        "สำเร็จการศึกษาระดับปริญญาตรีทุกสาขาวิชา",
+        "ผู้บริหาร ข้าราชการ หรือบุคลากรภาครัฐและเอกชน",
+        "สำเร็จการศึกษาเทียบเท่า"
+      ],
+      "careerOpportunities": [
+        "นักวิเคราะห์นโยบายและแผนอาวุโส",
+        "ที่ปรึกษาด้านการบริหารจัดการภาครัฐ",
+        "นักวิชาการด้านการปกครองระดับสูง"
+      ],
+      "status": "inactive",
+      "applyUrl": "/admission/apply",
+      "applyMethod": "internal",
+      "coverImageUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800",
+      "highlights": [],
+      "structure": [],
+      "instructors": [
+        {
+          "name": "อัครเดช",
+          "title": "ดร.",
+          "academicPosition": "อาจารย์ประจำหลักสูตร",
+          "email": "",
+          "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200"
+        }
+      ],
+      "documents": [],
+      "galleryUrls": [],
+      "seo": {
+        "title": "",
+        "description": "",
+        "keywords": ""
+      },
+      "updatedAt": "2026-07-26T06:12:03.053Z",
+      "level": "master",
+      "qualification": [
+        "สำเร็จการศึกษาระดับปริญญาตรีทุกสาขาวิชา",
+        "ผู้บริหาร ข้าราชการ หรือบุคลากรภาครัฐและเอกชน",
+        "สำเร็จการศึกษาเทียบเท่า"
+      ],
+      "estimatedFee": "ประมาณ 18,000 - 25,000 บาท ต่อภาคการศึกษา",
+      "careerPath": [
+        "นักวิเคราะห์นโยบายและแผนอาวุโส",
+        "ที่ปรึกษาด้านการบริหารจัดการภาครัฐ",
+        "นักวิชาการด้านการปกครองระดับสูง"
+      ]
+    },
+    {
+      "id": "d1",
+      "code": "Ph.D. (BUD)",
+      "name": "หลักสูตรพุทธศาสตรดุษฎีบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "nameTh": "หลักสูตรพุทธศาสตรดุษฎีบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "titleTh": "หลักสูตรพุทธศาสตรดุษฎีบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "nameEn": "Doctor of Philosophy Program in Buddhism",
+      "degreeLevel": "doctor",
+      "degree": "พุทธศาสตรดุษฎีบัณฑิต (พธ.ด.)",
+      "degreeEn": "Doctor of Philosophy Program in Buddhism",
+      "major": "สาขาวิชาพระพุทธศาสนา",
+      "faculty": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+      "duration": "3 ปี (6 ภาคการศึกษา)",
+      "totalCredits": 54,
+      "tuitionFee": "ประมาณ 35,000 - 45,000 บาท ต่อภาคการศึกษา",
+      "studyMode": "3 ปี (6 ภาคการศึกษา)",
+      "description": "การสร้างสรรค์องค์ความรู้ใหม่ทางพุทธศาสน์ศึกษา วิจัยวิทยานิพนธ์ระดับดุษฎีบัณฑิตเพื่อพัฒนาสังคมพุทธและวิชาการระดับสากล",
+      "qualifications": [
+        "สำเร็จการศึกษาระดับปริญญาโททุกสาขาวิชา จากสถาบันที่รับรอง",
+        "มีผลงานวิชาการหรือข้อเสนอโครงการวิจัยวิทยานิพนธ์"
+      ],
+      "careerOpportunities": [
+        "ศาสตราจารย์ / รองศาสตราจารย์ / ผู้ช่วยศาสตราจารย์",
+        "นักวิชาการผู้เชี่ยวชาญระดับชาติและนานาชาติ",
+        "ผู้เชี่ยวชาญคัมภีร์และปรัชญาพุทธศาสนา"
+      ],
+      "status": "inactive",
+      "applyUrl": "/admission/apply",
+      "applyMethod": "internal",
+      "coverImageUrl": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=800",
+      "level": "doctor",
+      "highlights": [],
+      "qualification": [
+        "สำเร็จการศึกษาระดับปริญญาโททุกสาขาวิชา จากสถาบันที่รับรอง",
+        "มีผลงานวิชาการหรือข้อเสนอโครงการวิจัยวิทยานิพนธ์"
+      ],
+      "structure": [],
+      "estimatedFee": "ประมาณ 35,000 - 45,000 บาท ต่อภาคการศึกษา",
+      "careerPath": [
+        "ศาสตราจารย์ / รองศาสตราจารย์ / ผู้ช่วยศาสตราจารย์",
+        "นักวิชาการผู้เชี่ยวชาญระดับชาติและนานาชาติ",
+        "ผู้เชี่ยวชาญคัมภีร์และปรัชญาพุทธศาสนา"
+      ],
+      "instructors": [],
+      "documents": [],
+      "galleryUrls": [],
+      "seo": {
+        "title": "",
+        "description": "",
+        "keywords": ""
+      },
+      "updatedAt": "2026-07-26T06:12:19.292Z"
+    },
+    {
+      "id": "c1",
+      "code": "Cert. (SA)",
+      "name": "หลักสูตรประกาศนียบัตรการบริหารกิจการคณะสงฆ์ (ป.บส.)",
+      "nameTh": "หลักสูตรประกาศนียบัตรการบริหารกิจการคณะสงฆ์ (ป.บส.)",
+      "titleTh": "หลักสูตรประกาศนียบัตรการบริหารกิจการคณะสงฆ์ (ป.บส.)",
+      "nameEn": "Certificate Program in Sangha Administration",
+      "degreeLevel": "certificate",
+      "degree": "ประกาศนียบัตรการบริหารกิจการคณะสงฆ์ (ป.บส.)",
+      "degreeEn": "Certificate in Sangha Administration",
+      "major": "การบริหารกิจการคณะสงฆ์",
+      "faculty": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+      "duration": "1 ปี (2 ภาคการศึกษา)",
+      "totalCredits": 30,
+      "tuitionFee": "ได้รับการสนับสนุนทุนการศึกษาจากคณะสงฆ์และมหาวิทยาลัย",
+      "studyMode": "วันเสาร์ - อาทิตย์",
+      "description": "เสริมสร้างทักษะการบริหารวัด ศาสนสมบัติ การปกครองคณะสงฆ์ งานศาสนศึกษา และงานเผยแผ่แก่พระสังฆาธิการและพระภิกษุสามเณร",
+      "qualifications": [
+        "พระสังฆาธิการ เจ้าอาวาส รองเจ้าอาวาส ผู้ช่วยเจ้าอาวาส",
+        "พระภิกษุสามเณรผู้ได้รับมอบหมายงานบริหารกิจการคณะสงฆ์"
+      ],
+      "careerOpportunities": [
+        "พระสังฆาธิการผู้ทรงประสิทธิภาพในการบริหารวัด",
+        "เลขานุการเจ้าคณะจังหวัด/อำเภอ/ตำบล",
+        "ผู้บริหารงานศาสนสมบัติและสาธารณูปการ"
+      ],
+      "status": "active",
+      "applyUrl": "/admission/apply",
+      "applyMethod": "internal",
+      "coverImageUrl": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": "c2",
+      "code": "Cert. (VIP)",
+      "name": "หลักสูตรประกาศนียบัตรวิปัสสนาภาวนา",
+      "nameTh": "หลักสูตรประกาศนียบัตรวิปัสสนาภาวนา",
+      "titleTh": "หลักสูตรประกาศนียบัตรวิปัสสนาภาวนา",
+      "nameEn": "Certificate Program in Vipassana Meditation",
+      "degreeLevel": "certificate",
+      "degree": "ประกาศนียบัตรวิปัสสนาภาวนา",
+      "degreeEn": "Certificate in Vipassana Meditation",
+      "major": "วิปัสสนาภาวนา",
+      "faculty": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+      "duration": "1 ปี (2 ภาคการศึกษา)",
+      "totalCredits": 24,
+      "tuitionFee": "ฟรีค่าธรรมเนียมการศึกษา",
+      "studyMode": "ปฏิบัติธรรมภาคเข้มข้น และการเรียนวันเสาร์ - อาทิตย์",
+      "description": "ฝึกอบรมการปฏิบัติวิปัสสนากรรมฐานตามแนวสติปัฏฐาน 4 และเทคนิคการสอนปฏิบัติธรรมแก่ประชาชน",
+      "qualifications": [
+        "พระภิกษุ สามเณร และพุทธศาสนิกชนผู้มีจิตศรัทธาในการปฏิบัติธรรม",
+        "สามารถเข้าร่วมการปฏิบัติกรรมฐานภาคเข้มข้นได้ตามกำหนด"
+      ],
+      "careerOpportunities": [
+        "พระวิปัสสนาจารย์ / วิทยากรฝึกอบรมสมาธิภาวนา",
+        "ผู้ดำเนินงานศูนย์ปฏิบัติธรรมและสำนักปฏิบัติธรรมประจำจังหวัด"
+      ],
+      "status": "active",
+      "applyUrl": "/admission/apply",
+      "applyMethod": "internal",
+      "coverImageUrl": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+      "id": "c3",
+      "code": "Cert. (MT)",
+      "name": "หลักสูตรประกาศนียบัตรการสอนศีลธรรมในโรงเรียน (ป.สศ.)",
+      "nameTh": "หลักสูตรประกาศนียบัตรการสอนศีลธรรมในโรงเรียน (ป.สศ.)",
+      "titleTh": "หลักสูตรประกาศนียบัตรการสอนศีลธรรมในโรงเรียน (ป.สศ.)",
+      "nameEn": "Certificate Program in School Moral Teaching",
+      "degreeLevel": "certificate",
+      "degree": "ประกาศนียบัตรการสอนศีลธรรมในโรงเรียน (ป.สศ.)",
+      "degreeEn": "Certificate in School Moral Teaching",
+      "major": "การสอนศีลธรรม",
+      "faculty": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+      "duration": "1 ปี (2 ภาคการศึกษา)",
+      "totalCredits": 30,
+      "tuitionFee": "รับทุนสนับสนุนการเรียนจากมหาวิทยาลัย",
+      "studyMode": "วันเสาร์ - อาทิตย์",
+      "description": "พัฒนาทักษะวิชาชีพครูพระสอนศีลธรรม การผลิตสื่อการเรียนรู้ จิตวิทยาเยาวชน และเทคนิคการสอนคุณธรรมจริยธรรมในสถานศึกษา",
+      "qualifications": [
+        "พระภิกษุครูพระสอนศีลธรรมในโรงเรียน",
+        "พระภิกษุ สามเณร หรือผู้สนใจงานสอนธรรมะแก่เยาวชน"
+      ],
+      "careerOpportunities": [
+        "ครูพระสอนศีลธรรมในโรงเรียนประจำจังหวัดเพชรบูรณ์",
+        "วิทยากรบรรยายคุณธรรมจริยธรรมแก่นักเรียนและเยาวชน",
+        "นักจัดกิจกรรมพัฒนาจริยธรรมในสถานศึกษา"
+      ],
+      "status": "active",
+      "applyUrl": "/admission/apply",
+      "applyMethod": "internal",
+      "coverImageUrl": "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=800"
+    }
+  ],
+  "downloadCategories": [
+    {
+      "id": "cat_student_forms",
+      "nameTh": "แบบฟอร์มคำร้องนิสิต",
+      "nameEn": "Student Forms & Petitions",
+      "description": "ใบสมัครเรียน คำร้องทั่วไป คำร้องขอจบ และแบบฟอร์มฝ่ายกิจการนิสิต",
+      "iconName": "FileText",
+      "color": "#2563eb",
+      "sortOrder": 1
+    },
+    {
+      "id": "cat_handbooks",
+      "nameTh": "คู่มือการศึกษาและแผนการเรียน",
+      "nameEn": "Handbooks & Study Plans",
+      "description": "คู่มือนิสิต คู่มือการทำสารนิพนธ์/วิทยานิพนธ์ และแผนการศึกษาหลักสูตร",
+      "iconName": "BookOpen",
+      "color": "#059669",
+      "sortOrder": 2
+    },
+    {
+      "id": "cat_regulations",
+      "nameTh": "ระเบียบ ข้อบังคับ และประกาศ",
+      "nameEn": "Regulations & Policies",
+      "description": "ระเบียบมหาวิทยาลัย ข้อบังคับว่าด้วยวินัยนิสิต และประกาศเกณฑ์การศึกษา",
+      "iconName": "ShieldAlert",
+      "color": "#d97706",
+      "sortOrder": 3
+    },
+    {
+      "id": "cat_staff_forms",
+      "nameTh": "แบบฟอร์มอาจารย์และบุคลากร",
+      "nameEn": "Faculty & Staff Forms",
+      "description": "แบบฟอร์ม มคอ.3-มคอ.7 เอกสารเสนอโครงการ และแบบประเมินผลการสอน",
+      "iconName": "Users",
+      "color": "#9333ea",
+      "sortOrder": 4
+    },
+    {
+      "id": "cat_academic_papers",
+      "nameTh": "เอกสารการวิจัยและผลงานวิชาการ",
+      "nameEn": "Academic Papers & Templates",
+      "description": "แบบฟอร์มเสนอโครงการวิจัย แม่แบบบทความวิจัย และตารางคำนวณสถิติ",
+      "iconName": "FileSpreadsheet",
+      "color": "#0284c7",
+      "sortOrder": 5
+    },
+    {
+      "id": "cat_media_brochures",
+      "nameTh": "สื่อประชาสัมพันธ์และดาวน์โหลดสื่อ",
+      "nameEn": "Brochures & Media Kits",
+      "description": "แผ่นพับแนะแนวศึกษาต่อ โลโก้สถาบัน รูปภาพสื่อ และไฟล์บีบอัดชุดเครื่องมือ",
+      "iconName": "Image",
+      "color": "#e11d48",
+      "sortOrder": 6
+    }
+  ],
+  "downloads": [
+    {
+      "id": "d_st1",
+      "name": "แบบฟอร์มใบสมัครเรียนออนไลน์ ประจำปีการศึกษา 2569",
+      "description": "ใบสมัครสำหรับผู้ประสงค์เข้าศึกษาต่อระดับปริญญาตรี ปริญญาโท และปริญญาเอก วิทยาลัยสงฆ์พ่อขุนผาเมือง",
+      "categoryId": "cat_student_forms",
+      "categoryName": "แบบฟอร์มคำร้องนิสิต",
+      "category": "student",
+      "format": "PDF",
+      "size": "450 KB",
+      "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "version": "v2.0",
+      "ownerDepartment": "กลุ่มงานทะเบียนและวัดผล",
+      "downloadPermission": "public",
+      "publishDate": "2026-05-01",
+      "expiryDate": "2027-05-31",
+      "downloadCount": 384,
+      "createdAt": "2026-05-01T08:00:00Z"
+    },
+    {
+      "id": "d_st2",
+      "name": "คำร้องทั่วไปสำหรับนิสิตวิทยาลัยสงฆ์พ่อขุนผาเมือง",
+      "description": "แบบฟอร์มยื่นคำร้องขอลาหยุด ขอลงทะเบียนล่าช้า ขอเปลี่ยนกลุ่มเรียน หรือคำร้องทั่วไป",
+      "categoryId": "cat_student_forms",
+      "categoryName": "แบบฟอร์มคำร้องนิสิต",
+      "category": "student",
+      "format": "DOCX",
+      "size": "120 KB",
+      "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "version": "v1.2",
+      "ownerDepartment": "กลุ่มงานทะเบียนและวัดผล",
+      "downloadPermission": "student",
+      "publishDate": "2026-01-10",
+      "expiryDate": "",
+      "downloadCount": 215,
+      "createdAt": "2026-01-10T09:30:00Z"
+    },
+    {
+      "id": "d_st3",
+      "name": "คำร้องขอสำเร็จการศึกษาและขออนุมัติปริญญาบัตร (มจร.07)",
+      "description": "แบบฟอร์มขออนุมัติสำเร็จการศึกษา ตรวจสอบเงื่อนไขหน่วยกิต และยื่นอนุมัติสภาสถาบัน",
+      "categoryId": "cat_student_forms",
+      "categoryName": "แบบฟอร์มคำร้องนิสิต",
+      "category": "student",
+      "format": "PDF",
+      "size": "350 KB",
+      "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "version": "v1.0",
+      "ownerDepartment": "กลุ่มงานทะเบียนและวัดผล",
+      "downloadPermission": "student",
+      "publishDate": "2026-03-15",
+      "expiryDate": "",
+      "downloadCount": 142,
+      "createdAt": "2026-03-15T11:00:00Z"
+    },
+    {
+      "id": "d_hb1",
+      "name": "คู่มือนิสิตใหม่ วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ ปีการศึกษา 2569",
+      "description": "คู่มือแนะแนวการปฏิบัติตน ระเบียบการแต่งกาย การใช้บริการห้องไลบรารี และทุนการศึกษา",
+      "categoryId": "cat_handbooks",
+      "categoryName": "คู่มือการศึกษาและแผนการเรียน",
+      "category": "handbook",
+      "format": "PDF",
+      "size": "4.8 MB",
+      "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "version": "v2026.1",
+      "ownerDepartment": "สำนักวิชาการ",
+      "downloadPermission": "public",
+      "publishDate": "2026-06-01",
+      "expiryDate": "2027-06-01",
+      "downloadCount": 520,
+      "createdAt": "2026-06-01T10:00:00Z"
+    },
+    {
+      "id": "d_hb2",
+      "name": "คู่มือการจัดทำสารนิพนธ์และวิทยานิพนธ์พุทธศาสตรระดับบัณฑิตศึกษา พ.ศ. 2568",
+      "description": "รูปแบบการพิมพ์ การอ้างอิงเชิงอรรถ บรรณานุกรม และหลักเกณฑ์การเขียนบทความวิจัยระดับสูง",
+      "categoryId": "cat_handbooks",
+      "categoryName": "คู่มือการศึกษาและแผนการเรียน",
+      "category": "handbook",
+      "format": "PDF",
+      "size": "3.5 MB",
+      "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "version": "v3.0",
+      "ownerDepartment": "สำนักวิชาการ",
+      "downloadPermission": "student",
+      "publishDate": "2025-11-20",
+      "expiryDate": "",
+      "downloadCount": 310,
+      "createdAt": "2025-11-20T14:00:00Z"
+    },
+    {
+      "id": "d_rg1",
+      "name": "ระเบียบมหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย ว่าด้วยการศึกษาระดับปริญญาตรี พ.ศ. 2565",
+      "description": "ฉบับสมบูรณ์ครอบคลุมการวัดผลประเมินผล เกณฑ์สอบได้/สอบตก การพ้นสภาพนิสิต",
+      "categoryId": "cat_regulations",
+      "categoryName": "ระเบียบ ข้อบังคับ และประกาศ",
+      "category": "regulation",
+      "format": "PDF",
+      "size": "1.2 MB",
+      "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "version": "v1.0",
+      "ownerDepartment": "สำนักงานผู้อำนวยการ",
+      "downloadPermission": "public",
+      "publishDate": "2022-08-10",
+      "expiryDate": "",
+      "downloadCount": 680,
+      "createdAt": "2022-08-10T09:00:00Z"
+    },
+    {
+      "id": "d_rg2",
+      "name": "ข้อบังคับว่าด้วยความประพฤติและวินัยนิสิตวิทยาลัยสงฆ์ พ.ศ. 2567",
+      "description": "เกณฑ์วินัยพระภิกษุสามเณรและคฤหัสถ์ บทลงโทษ และขั้นตอนการอุทธรณ์ทางวินัย",
+      "categoryId": "cat_regulations",
+      "categoryName": "ระเบียบ ข้อบังคับ และประกาศ",
+      "category": "regulation",
+      "format": "PDF",
+      "size": "850 KB",
+      "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "version": "v1.1",
+      "ownerDepartment": "สำนักงานผู้อำนวยการ",
+      "downloadPermission": "public",
+      "publishDate": "2024-02-15",
+      "expiryDate": "",
+      "downloadCount": 290,
+      "createdAt": "2024-02-15T08:00:00Z"
+    },
+    {
+      "id": "d_sf1",
+      "name": "แบบฟอร์มรายงานผลสัมฤทธิ์การสอนวิชาการประจำภาคการศึกษา (มคอ.5)",
+      "description": "แบบฟอร์มสรุปเกรด การประเมินผลการเรียนรู้ และรายงานปัญหาอุปสรรคการสอนสำหรับอาจารย์",
+      "categoryId": "cat_staff_forms",
+      "categoryName": "แบบฟอร์มอาจารย์และบุคลากร",
+      "category": "staff",
+      "format": "DOCX",
+      "size": "240 KB",
+      "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "version": "v2.1",
+      "ownerDepartment": "สำนักวิชาการ",
+      "downloadPermission": "staff",
+      "publishDate": "2025-09-01",
+      "expiryDate": "",
+      "downloadCount": 185,
+      "createdAt": "2025-09-01T08:00:00Z"
+    },
+    {
+      "id": "d_sf2",
+      "name": "แบบเสนอขออนุมัติโครงการบริการวิชาการแก่ชุมชนและสังฆสมาคม",
+      "description": "แบบฟอร์มขอตั้งงบประมาณ รายละเอียดกิจกรรม และตัวชีวัดสำเร็จของโครงการบริการวิชาการ",
+      "categoryId": "cat_staff_forms",
+      "categoryName": "แบบฟอร์มอาจารย์และบุคลากร",
+      "category": "staff",
+      "format": "DOCX",
+      "size": "180 KB",
+      "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "version": "v1.0",
+      "ownerDepartment": "กลุ่มงานบริการวิชาการ",
+      "downloadPermission": "staff",
+      "publishDate": "2026-02-01",
+      "expiryDate": "",
+      "downloadCount": 96,
+      "createdAt": "2026-02-01T10:00:00Z"
+    },
+    {
+      "id": "d_ac1",
+      "name": "ตารางสรุปคำนวณภาระงานสอนและงานวิจัยอาจารย์ประจำ (Excel Template)",
+      "description": "แผ่นตารางคำนวณอัตโนมัติสำหรับคำนวณสัดส่วนภาระงานสอนและสถิติบทความวิจัย",
+      "categoryId": "cat_academic_papers",
+      "categoryName": "เอกสารการวิจัยและผลงานวิชาการ",
+      "category": "staff",
+      "format": "XLSX",
+      "size": "520 KB",
+      "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "version": "v1.5",
+      "ownerDepartment": "สถาบันวิจัยพุทธศาสตร์",
+      "downloadPermission": "staff",
+      "publishDate": "2026-04-10",
+      "expiryDate": "",
+      "downloadCount": 140,
+      "createdAt": "2026-04-10T09:00:00Z"
+    },
+    {
+      "id": "d_ac2",
+      "name": "สไลด์นำเสนอเทมเพลตมาตรฐานวิทยาลัยสงฆ์พ่อขุนผาเมือง (PowerPoint)",
+      "description": "แม่แบบไฟล์นำเสนอผลงานสัมมนาวิชาการ พร้อมตราสัญลักษณ์ มจร เพชรบูรณ์ แบบทางการ",
+      "categoryId": "cat_academic_papers",
+      "categoryName": "เอกสารการวิจัยและผลงานวิชาการ",
+      "category": "staff",
+      "format": "PPTX",
+      "size": "8.4 MB",
+      "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "version": "v2026",
+      "ownerDepartment": "กลุ่มงานเทคโนโลยีสารสนเทศ",
+      "downloadPermission": "public",
+      "publishDate": "2026-01-05",
+      "expiryDate": "",
+      "downloadCount": 420,
+      "createdAt": "2026-01-05T12:00:00Z"
+    },
+    {
+      "id": "d_bc1",
+      "name": "แผ่นพับแนะแนวศึกษาต่อ แหล่งทุน และหลักสูตรวิทยาลัยสงฆ์เพชรบูรณ์ ประจำปี 2569",
+      "description": "แผ่นพับสี่สีสรุปรายละเอียดสาขาวิชา ค่าธรรมเนียมการศึกษา ทุนอุดหนุนสงฆ์ และขั้นตอนสมัคร",
+      "categoryId": "cat_media_brochures",
+      "categoryName": "สื่อประชาสัมพันธ์และดาวน์โหลดสื่อ",
+      "category": "brochure",
+      "format": "PDF",
+      "size": "2.1 MB",
+      "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "version": "v1.0",
+      "ownerDepartment": "กลุ่มงานประชาสัมพันธ์",
+      "downloadPermission": "public",
+      "publishDate": "2026-05-10",
+      "expiryDate": "2027-05-10",
+      "downloadCount": 890,
+      "createdAt": "2026-05-10T08:30:00Z"
+    },
+    {
+      "id": "d_media_zip",
+      "name": "ชุดไฟล์โลโก้มหาจุฬาฯ และตราสัญลักษณ์วิทยาลัยสงฆ์พ่อขุนผาเมือง (ZIP Archive)",
+      "description": "รวบรวมไฟล์ตราสัญลักษณ์ PNG โปร่งใส, Vector SVG, JPG ความละเอียดสูง สำหรับสื่อสิ่งพิมพ์",
+      "categoryId": "cat_media_brochures",
+      "categoryName": "สื่อประชาสัมพันธ์และดาวน์โหลดสื่อ",
+      "category": "brochure",
+      "format": "ZIP",
+      "size": "15.2 MB",
+      "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "version": "v2.0",
+      "ownerDepartment": "กลุ่มงานประชาสัมพันธ์",
+      "downloadPermission": "public",
+      "publishDate": "2026-02-14",
+      "expiryDate": "",
+      "downloadCount": 350,
+      "createdAt": "2026-02-14T09:00:00Z"
+    }
+  ],
+  "academic_works": [
+    {
+      "id": "acad_1",
+      "category": "research",
+      "titleTh": "การศึกษาประวัติศาสตร์พระพุทธศาสนาและวัฒนธรรมท้องถิ่นในเขตอำเภอหล่มเก่า จังหวัดเพชรบูรณ์",
+      "titleEn": "A Study of Buddhist History and Local Culture in Lom Kao District, Phetchabun Province",
+      "authorTh": "พระสุธีวชิราภรณ์, ผศ.ดร.",
+      "coAuthors": "ดร.อัครเดช บุณยเวช, นางสาวดวงใจ แก้วสะอาด",
+      "year": "2568",
+      "fundingSource": "ทุนวิจัยสถาบันวิจัยพุทธศาสตร์ มหาจุฬาลงกรณราชวิทยาลัย",
+      "abstract": "งานวิจัยนี้มีวัตถุประสงค์เพื่อศึกษาประวัติศาสตร์ความเป็นมาของพระพุทธศาสนาและวิถีวัฒนธรรมท้องถิ่นในเขตอำเภอหล่มเก่า จังหวัดเพชรบูรณ์ เพื่อนำข้อมูลที่ได้มาสังเคราะห์และพัฒนาเป็นหลักสูตรท้องถิ่นและการท่องเที่ยวเชิงวัฒนธรรม",
+      "keywords": "พระพุทธศาสนา, วัฒนธรรมไทหล่ม, เพชรบูรณ์, ท่องเที่ยวเชิงวัฒนธรรม",
+      "imageUrl": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=800",
+      "attachmentUrl": "https://drive.google.com/file/d/10e8W8J9rRFM3Yh5-4AHlww-HyQRzuFaV/view?usp=drive_link",
+      "isPublished": true,
+      "createdAt": "2026-07-21T00:00:00.000Z"
+    }
+  ],
+  "applicants": [
+    {
+      "id": "69001",
+      "applicationCode": "69001",
+      "personType": "layperson",
+      "prefix": "นาย",
+      "firstName": "อัีครเดช",
+      "lastName": "บุญหิรัญไพศาล",
+      "ordinationName": "",
+      "templeName": "",
+      "templeDistrict": "",
+      "templeProvince": "",
+      "fullName": "นาย อัีครเดช บุญหิรัญไพศาล",
+      "nationalId": "3460101077603",
+      "birthDate": "6/5/2523",
+      "phone": "0814625663",
+      "email": "akkharadet.bun@mcu.ac.th",
+      "educationalBackground": "ม.6 (หรือธรรมเอก)",
+      "programId": "m2",
+      "programTitle": "หลักสูตรรัฐประศาสนศาสตรมหาบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "degreeLevel": "รัฐประศาสนศาสตรมหาบัณฑิต (รป.ม.)",
+      "documents": {
+        "nationalIdCopy": "/uploads/admissions/1785038832922_nationalIdCopy__________________.pdf",
+        "transcriptCopy": "/uploads/admissions/1785038837956_transcriptCopy__________________.pdf",
+        "photoCopy": "/uploads/admissions/1785038842603_photoCopy_punyanuch.jpg",
+        "houseRegistrationCopy": "/uploads/admissions/1785038849838_houseRegistrationCopy__________________.pdf",
+        "otherDocumentsCopy": ""
+      },
+      "status": "pending",
+      "submittedAt": "2026-07-26T04:07:37.823Z"
+    }
+  ],
+  "banners": [
+    {
+      "id": "banner_1",
+      "titleTh": "ยินดีต้อนรับสู่วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์",
+      "titleEn": "Welcome to Phokhun Phamuang Buddhist College, Phetchabun",
+      "subEn": "Mahachulalongkornrajavidyalaya University",
+      "descTh": "สถาบันอุดมศึกษาพระพุทธศาสนาชั้นนำของไทย มุ่งเน้นสร้างศาสนทายาทและพัฒนาระบบสังคมด้วยหลักพุทธธรรมและนวัตกรรมสร้างสรรค์",
+      "descEn": "Thailand’s premier Buddhist university, dedicated to developing spiritual leaders and modern professionals with wisdom and ethics.",
+      "image": "https://s.imgz.io/2026/07/19/ChatGPT-Image-9-..-2569-19_54_52-1c1a9e17891136e0a.jpg?auto=format&fit=crop&q=80&w=1600",
+      "bgClass": "bg-mcu-pink-deep/75",
+      "onlyImage": false,
+      "linkType": "viewDetails",
+      "subTh": "มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย"
+    },
+    {
+      "id": "banner_1785009365065",
+      "titleTh": "โครงการสัปดาห์ส่งเสริมพระพุทธศาสนา 2569",
+      "titleEn": "Buddhism Promotion Week 2026",
+      "subTh": "",
+      "subEn": "",
+      "descTh": "",
+      "descEn": "",
+      "image": "https://images.unsplash.com/photo-1544717305-2782549b5136?w=1600",
+      "bgClass": "bg-mcu-pink-deep/75",
+      "onlyImage": true,
+      "linkType": "viewDetails",
+      "externalUrl": "",
+      "order": 2,
+      "createdAt": "2026-07-25T19:56:05.065Z",
+      "updatedAt": "2026-07-25T19:58:11.170Z"
+    }
+  ],
+  "settings": {
+    "siteName": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์",
+    "siteNameEn": "Phokhun Phamuang Buddhist College, Phetchabun | MCU",
+    "organizationName": "มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+    "organizationNameEn": "Mahachulalongkornrajavidyalaya University",
+    "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/MCU_Logo.svg/1200px-MCU_Logo.svg.png",
+    "faviconUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/MCU_Logo.svg/1200px-MCU_Logo.svg.png",
+    "address": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ เลขที่ 109/2 หมู่ 5 ต.ปากช่อง อ.หล่มสัก จ.เพชรบูรณ์ 67110",
+    "addressEn": "Phokhun Phamuang Buddhist College, 109/2 Moo 5, Pak Chong, Lom Sak, Phetchabun 67110",
+    "phone": "081-462-5663",
+    "fax": "056-711-224",
+    "email": "akkharadet.bun@mcu.ac.th",
+    "contactEmail": "admin.mbc@mcu.ac.th",
+    "socialMedia": {
+      "facebook": "https://facebook.com/mcuphetchabun",
+      "line": "@mcuphetchabun",
+      "youtube": "https://youtube.com/@mcuphetchabun",
+      "tiktok": "https://tiktok.com/@mcuphetchabun",
+      "twitterX": "https://x.com/mcuphetchabun"
+    },
+    "mapEmbedUrl": "https://maps.google.com/maps?q=16.680028,101.297694&z=16&output=embed",
+    "googleMapsUrl": "https://maps.google.com/?q=16%C2%B040%2748.1%22N+101%C2%B017%2751.7%22E",
+    "latitude": 16.680028,
+    "longitude": 101.297694,
+    "footerText": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+    "footerTextEn": "Pho Khun Pha Mueang Buddhist College, MCU Phetchabun",
+    "footerDescription": "ศูนย์กลางการศึกษาวิชาการพระพุทธศาสนา วิจัย และบริการวิชาการแก่สังคมในเขตพื้นที่จังหวัดเพชรบูรณ์",
+    "copyrightNotice": "© 2026 วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์. สงวนลิขสิทธิ์ตามกฎหมาย.",
+    "defaultImage": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=800",
+    "defaultBannerImage": "https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&q=80&w=1200",
+    "defaultAvatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400",
+    "itemsPerPage": 10,
+    "dateFormat": "DD/MM/YYYY (พ.ศ.)",
+    "defaultLanguage": "th",
+    "timezone": "Asia/Bangkok",
+    "smtp": {
+      "host": "smtp.mcu.ac.th",
+      "port": 587,
+      "secure": false,
+      "username": "smtp_notify@mcu.ac.th",
+      "password": "••••••••••••",
+      "fromEmail": "noreply@mcu.ac.th",
+      "fromName": "วิทยาลัยสงฆ์พ่อขุนผาเมือง (MCU Phetchabun System)"
+    },
+    "upload": {
+      "maxFileSizeMB": 10,
+      "allowedExtensions": ".jpg, .jpeg, .png, .gif, .webp, .pdf, .doc, .docx, .xls, .xlsx, .zip",
+      "storageProvider": "local",
+      "autoCompressImages": true
+    },
+    "seo": {
+      "metaTitle": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ | มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+      "metaDescription": "เว็บไซต์อย่างเป็นทางการ วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ ข่าวประชาสัมพันธ์ ประกาศสถาบัน หลักสูตรการศึกษา และระบบรับสมัครนิสิตออนไลน์",
+      "metaKeywords": "มจร, เพชรบูรณ์, วิทยาลัยสงฆ์พ่อขุนผาเมือง, มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย, เรียนต่อเพชรบูรณ์, พระพุทธศาสนา",
+      "ogImageUrl": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=1200",
+      "googleSiteVerification": "google-site-verification-mcu-phetchabun-code"
+    },
+    "maintenanceMode": {
+      "enabled": false,
+      "message": "ระบบกำลังปิดปรับปรุงชั่วคราวเพื่ออัปเดตประสิทธิภาพ ขออภัยในความไม่สะดวก",
+      "allowedIps": "127.0.0.1, ::1",
+      "estimatedEndTime": ""
+    },
+    "analytics": {
+      "googleAnalyticsId": "G-MCU123456789",
+      "googleTagManagerId": "GTM-MCUPHB12",
+      "customHeaderScripts": "<!-- Global site tag (gtag.js) - Google Analytics -->",
+      "customBodyScripts": ""
+    },
+    "cookieNotice": {
+      "enabled": true,
+      "message": "เว็บไซต์นี้ใช้คุกกี้เพื่อปรับปรุงประสบการณ์การใช้งานของคุณและเสนอบริการที่ดียิ่งขึ้น การใช้งานเว็บไซต์นี้ถือว่าคุณยินยอมตามนโยบายคุ้มครองข้อมูลส่วนบุคคล (PDPA)",
+      "privacyPolicyUrl": "/privacy-policy",
+      "acceptButtonText": "ยอมรับทั้งหมด"
+    },
+    "backup": {
+      "autoBackupEnabled": true,
+      "scheduleInterval": "daily",
+      "retentionDays": 30,
+      "backupLocation": "local_server",
+      "lastBackupAt": "2026-07-26T08:09:14.785Z"
+    },
+    "siteNameTh": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มจร",
+    "addressTh": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ เลขที่ 109/2 หมู่ 5 ต.ปากช่อง อ.หล่มสัก จ.เพชรบูรณ์ 67110",
+    "facebook": "https://facebook.com/mcuphetchabun",
+    "youtube": "https://youtube.com",
+    "updatedAt": "2026-07-26T08:09:14.680Z"
+  },
+  "audit_logs": [
+    {
+      "id": "audit_1785053354690_472",
+      "timestamp": "2026-07-26T08:09:14.690Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "TEST_SMTP_CONNECTION",
+      "module": "SYSTEM",
+      "targetId": "smtp",
+      "details": "{\"targetHost\":\"smtp.mcu.ac.th\",\"targetPort\":587}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785053354684_649",
+      "timestamp": "2026-07-26T08:09:14.684Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "UPDATE_SETTINGS",
+      "module": "SYSTEM",
+      "targetId": "settings",
+      "details": "{\"siteNameTh\":\"วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มจร\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785052284192_509",
+      "timestamp": "2026-07-26T07:51:24.192Z",
+      "userId": "system",
+      "username": "guest",
+      "action": "SEND_CONTACT_MESSAGE",
+      "module": "MESSAGES",
+      "targetId": "msg_1785052284187",
+      "details": "พระสมชาย ญาณวโร",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785050070416_999",
+      "timestamp": "2026-07-26T07:14:30.416Z",
+      "userId": "DELETE_EVENT",
+      "username": "ลบกิจกรรมปฏิทิน: กิจกรรมทดสอบการซิงก์กำหนดการเด่นประจำเดือน",
+      "action": "admin",
+      "module": "127.0.0.1",
+      "targetId": null,
+      "details": "",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785050070404_360",
+      "timestamp": "2026-07-26T07:14:30.404Z",
+      "userId": "CREATE_EVENT",
+      "username": "สร้างกิจกรรมปฏิทินใหม่: กิจกรรมทดสอบการซิงก์กำหนดการเด่นประจำเดือน",
+      "action": "admin",
+      "module": "127.0.0.1",
+      "targetId": null,
+      "details": "",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785049870670_371",
+      "timestamp": "2026-07-26T07:11:10.670Z",
+      "userId": "UPDATE_EVENT",
+      "username": "แก้ไขกิจกรรมปฏิทิน: สอบข้อสอบกลางภาค",
+      "action": "admin",
+      "module": "127.0.0.1",
+      "targetId": null,
+      "details": "",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785049807898_893",
+      "timestamp": "2026-07-26T07:10:07.898Z",
+      "userId": "DELETE_EVENT",
+      "username": "ลบกิจกรรมปฏิทิน: โครงการสัมมนาเชิงปฏิบัติการ 'การประกันคุณภาพการศึกษาภายในระดับหลักสูตร' ประจำปีการศึกษา 2568",
+      "action": "admin",
+      "module": "127.0.0.1",
+      "targetId": null,
+      "details": "",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785049804596_829",
+      "timestamp": "2026-07-26T07:10:04.596Z",
+      "userId": "DELETE_EVENT",
+      "username": "ลบกิจกรรมปฏิทิน: มหกรรมเปิดรับสมัครนิสิตใหม่ ค่ายวิชาการและแนะแนวการศึกษาต่อระดับปริญญาตรี-โท-เอก",
+      "action": "admin",
+      "module": "127.0.0.1",
+      "targetId": null,
+      "details": "",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785049802236_18",
+      "timestamp": "2026-07-26T07:10:02.236Z",
+      "userId": "DELETE_EVENT",
+      "username": "ลบกิจกรรมปฏิทิน: การประชุมสภาวิทยาลัยสงฆ์พ่อขุนผาเมือง วาระพิเศษ ประจำเดือนสิงหาคม",
+      "action": "admin",
+      "module": "127.0.0.1",
+      "targetId": null,
+      "details": "",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785049800026_970",
+      "timestamp": "2026-07-26T07:10:00.026Z",
+      "userId": "DELETE_EVENT",
+      "username": "ลบกิจกรรมปฏิทิน: โครงการอบรมพระธรรมวิทยากรและแผนงานยุทธศาสตร์การพัฒนาวิทยาลัยสงฆ์ ประจำปีการศึกษา 2569",
+      "action": "admin",
+      "module": "127.0.0.1",
+      "targetId": null,
+      "details": "",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785049796179_708",
+      "timestamp": "2026-07-26T07:09:56.179Z",
+      "userId": "DELETE_EVENT",
+      "username": "ลบกิจกรรมปฏิทิน: โครงการปฐมนิเทศนิสิตใหม่ 2569",
+      "action": "admin",
+      "module": "127.0.0.1",
+      "targetId": null,
+      "details": "",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785049788240_951",
+      "timestamp": "2026-07-26T07:09:48.240Z",
+      "userId": "CREATE_EVENT",
+      "username": "สร้างกิจกรรมปฏิทินใหม่: สอบข้อสอบกลางภาค",
+      "action": "admin",
+      "module": "127.0.0.1",
+      "targetId": null,
+      "details": "",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785046339297_679",
+      "timestamp": "2026-07-26T06:12:19.297Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "d1",
+      "details": "หลักสูตรพุทธศาสตรดุษฎีบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785046331659_503",
+      "timestamp": "2026-07-26T06:12:11.659Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "m1",
+      "details": "หลักสูตรพุทธศาสตรมหาบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785046323067_718",
+      "timestamp": "2026-07-26T06:12:03.067Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "m2",
+      "details": "หลักสูตรรัฐประศาสนศาสตรมหาบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785046314660_986",
+      "timestamp": "2026-07-26T06:11:54.660Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "b1",
+      "details": "หลักสูตรพุทธศาสตรบัณฑิต สาขาวิชาศาสนาและปรัชญา",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785046302600_929",
+      "timestamp": "2026-07-26T06:11:42.600Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "b2",
+      "details": "หลักสูตรพุทธศาสตรบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785045409648_625",
+      "timestamp": "2026-07-26T05:56:49.648Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "b3",
+      "details": "หลักสูตรรัฐประศาสนศาสตรบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785043837579_6",
+      "timestamp": "2026-07-26T05:30:37.579Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "b2",
+      "details": "หลักสูตรพุทธศาสตรบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785043789752_285",
+      "timestamp": "2026-07-26T05:29:49.752Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "b2",
+      "details": "หลักสูตรพุทธศาสตรบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785039632121_606",
+      "timestamp": "2026-07-26T04:20:32.121Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "m2",
+      "details": "หลักสูตรรัฐประศาสนศาสตรมหาบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785039549815_523",
+      "timestamp": "2026-07-26T04:19:09.815Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "m2",
+      "details": "หลักสูตรรัฐประศาสนศาสตรมหาบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785039489410_413",
+      "timestamp": "2026-07-26T04:18:09.410Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "m2",
+      "details": "หลักสูตรรัฐประศาสนศาสตรมหาบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785038857830_153",
+      "timestamp": "2026-07-26T04:07:37.830Z",
+      "userId": "system",
+      "username": "guest",
+      "action": "SUBMIT_APPLICATION",
+      "module": "ADMISSION",
+      "targetId": "69001",
+      "details": "{\"applicationCode\":\"69001\",\"fullName\":\"นาย อัีครเดช บุญหิรัญไพศาล\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785038346086_706",
+      "timestamp": "2026-07-26T03:59:06.086Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_APPLICANT",
+      "module": "ADMISSION",
+      "targetId": "69001",
+      "details": "{\"fullName\":\"นาย อัครเดช บุญหิรัญไพศาล\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785037826266_569",
+      "timestamp": "2026-07-26T03:50:26.266Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "UPDATE_APPLICANT_STATUS",
+      "module": "ADMISSION",
+      "targetId": "69001",
+      "details": "{\"status\":\"approved\",\"code\":\"69001\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785037820358_645",
+      "timestamp": "2026-07-26T03:50:20.358Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "UPDATE_APPLICANT_STATUS",
+      "module": "ADMISSION",
+      "targetId": "69001",
+      "details": "{\"status\":\"interview\",\"code\":\"69001\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785037811982_291",
+      "timestamp": "2026-07-26T03:50:11.982Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "UPDATE_APPLICANT_STATUS",
+      "module": "ADMISSION",
+      "targetId": "69001",
+      "details": "{\"status\":\"approved\",\"code\":\"69001\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785037785615_543",
+      "timestamp": "2026-07-26T03:49:45.615Z",
+      "userId": "system",
+      "username": "guest",
+      "action": "SUBMIT_APPLICATION",
+      "module": "ADMISSION",
+      "targetId": "69001",
+      "details": "{\"applicationCode\":\"69001\",\"fullName\":\"นาย อัครเดช บุญหิรัญไพศาล\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785037295335_591",
+      "timestamp": "2026-07-26T03:41:35.335Z",
+      "userId": "system",
+      "username": "guest",
+      "action": "SUBMIT_APPLICATION",
+      "module": "ADMISSION",
+      "targetId": "69003",
+      "details": "{\"applicationCode\":\"69003\",\"fullName\":\"พระมหา ปัญญา ปัญญาวุโธ (วัดมหาธาตุ)\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785037190080_900",
+      "timestamp": "2026-07-26T03:39:50.080Z",
+      "userId": "system",
+      "username": "guest",
+      "action": "SUBMIT_APPLICATION",
+      "module": "ADMISSION",
+      "targetId": "app_1785037190072",
+      "details": "{\"applicationCode\":\"APP2026591655\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785037032123_951",
+      "timestamp": "2026-07-26T03:37:12.123Z",
+      "userId": "system",
+      "username": "guest",
+      "action": "SUBMIT_APPLICATION",
+      "module": "ADMISSION",
+      "targetId": "app_1785037032114",
+      "details": "{\"applicationCode\":\"APP2026866418\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785035416579_834",
+      "timestamp": "2026-07-26T03:10:16.579Z",
+      "userId": "system",
+      "username": "guest",
+      "action": "SUBMIT_APPLICATION",
+      "module": "ADMISSION",
+      "targetId": "app_1785035416570",
+      "details": "{\"applicationCode\":\"APP2026951202\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785009882992_805",
+      "timestamp": "2026-07-25T20:04:42.992Z",
+      "userId": "admin",
+      "username": "system",
+      "action": "UPDATE_USER",
+      "module": "RBAC",
+      "targetId": "u0",
+      "details": "{\"username\":\"akkharadet\",\"role\":\"Super Admin\",\"status\":\"active\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785009491174_280",
+      "timestamp": "2026-07-25T19:58:11.175Z",
+      "userId": "UPDATE_BANNER",
+      "username": "แก้ไขแบนเนอร์: โครงการสัปดาห์ส่งเสริมพระพุทธศาสนา 2569",
+      "action": "admin",
+      "module": "127.0.0.1",
+      "targetId": null,
+      "details": "",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785009365068_443",
+      "timestamp": "2026-07-25T19:56:05.068Z",
+      "userId": "CREATE_BANNER",
+      "username": "สร้างแบนเนอร์ใหม่: โครงการสัปดาห์ส่งเสริมพระพุทธศาสนา 2569",
+      "action": "admin",
+      "module": "127.0.0.1",
+      "targetId": null,
+      "details": "",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785008978543_328",
+      "timestamp": "2026-07-25T19:49:38.543Z",
+      "userId": "CREATE_EVENT",
+      "username": "สร้างกิจกรรมปฏิทินใหม่: เข้าตรวจสอบงาน",
+      "action": "admin",
+      "module": "127.0.0.1",
+      "targetId": null,
+      "details": "",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785008821742_679",
+      "timestamp": "2026-07-25T19:47:01.742Z",
+      "userId": "CREATE_EVENT",
+      "username": "สร้างกิจกรรมปฏิทินใหม่: โครงการปฐมนิเทศนิสิตใหม่ 2569",
+      "action": "admin",
+      "module": "127.0.0.1",
+      "targetId": null,
+      "details": "",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785008055148_299",
+      "timestamp": "2026-07-25T19:34:15.148Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "UPDATE",
+      "module": "NEWS",
+      "targetId": "n_1785007848544",
+      "details": "ทดสอบอัพโหลดภาพ",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785007979685_430",
+      "timestamp": "2026-07-25T19:32:59.685Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "UPDATE",
+      "module": "NEWS",
+      "targetId": "n_1785007848544",
+      "details": "ทดสอบอัพโหลดภาพ",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785007848547_820",
+      "timestamp": "2026-07-25T19:30:48.547Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "CREATE",
+      "module": "NEWS",
+      "targetId": "n_1785007848544",
+      "details": "ทดสอบอัพโหลดภาพ",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785007565611_137",
+      "timestamp": "2026-07-25T19:26:05.611Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "DELETE",
+      "module": "NEWS",
+      "targetId": "n_1785003773257",
+      "details": "",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785007053147_809",
+      "timestamp": "2026-07-25T19:17:33.147Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "m2",
+      "details": "หลักสูตรรัฐประศาสนศาสตรมหาบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785007024647_970",
+      "timestamp": "2026-07-25T19:17:04.647Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "m2",
+      "details": "หลักสูตรรัฐประศาสนศาสตรมหาบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785006464478_417",
+      "timestamp": "2026-07-25T19:07:44.478Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_2",
+      "details": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาโท สาขาวิชาพระพุทธศาสนา ประจำปีการศึกษา 2569",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785006461775_654",
+      "timestamp": "2026-07-25T19:07:41.775Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_1",
+      "details": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาตรี (ภาคปกติและภาคพิเศษ) ประจำปีการศึกษา 2569",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785006459557_947",
+      "timestamp": "2026-07-25T19:07:39.557Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_2",
+      "details": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาโท สาขาวิชาพระพุทธศาสนา ประจำปีการศึกษา 2569",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785006445485_802",
+      "timestamp": "2026-07-25T19:07:25.485Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "UPDATE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_2",
+      "details": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาโท สาขาวิชาพระพุทธศาสนา ประจำปีการศึกษา 2569",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785005866265_353",
+      "timestamp": "2026-07-25T18:57:46.265Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "m2",
+      "details": "หลักสูตรรัฐประศาสนศาสตรมหาบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785005811867_301",
+      "timestamp": "2026-07-25T18:56:51.867Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "m2",
+      "details": "หลักสูตรรัฐประศาสนศาสตรมหาบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785005544758_365",
+      "timestamp": "2026-07-25T18:52:24.758Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "b3",
+      "details": "หลักสูตรรัฐประศาสนศาสตรบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785005485911_914",
+      "timestamp": "2026-07-25T18:51:25.911Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "m2",
+      "details": "หลักสูตรรัฐประศาสนศาสตรมหาบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785005442158_425",
+      "timestamp": "2026-07-25T18:50:42.158Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "m2",
+      "details": "หลักสูตรรัฐประศาสนศาสตรมหาบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785004441146_289",
+      "timestamp": "2026-07-25T18:34:01.146Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "UPDATE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_1",
+      "details": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาตรี (ภาคปกติและภาคพิเศษ) ประจำปีการศึกษา 2569",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785004434603_511",
+      "timestamp": "2026-07-25T18:33:54.603Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "UPDATE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_2",
+      "details": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาโท สาขาวิชาพระพุทธศาสนา ประจำปีการศึกษา 2569",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785004338009_908",
+      "timestamp": "2026-07-25T18:32:18.009Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_2",
+      "details": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาโท สาขาวิชาพระพุทธศาสนา ประจำปีการศึกษา 2569",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785003773260_586",
+      "timestamp": "2026-07-25T18:22:53.260Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "CREATE",
+      "module": "NEWS",
+      "targetId": "n_1785003773257",
+      "details": "ประกาศรับสมัครนิสิตใหม่",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785003610816_107",
+      "timestamp": "2026-07-25T18:20:10.816Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_1",
+      "details": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาตรี (ภาคปกติและภาคพิเศษ) ประจำปีการศึกษา 2569",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785003521867_667",
+      "timestamp": "2026-07-25T18:18:41.867Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "m2",
+      "details": "หลักสูตรรัฐประศาสนศาสตรมหาบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785003502006_77",
+      "timestamp": "2026-07-25T18:18:22.006Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "b3",
+      "details": "หลักสูตรรัฐประศาสนศาสตรบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785003397750_572",
+      "timestamp": "2026-07-25T18:16:37.750Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_2",
+      "details": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาโท สาขาวิชาพระพุทธศาสนา ประจำปีการศึกษา 2569",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785003085609_505",
+      "timestamp": "2026-07-25T18:11:25.609Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_1",
+      "details": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาตรี (ภาคปกติและภาคพิเศษ) ประจำปีการศึกษา 2569",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785002864636_731",
+      "timestamp": "2026-07-25T18:07:44.636Z",
+      "userId": "admin",
+      "username": "system",
+      "action": "UPDATE_USER",
+      "module": "RBAC",
+      "targetId": "u1",
+      "details": "{\"username\":\"admin\",\"role\":\"Admin\",\"status\":\"active\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785002852271_962",
+      "timestamp": "2026-07-25T18:07:32.271Z",
+      "userId": "admin",
+      "username": "system",
+      "action": "DELETE_USER",
+      "module": "RBAC",
+      "targetId": "u2",
+      "details": "ดร.วิชัย มั่นคง (Admin)",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785002756859_231",
+      "timestamp": "2026-07-25T18:05:56.860Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_2",
+      "details": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาโท สาขาวิชาพระพุทธศาสนา ประจำปีการศึกษา 2569",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785002745141_513",
+      "timestamp": "2026-07-25T18:05:45.141Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "UPDATE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_2",
+      "details": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาโท สาขาวิชาพระพุทธศาสนา ประจำปีการศึกษา 2569",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785002740451_326",
+      "timestamp": "2026-07-25T18:05:40.451Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "UPDATE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_2",
+      "details": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาโท สาขาวิชาพระพุทธศาสนา ประจำปีการศึกษา 2569",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785002735644_976",
+      "timestamp": "2026-07-25T18:05:35.644Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "UPDATE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_2",
+      "details": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาโท สาขาวิชาพระพุทธศาสนา ประจำปีการศึกษา 2569",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785002727402_849",
+      "timestamp": "2026-07-25T18:05:27.402Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_1",
+      "details": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาตรี (ภาคปกติและภาคพิเศษ) ประจำปีการศึกษา 2569",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785002718996_868",
+      "timestamp": "2026-07-25T18:05:18.996Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_2",
+      "details": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาโท สาขาวิชาพระพุทธศาสนา ประจำปีการศึกษา 2569",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785002716842_980",
+      "timestamp": "2026-07-25T18:05:16.842Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_1",
+      "details": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาตรี (ภาคปกติและภาคพิเศษ) ประจำปีการศึกษา 2569",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785002713008_375",
+      "timestamp": "2026-07-25T18:05:13.008Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_2",
+      "details": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาโท สาขาวิชาพระพุทธศาสนา ประจำปีการศึกษา 2569",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785002706265_204",
+      "timestamp": "2026-07-25T18:05:06.265Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "DELETE",
+      "module": "NEWS",
+      "targetId": "n_1784998983680",
+      "details": "",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785002619060_727",
+      "timestamp": "2026-07-25T18:03:39.060Z",
+      "userId": "admin",
+      "username": "system",
+      "action": "DELETE_USER",
+      "module": "RBAC",
+      "targetId": "usr_1785002619000_367",
+      "details": "ทดสอบ อัปเดตสิทธิ์ผู้ดูแล",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785002619031_93",
+      "timestamp": "2026-07-25T18:03:39.031Z",
+      "userId": "admin",
+      "username": "system",
+      "action": "UPDATE_USER",
+      "module": "RBAC",
+      "targetId": "usr_1785002619000_367",
+      "details": "{\"username\":\"test_admin_1785002618931\",\"role\":\"Editor\",\"status\":\"active\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785002619007_970",
+      "timestamp": "2026-07-25T18:03:39.007Z",
+      "userId": "admin",
+      "username": "system",
+      "action": "CREATE_USER",
+      "module": "RBAC",
+      "targetId": "usr_1785002619000_367",
+      "details": "ทดสอบ ผู้ดูแลระบบ",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785000523866_24",
+      "timestamp": "2026-07-25T17:28:43.866Z",
+      "userId": "personnel",
+      "username": "admin",
+      "action": "UPDATE_PERSONNEL",
+      "module": "PERSONNEL",
+      "targetId": "staff_004",
+      "details": {
+        "name": "นายอัครเดช บุญหิรัญไพศาล"
+      },
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785000470925_152",
+      "timestamp": "2026-07-25T17:27:50.925Z",
+      "userId": "media",
+      "username": "admin",
+      "action": "UPLOAD_MEDIA",
+      "module": "MEDIA",
+      "targetId": "m_1785000470914_442",
+      "details": {
+        "filename": "Akkharadet.png"
+      },
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784999888022_633",
+      "timestamp": "2026-07-25T17:18:08.022Z",
+      "userId": "academic",
+      "username": "admin",
+      "action": "DELETE_ACADEMIC_WORK",
+      "module": "ACADEMIC",
+      "targetId": "acad_2",
+      "details": {
+        "title": "แนวทางการส่งเสริมจริยธรรมของเยาวชนตามหลักพุทธธรรมในศตวรรษที่ 21"
+      },
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784999869745_689",
+      "timestamp": "2026-07-25T17:17:49.745Z",
+      "userId": "personnel",
+      "username": "admin",
+      "action": "DELETE_PERSONNEL",
+      "module": "PERSONNEL",
+      "targetId": "staff_003",
+      "details": {
+        "name": "พระมหาสมชายสมชาย สุขจิตฺโต"
+      },
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784998983687_833",
+      "timestamp": "2026-07-25T17:03:03.687Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "CREATE",
+      "module": "NEWS",
+      "targetId": "n_1784998983680",
+      "details": {
+        "title": "การรับสมัครนิสิตใหม๋ประจำปีการศึกษา 2569"
+      },
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784998758342_313",
+      "timestamp": "2026-07-25T16:59:18.342Z",
+      "userId": "personnel",
+      "username": "admin",
+      "action": "UPDATE_PERSONNEL",
+      "module": "PERSONNEL",
+      "targetId": "staff_004",
+      "details": {
+        "name": "นายอัครเดช บุญหิรัญไพศาล"
+      },
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784998645353_129",
+      "timestamp": "2026-07-25T16:57:25.353Z",
+      "userId": "personnel",
+      "username": "admin",
+      "action": "DELETE_PERSONNEL",
+      "module": "PERSONNEL",
+      "targetId": "staff_005",
+      "details": {
+        "name": "นายธีรภาพ พิพัฒนาการ"
+      },
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784998634584_603",
+      "timestamp": "2026-07-25T16:57:14.584Z",
+      "userId": "personnel",
+      "username": "admin",
+      "action": "DELETE_PERSONNEL",
+      "module": "PERSONNEL",
+      "targetId": "staff_002",
+      "details": {
+        "name": "ผศ.ดร.อัครเดช บุนนาค"
+      },
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784998628412_244",
+      "timestamp": "2026-07-25T16:57:08.412Z",
+      "userId": "academic",
+      "username": "admin",
+      "action": "DELETE_ACADEMIC_WORK",
+      "module": "ACADEMIC",
+      "targetId": "acad_3",
+      "details": {
+        "title": "พระพุทธศาสนากับการเยียวยาจิตใจในสังคมหลังวิกฤตการณ์สุขภาพ"
+      },
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784998622209_876",
+      "timestamp": "2026-07-25T16:57:02.209Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "adm_1",
+      "details": {
+        "title": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาตรี (ภาคปกติและภาคพิเศษ) ประจำปีการศึกษา 2569"
+      },
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784998612530_477",
+      "timestamp": "2026-07-25T16:56:52.530Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "proj_001",
+      "details": {},
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784998010003_833",
+      "timestamp": "2026-07-25T16:46:50.003Z",
+      "userId": "personnel",
+      "username": "admin",
+      "action": "DELETE_PERSONNEL",
+      "module": "PERSONNEL",
+      "targetId": "staff_001",
+      "details": {
+        "name": "พระครูศรีพัชโรทัย, ดร.สุรศักดิ์ พัชรสิริ"
+      },
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784997998590_614",
+      "timestamp": "2026-07-25T16:46:38.590Z",
+      "userId": "personnel",
+      "username": "admin",
+      "action": "DELETE_PERSONNEL",
+      "module": "PERSONNEL",
+      "targetId": "staff_006",
+      "details": {
+        "name": "รศ.ดร.เกียรติศักดิ์ ประเสริฐยิ่ง"
+      },
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784997991415_4",
+      "timestamp": "2026-07-25T16:46:31.415Z",
+      "userId": "academic",
+      "username": "admin",
+      "action": "DELETE_ACADEMIC_WORK",
+      "module": "ACADEMIC",
+      "targetId": "acad_4",
+      "details": {
+        "title": "พุทธปรัชญาญาณวิทยาและการประยุกต์ใช้ในการศึกษาร่วมสมัย"
+      },
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784997854295_260",
+      "timestamp": "2026-07-25T16:44:14.295Z",
+      "userId": "announcements",
+      "username": "admin",
+      "action": "DELETE_ANNOUNCEMENT",
+      "module": "ANNOUNCEMENT",
+      "targetId": "ann_1784985100026",
+      "details": {
+        "deleted": true
+      },
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784997844771_13",
+      "timestamp": "2026-07-25T16:44:04.771Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "DELETE",
+      "module": "NEWS",
+      "targetId": "n2",
+      "details": null,
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784997839909_823",
+      "timestamp": "2026-07-25T16:43:59.909Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "DELETE",
+      "module": "NEWS",
+      "targetId": "n1",
+      "details": null,
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784997318738_774",
+      "timestamp": "2026-07-25T16:35:18.738Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "proj_003",
+      "details": {},
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784996432870_816",
+      "timestamp": "2026-07-25T16:20:32.870Z",
+      "userId": "media",
+      "username": "admin",
+      "action": "CREATE_MEDIA_FOLDER",
+      "module": "MEDIA",
+      "targetId": "f_1784996432862",
+      "details": {
+        "name": "ข่าว"
+      },
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784996373020_558",
+      "timestamp": "2026-07-25T16:19:33.020Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_ADMISSION_PROJECT",
+      "module": "ADMISSION",
+      "targetId": "proj_002",
+      "details": {},
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784995546227_999",
+      "timestamp": "2026-07-25T16:05:46.227Z",
+      "userId": "academic",
+      "username": "admin",
+      "action": "DELETE_ACADEMIC_WORK",
+      "module": "ACADEMIC",
+      "targetId": "acad_5",
+      "details": "ตำราวิชา: การบริหารงานภาคสาธารณะตามแนวพุทธศาสน์ศึกษา",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784995538976_145",
+      "timestamp": "2026-07-25T16:05:38.976Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "DELETE",
+      "module": "NEWS",
+      "targetId": "n3",
+      "details": null,
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1784995531939_351",
+      "timestamp": "2026-07-25T16:05:31.939Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "DELETE",
+      "module": "NEWS",
+      "targetId": "n4",
+      "details": null,
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "log_1784688813146_587",
+      "username": "admin",
+      "action": "Login",
+      "module": "Authentication",
+      "details": "User logged in successfully",
+      "timestamp": "2026-07-22T02:53:33.146Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "log_1784683290121_610",
+      "username": "admin",
+      "action": "Logout",
+      "module": "Authentication",
+      "details": "User logged out",
+      "timestamp": "2026-07-22T01:21:30.121Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "log_1784683172855_441",
+      "username": "admin",
+      "action": "Login",
+      "module": "Authentication",
+      "details": "User logged in successfully",
+      "timestamp": "2026-07-22T01:19:32.855Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "log_1",
+      "username": "system",
+      "action": "Initialization",
+      "module": "System",
+      "details": "Database initialized with secure seed data",
+      "timestamp": "2026-07-21T12:00:00.000Z",
+      "ip": "127.0.0.1"
+    }
+  ],
+  "homepageSections": [
+    {
+      "id": "sec_hero_slider",
+      "key": "hero_slider",
+      "titleTh": "ภาพสไลด์ประชาสัมพันธ์",
+      "titleEn": "Hero Banner Slider",
+      "description": "ส่วนแสดงสไลด์ภาพและแคมเปญหลักด้านบนสุดของเว็บไซต์",
+      "isVisible": true,
+      "order": 1,
+      "config": {
+        "autoplay": true,
+        "intervalSeconds": 5
+      }
+    },
+    {
+      "id": "sec_welcome_message",
+      "key": "welcome_message",
+      "titleTh": "ข้อความต้อนรับจากผู้บริหาร",
+      "titleEn": "Welcome Message",
+      "description": "สารจากผู้อำนวยการวิทยาลัยสงฆ์พ่อขุนผาเมือง",
+      "isVisible": true,
+      "order": 2,
+      "config": {
+        "directorName": "พระครูศรีพัชโรทัย, ดร.",
+        "directorPosition": "ผู้อำนวยการวิทยาลัยสงฆ์พ่อขุนผาเมือง",
+        "directorAvatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400",
+        "welcomeTitle": "สาส์นจากผู้อำนวยการวิทยาลัยสงฆ์พ่อขุนผาเมือง",
+        "welcomeExcerpt": "วิทยาลัยสงฆ์พ่อขุนผาเมือง มุ่งมั่นจัดการศึกษาวิชาการพระพุทธศาสนาบูรณาการกับศาสตร์สมัยใหม่ เพื่อพัฒนาจิตใจและสังคมอย่างยั่งยืน"
+      }
+    },
+    {
+      "id": "sec_announcements",
+      "key": "announcements",
+      "titleTh": "ประกาศสำคัญ",
+      "titleEn": "Important Announcements",
+      "description": "แถบประกาศด่วน ข้อความวิ่ง หรือประกาศสำคัญประจำวัน",
+      "isVisible": true,
+      "order": 3,
+      "config": {
+        "badgeText": "ประกาศด่วน",
+        "announcementText": "เปิดรับสมัครนิสิตใหม่ ประจำปีการศึกษา 2569 ระดับปริญญาตรี โท เอก และหลักสูตรประกาศนียบัตร ตั้งแต่วันนี้เป็นต้นไป",
+        "linkUrl": "/admission"
+      }
+    },
+    {
+      "id": "sec_quick_links",
+      "key": "quick_links",
+      "titleTh": "ปุ่มลิงก์ด่วน",
+      "titleEn": "Quick Links",
+      "description": "ทางลัดเข้าสู่ระบบบริการออนไลน์สำหรับนิสิตและบุคลากร",
+      "isVisible": true,
+      "order": 4,
+      "config": {
+        "showTitle": true,
+        "items": [
+          {
+            "title": "สมัครเรียนออนไลน์",
+            "url": "/admission/apply",
+            "icon": "UserPlus",
+            "color": "bg-pink-500"
+          },
+          {
+            "title": "ระบบทะเบียนนิสิต",
+            "url": "https://reg.mcu.ac.th",
+            "icon": "GraduationCap",
+            "color": "bg-amber-500"
+          },
+          {
+            "title": "ห้องดนตรี & ผลงานวิชาการ",
+            "url": "/academic",
+            "icon": "BookOpen",
+            "color": "bg-blue-500"
+          },
+          {
+            "title": "ดาวน์โหลดเอกสาร",
+            "url": "/downloads",
+            "icon": "Download",
+            "color": "bg-emerald-500"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec_banner",
+      "key": "banner",
+      "titleTh": "แบนเนอร์ประชาสัมพันธ์",
+      "titleEn": "Promotional Banner",
+      "description": "แบนเนอร์เน้นแคมเปญพิเศษหรือรับสมัครเรียน",
+      "isVisible": false,
+      "order": 5,
+      "config": {
+        "title": "เปิดรับสมัครนิสิตใหม่ ปีการศึกษา 2569",
+        "subtitle": "ปัญญา โลกสฺมิ ปชฺโชโต - ปัญญาเป็นแสงสว่างในโลก",
+        "buttonText": "สมัครเรียนเลย",
+        "buttonLink": "/admission/apply",
+        "bannerImage": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=1200"
+      }
+    },
+    {
+      "id": "sec_featured_news",
+      "key": "featured_news",
+      "titleTh": "ข่าวสารและกิจกรรมล่าสุด (ส่วนที่ 1: ข่าวเด่นและกิจกรรมไฮไลท์)",
+      "titleEn": "Latest News & Activities (Section 1: Featured Highlights)",
+      "description": "ไฮไลท์ข่าวสารสำคัญ กิจกรรมเด่นรอบรั้ววิทยาลัยสงฆ์",
+      "isVisible": true,
+      "order": 6,
+      "config": {
+        "limit": 6,
+        "layout": "grid"
+      }
+    },
+    {
+      "id": "sec_latest_news",
+      "key": "latest_news",
+      "titleTh": "ข่าวสารและกิจกรรมล่าสุด (ส่วนที่ 2: ข่าววิชาการ และบริการวิชาการ)",
+      "titleEn": "Latest News & Activities (Section 2: Academics & Research)",
+      "description": "รายการข่าวประชาสัมพันธ์ วิชาการ บทความวิจัย และบริการสังคม",
+      "isVisible": true,
+      "order": 7,
+      "config": {
+        "limit": 6
+      }
+    },
+    {
+      "id": "sec_recommended_courses",
+      "key": "recommended_courses",
+      "titleTh": "หลักสูตรแนะนำ",
+      "titleEn": "Recommended Curricula",
+      "description": "ตารางหลักสูตรการศึกษา ปริญญาตรี โท เอก และหลักสูตรประกาศนียบัตร",
+      "isVisible": true,
+      "order": 8,
+      "config": {
+        "showCategories": true
+      }
+    },
+    {
+      "id": "sec_upcoming_events",
+      "key": "upcoming_events",
+      "titleTh": "ปฏิทินกิจกรรมวิทยาลัยสงฆ์ (ส่วนที่ 1: กำหนดการและพิธีการเด่นประจำเดือน)",
+      "titleEn": "College Activity Calendar (Section 1: Monthly Agenda)",
+      "description": "รายการกิจกรรม เสวนา อบรมวิชาการ และวันสำคัญทางศาสนาประจำเดือน",
+      "isVisible": true,
+      "order": 9,
+      "config": {
+        "limit": 4
+      }
+    },
+    {
+      "id": "sec_event_calendar",
+      "key": "event_calendar",
+      "titleTh": "ปฏิทินกิจกรรมวิทยาลัยสงฆ์ (ส่วนที่ 2: กำหนดการและโครงการสำคัญประจำปีการศึกษา 2569)",
+      "titleEn": "College Activity Calendar (Section 2: Annual Academic Milestones)",
+      "description": "ปฏิทินกิจกรรม การลงทะเบียน สอบวัดผล และโครงการประจำปีของวิทยาลัยสงฆ์",
+      "isVisible": true,
+      "order": 10,
+      "config": {
+        "showMonthView": true
+      }
+    },
+    {
+      "id": "sec_featured_staff",
+      "key": "featured_staff",
+      "titleTh": "บุคลากรแนะนำ",
+      "titleEn": "Featured Personnel",
+      "description": "แนะนําผู้บริหารและอาจารย์ประจำวิทยาลัย",
+      "isVisible": true,
+      "order": 11,
+      "config": {
+        "staffList": [
+          {
+            "name": "พระครูศรีพัชโรทัย, ดร.",
+            "position": "ผู้อำนวยการวิทยาลัยสงฆ์พ่อขุนผาเมือง",
+            "image": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=300",
+            "degree": "พธ.ด. (พระพุทธศาสนา)"
+          },
+          {
+            "name": "ผศ.ดร.อัครเดช บุนนาค",
+            "position": "รองผู้อำนวยการฝ่ายวิชาการ",
+            "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300",
+            "degree": "ปร.ด. (การบริหารการศึกษา)"
+          },
+          {
+            "name": "พระมหาสมชาย สุขจิตฺโต",
+            "position": "อาจารย์ประจำหลักสูตรพุทธศาสตร์",
+            "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300",
+            "degree": "พธ.ม. (ปรัชญา)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec_document_downloads",
+      "key": "document_downloads",
+      "titleTh": "ดาวน์โหลดเอกสาร",
+      "titleEn": "Document Downloads",
+      "description": "เอกสารดาวน์โหลดสำหรับ นิสิต บุคลากร และระเบียบการ",
+      "isVisible": true,
+      "order": 12,
+      "config": {
+        "limit": 5
+      }
+    },
+    {
+      "id": "sec_pr_video",
+      "key": "pr_video",
+      "titleTh": "วิดีโอประชาสัมพันธ์",
+      "titleEn": "PR Video",
+      "description": "วิดีโอแนะนําสถาบัน บรรยากาศการเรียนการสอน และกิจกรรม",
+      "isVisible": true,
+      "order": 13,
+      "config": {
+        "videoTitle": "แนะนำวิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์",
+        "videoEmbedUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        "description": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย มุ่งผลิตศาสนทายาทและสร้างสรรค์ปัญญาเพื่อสังคม"
+      }
+    },
+    {
+      "id": "sec_event_gallery",
+      "key": "event_gallery",
+      "titleTh": "ภาพกิจกรรม",
+      "titleEn": "Event Gallery",
+      "description": "ประมวลภาพบรรยากาศกิจกรรมงานพิธีและงานวิชาการ",
+      "isVisible": true,
+      "order": 14,
+      "config": {
+        "galleryImages": [
+          {
+            "title": "พิธีไหว้ครูและประธานปฐมนิเทศ",
+            "url": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=600"
+          },
+          {
+            "title": "โครงการสัมมนาพระพุทธศาสนา",
+            "url": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=600"
+          },
+          {
+            "title": "กิจกรรมทำบุญและธรรมสากัจฉา",
+            "url": "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=600"
+          },
+          {
+            "title": "บรรยากาศการเรียนการสอนห้องปฏิบัติการ",
+            "url": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=600"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec_key_stats",
+      "key": "key_stats",
+      "titleTh": "ตัวเลขสถิติ",
+      "titleEn": "Key Statistics",
+      "description": "ตัวเลขสรุปผลงาน จำนวนนิสิต คณาจารย์ และผลงานวิจัย",
+      "isVisible": true,
+      "order": 15,
+      "config": {
+        "style": "gold-pink"
+      }
+    },
+    {
+      "id": "sec_org_logo",
+      "key": "org_logo",
+      "titleTh": "โลโก้หน่วยงาน",
+      "titleEn": "Organization Logo & Branding",
+      "description": "ตราสัญลักษณ์ทางการและคติพจน์สถาบัน",
+      "isVisible": true,
+      "order": 16,
+      "config": {
+        "mottoTh": "ปัญญา โลกสฺมิ ปชฺโชโต (ปัญญาเป็นแสงสว่างในโลก)",
+        "mottoEn": "Wisdom is the Light of the World",
+        "subText": "มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์"
+      }
+    },
+    {
+      "id": "sec_affiliate_agencies",
+      "key": "affiliate_agencies",
+      "titleTh": "หน่วยงานที่เกี่ยวข้อง",
+      "titleEn": "Affiliate Agencies",
+      "description": "เครือข่ายสถาบัน องค์กรทางพระพุทธศาสนา และหน่วยงานพันธมิตร",
+      "isVisible": true,
+      "order": 17,
+      "config": {
+        "partners": [
+          {
+            "name": "มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+            "logo": "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=200",
+            "url": "https://www.mcu.ac.th"
+          },
+          {
+            "name": "สำนักงานพระพุทธศาสนาแห่งชาติ",
+            "logo": "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?auto=format&fit=crop&q=80&w=200",
+            "url": "https://www.onab.go.th"
+          },
+          {
+            "name": "จังหวัดเพชรบูรณ์",
+            "logo": "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&q=80&w=200",
+            "url": "http://www.phetchabun.go.th"
+          },
+          {
+            "name": "สมาคมสภาการศึกษาพระพุทธศาสนา",
+            "logo": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=200",
+            "url": "#"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sec_contact_channels",
+      "key": "contact_channels",
+      "titleTh": "ช่องทางติดต่อ",
+      "titleEn": "Contact Channels",
+      "description": "ข้อมูลการติดต่อสายตรง เบอร์โทรศัพท์ และสถานที่ตั้ง",
+      "isVisible": true,
+      "order": 18,
+      "config": {
+        "phone": "081-462-5663",
+        "email": "akkharadet.bun@mcu.ac.th",
+        "workingHours": "วันจันทร์ - ศุกร์ 08:30 - 16:30 น."
+      }
+    },
+    {
+      "id": "sec_google_map",
+      "key": "google_map",
+      "titleTh": "แผนที่",
+      "titleEn": "Google Map Location",
+      "description": "แผนที่นำทาง Google Map แสดงที่ตั้งวิทยาลัยสงฆ์พ่อขุนผาเมือง",
+      "isVisible": true,
+      "order": 19,
+      "config": {
+        "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15317.935105220462!2d101.14!3d16.42!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTYgw40yNScwMC4wIk4gMTAxwrAwOCcwMC4wIkU!5e0!3m2!1sth!2sth!4v1650000000000!5m2!1sth!2sth",
+        "locationName": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์",
+        "address": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ เลขที่ 109/2 หมู่ 5 ต.ปากช่อง อ.หล่มสัก จ.เพชรบูรณ์ 67110"
+      }
+    },
+    {
+      "id": "sec_social_media",
+      "key": "social_media",
+      "titleTh": "Social Media",
+      "titleEn": "Social Media Channels",
+      "description": "ลิงก์ติดตามโซเชียลมีเดีย Facebook, Line, YouTube, TikTok",
+      "isVisible": true,
+      "order": 20,
+      "config": {
+        "facebook": "https://facebook.com/mcuphetchabun",
+        "line": "https://line.me/R/ti/p/@mcuphetchabun",
+        "youtube": "https://youtube.com",
+        "tiktok": "https://tiktok.com"
+      }
+    }
+  ],
+  "announcements": [],
+  "admission_projects": [
+    {
+      "id": "proj_001",
+      "projectName": "โครงการรับสมัครนิสิตใหม่ รอบโควตาพิเศษ และทุนการศึกษาพระสงฆ์-สามเณร ประจำปีการศึกษา 2569",
+      "projectNameEn": "Special Quota & Sangha Scholarship Admission Project 2026",
+      "recruitmentType": "โควตาพิเศษและทุนการศึกษา",
+      "curriculumName": "พุทธศาสตรบัณฑิต (สาขาวิชาพระพุทธศาสนา)",
+      "degreeLevel": "bachelor",
+      "qualifications": [
+        "เป็นพระภิกษุ สามเณร หรือคฤหัสถ์ (ชาย-หญิง)",
+        "สำเร็จการศึกษามัธยมศึกษาปีที่ 6 หรือเทียบเท่า หรือสอบได้นักธรรมชั้นเอก / บาลีสนามหลวง",
+        "มีความประพฤติเรียบร้อย สังกัดวัดถูกต้องตามพระธรรมวินัย"
+      ],
+      "quotaSeats": 40,
+      "startDate": "2026-05-01",
+      "endDate": "2026-08-31",
+      "applicationFee": "ฟรี (ไม่มีค่าธรรมเนียมสมัคร)",
+      "prospectusUrl": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "prospectusName": "ระเบียบการรับสมัครนิสิตใหม่_โควตาพิเศษ2569.pdf",
+      "enableOnlineApply": true,
+      "applyMethod": "internal",
+      "statusOverride": "auto",
+      "description": "ทุนการศึกษาเรียนฟรีตลอดหลักสูตร 4 ปี สำหรับพระภิกษุสามเณรผู้มีผลการเรียนดีและอุทิศตนเพื่อพระพุทธศาสนา",
+      "createdAt": "2026-05-01T08:00:00.000Z",
+      "updatedAt": "2026-05-01T08:00:00.000Z"
+    },
+    {
+      "id": "proj_002",
+      "projectName": "โครงการรับตรงทั่วไป ระดับปริญญาโท และปริญญาเอก สาขาวิชาพระพุทธศาสนา ประจำปีการศึกษา 2569",
+      "projectNameEn": "General Direct Admission for Master & Doctoral Programs 2026",
+      "recruitmentType": "รับตรงทั่วไป (บัณฑิตศึกษา)",
+      "curriculumName": "พุทธศาสตรมหาบัณฑิต และ พุทธศาสตรดุษฎีบัณฑิต (สาขาวิชาพระพุทธศาสนา)",
+      "degreeLevel": "master",
+      "qualifications": [
+        "สำเร็จการศึกษาระดับปริญญาตรีหรือปริญญาโทจากสถาบันการศึกษาที่กระทรวงรับรอง",
+        "มีผลการเรียนเฉลี่ยสะสมไม่ต่ำกว่า 2.50",
+        "ผ่านการสัมภาษณ์และทดสอบความรู้พื้นฐานทางพระพุทธศาสนา"
+      ],
+      "quotaSeats": 25,
+      "startDate": "2026-06-01",
+      "endDate": "2026-09-15",
+      "applicationFee": "500 บาท",
+      "prospectusUrl": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "prospectusName": "ระเบียบการรับสมัครระดับบัณฑิตศึกษา2569.pdf",
+      "enableOnlineApply": true,
+      "applyMethod": "external_form",
+      "externalFormUrl": "https://docs.google.com/forms/d/e/1FAIpQLSc-sample/viewform",
+      "statusOverride": "auto",
+      "description": "รับสมัครผู้สนใจศึกษาต่อเชิงลึกทางวิชาการพระพุทธศาสนา การวิจัย และนวัตกรรมเพื่อสังคม",
+      "createdAt": "2026-06-01T09:00:00.000Z",
+      "updatedAt": "2026-06-01T09:00:00.000Z"
+    },
+    {
+      "id": "proj_003",
+      "projectName": "โครงการรับสมัครหลักสูตรประกาศนียบัตรการบริหารกิจการคณะสงฆ์ (ป.บ.ส.) ประจำปี 2569",
+      "projectNameEn": "Sangha Administration Certificate Admission Program 2026",
+      "recruitmentType": "โครงการพิเศษสำหรับพระสังฆาธิการ",
+      "curriculumName": "ประกาศนียบัตรการบริหารกิจการคณะสงฆ์ (ป.บ.ส.)",
+      "degreeLevel": "certificate",
+      "qualifications": [
+        "พระภิกษุสังฆาธิการ เจ้าอาวาส รองเจ้าอาวาส หรือเลขานุการวัด",
+        "ได้รับหนังสือยินยอมและอนุมัติจากเจ้าคณะปกครองต้นสังกัด"
+      ],
+      "quotaSeats": 50,
+      "startDate": "2026-04-01",
+      "endDate": "2026-06-30",
+      "applicationFee": "ฟรี (ไม่มีค่าธรรมเนียม)",
+      "prospectusUrl": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "prospectusName": "ระเบียบการสมัครประกาศนียบัตรปบส_2569.pdf",
+      "enableOnlineApply": true,
+      "applyMethod": "internal",
+      "statusOverride": "results",
+      "announcementResultsUrl": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+      "description": "ประกาศผลการคัดเลือกเรียบร้อยแล้ว พระสังฆาธิการผู้ผ่านการคัดเลือกกรุณาตรวจสอบรายชื่อตามเอกสารแนบ",
+      "createdAt": "2026-04-01T08:00:00.000Z",
+      "updatedAt": "2026-07-01T10:00:00.000Z"
+    }
+  ],
+  "curricula": [
+    {
+      "id": "curr_001",
+      "code": "01-BACHELOR",
+      "nameTh": "หลักสูตรพุทธศาสตรบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "nameEn": "Bachelor of Arts in Buddhism (B.A. Buddhism)",
+      "degreeLevel": "bachelor",
+      "major": "สาขาวิชาพระพุทธศาสนา",
+      "faculty": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+      "description": "หลักสูตรมุ่งสร้างบัณฑิตผู้มีความรู้ความเข้าใจในพระไตรปิฎก หลักธรรมทางพระพุทธศาสนา ประวัติศาสตร์ และการประยุกต์ใช้พุทธธรรมเพื่อการพัฒนาจิตใจ และสังคมร่วมสมัยอย่างยั่งยืน",
+      "highlights": [
+        "เรียนฟรีตลอดหลักสูตร สำหรับพระภิกษุและสามเณร",
+        "บูรณาการวิชาการพระพุทธศาสนากับศาสตร์สมัยใหม่และการพัฒนามนุษย์",
+        "มีอาจารย์ผู้ทรงคุณวุฒิด้านพระไตรปิฎกและปรัชญาดูแลอย่างใกล้ชิด",
+        "สนับสนุนทุนการวิจัยและการเผยแผ่พระพุทธศาสนาทั้งในและต่างประเทศ"
+      ],
+      "qualifications": [
+        "เป็นพระภิกษุ สามเณร หรือคฤหัสถ์ (ชาย-หญิง)",
+        "สำเร็จการศึกษามัธยมศึกษาปีที่ 6 หรือเทียบเท่า หรือสอบได้นักธรรมชั้นเอก / บาลีสนามหลวง",
+        "มีความประพฤติเรียบร้อยตามพระธรรมวินัยและกฎระเบียบมหาวิทยาลัย"
+      ],
+      "structure": [
+        {
+          "categoryName": "หมวดวิชาศึกษาทั่วไป (General Education)",
+          "creditAmount": 30,
+          "description": "ภาษาอังกฤษ คอมพิวเตอร์ สังคมศาสตร์ และมนุษยศาสตร์"
+        },
+        {
+          "categoryName": "หมวดวิชาเฉพาะ (Core & Major Courses)",
+          "creditAmount": 84,
+          "description": "พระไตรปิฎกศึกษา ปรัชญาพุทธศาสนา ภาษาบาลี และวรรณคดีพุทธ"
+        },
+        {
+          "categoryName": "หมวดวิชาเลือกเสรี (Free Electives)",
+          "creditAmount": 6,
+          "description": "วิชาเลือกตามความสนใจของผู้เรียน"
+        }
+      ],
+      "totalCredits": 120,
+      "tuitionFee": "ฟรีสำหรับพระภิกษุสามเณร / คฤหัสถ์ 6,500 บาทต่อภาคการศึกษา",
+      "duration": "4 ปี (8 ภาคการศึกษา)",
+      "careerOpportunities": [
+        "นักวิชาการด้านศาสนาและวัฒนธรรม",
+        "นักเผยแผ่พระพุทธศาสนา และพระธรรมทูต",
+        "อาจารย์ผู้สอนวิชาพระพุทธศาสนาและสังคมศึกษา",
+        "เจ้าหน้าที่ในหน่วยงานภาครัฐ มูลนิธิ และองค์กรไม่แสวงหาผลกำไร"
+      ],
+      "instructors": [
+        {
+          "name": "ผศ.ดร. สุจินต์ พิชิตชัย",
+          "title": "ผศ.ดร.",
+          "academicPosition": "อาจารย์ประจำหลักสูตร",
+          "email": "sujin@mcu.ac.th",
+          "avatarUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200"
+        }
+      ],
+      "documents": [
+        {
+          "name": "แผ่นพับประชาสัมพันธ์หลักสูตรพุทธศาสตรบัณฑิต.pdf",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "format": "PDF",
+          "size": "2.4 MB"
+        },
+        {
+          "name": "เล่มมคอ.2_หลักสูตรปรับปรุง2568.pdf",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "format": "PDF",
+          "size": "5.1 MB"
+        }
+      ],
+      "applyUrl": "/admission/apply",
+      "applyMethod": "internal",
+      "status": "active",
+      "coverImageUrl": "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=800",
+      "galleryUrls": [
+        "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600",
+        "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=600"
+      ],
+      "seo": {
+        "title": "หลักสูตรพุทธศาสตรบัณฑิต | วิทยาลัยสงฆ์พ่อขุนผาเมือง มจร",
+        "description": "รับสมัครเข้าศึกษาต่อระดับปริญญาตรี สาขาวิชาพระพุทธศาสนา วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+        "keywords": "ปริญญาตรี, พระพุทธศาสนา, เรียนฟรี, วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์, มจร เพชรบูรณ์"
+      },
+      "name": "หลักสูตรพุทธศาสตรบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "degree": "หลักสูตรพุทธศาสตรบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "degreeEn": "Bachelor of Arts in Buddhism (B.A. Buddhism)",
+      "studyMode": "4 ปี (8 ภาคการศึกษา)",
+      "qualification": [
+        "เป็นพระภิกษุ สามเณร หรือคฤหัสถ์ (ชาย-หญิง)",
+        "สำเร็จการศึกษามัธยมศึกษาปีที่ 6 หรือเทียบเท่า หรือสอบได้นักธรรมชั้นเอก / บาลีสนามหลวง",
+        "มีความประพฤติเรียบร้อยตามพระธรรมวินัยและกฎระเบียบมหาวิทยาลัย"
+      ],
+      "estimatedFee": "ฟรีสำหรับพระภิกษุสามเณร / คฤหัสถ์ 6,500 บาทต่อภาคการศึกษา",
+      "careerPath": [
+        "นักวิชาการด้านศาสนาและวัฒนธรรม",
+        "นักเผยแผ่พระพุทธศาสนา และพระธรรมทูต",
+        "อาจารย์ผู้สอนวิชาพระพุทธศาสนาและสังคมศึกษา",
+        "เจ้าหน้าที่ในหน่วยงานภาครัฐ มูลนิธิ และองค์กรไม่แสวงหาผลกำไร"
+      ],
+      "level": "bachelor",
+      "createdAt": "2026-05-01T08:00:00.000Z",
+      "updatedAt": "2026-07-22T15:37:20.649Z"
+    },
+    {
+      "id": "curr_002",
+      "code": "02-MASTER",
+      "nameTh": "หลักสูตรพุทธศาสตรมหาบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "nameEn": "Master of Arts in Buddhism (M.A. Buddhism)",
+      "degreeLevel": "master",
+      "major": "สาขาวิชาพระพุทธศาสนา",
+      "faculty": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+      "description": "เน้นกระบวนการวิจัยขั้นสูง ค้นคว้าคำสอนพระพุทธศาสนาเชิงลึก เชื่อมโยงกับนวัตกรรมสังคมและการแก้ปัญหามนุษยชาติในโลกการเปลี่ยนแปลง",
+      "highlights": [
+        "คณาจารย์ระดับศาสตราจารย์และรองศาสตราจารย์ดูแลวิทยานิพนธ์อย่างเข้มข้น",
+        "รองรับการตีพิมพ์บทความวิชาการในวารสาร TCI กลุ่ม 1",
+        "จัดสัมมนาวิชาการระดับชาติและนานาชาติอย่างต่อเนื่อง"
+      ],
+      "qualifications": [
+        "สำเร็จการศึกษาระดับปริญญาตรีทุกสาขาวิชาจากสถาบันการศึกษาที่กระทรวงรับรอง",
+        "มีเกรดเฉลี่ยสะสมไม่ต่ำกว่า 2.50 หรือผ่านการพิจารณาของคณะกรรมการหลักสูตร"
+      ],
+      "structure": [
+        {
+          "categoryName": "หมวดวิชาแกนหลัก (Core Courses)",
+          "creditAmount": 12,
+          "description": "สัมมนาพระไตรปิฎก และระเบียบวิธีวิจัยทางพระพุทธศาสนา"
+        },
+        {
+          "categoryName": "หมวดวิชาเฉพาะสาขา (Specialized Courses)",
+          "creditAmount": 12,
+          "description": "พุทธปรัชญากับสังคมร่วมสมัย และการบริหารเชิงพุทธ"
+        },
+        {
+          "categoryName": "วิทยานิพนธ์ (Thesis)",
+          "creditAmount": 12,
+          "description": "ทำวิทยานิพนธ์และตีพิมพ์เผยแพร่"
+        }
+      ],
+      "totalCredits": 36,
+      "tuitionFee": "18,500 บาทต่อภาคการศึกษา",
+      "duration": "2 ปี (4 ภาคการศึกษา)",
+      "careerOpportunities": [
+        "นักวิจัยและนักวิชาการระดับสูงด้านพุทธศาสนาและปรัชญา",
+        "อาจารย์มหาวิทยาลัยและสถาบันอุดมศึกษา",
+        "ผู้บริหารองค์กรพุทธศาสนาและสังคมพัฒนา"
+      ],
+      "instructors": [
+        {
+          "name": "รศ.ดร. สุวิทย์ ธรรมธีโร",
+          "title": "รศ.ดร.",
+          "academicPosition": "ประธานหลักสูตรปริญญาโท",
+          "email": "suwit@mcu.ac.th",
+          "avatarUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200"
+        }
+      ],
+      "documents": [
+        {
+          "name": "โครงสร้างหลักสูตรพุทธศาสตรมหาบัณฑิต.pdf",
+          "url": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+          "format": "PDF",
+          "size": "3.2 MB"
+        }
+      ],
+      "applyUrl": "/admission/apply",
+      "applyMethod": "internal",
+      "status": "active",
+      "coverImageUrl": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800",
+      "galleryUrls": [],
+      "seo": {
+        "title": "ปริญญาโท พระพุทธศาสนา | วิทยาลัยสงฆ์พ่อขุนผาเมือง มจร",
+        "description": "ศึกษาต่อระดับปริญญาโท พุทธศาสตรมหาบัณฑิต สาขาวิชาพระพุทธศาสนา วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์",
+        "keywords": "ปริญญาโท, มหาบัณฑิต, พระพุทธศาสนา, มจร เพชรบูรณ์"
+      },
+      "name": "หลักสูตรพุทธศาสตรมหาบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "degree": "พุทธศาสตรมหาบัณฑิต (พธ.ม.)",
+      "degreeEn": "Master of Arts (M.A.)",
+      "studyMode": "เรียนเสาร์-อาทิตย์ (hybrid / on-site)",
+      "qualification": [
+        "ปริญญาตรีทุกสาขา"
+      ],
+      "estimatedFee": "18,500 บาท / ภาคการศึกษา",
+      "careerPath": [
+        "นักวิจัย",
+        "อาจารย์มหาวิทยาลัย"
+      ],
+      "level": "master",
+      "createdAt": "2026-06-01T08:00:00.000Z",
+      "updatedAt": "2026-06-01T08:00:00.000Z"
+    },
+    {
+      "id": "curr_003",
+      "code": "03-DOCTOR",
+      "nameTh": "หลักสูตรพุทธศาสตรดุษฎีบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "nameEn": "Doctor of Philosophy in Buddhism (Ph.D. Buddhism)",
+      "degreeLevel": "doctor",
+      "major": "สาขาวิชาพระพุทธศาสนา",
+      "faculty": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+      "description": "หลักสูตรการศึกษาระดับสูงสุดเพื่อการสร้างองค์ความรู้ใหม่ นวัตกรรมทางปัญญา และนวัตกรรมสังคมพุทธธรรม",
+      "highlights": [
+        "สร้างงานวิจัยระดับนวัตกรรมความรู้ทางพระพุทธศาสนา",
+        "ได้รับการนิเทศและที่ปรึกษาโดยผู้ทรงคุณวุฒิระดับประเทศ"
+      ],
+      "qualifications": [
+        "สำเร็จการศึกษาระดับปริญญาโทจากสถาบันการศึกษาที่กระทรวงรับรอง",
+        "เสนอเค้าโครงการวิจัยเบื้องต้นเพื่อเข้ารับการสอบสัมภาษณ์"
+      ],
+      "structure": [
+        {
+          "categoryName": "สัมมนาวิชาการขั้นสูง (Advanced Seminars)",
+          "creditAmount": 12
+        },
+        {
+          "categoryName": "ดุษฎีนิพนธ์ (Dissertation)",
+          "creditAmount": 36
+        }
+      ],
+      "totalCredits": 48,
+      "tuitionFee": "35,000 บาทต่อภาคการศึกษา",
+      "duration": "3 ปี (6 ภาคการศึกษา)",
+      "careerOpportunities": [
+        "ผู้เชี่ยวชาญอิสระและนักวิชาการระดับดุษฎีบัณฑิต",
+        "อาจารย์ระดับอุดมศึกษา และผู้ทรงคุณวุฒิด้านพุทธศาสนา"
+      ],
+      "instructors": [],
+      "documents": [],
+      "applyUrl": "/admission/apply",
+      "applyMethod": "internal",
+      "status": "active",
+      "coverImageUrl": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800",
+      "galleryUrls": [],
+      "seo": {},
+      "name": "หลักสูตรพุทธศาสตรดุษฎีบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "degree": "พุทธศาสตรดุษฎีบัณฑิต (พธ.ด.)",
+      "degreeEn": "Doctor of Philosophy (Ph.D.)",
+      "studyMode": "การวิจัยและสัมมนาขั้นสูง",
+      "qualification": [
+        "ปริญญาโททุกสาขา"
+      ],
+      "estimatedFee": "35,000 บาท / ภาคการศึกษา",
+      "careerPath": [
+        "ศาสตราจารย์",
+        "ผู้เชี่ยวชาญทางศาสนา"
+      ],
+      "level": "doctor",
+      "createdAt": "2026-06-01T08:00:00.000Z",
+      "updatedAt": "2026-06-01T08:00:00.000Z"
+    },
+    {
+      "id": "curr_004",
+      "code": "04-CERTIFICATE",
+      "nameTh": "หลักสูตรประกาศนียบัตรการบริหารกิจการคณะสงฆ์ (ป.บ.ส.)",
+      "nameEn": "Certificate Program in Sangha Administration",
+      "degreeLevel": "certificate",
+      "major": "การบริหารกิจการคณะสงฆ์",
+      "faculty": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+      "description": "หลักสูตรพัฒนาศักยภาพพระสังฆาธิการ เจ้าอาวาส และบุคลากรทางการปกครองคณะสงฆ์ ให้มีความรู้ด้านกฎหมาย ศาสนสมบัติ และเทคโนโลยีสารสนเทศ",
+      "highlights": [
+        "หลักสูตรตรงสำหรับพระสังฆาธิการและเจ้าอาวาส",
+        "เรียนรู้เทคโนโลยีสมัยใหม่และการจัดการวัดอย่างโปร่งใส"
+      ],
+      "qualifications": [
+        "เป็นพระภิกษุสังฆาธิการ เจ้าอาวาส รองเจ้าอาวาส หรือเลขาฯ วัด",
+        "ได้รับการอนุมัติจากเจ้าคณะปกครองต้นสังกัด"
+      ],
+      "structure": [
+        {
+          "categoryName": "วิชาการบริหารการปกครองคณะสงฆ์",
+          "creditAmount": 12
+        },
+        {
+          "categoryName": "วิชาการศาสนศึกษาและการเผยแผ่",
+          "creditAmount": 12
+        },
+        {
+          "categoryName": "วิชาการสาธารณูปการและการศึกษาสงเคราะห์",
+          "creditAmount": 6
+        }
+      ],
+      "totalCredits": 30,
+      "tuitionFee": "ฟรี (ไม่มีค่าธรรมเนียม)",
+      "duration": "1 ปี (2 ภาคการศึกษา)",
+      "careerOpportunities": [
+        "การบริหารกิจการคณะสงฆ์และการปกครองวัดอย่างมีประสิทธิภาพ"
+      ],
+      "instructors": [],
+      "documents": [],
+      "applyUrl": "/admission/apply",
+      "applyMethod": "internal",
+      "status": "active",
+      "coverImageUrl": "https://images.unsplash.com/photo-1544717305-2782549b5136?w=800",
+      "galleryUrls": [],
+      "seo": {},
+      "name": "หลักสูตรประกาศนียบัตรการบริหารกิจการคณะสงฆ์ (ป.บ.ส.)",
+      "degree": "ประกาศนียบัตร (ป.บ.ส.)",
+      "degreeEn": "Certificate in Sangha Admin",
+      "studyMode": "อบรมสัมมนาเสาร์-อาทิตย์",
+      "qualification": [
+        "พระสังฆาธิการ / เจ้าอาวาส"
+      ],
+      "estimatedFee": "ไม่มีค่าใช้จ่าย",
+      "careerPath": [
+        "เจ้าหน้าที่ปกครองคณะสงฆ์"
+      ],
+      "level": "certificate",
+      "createdAt": "2026-04-01T08:00:00.000Z",
+      "updatedAt": "2026-04-01T08:00:00.000Z"
+    }
+  ],
+  "personnel": [
+    {
+      "id": "staff_004",
+      "prefixTh": "นาย",
+      "firstNameTh": "อัครเดช",
+      "lastNameTh": "บุญหิรัญไพศาล",
+      "prefixEn": "Mrs.",
+      "firstNameEn": "Akkharadet",
+      "lastNameEn": "Bunhiranphaisan",
+      "position": "หัวหน้ากลุ่มงานทะเบียนและวัดผล",
+      "academicPosition": "เจ้าหน้าที่บริหารงานทั่วไป ชำนาญการ",
+      "department": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์",
+      "workgroup": "งานทะเบียนและวัดผล",
+      "phone": "081-462-5663",
+      "email": "boonyanut.sun@mcu.ac.th",
+      "avatarUrl": "/uploads/upload_1785000470911_2561.png",
+      "sortOrder": 4,
+      "status": "active",
+      "profileSlug": "akkharadet",
+      "expertise": [
+        "ระบบสารสนเทศทะเบียนนิสิต",
+        "การตรวจสอบคุณวุฒิและการสำเร็จการศึกษา",
+        "งานสารบรรณและระเบียบการศึกษา"
+      ],
+      "educationHistory": [
+        {
+          "id": "edu_4_1",
+          "degreeLevel": "ปริญญาโท",
+          "degreeName": "รัฐประศาสนศาสตรมหาบัณฑิต (ร.ม.)",
+          "major": "สาขาวิชาการบริหารภาครัฐและเอกชน",
+          "institution": "มหาวิทยาลัยรามคำแหง",
+          "yearGraduated": "2557"
+        },
+        {
+          "id": "edu_4_2",
+          "degreeLevel": "ปริญญาตรี",
+          "degreeName": "วิทยาศาสตรบัณฑิต (วท.บ.)",
+          "major": "สาขาวิชาวิทยาการคอมพิวเตอร์",
+          "institution": "มหาวิทยาลัยราชภัฏเพชรบูรณ์",
+          "yearGraduated": "2551"
+        }
+      ],
+      "academicWorks": [
+        {
+          "id": "pw_4_1",
+          "category": "teaching_material",
+          "titleTh": "คู่มือขั้นตอนการขอรับบริการทะเบียนและบริการนิสิตออนไลน์ REG MCU",
+          "titleEn": "Manual for Online Registrar System REG MCU Services",
+          "year": "2567",
+          "publisherOrSource": "สำนักวิชาการ วิทยาลัยสงฆ์พ่อขุนผาเมือง"
+        }
+      ],
+      "createdAt": "2026-02-10T11:00:00.000Z",
+      "updatedAt": "2026-07-25T17:28:43.857Z"
+    }
+  ],
+  "media_folders": [
+    {
+      "id": "f_news",
+      "name": "ภาพข่าวและกิจกรรม PR",
+      "parentId": null,
+      "color": "#ec4899",
+      "createdAt": "2026-01-10T08:00:00.000Z"
+    },
+    {
+      "id": "f_personnel",
+      "name": "รูปภาพบุคลากรอาจารย์",
+      "parentId": null,
+      "color": "#3b82f6",
+      "createdAt": "2026-01-10T08:00:00.000Z"
+    },
+    {
+      "id": "f_academic",
+      "name": "เอกสารผลงานวิชาการและวิจัย",
+      "parentId": null,
+      "color": "#10b981",
+      "createdAt": "2026-01-10T08:00:00.000Z"
+    },
+    {
+      "id": "f_documents",
+      "name": "แบบฟอร์มและคู่มือบริการ",
+      "parentId": null,
+      "color": "#f59e0b",
+      "createdAt": "2026-01-10T08:00:00.000Z"
+    },
+    {
+      "id": "f_banners",
+      "name": "ภาพแบนเนอร์สไลด์หน้าแรก",
+      "parentId": null,
+      "color": "#8b5cf6",
+      "createdAt": "2026-01-10T08:00:00.000Z"
+    },
+    {
+      "id": "f_1784996432862",
+      "name": "ข่าว",
+      "parentId": null,
+      "color": "#ec4899",
+      "createdAt": "2026-07-25T16:20:32.862Z",
+      "updatedAt": "2026-07-25T16:20:32.862Z"
+    }
+  ],
+  "media_settings": {
+    "provider": "local",
+    "maxFileSizeMB": 20,
+    "allowedTypes": [
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+      "image/gif",
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/vnd.ms-excel",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "application/zip"
+    ],
+    "autoWebPConversion": true,
+    "autoCompressImages": true,
+    "compressionQuality": 85,
+    "generateThumbnails": true,
+    "s3Config": {
+      "bucket": "mcu-phetchabun-media",
+      "region": "ap-southeast-1"
+    },
+    "gdriveConfig": {
+      "folderId": "1A2B3C4D5E6F7G8H9I0J",
+      "accountEmail": "admin@mcu.ac.th"
+    }
+  },
+  "media": [
+    {
+      "id": "m_1785000470914_442",
+      "filename": "Akkharadet.png",
+      "originalFilename": "Akkharadet.png",
+      "mimeType": "image/png",
+      "fileType": "image",
+      "size": 165821,
+      "url": "/uploads/upload_1785000470911_2561.png",
+      "folderId": "f_personnel",
+      "altText": "Akkharadet",
+      "description": "อัปโหลดผ่านระบบคลังสื่อเมื่อ 26/7/2569",
+      "tags": [
+        "image"
+      ],
+      "createdAt": "2026-07-25T17:27:50.914Z",
+      "updatedAt": "2026-07-25T17:27:50.914Z"
+    },
+    {
+      "id": "m_1",
+      "filename": "ภาพกิจกรรมพิธีมอบปริญญาบัตรประจำปี_2569.webp",
+      "originalFilename": "graduation_2026_hd.jpg",
+      "path": "/uploads/2026/01/graduation_2026.webp",
+      "url": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1200",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=300",
+      "webpUrl": "/uploads/2026/01/graduation_2026.webp",
+      "mimeType": "image/webp",
+      "fileType": "image",
+      "size": 842000,
+      "formattedSize": "822 KB",
+      "dimensions": {
+        "width": 1920,
+        "height": 1080
+      },
+      "folderId": "f_news",
+      "altText": "พิธีมอบปริญญาบัตร มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+      "description": "ภาพบรรยากาศพิธีประสาทปริญญาบัตร นิสิตระดับปริญญาตรี โท และเอก",
+      "tags": [
+        "พิธีพระราชทานปริญญาบัตร",
+        "ข่าวประชาสัมพันธ์",
+        "มจร"
+      ],
+      "storageProvider": "local",
+      "isCompressed": true,
+      "originalSize": 2450000,
+      "compressionRatio": 65,
+      "createdAt": "2026-01-15T10:30:00.000Z"
+    },
+    {
+      "id": "m_2",
+      "filename": "รูปประจำตัว_พระครูวิสุทธิ์พัชโรทัย.jpg",
+      "originalFilename": "monk_profile_hd.png",
+      "path": "/uploads/2026/01/monk_profile.jpg",
+      "url": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200",
+      "mimeType": "image/jpeg",
+      "fileType": "image",
+      "size": 312000,
+      "formattedSize": "304 KB",
+      "dimensions": {
+        "width": 800,
+        "height": 800
+      },
+      "folderId": "f_personnel",
+      "altText": "พระครูศรีพัชโรทัย, ดร. ผู้อำนวยการวิทยาลัยสงฆ์พ่อขุนผาเมือง",
+      "description": "ภาพประจำตัวสำหรับการเผยแพร่ข้อมูลบุคลากรและทำเนียบผู้บริหาร",
+      "tags": [
+        "ผู้บริหาร",
+        "อาจารย์",
+        "บุคลากร"
+      ],
+      "storageProvider": "local",
+      "isCompressed": true,
+      "originalSize": 980000,
+      "compressionRatio": 68,
+      "createdAt": "2026-01-12T09:15:00.000Z"
+    },
+    {
+      "id": "m_3",
+      "filename": "คู่มือการลงทะเบียนเรียนและคู่มือนิสิต_2569.pdf",
+      "originalFilename": "student_guidebook_2569.pdf",
+      "path": "/uploads/2026/01/student_guidebook_2569.pdf",
+      "url": "/uploads/2026/01/student_guidebook_2569.pdf",
+      "mimeType": "application/pdf",
+      "fileType": "document",
+      "size": 3450000,
+      "formattedSize": "3.2 MB",
+      "folderId": "f_documents",
+      "altText": "คู่มือนิสิต ประจำปีการศึกษา 2569",
+      "description": "เอกสารคู่มือแนะนำหลักสูตร กฎระเบียบ ข้อบังคับ และขั้นตอนการลงทะเบียน",
+      "tags": [
+        "คู่มือนิสิต",
+        "ดาวน์โหลด",
+        "งานทะเบียน"
+      ],
+      "storageProvider": "local",
+      "isCompressed": false,
+      "originalSize": 3450000,
+      "compressionRatio": 0,
+      "createdAt": "2026-02-01T14:00:00.000Z"
+    },
+    {
+      "id": "m_4",
+      "filename": "แบนเนอร์ประชาสัมพันธ์เปิดรับสมัครนิสิตใหม่_2569.png",
+      "originalFilename": "admission_banner_2569.png",
+      "path": "/uploads/2026/01/admission_banner_2569.png",
+      "url": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1200",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=300",
+      "mimeType": "image/png",
+      "fileType": "image",
+      "size": 1250000,
+      "formattedSize": "1.19 MB",
+      "dimensions": {
+        "width": 1920,
+        "height": 600
+      },
+      "folderId": "f_banners",
+      "altText": "แบนเนอร์รับสมัครนิสิตใหม่ ปริญญาตรี-โท-เอก ประจำปี 2569",
+      "description": "ภาพแบนเนอร์ใหญ่สไลด์หน้าแรก เว็บไซต์วิทยาลัยสงฆ์พ่อขุนผาเมือง",
+      "tags": [
+        "แบนเนอร์",
+        "รับสมัคร",
+        "ปี2569"
+      ],
+      "storageProvider": "local",
+      "isCompressed": true,
+      "originalSize": 3800000,
+      "compressionRatio": 67,
+      "createdAt": "2026-02-10T11:20:00.000Z"
+    },
+    {
+      "id": "m_5",
+      "filename": "รายงานวิจัย_การพัฒนาคุณธรรมจริยธรรมในยุคดิจิทัล.pdf",
+      "originalFilename": "research_morality_digital.pdf",
+      "path": "/uploads/2026/01/research_morality_digital.pdf",
+      "url": "/uploads/2026/01/research_morality_digital.pdf",
+      "mimeType": "application/pdf",
+      "fileType": "document",
+      "size": 5200000,
+      "formattedSize": "4.9 MB",
+      "folderId": "f_academic",
+      "altText": "งานวิจัยการพัฒนาคุณธรรมจริยธรรมดิจิทัล",
+      "description": "รายงานฉบับสมบูรณ์ โครงการวิจัยเพื่อพัฒนานวัตกรรมส่งเสริมธรรมะและจริยธรรม",
+      "tags": [
+        "งานวิจัย",
+        "ผลงานวิชาการ",
+        "พุทธศาสนา"
+      ],
+      "storageProvider": "local",
+      "isCompressed": false,
+      "originalSize": 5200000,
+      "compressionRatio": 0,
+      "createdAt": "2026-03-05T16:45:00.000Z"
+    }
+  ],
+  "roles": [],
+  "permissions": [],
+  "role_permissions": [],
+  "user_roles": [],
+  "pages": [],
+  "page_revisions": [],
+  "menu_items": [],
+  "posts": [
+    {
+      "id": "n1",
+      "title": "เปิดรับสมัครนิสิตใหม่ระดับปริญญาตรี ปริญญาโท และปริญญาเอก ประจำปีการศึกษา 2569",
+      "titleEn": "Admissions Open for Undergraduate, Postgraduate and Doctoral Programs for Academic Year 2026",
+      "slug": "admissions-open-academic-year-2569",
+      "category": "cat_admission",
+      "categoryLabel": "ข่าวการรับสมัคร",
+      "tags": [
+        "รับสมัคร2569",
+        "ทุนการศึกษา",
+        "เพชรบูรณ์"
+      ],
+      "isFeatured": true,
+      "date": "2569-07-15",
+      "publishedAt": "2026-07-15T09:00:00.000Z",
+      "scheduledAt": "",
+      "expiredAt": "2026-10-31T23:59:59.000Z",
+      "excerpt": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย ประกาศเปิดรับสมัครบุคคลเข้าศึกษาต่อประจำปีการศึกษา 2569 โดยครอบคลุมทั้งบรรพชิตและคฤหัสถ์",
+      "content": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย ประกาศเปิดรับสมัครบุคคลเพื่อเข้าศึกษาต่อในระดับปริญญาตรี ปริญญาโท ปริญญาเอก และหลักสูตรประกาศนียบัตร ประจำปีการศึกษา 2569 โดยเปิดรับทั้งบรรพชิต (พระภิกษุ สามเณร) และคฤหัสถ์ (ประชาชนทั่วไป) โดยมุ่งเน้นการเสริมสร้างคุณธรรมความรู้ ทักษะทางวิชาการ และการฝึกปฏิบัติกรรมฐานอย่างถูกต้องสมบูรณ์ สามารถดาวน์โหลดคู่มือผู้สมัครและส่งใบสมัครได้ผ่านระบบทะเบียนออนไลน์ ได้รับการส่งเสริมทุนวิชาการสำหรับพระสังฆาธิการและสามเณรตลอดหลักสูตร\n\nการศึกษาเน้นสร้างปัญญาและศีลธรรม พร้อมสิ่งอำนวยความสะดวก อาคารเรียนรู้เทคโนโลยี และหอพักนิสิต",
+      "imageUrl": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=800",
+      "albumTitle": "ภาพบรรยากาศเปิดบ้านรับสมัครนิสิตใหม่ และห้องปฏิบัติการเรียนรู้",
+      "galleryUrls": [
+        "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&q=80&w=800"
+      ],
+      "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "attachmentUrl": "https://drive.google.com/file/d/10e8W8J9rRFM3Yh5-4AHlww-HyQRzuFaV/view?usp=drive_link",
+      "attachmentName": "คู่มือการสมัครเรียนประจำปีการศึกษา_2569.pdf",
+      "attachments": [
+        {
+          "id": "att1",
+          "name": "คู่มือการสมัครเรียนประจำปีการศึกษา_2569.pdf",
+          "url": "#",
+          "size": "1.8 MB",
+          "format": "PDF"
+        },
+        {
+          "id": "att2",
+          "name": "แบบฟอร์มคำขอรับทุนการศึกษาพระภิกษุสามเณร.docx",
+          "url": "#",
+          "size": "340 KB",
+          "format": "DOCX"
+        }
+      ],
+      "authorName": "งานประชาสัมพันธ์ วิทยาลัยสงฆ์พ่อขุนผาเมือง",
+      "authorRole": "เจ้าหน้าที่ประชาสัมพันธ์",
+      "status": "Published",
+      "viewCount": 384,
+      "relatedNewsIds": [
+        "n2",
+        "n3"
+      ],
+      "seoTitle": "เปิดรับสมัครนิสิตใหม่ 2569 | วิทยาลัยสงฆ์พ่อขุนผาเมือง มจร",
+      "seoDescription": "สมัครเรียนปริญญาตรี โท เอก มหาจุฬาลงกรณราชวิทยาลัย เพชรบูรณ์ บรรพชิตและประชาชนทั่วไป",
+      "seoKeywords": "รับสมัครนิสิตใหม่, มจร เพชรบูรณ์, วิทยาลัยสงฆ์พ่อขุนผาเมือง, เรียนต่อปริญญาตรี",
+      "createdAt": "2026-07-15T08:00:00.000Z",
+      "updatedAt": "2026-07-15T09:00:00.000Z"
+    },
+    {
+      "id": "n2",
+      "title": "ขอเชิญร่วมงานสัมมนาวิชาการระดับชาติ 'พุทธธรรมกับนวัตกรรมทางสังคมและรัฐประศาสนศาสตร์'",
+      "titleEn": "National Academic Conference on Buddhism, Social Innovation and Public Administration",
+      "slug": "national-academic-conference-buddhism-social-innovation-2569",
+      "category": "cat_academic",
+      "categoryLabel": "ข่าววิชาการ",
+      "tags": [
+        "วิชาการ",
+        "สัมมนา"
+      ],
+      "isFeatured": true,
+      "date": "2569-07-10",
+      "publishedAt": "2026-07-10T10:00:00.000Z",
+      "scheduledAt": "",
+      "expiredAt": "",
+      "excerpt": "ฝ่ายวิชาการและการวิจัย ขอเชิญคณาจารย์ นิสิตนักศึกษา และผู้สนใจร่วมงานประชุมวิชาการระดับท้องถิ่นและระดับชาติ เพื่อการพัฒนาที่ยั่งยืน",
+      "content": "ฝ่ายวิชาการและการวิจัย วิทยาลัยสงฆ์พ่อขุนผาเมือง ขอเรียนเชิญคณาจารย์ นักวิจัย นิสิตนักศึกษา และประชาชนทั่วไป เข้าร่วมการสัมมนาวิชาการระดับชาติ ประจำปี 2569 เพื่อนำเสนอบทความวิชาการ บทความวิจัยในหลากหลายศาสตร์ที่บูรณาการกับหลักธรรมทางพระพุทธศาสนา เพื่อผลักดันความรู้ใหม่สู่นวัตกรรมสังคม ท้องถิ่น และการบริหารกิจการภาครัฐ ในงานจะมีปาฐกถาพิเศษโดยวิทยากรผู้ทรงคุณวุฒิระดับชาติและพิธีมอบรางวัลงานวิจัยดีเด่น",
+      "imageUrl": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=800",
+      "albumTitle": "ภาพบรรยากาศการสัมมนาวิชาการปีที่ผ่านมา",
+      "galleryUrls": [
+        "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800"
+      ],
+      "videoUrl": "",
+      "attachments": [
+        {
+          "id": "att3",
+          "name": "กำหนดการสัมมนาวิชาการระดับชาติ_2569.pdf",
+          "url": "#",
+          "size": "820 KB",
+          "format": "PDF"
+        }
+      ],
+      "authorName": "ฝ่ายวิชาการและงานวิจัย",
+      "authorRole": "ผู้ช่วยผู้อำนวยการฝ่ายวิชาการ",
+      "status": "Published",
+      "viewCount": 215,
+      "relatedNewsIds": [
+        "n1"
+      ],
+      "seoTitle": "สัมมนาวิชาการระดับชาติ พุทธธรรมและนวัตกรรมสังคม | มจร",
+      "seoDescription": "การประชุมสัมมนาวิชาการระดับชาติ มอบรางวัลงานวิจัยดีเด่นและนำเสนอบทความวิจัย",
+      "seoKeywords": "งานวิจัยมจร, สัมมนาวิชาการ, พุทธศาสนิกชน, เพชรบูรณ์",
+      "createdAt": "2026-07-10T09:00:00.000Z",
+      "updatedAt": "2026-07-10T10:00:00.000Z"
+    },
+    {
+      "id": "n3",
+      "title": "โครงการอบรมเชิงปฏิบัติการการพัฒนาทักษะดิจิทัลเพื่อการเผยแผ่พระพุทธศาสนา",
+      "titleEn": "Workshop on Digital Skills for Propagation of Buddhism",
+      "slug": "digital-skills-workshop-buddhism-propagation",
+      "category": "cat_activity",
+      "categoryLabel": "กิจกรรมวิทยาลัย",
+      "tags": [
+        "กิจกรรมนิสิต",
+        "เพชรบูรณ์"
+      ],
+      "isFeatured": false,
+      "date": "2569-07-20",
+      "publishedAt": "",
+      "scheduledAt": "2026-08-01T08:00:00.000Z",
+      "expiredAt": "",
+      "excerpt": "อบรมเชิงปฏิบัติการเพื่อเสริมสร้างศักยภาพพระสังฆาธิการและนิสิตในการใช้สื่อดิจิทัลเพื่อการสื่อสารธรรมะอย่างสร้างสรรค์",
+      "content": "วิทยาลัยสงฆ์พ่อขุนผาเมือง จัดโครงการอบรมการใช้เทคโนโลยีสารสนเทศ การตัดต่อวิดีโออย่างง่าย การผลิตสื่ออินโฟกราฟิกธรรมะ และการจัดการเนื้อหาสื่อออนไลน์ เพื่อสร้างศาสนบุคลากรยุคดิจิทัลที่มีความรู้ความเข้าใจ และสื่อสารธรรมะเข้าถึงคนรุ่นใหม่",
+      "imageUrl": "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800",
+      "galleryUrls": [
+        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=800",
+        "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=800"
+      ],
+      "authorName": "สโมสรนิสิต มจร เพชรบูรณ์",
+      "authorRole": "นายกสโมสรนิสิต",
+      "status": "Scheduled",
+      "viewCount": 42,
+      "seoTitle": "อบรมทักษะดิจิทัลเผยแผ่ธรรมะ | มจร เพชรบูรณ์",
+      "seoDescription": "การพัฒนาทักษะการผลิตสื่อดิจิทัลและการสื่อสารธรรมะ",
+      "seoKeywords": "ดิจิทัลธรรมะ, สื่อออนไลน์, อบรมพระสังฆาธิการ",
+      "createdAt": "2026-07-20T08:00:00.000Z",
+      "updatedAt": "2026-07-20T08:00:00.000Z"
+    },
+    {
+      "id": "n4",
+      "title": "รายงานผลการดำเนินงานโครงการบริการวิชาการแก่สังคม ประจำปี 2568 (ร่างรอการอนุมัติ)",
+      "titleEn": "Academic Social Service Annual Report 2025 (Draft)",
+      "slug": "academic-social-service-report-2025-draft",
+      "category": "cat_academic",
+      "categoryLabel": "ข่าววิชาการ",
+      "tags": [
+        "วิชาการ"
+      ],
+      "isFeatured": false,
+      "date": "2569-07-21",
+      "publishedAt": "",
+      "scheduledAt": "",
+      "expiredAt": "",
+      "excerpt": "สรุปโครงการส่งเสริมคุณธรรมและพัฒนาคุณภาพชีวิตชุมชนในเขตจังหวัดเพชรบูรณ์",
+      "content": "เนื้อหารายงานผลการให้บริการวิชาการแก่ชุมชน ท้องถิ่น และศาสนสถานประจำปี อยู่ระหว่างการตรวจทานโดยคณะกรรมการวิชาการวิทยาลัย",
+      "imageUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800",
+      "galleryUrls": [],
+      "authorName": "ผศ.ดร.อัครเดช บุนนาค",
+      "authorRole": "รองผู้อำนวยการฝ่ายวิชาการ",
+      "status": "Pending Review",
+      "viewCount": 12,
+      "seoTitle": "รายงานการบริการวิชาการแก่สังคม 2568",
+      "seoDescription": "สรุปโครงการบริการวิชาการ มจร เพชรบูรณ์",
+      "createdAt": "2026-07-21T02:00:00.000Z",
+      "updatedAt": "2026-07-21T02:00:00.000Z"
+    }
+  ],
+  "post_categories": [],
+  "post_tags": [],
+  "post_tag_relations": [],
+  "admissions": [
+    {
+      "id": "adm_1",
+      "title": "โครงการรับสมัครนิสิตใหม่ ระดับปริญญาตรี (ภาคปกติและภาคพิเศษ) ประจำปีการศึกษา 2569",
+      "academicYear": "2569",
+      "degreeLevel": "ปริญญาตรี",
+      "startDate": "2568-11-01",
+      "endDate": "2569-05-31",
+      "status": "open",
+      "description": "เปิดรับสมัครผู้สำเร็จการศึกษาระดับ ม.6 / ปธ.3 หรือเทียบเท่า เข้าศึกษาต่อสาขาวิชาพระพุทธศาสนา และสาขาวิชาการจัดการเชิงพุทธ",
+      "quota": 120,
+      "fee": "ฟรีค่าธรรมเนียมสมัคร",
+      "createdAt": "2026-07-01T00:00:00.000Z"
+    }
+  ],
+  "activity_logs": [
+    {
+      "id": "log_1784688813146_587",
+      "username": "admin",
+      "action": "Login",
+      "module": "Authentication",
+      "details": "User logged in successfully",
+      "timestamp": "2026-07-22T02:53:33.146Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "log_1784683290121_610",
+      "username": "admin",
+      "action": "Logout",
+      "module": "Authentication",
+      "details": "User logged out",
+      "timestamp": "2026-07-22T01:21:30.121Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "log_1784683172855_441",
+      "username": "admin",
+      "action": "Login",
+      "module": "Authentication",
+      "details": "User logged in successfully",
+      "timestamp": "2026-07-22T01:19:32.855Z",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "log_1",
+      "username": "system",
+      "action": "Initialization",
+      "module": "System",
+      "details": "Database initialized with secure seed data",
+      "timestamp": "2026-07-21T12:00:00.000Z",
+      "ip": "127.0.0.1"
+    }
+  ],
+  "login_logs": [
+    {
+      "id": "log_hist_1784734426915_919",
+      "userId": "u1",
+      "username": "akkharadet",
+      "timestamp": "2026-07-22T15:33:46.915Z",
+      "ip": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "device": "Windows PC",
+      "status": "failed_password"
+    }
+  ],
+  "login_history": [
+    {
+      "id": "log_hist_1784975488377_960",
+      "userId": "unknown",
+      "username": "superadmin",
+      "timestamp": "2026-07-25T10:31:28.377Z",
+      "ip": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0",
+      "device": "Windows PC",
+      "status": "failed_password"
+    },
+    {
+      "id": "log_hist_1784734426915_919",
+      "userId": "u1",
+      "username": "akkharadet",
+      "timestamp": "2026-07-22T15:33:46.915Z",
+      "ip": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "device": "Windows PC",
+      "status": "failed_password"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif_1785052284187",
+      "title": "📩 มีข้อความติดต่อใหม่จากผู้เข้าชม",
+      "message": "คุณ พระสมชาย ญาณวโร ติดต่อเรื่อง \"สอบถามเรื่องการยื่นสมัครเรียนและเอกสารประกอบ\" (ฝ่ายบริการประสานงาน)",
+      "createdAt": "2026-07-26T07:51:24.187Z",
+      "read": false,
+      "type": "message",
+      "link": "/admin/messages"
+    },
+    {
+      "id": "notif_seed_1",
+      "type": "pending_review",
+      "title": "มีเนื้อหาใหม่รอการตรวจสอบอนุมัติ",
+      "message": "อาจารย์ ดร. สมชาย เพิ่มบทความ \"ผลงานวิจัยธรรมะประยุกต์ยุคดิจิทัล\" รอการตรวจสอบเนื้อหาจากผู้ดูแลระบบ",
+      "severity": "warning",
+      "sourceType": "academic",
+      "sourceId": "ac_101",
+      "link": "/admin?tab=academic",
+      "targetRoles": [
+        "Super Admin",
+        "Admin",
+        "Editor"
+      ],
+      "isRead": false,
+      "createdAt": "2026-07-22T15:03:46.915Z",
+      "emailStatus": "queued",
+      "emailRecipient": "editor.mbc@mcu.ac.th",
+      "emailTemplateId": "tpl_pending_review"
+    },
+    {
+      "id": "notif_seed_2",
+      "type": "approved",
+      "title": "เนื้อหาข่าวสารได้รับการอนุมัติแล้ว",
+      "message": "ข่าว \"พิธีไหว้ครูประเพณี ประจำปีการศึกษา 2569\" ผ่านการอนุมัติและเผยแพร่ลงหน้าเว็บไซต์เรียบร้อยแล้ว",
+      "severity": "success",
+      "sourceType": "news",
+      "sourceId": "news_202",
+      "link": "/admin?tab=news",
+      "targetRoles": [
+        "Author",
+        "Editor"
+      ],
+      "isRead": false,
+      "createdAt": "2026-07-22T13:33:46.915Z",
+      "emailStatus": "sent",
+      "emailSentAt": "2026-07-22T13:35:46.915Z",
+      "emailRecipient": "author.mbc@mcu.ac.th",
+      "emailTemplateId": "tpl_content_approved"
+    },
+    {
+      "id": "notif_seed_3",
+      "type": "returned_for_revision",
+      "title": "เนื้อหาประกาศถูกส่งกลับแก้ไข",
+      "message": "ประกาศ \"กำหนดการลงทะเบียนเรียนภาคค่ำ\" ถูกส่งกลับเนื่องจากรูปแบบไฟล์ PDF แนบไม่ชัดเจน",
+      "severity": "error",
+      "sourceType": "announcement",
+      "sourceId": "anc_303",
+      "link": "/admin?tab=announcements",
+      "targetRoles": [
+        "Author",
+        "Editor"
+      ],
+      "isRead": false,
+      "createdAt": "2026-07-22T11:33:46.915Z",
+      "emailStatus": "sent",
+      "emailSentAt": "2026-07-22T11:38:46.915Z",
+      "emailRecipient": "staff.mbc@mcu.ac.th",
+      "emailTemplateId": "tpl_returned_revision"
+    },
+    {
+      "id": "notif_seed_4",
+      "type": "expiring_soon",
+      "title": "ประกาศเรื่องทุนการศึกษาใกล้หมดอายุ",
+      "message": "ประกาศ \"ทุนการศึกษาเฉลิมพระเกียรติ ประจำปี 2569\" จะหมดอายุการแสดงผลในอีก 2 วัน",
+      "severity": "warning",
+      "sourceType": "announcement",
+      "sourceId": "anc_404",
+      "link": "/admin?tab=announcements",
+      "targetRoles": [
+        "Super Admin",
+        "Admin",
+        "Editor"
+      ],
+      "isRead": false,
+      "createdAt": "2026-07-22T09:33:46.915Z",
+      "emailStatus": "queued",
+      "emailRecipient": "admin.mbc@mcu.ac.th",
+      "emailTemplateId": "tpl_expiring_soon"
+    },
+    {
+      "id": "notif_seed_5",
+      "type": "admission_closing",
+      "title": "โครงการรับสมัครนิสิตระดับปริญญาตรี ใกล้ปิดรับสมัคร",
+      "message": "โครงการรับสมัครนิสิตใหม่ รอบที่ 1 (TCAS69) จะปิดรับสมัครในวันที่ 25 กรกฎาคม 2569 นี้",
+      "severity": "warning",
+      "sourceType": "admission",
+      "sourceId": "adm_505",
+      "link": "/admin?tab=admission_manager",
+      "targetRoles": [
+        "Super Admin",
+        "Admin"
+      ],
+      "isRead": false,
+      "createdAt": "2026-07-22T07:13:46.915Z",
+      "emailStatus": "queued",
+      "emailRecipient": "academic.mbc@mcu.ac.th",
+      "emailTemplateId": "tpl_admission_closing"
+    },
+    {
+      "id": "notif_seed_6",
+      "type": "event_upcoming",
+      "title": "กิจกรรมเสวนาพระพุทธศาสนาใกล้ถึงวันจัดงาน",
+      "message": "กิจกรรม \"สัมมนาวิชาการพระไตรปิฎกศึกษา\" จะจัดขึ้นในวันที่ 28 กรกฎาคม 2569 ณ หอประชุมสถาบัน",
+      "severity": "info",
+      "sourceType": "event",
+      "sourceId": "ev_606",
+      "link": "/admin?tab=events",
+      "targetRoles": [
+        "Super Admin",
+        "Admin",
+        "Editor"
+      ],
+      "isRead": true,
+      "readAt": "2026-07-22T05:33:46.915Z",
+      "createdAt": "2026-07-22T03:53:46.915Z",
+      "emailStatus": "sent",
+      "emailSentAt": "2026-07-22T04:03:46.915Z",
+      "emailRecipient": "events.mbc@mcu.ac.th",
+      "emailTemplateId": "tpl_event_upcoming"
+    },
+    {
+      "id": "notif_seed_7",
+      "type": "failed_logins",
+      "title": "ตรวจพบการกรอกรหัสผ่านผิดหลายครั้ง",
+      "message": "IP 182.52.12.99 พยายามเข้าสู่ระบบด้วยชื่อผู้ใช้ \"editor_test\" ผิดพลาดติดต่อกัน 5 ครั้ง (ระบบบล็อก IP ชั่วคราว)",
+      "severity": "error",
+      "sourceType": "security",
+      "sourceId": "sec_707",
+      "link": "/admin?tab=users_rbac",
+      "targetRoles": [
+        "Super Admin",
+        "Admin"
+      ],
+      "isRead": false,
+      "createdAt": "2026-07-22T15:18:46.915Z",
+      "emailStatus": "queued",
+      "emailRecipient": "security.mbc@mcu.ac.th",
+      "emailTemplateId": "tpl_failed_logins"
+    },
+    {
+      "id": "notif_seed_8",
+      "type": "critical_setting_changed",
+      "title": "มีการแก้ไขข้อมูลการตั้งค่าความปลอดภัยระบบ",
+      "message": "ผู้ดูแลระบบ Super Admin ได้ทำการปรับเปลี่ยนพารามิเตอร์ SMTP และนโยบายการล็อกเอาต์ผู้ใช้งาน",
+      "severity": "warning",
+      "sourceType": "settings",
+      "sourceId": "set_808",
+      "link": "/admin?tab=settings",
+      "targetRoles": [
+        "Super Admin"
+      ],
+      "isRead": true,
+      "readAt": "2026-07-21T22:53:46.915Z",
+      "createdAt": "2026-07-21T19:33:46.915Z",
+      "emailStatus": "sent",
+      "emailSentAt": "2026-07-21T19:43:46.915Z",
+      "emailRecipient": "superadmin.mbc@mcu.ac.th",
+      "emailTemplateId": "tpl_critical_settings"
+    },
+    {
+      "id": "notif_seed_9",
+      "type": "upload_failed",
+      "title": "มีไฟล์อัปโหลดล้มเหลว (Upload Failure)",
+      "message": "ผู้ใช้พยายามอัปโหลดไฟล์ \"annual_report_2026.pdf\" แต่ขนาดไฟล์เกินขีดจำกัดที่กำหนด (15MB > 10MB)",
+      "severity": "error",
+      "sourceType": "upload",
+      "sourceId": "up_909",
+      "link": "/admin?tab=media",
+      "targetRoles": [
+        "Super Admin",
+        "Admin",
+        "Editor"
+      ],
+      "isRead": false,
+      "createdAt": "2026-07-22T14:48:46.915Z",
+      "emailStatus": "failed",
+      "emailError": "SMTP server response code 550 - recipient address rejected",
+      "emailRecipient": "admin.mbc@mcu.ac.th",
+      "emailTemplateId": "tpl_upload_failed"
+    }
+  ],
+  "trash_items": [],
+  "content_revisions": [],
+  "sessions": [
+    {
+      "id": "sess_1784735085145_3125",
+      "token": "06191c71fb30c9cd36dc235e74f3a0624aa6eaba55bbd8d75630fdaf588c0c9e",
+      "userId": "u1",
+      "username": "admin",
+      "role": "Super Admin",
+      "name": "พระมหาสมชาย สุขจิตฺโต (Super Admin)",
+      "email": "superadmin@mcu.ac.th",
+      "createdAt": "2026-07-22T15:44:45.145Z",
+      "lastActiveAt": 1784735085145,
+      "expiresAt": 1784821485145,
+      "ip": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "device": "Desktop PC",
+      "customPermissions": [
+        "view",
+        "create",
+        "edit_own",
+        "edit_all",
+        "delete",
+        "publish",
+        "approve",
+        "export",
+        "manage_users",
+        "manage_settings"
+      ],
+      "permissions": [
+        "view",
+        "create",
+        "edit_own",
+        "edit_all",
+        "delete",
+        "publish",
+        "approve",
+        "export",
+        "manage_users",
+        "manage_settings"
+      ]
+    },
+    {
+      "id": "sess_1784814448602_2470",
+      "token": "93b319016aa801d2ed23709fb884448df7b9801d34b269864895020a0bcd739b",
+      "userId": "u1",
+      "username": "admin",
+      "role": "Super Admin",
+      "name": "พระมหาสมชาย สุขจิตฺโต (Super Admin)",
+      "email": "superadmin@mcu.ac.th",
+      "createdAt": "2026-07-23T13:47:28.602Z",
+      "lastActiveAt": 1784814448602,
+      "expiresAt": 1784900848602,
+      "ip": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "device": "Desktop PC",
+      "customPermissions": [
+        "view",
+        "create",
+        "edit_own",
+        "edit_all",
+        "delete",
+        "publish",
+        "approve",
+        "export",
+        "manage_users",
+        "manage_settings"
+      ],
+      "permissions": [
+        "view",
+        "create",
+        "edit_own",
+        "edit_all",
+        "delete",
+        "publish",
+        "approve",
+        "export",
+        "manage_users",
+        "manage_settings"
+      ]
+    }
+  ],
+  "backups": [],
+  "applicantCounter": 69001,
+  "messages": [
+    {
+      "id": "msg_1785052284187",
+      "name": "พระสมชาย ญาณวโร",
+      "email": "somchai@mcu.ac.th",
+      "phone": "081-462-5663",
+      "subject": "สอบถามเรื่องการยื่นสมัครเรียนและเอกสารประกอบ",
+      "message": "ต้องการสอบถามว่าการส่งข้อความติดต่อฝ่ายบริการประสานงานสามารถใช้งานได้จริงหรือไม่",
+      "department": "ฝ่ายบริการประสานงาน",
+      "createdAt": "2026-07-26T07:51:24.187Z",
+      "status": "read",
+      "readAt": "2026-07-26T08:01:46.264Z"
+    }
+  ]
+}

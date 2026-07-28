@@ -1,0 +1,6 @@
+{
+  "name": "วิทยาลัยสงฆ์พ่อขุนผาเมือง",
+  "description": "เว็บไซต์อย่างเป็นทางการ วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
