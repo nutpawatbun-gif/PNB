@@ -183,6 +183,69 @@ export default function AdminPage({ lang, onBackToHome }: AdminPageProps) {
     return () => window.removeEventListener('mcu_auth_unauthorized', handleUnauthorized);
   }, [activeTab]);
 
+  useEffect(() => {
+    if (isAuthenticated) return;
+
+    const googleClientId = "413695280817-6l30v8hn7iitikrf4lo3djvt3c7agt38.apps.googleusercontent.com";
+
+    const handleGoogleCallback = async (response: any) => {
+      if (!response || !response.credential) return;
+      setLoading(true);
+      setLoginError('');
+
+      try {
+        const res = await api.googleLogin(response.credential);
+        if (res && res.token && res.user) {
+          setIsAuthenticated(true);
+          setUser(res.user);
+          setActiveTab('dashboard');
+          triggerToast('เข้าสู่ระบบด้วย Google SSO (@mcu.ac.th) สำเร็จ', 'success');
+        } else if (res && res.status === 'pending') {
+          setLoginError(res.message || 'ลงทะเบียนด้วยบัญชี Google (@mcu.ac.th) สำเร็จแล้ว! บัญชีของคุณอยู่ในระหว่างรอการอนุมัติสิทธิ์จาก Super Admin');
+        } else {
+          setLoginError(res.message || 'เกิดข้อผิดพลาดในการยืนยันตัวตนด้วย Google');
+        }
+      } catch (err: any) {
+        console.error('Google SSO login error:', err);
+        setLoginError(err.message || 'เกิดข้อผิดพลาดในการยืนยันตัวตนด้วย Google');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const initGoogleBtn = () => {
+      if ((window as any).google?.accounts?.id) {
+        (window as any).google.accounts.id.initialize({
+          client_id: googleClientId,
+          callback: handleGoogleCallback,
+          hosted_domain: 'mcu.ac.th'
+        });
+        const btnElem = document.getElementById('g_id_onload_admin_page');
+        if (btnElem) {
+          (window as any).google.accounts.id.renderButton(btnElem, {
+            theme: 'filled_blue',
+            size: 'large',
+            width: '100%',
+            text: 'signin_with',
+            logo_alignment: 'left',
+            locale: 'th'
+          });
+        }
+      }
+    };
+
+    if (!(window as any).google) {
+      const script = document.createElement('script');
+      script.src = 'https://accounts.google.com/gsi/client';
+      script.async = true;
+      script.defer = true;
+      script.onload = () => setTimeout(initGoogleBtn, 100);
+      document.head.appendChild(script);
+    } else {
+      setTimeout(initGoogleBtn, 100);
+    }
+  }, [isAuthenticated]);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!username || !password) {
@@ -521,94 +584,124 @@ export default function AdminPage({ lang, onBackToHome }: AdminPageProps) {
             </form>
           ) : (
             /* 4. STANDARD LOGIN SCREEN WITH BRUTE-FORCE & CAPTCHA */
-            <form className="mt-8 space-y-6" onSubmit={handleLogin}>
-              {loginError && (
-                <div className="bg-red-50 border border-red-100 text-red-700 p-3 rounded-lg text-xs flex items-center space-x-2 animate-pulse">
-                  <AlertCircle size={18} className="shrink-0" />
-                  <span>{loginError}</span>
-                </div>
-              )}
-
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-xs font-semibold text-gray-500 uppercase mb-2">
-                    อีเมล หรือ ชื่อผู้ใช้งาน / Email or Username
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-1 focus:ring-mcu-pink-deep outline-hidden"
-                    placeholder="เช่น admin หรือ admin@mcu.ac.th"
-                  />
-                </div>
-
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <label className="block text-xs font-semibold text-gray-500 uppercase">
-                      รหัสผ่าน / Password
-                    </label>
-                    <button
-                      type="button"
-                      onClick={() => setAuthMode('forgot')}
-                      className="text-xs text-mcu-pink hover:underline font-medium"
-                    >
-                      ลืมรหัสผ่าน?
-                    </button>
-                  </div>
-                  <input
-                    type="password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-1 focus:ring-mcu-pink-deep outline-hidden"
-                    placeholder="••••••••"
-                  />
-                </div>
-
-                {/* CAPTCHA CHALLENGE INPUT */}
-                {requiresCaptcha && captchaChallenge && (
-                  <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl space-y-2 animate-fadeIn">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-amber-800 flex items-center gap-1">
-                        <ShieldCheck size={16} /> ระบบรักษาความปลอดภัย CAPTCHA
-                      </span>
-                      <span className="text-[10px] bg-amber-200 text-amber-900 font-bold px-2 py-0.5 rounded-md">
-                        {captchaChallenge.question}
-                      </span>
+            <div className="mt-8 space-y-6">
+              {/* Google Workspace SSO Primary Button Container */}
+              <div className="p-4 bg-gradient-to-br from-slate-900 via-slate-800 to-mcu-pink-deep rounded-2xl border border-slate-700 text-white space-y-2.5 shadow-md">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center font-bold text-xs shadow-xs">
+                      <span className="text-blue-600 font-black">G</span>
                     </div>
+                    <span className="font-extrabold text-xs tracking-wide">Google Workspace SSO (แนะนำ)</span>
+                  </div>
+                  <span className="text-[10px] text-amber-300 bg-black/40 px-2 py-0.5 rounded-full font-bold border border-amber-500/30">
+                    เฉพาะ @mcu.ac.th
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-200 font-light leading-relaxed">
+                  เข้าสู่ระบบหลังบ้านสะดวก รวดเร็ว ปลอดภัย ด้วยบัญชี Google มหาวิทยาลัย (ไม่ต้องใช้รหัสผ่าน)
+                </p>
+                <div className="pt-1 flex justify-center w-full min-h-[44px]">
+                  <div id="g_id_onload_admin_page" className="w-full"></div>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div className="relative flex py-1 items-center">
+                <div className="flex-grow border-t border-gray-200"></div>
+                <span className="flex-shrink mx-3 text-[11px] font-bold text-gray-400">หรือ ล็อกอินด้วยชื่อผู้ใช้</span>
+                <div className="flex-grow border-t border-gray-200"></div>
+              </div>
+
+              <form className="space-y-6" onSubmit={handleLogin}>
+                {loginError && (
+                  <div className="bg-red-50 border border-red-100 text-red-700 p-3 rounded-lg text-xs flex items-center space-x-2 animate-pulse">
+                    <AlertCircle size={18} className="shrink-0" />
+                    <span>{loginError}</span>
+                  </div>
+                )}
+
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-500 uppercase mb-2">
+                      อีเมล หรือ ชื่อผู้ใช้งาน / Email or Username
+                    </label>
                     <input
                       type="text"
                       required
-                      value={captchaAnswer}
-                      onChange={(e) => setCaptchaAnswer(e.target.value)}
-                      placeholder="พิมพ์ผลลัพธ์คำนวณ..."
-                      className="w-full px-3 py-2 bg-white border border-amber-300 rounded-lg text-xs font-bold focus:ring-1 focus:ring-amber-500 outline-hidden"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-1 focus:ring-mcu-pink-deep outline-hidden"
+                      placeholder="เช่น user@mcu.ac.th หรือ username"
                     />
                   </div>
-                )}
-              </div>
 
-              <div className="flex items-center justify-between text-xs text-gray-400">
-                <span>* บัญชีเริ่มต้น: admin / admin123</span>
-                <button 
-                  type="button" 
-                  onClick={onBackToHome}
-                  className="text-mcu-pink hover:underline flex items-center"
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <label className="block text-xs font-semibold text-gray-500 uppercase">
+                        รหัสผ่าน / Password
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => setAuthMode('forgot')}
+                        className="text-xs text-mcu-pink hover:underline font-medium"
+                      >
+                        ลืมรหัสผ่าน?
+                      </button>
+                    </div>
+                    <input
+                      type="password"
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="w-full px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-1 focus:ring-mcu-pink-deep outline-hidden"
+                      placeholder="••••••••"
+                    />
+                  </div>
+
+                  {/* CAPTCHA CHALLENGE INPUT */}
+                  {requiresCaptcha && captchaChallenge && (
+                    <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl space-y-2 animate-fadeIn">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-amber-800 flex items-center gap-1">
+                          <ShieldCheck size={16} /> ระบบรักษาความปลอดภัย CAPTCHA
+                        </span>
+                        <span className="text-[10px] bg-amber-200 text-amber-900 font-bold px-2 py-0.5 rounded-md">
+                          {captchaChallenge.question}
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        required
+                        value={captchaAnswer}
+                        onChange={(e) => setCaptchaAnswer(e.target.value)}
+                        placeholder="พิมพ์ผลลัพธ์คำนวณ..."
+                        className="w-full px-3 py-2 bg-white border border-amber-300 rounded-lg text-xs font-bold focus:ring-1 focus:ring-amber-500 outline-hidden"
+                      />
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex items-center justify-between text-xs text-gray-400">
+                  <span>* อนุญาตเฉพาะบุคลากรมหาวิทยาลัย (@mcu.ac.th)</span>
+                  <button 
+                    type="button" 
+                    onClick={onBackToHome}
+                    className="text-mcu-pink hover:underline flex items-center"
+                  >
+                    <ArrowLeft size={12} className="mr-1" /> กลับหน้าหลัก
+                  </button>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full flex justify-center py-3 px-4 rounded-xl shadow-sm text-sm font-bold text-white bg-mcu-pink hover:bg-mcu-pink-deep transition-all cursor-pointer"
                 >
-                  <ArrowLeft size={12} className="mr-1" /> กลับหน้าหลัก
+                  {loading ? 'กำลังเข้าสู่ระบบ...' : 'เข้าสู่ระบบ'}
                 </button>
-              </div>
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-mcu-pink hover:bg-mcu-pink-deep focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-mcu-pink transition-all"
-              >
-                {loading ? 'กำลังตรวจสอบสิทธิ์...' : 'เข้าสู่ระบบควบคุม'}
-              </button>
-            </form>
+              </form>
+            </div>
           )}
         </div>
       </div>

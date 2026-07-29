@@ -99,47 +99,55 @@ export const api = {
     );
   },
 
-  async login(identifier: string, password: string, captchaId?: string, captchaAnswer?: string) {
-    try {
-      const res = await apiFetch('/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ identifier, username: identifier, password, captchaId, captchaAnswer }),
-      });
-      const data = await handleResponse<{ 
-        token?: string; 
-        user?: any; 
-        mustChangePassword?: boolean;
-        requires2FA?: boolean;
-        temp2FAToken?: string;
-        message?: string;
-      }>(res);
+  async register(payload: { name: string; email: string; department?: string; requestedRole?: string; password?: string }) {
+    const res = await apiFetch('/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    return handleResponse<{ message: string; user: any }>(res);
+  },
 
-      if (data && data.token && data.user) {
-        localStorage.setItem('mcu_admin_token', data.token);
-        localStorage.setItem('mcu_admin_user', JSON.stringify(data.user));
-      }
-      return data;
-    } catch (err: any) {
-      // Fallback for demo login if API is unreachable or returns error on static host
-      if ((identifier === 'admin' || identifier === 'akkharadet' || identifier === 'siteadmin') && (password === 'admin123' || password === 'password')) {
-        const demoUser = {
-          id: "u1",
-          username: identifier,
-          name: "ผู้ดูแลระบบ (Super Admin)",
-          role: "Super Admin",
-          email: "admin@mcu.ac.th",
-          department: "สำนักวิชาการ",
-          status: "active",
-          customPermissions: ["view", "create", "edit_own", "edit_all", "delete", "publish", "approve", "export", "manage_users", "manage_settings"]
-        };
-        const demoToken = "mcu_demo_token_" + Date.now();
-        localStorage.setItem('mcu_admin_token', demoToken);
-        localStorage.setItem('mcu_admin_user', JSON.stringify(demoUser));
-        return { token: demoToken, user: demoUser, mustChangePassword: false };
-      }
-      throw err;
+  async login(identifier: string, password: string, captchaId?: string, captchaAnswer?: string) {
+    const res = await apiFetch('/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ identifier, username: identifier, password, captchaId, captchaAnswer }),
+    });
+    const data = await handleResponse<{ 
+      token?: string; 
+      user?: any; 
+      mustChangePassword?: boolean;
+      requires2FA?: boolean;
+      temp2FAToken?: string;
+      message?: string;
+    }>(res);
+
+    if (data && data.token && data.user) {
+      localStorage.setItem('mcu_admin_token', data.token);
+      localStorage.setItem('mcu_admin_user', JSON.stringify(data.user));
     }
+    return data;
+  },
+
+  async googleLogin(credential: string, requestedRole?: string) {
+    const res = await apiFetch('/auth/google', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ credential, requestedRole }),
+    });
+    const data = await handleResponse<{ 
+      token?: string; 
+      user?: any; 
+      status?: string;
+      message?: string;
+    }>(res);
+
+    if (data && data.token && data.user) {
+      localStorage.setItem('mcu_admin_token', data.token);
+      localStorage.setItem('mcu_admin_user', JSON.stringify(data.user));
+    }
+    return data;
   },
 
   async verify2FALogin(temp2FAToken: string, otpCode: string) {
@@ -1488,6 +1496,26 @@ export const api = {
       await fetch(`${API_BASE}/users/${id}`, {
         method: 'DELETE',
         headers: getHeaders()
+      })
+    );
+  },
+
+  async approveUser(id: string, role?: string, customPermissions?: string[]) {
+    return handleResponse<{ message: string; user: any }>(
+      await fetch(`${API_BASE}/users/${id}/approve`, {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify({ role, customPermissions })
+      })
+    );
+  },
+
+  async rejectUser(id: string, reason?: string) {
+    return handleResponse<{ message: string; user: any }>(
+      await fetch(`${API_BASE}/users/${id}/reject`, {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify({ reason })
       })
     );
   },

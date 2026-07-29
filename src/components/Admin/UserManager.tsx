@@ -40,9 +40,31 @@ interface UserManagerProps {
 export const UserManager: React.FC<UserManagerProps> = ({ currentUser, onNotify }) => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'users' | 'matrix' | 'logs' | 'database'>('users');
+  const [activeTab, setActiveTab] = useState<'users' | 'pending' | 'matrix' | 'logs' | 'database'>('users');
   const [searchQuery, setSearchQuery] = useState('');
   const [roleFilter, setRoleFilter] = useState<string>('all');
+  const [approvalRoleMap, setApprovalRoleMap] = useState<Record<string, RoleName>>({});
+
+  const handleApproveUser = async (user: User) => {
+    try {
+      const assignedRole = approvalRoleMap[user.id] || user.role || 'Editor';
+      await api.approveUser(user.id, assignedRole);
+      if (onNotify) onNotify(`อนุมัติสิทธิ์ให้ ${user.name} (${user.email}) เป็น ${assignedRole} เรียบร้อยแล้ว`, 'success');
+      fetchUsers();
+    } catch (err: any) {
+      if (onNotify) onNotify(err.message || 'เกิดข้อผิดพลาดในการอนุมัติผู้ใช้งาน', 'error');
+    }
+  };
+
+  const handleRejectUser = async (user: User) => {
+    try {
+      await api.rejectUser(user.id, 'Super Admin ปฏิเสธคำขอเข้าใช้งาน');
+      if (onNotify) onNotify(`ปฏิเสธคำขอเข้าใช้งานของ ${user.name} เรียบร้อยแล้ว`, 'success');
+      fetchUsers();
+    } catch (err: any) {
+      if (onNotify) onNotify(err.message || 'เกิดข้อผิดพลาดในการปฏิเสธคำขอ', 'error');
+    }
+  };
 
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -56,7 +78,7 @@ export const UserManager: React.FC<UserManagerProps> = ({ currentUser, onNotify 
     email: '',
     department: '',
     role: 'Editor' as RoleName,
-    status: 'active' as 'active' | 'inactive',
+    status: 'active' as 'active' | 'inactive' | 'pending' | 'rejected',
     customPermissions: [] as Permission[]
   });
 
@@ -310,7 +332,22 @@ export const UserManager: React.FC<UserManagerProps> = ({ currentUser, onNotify 
           }`}
         >
           <Users size={16} />
-          <span>ผู้ใช้งานและสิทธิ์เฉพาะบุคคล ({users.length})</span>
+          <span>ผู้ใช้งานระบบ ({users.filter(u => u.status !== 'pending').length})</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('pending')}
+          className={`flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all relative ${
+            activeTab === 'pending' ? 'bg-amber-600 text-white shadow-sm' : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+          }`}
+        >
+          <Clock size={16} />
+          <span>รอการอนุมัติสิทธิ์ (@mcu.ac.th)</span>
+          {users.filter(u => u.status === 'pending').length > 0 && (
+            <span className="ml-1 px-2 py-0.5 text-[10px] font-extrabold bg-rose-600 text-white rounded-full animate-pulse">
+              {users.filter(u => u.status === 'pending').length}
+            </span>
+          )}
         </button>
 
         <button
@@ -488,15 +525,132 @@ export const UserManager: React.FC<UserManagerProps> = ({ currentUser, onNotify 
                               </button>
                               <button
                                 onClick={() => handleDeleteUser(user)}
-                                disabled={user.username === 'admin' || user.id === currentUser?.id}
+                                disabled={user.role === 'Super Admin' || user.username === 'admin' || user.id === currentUser?.id}
                                 className={`p-1.5 rounded-lg transition-colors ${
-                                  user.username === 'admin' || user.id === currentUser?.id
-                                    ? 'text-gray-200 cursor-not-allowed'
+                                  user.role === 'Super Admin' || user.username === 'admin' || user.id === currentUser?.id
+                                    ? 'text-gray-200 cursor-not-allowed opacity-40'
                                     : 'text-gray-400 hover:text-red-600 hover:bg-red-50'
                                 }`}
-                                title="ลบผู้ใช้งาน"
+                                title={
+                                  user.role === 'Super Admin' || user.username === 'admin'
+                                    ? '🔒 ไม่อนุญาตให้ลบบัญชี Super Admin เพื่อความปลอดภัย'
+                                    : user.id === currentUser?.id
+                                    ? 'ไม่สามารถลบบัญชีของตนเองได้'
+                                    : 'ลบผู้ใช้งาน'
+                                }
                               >
                                 <Trash2 size={16} />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* TAB: PENDING APPROVALS */}
+      {activeTab === 'pending' && (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-amber-500 via-amber-600 to-rose-600 text-white p-5 rounded-2xl shadow-sm space-y-1">
+            <div className="flex items-center space-x-2 font-bold text-sm">
+              <Clock size={18} />
+              <span>พิจารณาอนุมัติสิทธิ์และบทบาทผู้สมัครใช้งานใหม่ (Pending Registrations)</span>
+            </div>
+            <p className="text-xs font-light text-amber-100 leading-relaxed">
+              ผู้สมัครทุกคนต้องลงทะเบียนด้วยอีเมลสถาบัน <strong className="text-white">@mcu.ac.th</strong> เท่านั้น Super Admin สามารถเลือกกำหนดบทบาท (Role) และกดอนุมัติเพื่ออนุญาตให้เข้าใช้งานได้
+            </p>
+          </div>
+
+          <div className="bg-white rounded-xl border border-gray-100 shadow-xs overflow-hidden">
+            {users.filter(u => u.status === 'pending').length === 0 ? (
+              <div className="p-12 text-center text-gray-400 space-y-2">
+                <CheckCircle size={36} className="mx-auto text-emerald-500" />
+                <p className="font-bold text-gray-700 text-sm">ไม่มีคำขอลงทะเบียนที่รอการอนุมัติ</p>
+                <p className="text-xs text-gray-400">เมื่อมีบุคลากรใช้อีเมล @mcu.ac.th สมัครสมาชิก รายการจะแสดงที่นี่เพื่อรอการพิจารณา</p>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr className="bg-slate-900 text-white font-semibold uppercase tracking-wider">
+                      <th className="py-3 px-4">ผู้ขอสมัคร / อีเมลสถาบัน</th>
+                      <th className="py-3 px-4">หน่วยงาน / สังกัด</th>
+                      <th className="py-3 px-4">สิทธิ์ที่ระบุขอ</th>
+                      <th className="py-3 px-4">เลือกสิทธิ์ที่จะมอบให้</th>
+                      <th className="py-3 px-4 text-right">การอนุมัติ</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100 text-gray-700">
+                    {users.filter(u => u.status === 'pending').map((user) => {
+                      const selectedRole = approvalRoleMap[user.id] || user.role || 'Editor';
+
+                      return (
+                        <tr key={user.id} className="hover:bg-amber-50/50 transition-colors">
+                          <td className="py-3.5 px-4">
+                            <div className="flex items-center space-x-3">
+                              <div className="h-9 w-9 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-xs uppercase flex-shrink-0 shadow-xs">
+                                {user.name.substring(0, 2)}
+                              </div>
+                              <div>
+                                <p className="font-bold text-gray-900">{user.name}</p>
+                                <div className="flex items-center gap-1.5 mt-0.5">
+                                  <span className="bg-amber-100 text-amber-900 font-mono text-[10px] px-2 py-0.5 rounded-full font-bold border border-amber-200">
+                                    📧 {user.email}
+                                  </span>
+                                </div>
+                                <p className="text-[10px] text-gray-400 mt-0.5">
+                                  สมัครเมื่อ: {user.createdAt ? new Date(user.createdAt).toLocaleString('th-TH') : 'ไม่ระบุ'}
+                                </p>
+                              </div>
+                            </div>
+                          </td>
+
+                          <td className="py-3.5 px-4 font-medium text-gray-800">
+                            {user.department || 'วิทยาลัยสงฆ์พ่อขุนผาเมือง'}
+                          </td>
+
+                          <td className="py-3.5 px-4">
+                            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-100 text-slate-800 border border-slate-200">
+                              <Shield size={11} className="mr-1 text-slate-500" />
+                              {user.requestedRole || user.role || 'Editor'}
+                            </span>
+                          </td>
+
+                          <td className="py-3.5 px-4">
+                            <select
+                              value={selectedRole}
+                              onChange={(e) => setApprovalRoleMap({ ...approvalRoleMap, [user.id]: e.target.value as RoleName })}
+                              className="px-3 py-1.5 border border-amber-300 rounded-lg text-xs font-bold bg-amber-50 text-amber-900 focus:ring-1 focus:ring-amber-500 outline-hidden"
+                            >
+                              <option value="Super Admin">Super Admin (ผู้ดูแลระบบสูงสุด)</option>
+                              <option value="Admin">Admin (ผู้ดูแลระบบ)</option>
+                              <option value="Editor">Editor (บรรณาธิการข่าว/เนื้อหา)</option>
+                              <option value="Author">Author (ผู้เขียนบทความ/ประชาสัมพันธ์)</option>
+                              <option value="Viewer">Viewer (ผู้เข้าชมระบบหลังบ้าน)</option>
+                            </select>
+                          </td>
+
+                          <td className="py-3.5 px-4 text-right">
+                            <div className="flex items-center justify-end space-x-2">
+                              <button
+                                onClick={() => handleApproveUser(user)}
+                                className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs flex items-center space-x-1 cursor-pointer"
+                              >
+                                <CheckCircle size={14} />
+                                <span>อนุมัติ (Approve)</span>
+                              </button>
+                              <button
+                                onClick={() => handleRejectUser(user)}
+                                className="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs flex items-center space-x-1 cursor-pointer"
+                              >
+                                <X size={14} />
+                                <span>ปฏิเสธ (Reject)</span>
                               </button>
                             </div>
                           </td>

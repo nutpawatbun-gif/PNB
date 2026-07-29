@@ -196,28 +196,31 @@ export default function Navbar({
   return (
     <header className="sticky top-0 z-40 w-full transition-all">
       {/* Top Info Bar */}
-      <div className="bg-gradient-to-r from-amber-950 via-amber-900 to-mcu-pink-deep text-amber-100 text-xs py-1.5 px-4 sm:px-8 flex items-center justify-between border-b border-amber-500/20 shadow-xs">
-        <div className="flex items-center gap-4">
-          <span className="font-medium tracking-wide flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+      <div className="bg-gradient-to-r from-amber-950 via-amber-900 to-mcu-pink-deep text-amber-100 text-xs py-1.5 px-3 sm:px-8 flex items-center justify-between border-b border-amber-500/20 shadow-xs">
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse shrink-0"></span>
+          <span className="font-medium tracking-wide hidden md:inline-flex items-center gap-2 text-xs">
             วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย
           </span>
+          <span className="font-bold tracking-wide md:hidden text-[11px] text-amber-200">
+            MCU PKPM Portal
+          </span>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           {/* Theme Switcher Dropdown in Top Bar */}
           <div className="relative" ref={themeDropdownRef}>
             <button
               onClick={() => setIsThemeDropdownOpen(!isThemeDropdownOpen)}
-              className="flex items-center gap-1.5 hover:text-white font-semibold transition-all bg-white/10 hover:bg-white/20 hover:shadow-xs px-3 py-1 rounded-full text-xs cursor-pointer border border-white/15"
+              className="flex items-center gap-1 hover:text-white font-semibold transition-all bg-white/10 hover:bg-white/20 hover:shadow-xs px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs cursor-pointer border border-white/15 whitespace-nowrap"
               title="เปลี่ยนธีมเว็บไซต์ (Change Site Theme)"
             >
-              <span className={`w-2.5 h-2.5 rounded-full ${currentThemeOption.badgeBg} ring-2 ring-white/30 animate-pulse`}></span>
+              <span className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full ${currentThemeOption.badgeBg} ring-1 ring-white/30 shrink-0`}></span>
               <span>{lang === 'th' ? '🎨 ธีม' : '🎨 Theme'}</span>
-              <LucideIcon name="ChevronDown" size={12} className={`transition-transform duration-300 ${isThemeDropdownOpen ? 'rotate-180' : ''}`} />
+              <LucideIcon name="ChevronDown" size={12} className={`transition-transform duration-300 shrink-0 ${isThemeDropdownOpen ? 'rotate-180' : ''}`} />
             </button>
 
             {isThemeDropdownOpen && (
-              <div className="absolute top-full right-0 mt-2 w-56 glass-dropdown rounded-2xl p-1.5 z-50 animate-in fade-in slide-in-from-top-2 text-slate-800 dark:text-slate-100">
+              <div className="absolute top-full right-0 mt-2 w-56 glass-dropdown rounded-2xl p-1.5 z-50 animate-in fade-in slide-in-from-top-2 text-slate-800 dark:text-slate-100 shadow-xl">
                 <div className="px-3 py-1.5 text-[10px] font-extrabold text-amber-600 dark:text-amber-400 uppercase tracking-wider border-b border-slate-100 dark:border-slate-800 mb-1 flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                   {lang === 'th' ? 'เลือกธีมแสดงผลเว็บไซต์' : 'Select Site Theme'}
@@ -248,17 +251,17 @@ export default function Navbar({
 
           <button
             onClick={() => setLang(lang === 'th' ? 'en' : 'th')}
-            className="flex items-center gap-1.5 hover:text-white font-semibold transition-all bg-white/10 hover:bg-white/20 px-2.5 py-1 rounded-full text-xs cursor-pointer border border-white/15"
+            className="flex items-center gap-1 hover:text-white font-semibold transition-all bg-white/10 hover:bg-white/20 px-2 sm:px-2.5 py-1 rounded-full text-[11px] sm:text-xs cursor-pointer border border-white/15 whitespace-nowrap"
           >
-            <Globe className="w-3.5 h-3.5 text-amber-300" />
+            <Globe className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-300 shrink-0" />
             <span>{lang === 'th' ? 'TH | EN' : 'EN | TH'}</span>
           </button>
           <button
             onClick={() => setIsAdminLoginModalOpen(true)}
-            className="flex items-center gap-1.5 bg-gradient-to-r from-amber-700 to-mcu-pink-deep hover:from-amber-600 hover:to-mcu-pink px-3 py-1 rounded-full text-amber-50 shadow-xs hover:shadow-md transition-all font-semibold cursor-pointer border border-amber-400/30"
+            className="flex items-center gap-1 sm:gap-1.5 bg-gradient-to-r from-amber-700 to-mcu-pink-deep hover:from-amber-600 hover:to-mcu-pink px-2.5 sm:px-3 py-1 rounded-full text-amber-50 shadow-xs hover:shadow-md transition-all font-semibold cursor-pointer border border-amber-400/30 whitespace-nowrap"
           >
-            <UserCheck className="w-3.5 h-3.5 text-amber-300" />
-            <span>เข้าสู่ระบบ (Admin)</span>
+            <UserCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-300 shrink-0" />
+            <span>{lang === 'th' ? 'เข้าสู่ระบบ (Admin)' : 'Admin Login'}</span>
           </button>
         </div>
       </div>
@@ -267,25 +270,25 @@ export default function Navbar({
       <nav className={`bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-800/80 transition-all duration-300 ${isScrolled ? 'shadow-md shadow-amber-900/5' : ''}`}>
         
         {/* ROW 1: Header Brand Row (Logo + College Name + Subtitle + Quick Actions) */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between border-b border-slate-100 dark:border-slate-800/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex items-center justify-between border-b border-slate-100 dark:border-slate-800/60">
           {/* Logo & College Title */}
           <div
             onClick={() => handleNav('home')}
-            className="flex items-center gap-3.5 sm:gap-4 cursor-pointer group"
+            className="flex items-center gap-3 sm:gap-4 cursor-pointer group"
           >
             <div className="relative shrink-0">
               <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-amber-500 to-mcu-pink opacity-0 group-hover:opacity-30 blur-md transition-all duration-300"></div>
               <img
                 src={logoImg}
                 alt="MCU PKPM Logo"
-                className="relative h-14 sm:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                className="relative h-12 sm:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </div>
             <div>
-              <h1 className="text-base sm:text-xl font-extrabold text-amber-950 dark:text-amber-300 leading-tight tracking-tight group-hover:text-mcu-pink transition-colors">
+              <h1 className="text-sm sm:text-xl font-extrabold text-amber-950 dark:text-amber-300 leading-tight tracking-tight group-hover:text-mcu-pink transition-colors">
                 วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์
               </h1>
-              <p className="text-xs sm:text-sm text-amber-800/90 dark:text-slate-300 font-semibold mt-0.5">
+              <p className="text-[10px] sm:text-sm text-amber-800/90 dark:text-slate-300 font-semibold mt-0.5">
                 มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย
               </p>
             </div>

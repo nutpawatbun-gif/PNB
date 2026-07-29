@@ -288,12 +288,11 @@ usersRouter.delete('/users/:id', (req: Request, res: Response) => {
 
     const targetUser = db.users[userIndex];
 
-    // Prevent deleting Super Admin if it's the only one left
-    const superAdminsCount = db.users.filter((u: any) => u.role === 'Super Admin').length;
-    if (targetUser.role === 'Super Admin' && superAdminsCount <= 1) {
+    // Protect ALL Super Admin accounts from deletion
+    if (targetUser.role === 'Super Admin' || targetUser.username === 'admin') {
       sendStandardResponse(res, 403, {
         success: false,
-        error: { code: 'PROTECTED_USER', message: 'ไม่สามารถลบบัญชี Super Admin หลักของระบบได้' }
+        error: { code: 'PROTECTED_USER', message: 'ไม่อนุญาตให้ลบบัญชีผู้ดูแลระบบสูงสุด (Super Admin) ออกจากระบบเพื่อความปลอดภัย' }
       });
       return;
     }
@@ -314,6 +313,110 @@ usersRouter.delete('/users/:id', (req: Request, res: Response) => {
     sendStandardResponse(res, 500, {
       success: false,
       error: { code: 'DELETE_USER_FAILED', message: err.message || 'ไม่สามารถลบบัญชีผู้ใช้งานได้' }
+    });
+  }
+});
+
+// ============================================================================
+// 7. APPROVE USER (POST /api/users/:id/approve)
+// ============================================================================
+usersRouter.post('/users/:id/approve', (req: Request, res: Response) => {
+  try {
+    const targetId = req.params.id;
+    const { role, customPermissions } = req.body || {};
+    const db = readDB();
+    db.users = db.users || [];
+
+    const userIndex = db.users.findIndex((u: any) => u.id === targetId || u.username === targetId);
+    if (userIndex === -1) {
+      sendStandardResponse(res, 404, {
+        success: false,
+        error: { code: 'USER_NOT_FOUND', message: `ไม่พบบัญชีผู้ใช้งาน ID: ${targetId}` }
+      });
+      return;
+    }
+
+    const user = db.users[userIndex];
+    const newRole = role || user.role || 'Editor';
+    const roleDef = ROLE_DEFINITIONS[newRole as RoleName];
+    const newPermissions = Array.isArray(customPermissions) && customPermissions.length > 0 
+      ? customPermissions 
+      : (roleDef?.defaultPermissions || ['view']);
+
+    user.status = 'active';
+    user.role = newRole;
+    user.customPermissions = newPermissions;
+    user.approvedAt = new Date().toISOString();
+    user.updatedAt = new Date().toISOString();
+
+    writeDB(db);
+
+    logAuditAction('admin', 'system', 'APPROVE_USER', 'RBAC', targetId, {
+      username: user.username,
+      name: user.name,
+      email: user.email,
+      assignedRole: newRole
+    }, req.ip);
+
+    sendStandardResponse(res, 200, {
+      success: true,
+      data: {
+        message: `อนุมัติบัญชีผู้ใช้งาน ${user.name} (${user.email}) เรียบร้อยแล้ว`,
+        user: sanitizeUser(user)
+      }
+    });
+  } catch (err: any) {
+    sendStandardResponse(res, 500, {
+      success: false,
+      error: { code: 'APPROVE_USER_FAILED', message: err.message || 'ไม่สามารถอนุมัติสิทธิ์ผู้ใช้งานได้' }
+    });
+  }
+});
+
+// ============================================================================
+// 8. REJECT USER (POST /api/users/:id/reject)
+// ============================================================================
+usersRouter.post('/users/:id/reject', (req: Request, res: Response) => {
+  try {
+    const targetId = req.params.id;
+    const { reason } = req.body || {};
+    const db = readDB();
+    db.users = db.users || [];
+
+    const userIndex = db.users.findIndex((u: any) => u.id === targetId || u.username === targetId);
+    if (userIndex === -1) {
+      sendStandardResponse(res, 404, {
+        success: false,
+        error: { code: 'USER_NOT_FOUND', message: `ไม่พบบัญชีผู้ใช้งาน ID: ${targetId}` }
+      });
+      return;
+    }
+
+    const user = db.users[userIndex];
+    user.status = 'rejected';
+    user.rejectionReason = reason || 'ไม่อนุมัติสิทธิ์การใช้งาน';
+    user.rejectedAt = new Date().toISOString();
+    user.updatedAt = new Date().toISOString();
+
+    writeDB(db);
+
+    logAuditAction('admin', 'system', 'REJECT_USER', 'RBAC', targetId, {
+      username: user.username,
+      name: user.name,
+      reason: user.rejectionReason
+    }, req.ip);
+
+    sendStandardResponse(res, 200, {
+      success: true,
+      data: {
+        message: `ปฏิเสธคำขอเข้าใช้งานของ ${user.name} เรียบร้อยแล้ว`,
+        user: sanitizeUser(user)
+      }
+    });
+  } catch (err: any) {
+    sendStandardResponse(res, 500, {
+      success: false,
+      error: { code: 'REJECT_USER_FAILED', message: err.message || 'เกิดข้อผิดพลาดในการปฏิเสธสิทธิ์ผู้ใช้งาน' }
     });
   }
 });

@@ -64,6 +64,293 @@ authRouter.get('/captcha', (req: Request, res: Response) => {
   });
 });
 
+// 1.5 REGISTER (@mcu.ac.th Domain Required)
+authRouter.post('/register', (req: Request, res: Response) => {
+  try {
+    const { name, email, department, requestedRole, password } = req.body || {};
+
+    if (!name || !email || !password) {
+      sendStandardResponse(res, 400, {
+        success: false,
+        error: { code: 'INVALID_PAYLOAD', message: 'กรุณากรอกข้อมูล ชื่อ-นามสกุล, อีเมล และรหัสผ่าน ให้ครบถ้วน' }
+      });
+      return;
+    }
+
+    // Strict Domain Validation for @mcu.ac.th
+    const emailClean = email.trim().toLowerCase();
+    const mcuDomainRegex = /^[a-zA-Z0-9._%+-]+@mcu\.ac\.th$/i;
+    if (!mcuDomainRegex.test(emailClean)) {
+      sendStandardResponse(res, 400, {
+        success: false,
+        error: { code: 'INVALID_EMAIL_DOMAIN', message: 'การลงทะเบียนอนุญาตเฉพาะผู้ใช้อีเมลของมหาวิทยาลัย (@mcu.ac.th) เท่านั้น' }
+      });
+      return;
+    }
+
+    if (password.length < 8) {
+      sendStandardResponse(res, 400, {
+        success: false,
+        error: { code: 'WEAK_PASSWORD', message: 'รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัวอักษร' }
+      });
+      return;
+    }
+
+    const db = readDB();
+    db.users = db.users || [];
+
+    // Derive username from email prefix or generate clean username
+    const usernamePrefix = emailClean.split('@')[0].replace(/[^a-z0-9]/gi, '_');
+    let usernameClean = usernamePrefix;
+    let counter = 1;
+    while (db.users.some((u: any) => u.username.toLowerCase() === usernameClean)) {
+      usernameClean = `${usernamePrefix}_${counter++}`;
+    }
+
+    // Check duplicate email
+    if (db.users.some((u: any) => u.email && u.email.toLowerCase() === emailClean)) {
+      sendStandardResponse(res, 400, {
+        success: false,
+        error: { code: 'DUPLICATE_EMAIL', message: `อีเมล "${emailClean}" มีในระบบแล้ว` }
+      });
+      return;
+    }
+
+    const newUserId = 'usr_reg_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+    const newUser = {
+      id: newUserId,
+      username: usernameClean,
+      passwordHash: sha256(password),
+      name: name.trim(),
+      email: emailClean,
+      department: (department || 'วิทยาลัยสงฆ์พ่อขุนผาเมือง').trim(),
+      role: requestedRole || 'Viewer',
+      requestedRole: requestedRole || 'Viewer',
+      customPermissions: [],
+      status: 'pending', // Pending Super Admin Approval
+      avatarUrl: `https://api.dicebear.com/7.x/bottts/svg?seed=${usernameClean}`,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      lastLoginAt: '',
+      mustChangePassword: false,
+      is2FAEnabled: false
+    };
+
+    db.users.unshift(newUser);
+    writeDB(db);
+
+    logAuditAction(newUser.id, newUser.username, 'REGISTER_USER', 'AUTH', newUser.id, {
+      email: newUser.email,
+      name: newUser.name,
+      requestedRole: newUser.role,
+      status: 'pending'
+    }, req.ip);
+
+    sendStandardResponse(res, 201, {
+      success: true,
+      data: {
+        message: 'ลงทะเบียนสำเร็จแล้ว! บัญชีของคุณ (@mcu.ac.th) อยู่ในระหว่างรอการตรวจสอบและอนุมัติสิทธิ์จาก Super Admin',
+        user: sanitizeUser(newUser)
+      }
+    });
+  } catch (err: any) {
+    sendStandardResponse(res, 500, {
+      success: false,
+      error: { code: 'REGISTER_FAILED', message: err.message || 'เกิดข้อผิดพลาดในการลงทะเบียน' }
+    });
+  }
+});
+
+// Helper to parse Google JWT ID Token locally
+function parseGoogleJwt(token: string) {
+  try {
+    const parts = token.split('.');
+    if (parts.length < 2) return null;
+    const base64Url = parts[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = Buffer.from(base64, 'base64').toString('utf-8');
+    return JSON.parse(jsonPayload);
+  } catch (e) {
+    return null;
+  }
+}
+
+// 1.8 GOOGLE WORKSPACE SSO (@mcu.ac.th)
+authRouter.post('/google', async (req: Request, res: Response) => {
+  try {
+    const { credential, requestedRole } = req.body || {};
+    if (!credential) {
+      sendStandardResponse(res, 400, {
+        success: false,
+        error: { code: 'INVALID_CREDENTIAL', message: 'ไม่พบข้อมูลการยืนยันตัวตนจาก Google' }
+      });
+      return;
+    }
+
+    // 1. Try local JWT parsing
+    let payload = parseGoogleJwt(credential);
+
+    // 2. Fallback to Google tokeninfo endpoint if needed
+    if (!payload || !payload.email) {
+      try {
+        const googleVerifyRes = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${credential}`);
+        if (googleVerifyRes && googleVerifyRes.ok) {
+          payload = await googleVerifyRes.json();
+        }
+      } catch (e) {}
+    }
+
+    if (!payload || !payload.email) {
+      sendStandardResponse(res, 400, {
+        success: false,
+        error: { code: 'INVALID_GOOGLE_TOKEN', message: 'ข้อมูลการยืนยันตัวตนจาก Google ไม่ถูกต้องหรือหมดอายุ' }
+      });
+      return;
+    }
+
+    const emailClean = (payload.email || '').trim().toLowerCase();
+
+    // Strict Domain Check for @mcu.ac.th
+    const isMcuDomain = emailClean.endsWith('@mcu.ac.th') || payload.hd === 'mcu.ac.th';
+    if (!isMcuDomain) {
+      sendStandardResponse(res, 400, {
+        success: false,
+        error: { 
+          code: 'INVALID_EMAIL_DOMAIN', 
+          message: `การลงทะเบียนอนุญาตเฉพาะผู้ใช้อีเมลสถาบัน (@mcu.ac.th) เท่านั้น (คุณเข้าใช้งานด้วย: ${emailClean})` 
+        }
+      });
+      return;
+    }
+
+    const db = readDB();
+    db.users = db.users || [];
+
+    let user = db.users.find((u: any) => u.email && u.email.toLowerCase() === emailClean);
+
+    // First time Google SSO Login -> Auto Register as Pending User
+    if (!user) {
+      const usernamePrefix = emailClean.split('@')[0].replace(/[^a-z0-9]/gi, '_');
+      let usernameClean = usernamePrefix;
+      let counter = 1;
+      while (db.users.some((u: any) => u.username.toLowerCase() === usernameClean)) {
+        usernameClean = `${usernamePrefix}_${counter++}`;
+      }
+
+      const newUserId = 'usr_gso_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+      user = {
+        id: newUserId,
+        username: usernameClean,
+        name: payload.name || payload.given_name || usernameClean,
+        email: emailClean,
+        department: 'วิทยาลัยสงฆ์พ่อขุนผาเมือง',
+        role: requestedRole || 'Editor',
+        requestedRole: requestedRole || 'Editor',
+        customPermissions: [],
+        status: 'pending', // Pending Super Admin Approval
+        avatarUrl: payload.picture || `https://api.dicebear.com/7.x/bottts/svg?seed=${usernameClean}`,
+        authProvider: 'google_sso',
+        googleSub: payload.sub,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        lastLoginAt: '',
+        mustChangePassword: false,
+        is2FAEnabled: false
+      };
+
+      db.users.unshift(user);
+      writeDB(db);
+
+      logAuditAction(user.id, user.username, 'REGISTER_GOOGLE_SSO', 'AUTH', user.id, {
+        email: user.email,
+        name: user.name,
+        requestedRole: user.role,
+        status: 'pending'
+      }, req.ip);
+
+      sendStandardResponse(res, 200, {
+        success: true,
+        data: {
+          status: 'pending',
+          message: 'ลงทะเบียนด้วยบัญชี Google (@mcu.ac.th) สำเร็จแล้ว! บัญชีของคุณอยู่ในระหว่างรอการตรวจสอบและอนุมัติสิทธิ์จาก Super Admin',
+          user: sanitizeUser(user)
+        }
+      });
+      return;
+    }
+
+    // Existing user status checks
+    if (user.status === 'pending') {
+      sendStandardResponse(res, 403, {
+        success: false,
+        error: { code: 'ACCOUNT_PENDING', message: 'บัญชีของคุณกำลังอยู่ในระหว่างรอการอนุมัติสิทธิ์จาก Super Admin' }
+      });
+      return;
+    }
+
+    if (user.status === 'rejected') {
+      sendStandardResponse(res, 403, {
+        success: false,
+        error: { code: 'ACCOUNT_REJECTED', message: 'บัญชีนี้ไม่ผ่านการอนุมัติสิทธิ์การใช้งาน กรุณาติดต่อผู้ดูแลระบบ' }
+      });
+      return;
+    }
+
+    if (user.status !== 'active') {
+      sendStandardResponse(res, 403, {
+        success: false,
+        error: { code: 'ACCOUNT_DISABLED', message: 'บัญชีผู้ใช้งานนี้ถูกปิดการใช้งาน กรุณาติดต่อผู้ดูแลระบบ' }
+      });
+      return;
+    }
+
+    // Generate Token for Active Approved User
+    const token = 'mcu_token_' + Date.now() + '_' + crypto.randomBytes(16).toString('hex');
+    const userAgent = req.headers['user-agent'] || 'Unknown Device';
+    let device = 'Desktop PC';
+    if (/mobile/i.test(userAgent)) device = 'Mobile Smartphone';
+
+    const sessionData = {
+      id: 'sess_' + Date.now(),
+      token,
+      userId: user.id,
+      username: user.username,
+      role: user.role,
+      name: user.name,
+      email: user.email,
+      createdAt: new Date().toISOString(),
+      lastActiveAt: Date.now(),
+      expiresAt: Date.now() + 24 * 60 * 60 * 1000,
+      ip: req.ip || req.socket.remoteAddress || '127.0.0.1',
+      userAgent,
+      device
+    };
+
+    sessions.set(token, sessionData);
+    recordLoginHistory(user.id, user.username, 'success', req);
+    logAuditAction(user.id, user.username, 'LOGIN_GOOGLE_SSO', 'AUTH', user.id, { device }, req.ip);
+
+    // Update avatar and last login
+    if (payload.picture) user.avatarUrl = payload.picture;
+    user.lastLoginAt = new Date().toISOString();
+    writeDB(db);
+
+    sendStandardResponse(res, 200, {
+      success: true,
+      data: {
+        token,
+        user: sanitizeUser(user),
+        mustChangePassword: false
+      }
+    });
+  } catch (err: any) {
+    sendStandardResponse(res, 500, {
+      success: false,
+      error: { code: 'GOOGLE_SSO_FAILED', message: err.message || 'เกิดข้อผิดพลาดในการยืนยันตัวตนด้วย Google' }
+    });
+  }
+});
+
 // 2. LOGIN
 authRouter.post('/login', (req: Request, res: Response) => {
   const { identifier, username, password, captchaId, captchaAnswer } = req.body || {};
@@ -100,6 +387,22 @@ authRouter.post('/login', (req: Request, res: Response) => {
     sendStandardResponse(res, 401, {
       success: false,
       error: { code: 'INVALID_CREDENTIALS', message: 'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง' }
+    });
+    return;
+  }
+
+  if (user.status === 'pending') {
+    sendStandardResponse(res, 403, {
+      success: false,
+      error: { code: 'ACCOUNT_PENDING', message: 'บัญชีของคุณกำลังอยู่ในระหว่างรอการอนุมัติสิทธิ์จาก Super Admin' }
+    });
+    return;
+  }
+
+  if (user.status === 'rejected') {
+    sendStandardResponse(res, 403, {
+      success: false,
+      error: { code: 'ACCOUNT_REJECTED', message: 'บัญชีนี้ไม่ผ่านการอนุมัติสิทธิ์การใช้งาน กรุณาติดต่อผู้ดูแลระบบ' }
     });
     return;
   }

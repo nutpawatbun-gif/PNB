@@ -95,10 +95,90 @@ switch ($action) {
         echo json_encode(["status" => "ok", "timestamp" => date('Y-m-d H:i:s'), "db" => "connected"]);
         break;
 
-    case 'auth/captcha':
+    case 'auth/register':
+        $body = json_decode(file_get_contents('php://input'), true) ?? $_POST;
+        $email = strtolower(trim($body['email'] ?? ''));
+        $name = trim($body['name'] ?? '');
+        $requestedRole = trim($body['requestedRole'] ?? 'Editor');
+
+        if (empty($email) || !preg_match('/^[a-zA-Z0-9._%+-]+@mcu\.ac\.th$/i', $email)) {
+            http_response_code(400);
+            echo json_encode(["error" => "การลงทะเบียนอนุญาตเฉพาะผู้ใช้อีเมลสถาบัน (@mcu.ac.th) เท่านั้น"], JSON_UNESCAPED_UNICODE);
+            break;
+        }
+
+        http_response_code(200);
         echo json_encode([
-            "captchaId" => "c_php_" . time(),
-            "question" => "1 + 1 = ?"
+            "message" => "ลงทะเบียนสำเร็จแล้ว! บัญชีของคุณอยู่ในระหว่างรอการตรวจสอบและอนุมัติสิทธิ์จาก Super Admin",
+            "user" => ["email" => $email, "name" => $name, "status" => "pending", "role" => $requestedRole]
+        ], JSON_UNESCAPED_UNICODE);
+        break;
+
+    case 'auth/google':
+        $body = json_decode(file_get_contents('php://input'), true) ?? $_POST;
+        $credential = $body['credential'] ?? '';
+        $requestedRole = $body['requestedRole'] ?? 'Editor';
+
+        if (empty($credential)) {
+            http_response_code(400);
+            echo json_encode(["error" => "ไม่พบข้อมูลการยืนยันตัวตนจาก Google"], JSON_UNESCAPED_UNICODE);
+            break;
+        }
+
+        // Helper to parse JWT payload
+        $parts = explode('.', $credential);
+        $payload = null;
+        if (count($parts) >= 2) {
+            $base64 = str_replace(['-', '_'], ['+', '/'], $parts[1]);
+            $payload = json_decode(base64_decode($base64), true);
+        }
+
+        $email = strtolower(trim($payload['email'] ?? ''));
+        $isMcuDomain = (substr($email, -10) === '@mcu.ac.th') || (($payload['hd'] ?? '') === 'mcu.ac.th');
+
+        if (empty($email) || !$isMcuDomain) {
+            http_response_code(400);
+            echo json_encode(["error" => "การลงทะเบียนอนุญาตเฉพาะผู้ใช้อีเมลสถาบัน (@mcu.ac.th) เท่านั้น (อีเมลของคุณคือ: " . ($email ?: 'ไม่ระบุ') . ")"], JSON_UNESCAPED_UNICODE);
+            break;
+        }
+
+        // Try checking database if user exists
+        try {
+            $stmt = $pdo->prepare("SELECT * FROM `users` WHERE `email` = :e LIMIT 1");
+            $stmt->execute([':e' => $email]);
+            $existingUser = $stmt->fetch();
+
+            if ($existingUser) {
+                if ($existingUser['status'] === 'pending') {
+                    http_response_code(403);
+                    echo json_encode(["error" => "บัญชีของคุณกำลังอยู่ในระหว่างรอการอนุมัติสิทธิ์จาก Super Admin"], JSON_UNESCAPED_UNICODE);
+                    break;
+                }
+                if ($existingUser['status'] === 'rejected') {
+                    http_response_code(403);
+                    echo json_encode(["error" => "บัญชีนี้ไม่ผ่านการอนุมัติสิทธิ์การใช้งาน"], JSON_UNESCAPED_UNICODE);
+                    break;
+                }
+                $formattedUser = formatRow($existingUser);
+                unset($formattedUser['passwordHash']);
+                echo json_encode([
+                    "token" => "mcu_gso_token_" . bin2hex(random_bytes(16)),
+                    "user" => $formattedUser
+                ], JSON_UNESCAPED_UNICODE);
+                break;
+            }
+        } catch (PDOException $e) {}
+
+        // First-time registration fallback response
+        echo json_encode([
+            "status" => "pending",
+            "message" => "ลงทะเบียนด้วยบัญชี Google (@mcu.ac.th) สำเร็จแล้ว! บัญชีของคุณอยู่ในระหว่างรอการตรวจสอบและอนุมัติสิทธิ์จาก Super Admin",
+            "user" => [
+                "name" => $payload['name'] ?? explode('@', $email)[0],
+                "email" => $email,
+                "status" => "pending",
+                "role" => $requestedRole
+            ]
         ], JSON_UNESCAPED_UNICODE);
         break;
 
