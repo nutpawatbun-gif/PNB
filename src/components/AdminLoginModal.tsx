@@ -64,10 +64,11 @@ export default function AdminLoginModal({ isOpen, onClose, onSuccessLogin }: Adm
         const res = await api.googleLogin(response.credential, regRole);
         if (res && res.token && res.user) {
           setSuccessMsg('เข้าสู่ระบบด้วย Google SSO (@mcu.ac.th) สำเร็จ! กำลังเปิดหน้าควบคุมหลังบ้าน...');
-          try {
-            window.open(window.location.origin + '/admin', '_blank');
-          } catch (e) {}
-          if (onSuccessLogin) onSuccessLogin();
+          if (onSuccessLogin) {
+            onSuccessLogin();
+          } else {
+            window.location.href = '/admin';
+          }
           onClose();
         } else if (res && res.status === 'pending') {
           setSuccessMsg(res.message || 'ลงทะเบียนด้วยบัญชี Google (@mcu.ac.th) สำเร็จแล้ว! บัญชีของคุณอยู่ในระหว่างรอการอนุมัติสิทธิ์จาก Super Admin');
@@ -132,13 +133,10 @@ export default function AdminLoginModal({ isOpen, onClose, onSuccessLogin }: Adm
       if (response && (response.user || response.token)) {
         setSuccessMsg('เข้าสู่ระบบสำเร็จ! กำลังเข้าสู่ระบบควบคุมหลังบ้าน...');
         
-        try {
-          const adminUrl = window.location.origin + '/admin';
-          window.open(adminUrl, '_blank');
-        } catch (e) {}
-
         if (onSuccessLogin) {
           onSuccessLogin();
+        } else {
+          window.location.href = '/admin';
         }
         onClose();
         setLoading(false);
