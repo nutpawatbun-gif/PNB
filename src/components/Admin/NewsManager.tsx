@@ -473,16 +473,16 @@ export default function NewsManager({ onNotify }: NewsManagerProps) {
             <p className="text-sm font-semibold text-slate-600">ไม่พบรายการข่าวสารตามเงื่อนไขที่เลือก</p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs sm:text-sm border-collapse">
+          <div className="overflow-x-auto border border-slate-200 rounded-xl shadow-2xs">
+            <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[850px]">
               <thead>
-                <tr className="bg-slate-50 text-slate-600 border-b border-slate-200 font-semibold">
-                  <th className="py-3 px-4">ภาพปก & หัวข้อข่าวสาร</th>
-                  <th className="py-3 px-4">หมวดหมู่ & แท็ก</th>
-                  <th className="py-3 px-4">ผู้เขียน / ผู้จัดการ</th>
-                  <th className="py-3 px-4">วันที่เผยแพร่</th>
-                  <th className="py-3 px-4 text-center">สถานะ (8 Lifecycles)</th>
-                  <th className="py-3 px-4 text-right">จัดการ</th>
+                <tr className="bg-slate-50 text-slate-700 border-b border-slate-200 font-semibold">
+                  <th className="py-3 px-4 whitespace-nowrap min-w-[280px]">ภาพปก & หัวข้อข่าวสาร</th>
+                  <th className="py-3 px-4 whitespace-nowrap min-w-[140px]">หมวดหมู่ & แท็ก</th>
+                  <th className="py-3 px-4 whitespace-nowrap min-w-[160px]">ผู้เขียน / ผู้จัดการ</th>
+                  <th className="py-3 px-4 whitespace-nowrap min-w-[120px]">วันที่เผยแพร่</th>
+                  <th className="py-3 px-4 text-center whitespace-nowrap min-w-[140px]">สถานะ (8 Lifecycles)</th>
+                  <th className="py-3 px-4 text-right whitespace-nowrap min-w-[110px]">จัดการ</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -504,16 +504,16 @@ export default function NewsManager({ onNotify }: NewsManagerProps) {
                           <div className="space-y-1">
                             <div className="flex items-center gap-1.5 flex-wrap">
                               {item.isFeatured && (
-                                <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-1.5 py-0.2 rounded border border-amber-200">
+                                <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-1.5 py-0.2 rounded border border-amber-200 whitespace-nowrap">
                                   ★ ข่าวเด่น
                                 </span>
                               )}
-                              <span className="font-bold text-slate-800 line-clamp-1">{item.title}</span>
+                              <span className="font-bold text-slate-800 line-clamp-2">{item.title}</span>
                             </div>
                             {item.titleEn && (
                               <p className="text-[11px] text-slate-400 italic line-clamp-1">{item.titleEn}</p>
                             )}
-                            <div className="flex items-center gap-3 text-[11px] text-slate-500 pt-0.5">
+                            <div className="flex items-center gap-3 text-[11px] text-slate-500 pt-0.5 whitespace-nowrap">
                               {item.galleryUrls && item.galleryUrls.length > 0 && (
                                 <span className="flex items-center gap-1 text-mcu-pink font-medium">
                                   <ImageIcon size={12} /> {item.galleryUrls.length} ภาพในอัลบั้ม
@@ -530,14 +530,14 @@ export default function NewsManager({ onNotify }: NewsManagerProps) {
                       </td>
 
                       {/* Category & Tags */}
-                      <td className="py-3.5 px-4 space-y-1">
-                        <span className="inline-block px-2.5 py-0.5 rounded text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+                      <td className="py-3.5 px-4 space-y-1 whitespace-nowrap">
+                        <span className="inline-block px-2.5 py-0.5 rounded text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200 whitespace-nowrap">
                           {item.categoryLabel || item.category}
                         </span>
                         {item.tags && item.tags.length > 0 && (
                           <div className="flex flex-wrap gap-1">
                             {item.tags.slice(0, 3).map((tg, i) => (
-                              <span key={i} className="text-[10px] text-slate-500 font-mono bg-slate-50 px-1.5 py-0.2 rounded">
+                              <span key={i} className="text-[10px] text-slate-500 font-mono bg-slate-50 px-1.5 py-0.2 rounded whitespace-nowrap">
                                 {tg}
                               </span>
                             ))}
@@ -546,18 +546,18 @@ export default function NewsManager({ onNotify }: NewsManagerProps) {
                       </td>
 
                       {/* Author */}
-                      <td className="py-3.5 px-4 text-xs space-y-0.5">
+                      <td className="py-3.5 px-4 text-xs space-y-0.5 whitespace-nowrap">
                         <div className="font-medium text-slate-800 flex items-center gap-1">
-                          <User size={12} className="text-slate-400" />
+                          <User size={12} className="text-slate-400 shrink-0" />
                           <span>{item.authorName || 'ฝ่ายประชาสัมพันธ์'}</span>
                         </div>
                         <div className="text-[11px] text-slate-400">{item.authorRole || 'เจ้าหน้าที่'}</div>
                       </td>
 
                       {/* Date */}
-                      <td className="py-3.5 px-4 text-xs text-slate-600 space-y-0.5">
+                      <td className="py-3.5 px-4 text-xs text-slate-600 space-y-0.5 whitespace-nowrap">
                         <div className="flex items-center gap-1">
-                          <Calendar size={12} className="text-mcu-gold" />
+                          <Calendar size={12} className="text-mcu-gold shrink-0" />
                           <span>{item.date}</span>
                         </div>
                         {item.scheduledAt && (
@@ -568,8 +568,8 @@ export default function NewsManager({ onNotify }: NewsManagerProps) {
                       </td>
 
                       {/* Status */}
-                      <td className="py-3.5 px-4 text-center">
-                        <span className={`inline-block px-2.5 py-1 rounded-full text-xs font-bold border ${stMeta.bgClass} ${stMeta.borderClass} ${stMeta.textClass}`}>
+                      <td className="py-3.5 px-4 text-center whitespace-nowrap">
+                        <span className={`inline-block px-2.5 py-1 rounded-full text-xs font-bold border whitespace-nowrap ${stMeta.bgClass} ${stMeta.borderClass} ${stMeta.textClass}`}>
                           {stMeta.labelTh}
                         </span>
                       </td>

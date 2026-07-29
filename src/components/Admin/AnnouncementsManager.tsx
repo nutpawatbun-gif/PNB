@@ -350,18 +350,18 @@ export default function AnnouncementsManager() {
             <p className="text-sm font-semibold">ไม่พบรายการประกาศตามเงื่อนไข</p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs sm:text-sm border-collapse">
+          <div className="overflow-x-auto border border-slate-200 rounded-xl shadow-2xs">
+            <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[850px]">
               <thead>
-                <tr className="bg-slate-50 text-slate-600 border-b border-slate-200 font-semibold">
-                  <th className="py-3 px-4 w-12 text-center">ปักหมุด</th>
-                  <th className="py-3 px-4">หัวข้อประกาศ</th>
-                  <th className="py-3 px-4">หมวดหมู่</th>
-                  <th className="py-3 px-4">เลขที่ประกาศ / หน่วยงาน</th>
-                  <th className="py-3 px-4">ระยะเวลาแสดงผล</th>
-                  <th className="py-3 px-4 text-center">ดาวน์โหลด</th>
-                  <th className="py-3 px-4 text-center">สถานะ</th>
-                  <th className="py-3 px-4 text-right">จัดการ</th>
+                <tr className="bg-slate-50 text-slate-700 border-b border-slate-200 font-semibold">
+                  <th className="py-3 px-4 w-12 text-center whitespace-nowrap">ปักหมุด</th>
+                  <th className="py-3 px-4 whitespace-nowrap min-w-[260px]">หัวข้อประกาศ</th>
+                  <th className="py-3 px-4 whitespace-nowrap min-w-[130px]">หมวดหมู่</th>
+                  <th className="py-3 px-4 whitespace-nowrap min-w-[160px]">เลขที่ประกาศ / หน่วยงาน</th>
+                  <th className="py-3 px-4 whitespace-nowrap min-w-[130px]">ระยะเวลาแสดงผล</th>
+                  <th className="py-3 px-4 text-center whitespace-nowrap min-w-[120px]">ดาวน์โหลด</th>
+                  <th className="py-3 px-4 text-center whitespace-nowrap min-w-[110px]">สถานะ</th>
+                  <th className="py-3 px-4 text-right whitespace-nowrap min-w-[110px]">จัดการ</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -369,7 +369,7 @@ export default function AnnouncementsManager() {
                   <tr key={item.id} className="hover:bg-slate-50/80 transition-colors">
                     
                     {/* Pin Toggle Button */}
-                    <td className="py-3 px-4 text-center">
+                    <td className="py-3 px-4 text-center whitespace-nowrap">
                       <button
                         onClick={() => handleTogglePin(item.id)}
                         title={item.isPinned ? 'ถอนการปักหมุด' : 'ปักหมุดประกาศนี้'}
@@ -388,15 +388,15 @@ export default function AnnouncementsManager() {
                       <div className="space-y-1">
                         <div className="flex items-center gap-1.5 flex-wrap">
                           {item.isUrgent && (
-                            <span className="bg-rose-100 text-rose-700 text-[10px] font-bold px-1.5 py-0.2 rounded">
+                            <span className="bg-rose-100 text-rose-700 text-[10px] font-bold px-1.5 py-0.2 rounded whitespace-nowrap">
                               เร่งด่วน
                             </span>
                           )}
                           <span className="line-clamp-2">{item.title}</span>
                         </div>
                         {item.attachments && item.attachments.length > 0 && (
-                          <div className="text-[11px] text-mcu-teal font-medium flex items-center gap-1">
-                            <FileText className="w-3 h-3" />
+                          <div className="text-[11px] text-mcu-teal font-medium flex items-center gap-1 whitespace-nowrap">
+                            <FileText className="w-3 h-3 shrink-0" />
                             <span>{item.attachments.length} ไฟล์แนบ ({item.totalDownloads || 0} ดาวน์โหลด)</span>
                           </div>
                         )}
@@ -404,37 +404,37 @@ export default function AnnouncementsManager() {
                     </td>
 
                     {/* Category */}
-                    <td className="py-3 px-4">
-                      <span className="bg-slate-100 text-slate-700 border border-slate-200 px-2 py-0.5 rounded text-xs font-medium">
+                    <td className="py-3 px-4 whitespace-nowrap">
+                      <span className="bg-slate-100 text-slate-700 border border-slate-200 px-2 py-0.5 rounded text-xs font-medium whitespace-nowrap">
                         {item.categoryLabel}
                       </span>
                     </td>
 
                     {/* No & Dept */}
-                    <td className="py-3 px-4 text-xs space-y-0.5">
+                    <td className="py-3 px-4 text-xs space-y-0.5 whitespace-nowrap">
                       <div className="font-mono text-slate-700 font-semibold">{item.announcementNo || '-'}</div>
                       <div className="text-slate-400">{item.publisher || '-'}</div>
                     </td>
 
                     {/* Dates */}
-                    <td className="py-3 px-4 text-xs text-slate-600">
+                    <td className="py-3 px-4 text-xs text-slate-600 whitespace-nowrap">
                       <div>เริ่ม: {item.startDate}</div>
                       {item.endDate && <div className="text-slate-400">สิ้นสุด: {item.endDate}</div>}
                     </td>
 
                     {/* Allow Download Status */}
-                    <td className="py-3 px-4 text-center">
-                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium ${
+                    <td className="py-3 px-4 text-center whitespace-nowrap">
+                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium whitespace-nowrap ${
                         item.allowDownload ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-500'
                       }`}>
-                        {item.allowDownload ? <Unlock className="w-3 h-3" /> : <Lock className="w-3 h-3" />}
+                        {item.allowDownload ? <Unlock className="w-3 h-3 shrink-0" /> : <Lock className="w-3 h-3 shrink-0" />}
                         {item.allowDownload ? 'อนุญาต' : 'ปิดดาวน์โหลด'}
                       </span>
                     </td>
 
                     {/* Status */}
-                    <td className="py-3 px-4 text-center">
-                      <span className={`px-2 py-0.5 rounded-full text-xs font-medium border ${
+                    <td className="py-3 px-4 text-center whitespace-nowrap">
+                      <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium border whitespace-nowrap ${
                         item.status === 'active' ? 'bg-emerald-100 text-emerald-800 border-emerald-200' :
                         item.status === 'scheduled' ? 'bg-amber-100 text-amber-800 border-amber-200' :
                         item.status === 'expired' ? 'bg-slate-100 text-slate-600 border-slate-200' :
@@ -447,7 +447,7 @@ export default function AnnouncementsManager() {
                     </td>
 
                     {/* Actions */}
-                    <td className="py-3 px-4 text-right space-x-1">
+                    <td className="py-3 px-4 text-right space-x-1 whitespace-nowrap">
                       <button
                         onClick={() => setHistoryModalItem({ id: item.id, title: item.title })}
                         className="p-1.5 text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"

@@ -344,16 +344,16 @@ export default function EventsManager({ onNotify }: EventsManagerProps) {
             <p className="text-xs">ไม่พบข้อมูลกิจกรรมในปฏิทิน</p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+          <div className="overflow-x-auto border border-slate-200 rounded-xl shadow-2xs">
+            <table className="w-full text-left border-collapse min-w-[850px]">
               <thead>
                 <tr className="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                  <th className="py-3 px-4">วันที่ & เวลา</th>
-                  <th className="py-3 px-4">ชื่อกิจกรรม / หมวดหมู่</th>
-                  <th className="py-3 px-4">สถานที่ / ลิงก์ออนไลน์</th>
-                  <th className="py-3 px-4">ผู้รับผิดชอบ</th>
-                  <th className="py-3 px-4 text-center">ประเภท</th>
-                  <th className="py-3 px-4 text-right">จัดการ</th>
+                  <th className="py-3 px-4 whitespace-nowrap min-w-[150px]">วันที่ & เวลา</th>
+                  <th className="py-3 px-4 whitespace-nowrap min-w-[260px]">ชื่อกิจกรรม / หมวดหมู่</th>
+                  <th className="py-3 px-4 whitespace-nowrap min-w-[180px]">สถานที่ / ลิงก์ออนไลน์</th>
+                  <th className="py-3 px-4 whitespace-nowrap min-w-[150px]">ผู้รับผิดชอบ</th>
+                  <th className="py-3 px-4 text-center whitespace-nowrap min-w-[110px]">ประเภท</th>
+                  <th className="py-3 px-4 text-right whitespace-nowrap min-w-[100px]">จัดการ</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-xs text-slate-700">

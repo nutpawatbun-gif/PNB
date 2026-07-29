@@ -413,18 +413,18 @@ export default function PersonnelManager() {
             <p className="text-xs mt-1">ลองเปลี่ยนคำค้นหา หรือกดปุ่ม "เพิ่มบุคลากรใหม่"</p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-sm">
+          <div className="overflow-x-auto border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-2xs">
+            <table className="w-full text-left border-collapse text-sm min-w-[850px]">
               <thead>
                 <tr className="bg-zinc-50 dark:bg-zinc-800/80 border-b border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 text-xs uppercase font-semibold">
-                  <th className="py-3.5 px-4 text-center w-12">ลำดับ</th>
-                  <th className="py-3.5 px-4">บุคลากร</th>
-                  <th className="py-3.5 px-4">ตำแหน่งบริหาร/วิชาการ</th>
-                  <th className="py-3.5 px-4">กลุ่มงาน / สังกัด</th>
-                  <th className="py-3.5 px-4">การติดต่อ</th>
-                  <th className="py-3.5 px-4 text-center">ผลงาน/การศึกษา</th>
-                  <th className="py-3.5 px-4 text-center">สถานะ</th>
-                  <th className="py-3.5 px-4 text-right pr-6">จัดการ</th>
+                  <th className="py-3.5 px-4 text-center w-12 whitespace-nowrap">ลำดับ</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap min-w-[220px]">บุคลากร</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap min-w-[180px]">ตำแหน่งบริหาร/วิชาการ</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap min-w-[150px]">กลุ่มงาน / สังกัด</th>
+                  <th className="py-3.5 px-4 whitespace-nowrap min-w-[160px]">การติดต่อ</th>
+                  <th className="py-3.5 px-4 text-center whitespace-nowrap min-w-[130px]">ผลงาน/การศึกษา</th>
+                  <th className="py-3.5 px-4 text-center whitespace-nowrap min-w-[110px]">สถานะ</th>
+                  <th className="py-3.5 px-4 text-right pr-6 whitespace-nowrap min-w-[100px]">จัดการ</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-zinc-200 dark:divide-zinc-800">

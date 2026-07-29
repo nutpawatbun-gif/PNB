@@ -458,15 +458,15 @@ export const UserManager: React.FC<UserManagerProps> = ({ currentUser, onNotify 
                 ไม่พบผู้ใช้งานที่ตรงตามเงื่อนไขการค้นหา
               </div>
             ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse text-xs">
+              <div className="overflow-x-auto border border-gray-100 rounded-xl shadow-2xs">
+                <table className="w-full text-left border-collapse text-xs min-w-[800px]">
                   <thead>
                     <tr className="bg-gray-50 border-b border-gray-100 text-gray-500 font-semibold uppercase tracking-wider">
-                      <th className="py-3 px-4">ผู้ใช้งาน / สังกัด</th>
-                      <th className="py-3 px-4">บทบาทหลัก</th>
-                      <th className="py-3 px-4">สิทธิ์ที่ได้รับ (Permissions)</th>
-                      <th className="py-3 px-4">สถานะ</th>
-                      <th className="py-3 px-4 text-right">การจัดการ</th>
+                      <th className="py-3 px-4 whitespace-nowrap min-w-[240px]">ผู้ใช้งาน / สังกัด</th>
+                      <th className="py-3 px-4 whitespace-nowrap min-w-[140px]">บทบาทหลัก</th>
+                      <th className="py-3 px-4 whitespace-nowrap min-w-[200px]">สิทธิ์ที่ได้รับ (Permissions)</th>
+                      <th className="py-3 px-4 whitespace-nowrap min-w-[110px]">สถานะ</th>
+                      <th className="py-3 px-4 text-right whitespace-nowrap min-w-[100px]">การจัดการ</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100 text-gray-700">

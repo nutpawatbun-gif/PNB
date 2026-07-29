@@ -629,17 +629,17 @@ export default function DownloadsManager({ onNotify }: DownloadsManagerProps) {
             </div>
 
             {/* Document Table */}
-            <div className="overflow-x-auto rounded-xl border border-gray-100 shadow-sm">
-              <table className="w-full text-left border-collapse">
+            <div className="overflow-x-auto rounded-xl border border-gray-100 shadow-2xs">
+              <table className="w-full text-left border-collapse min-w-[850px]">
                 <thead>
                   <tr className="bg-slate-100/70 text-gray-600 text-[11px] font-bold uppercase tracking-wider border-b border-gray-200">
-                    <th className="py-3.5 px-4">ชื่อเอกสาร & รายละเอียด</th>
-                    <th className="py-3.5 px-3">หมวดหมู่ & หน่วยงาน</th>
-                    <th className="py-3.5 px-3">ประเภท / ขนาด</th>
-                    <th className="py-3.5 px-3">เวอร์ชัน & สิทธิ์</th>
-                    <th className="py-3.5 px-3">วันเผยแพร่ / หมดอายุ</th>
-                    <th className="py-3.5 px-3 text-center">ดาวน์โหลด</th>
-                    <th className="py-3.5 px-4 text-right">จัดการ</th>
+                    <th className="py-3.5 px-4 whitespace-nowrap min-w-[260px]">ชื่อเอกสาร & รายละเอียด</th>
+                    <th className="py-3.5 px-3 whitespace-nowrap min-w-[150px]">หมวดหมู่ & หน่วยงาน</th>
+                    <th className="py-3.5 px-3 whitespace-nowrap min-w-[120px]">ประเภท / ขนาด</th>
+                    <th className="py-3.5 px-3 whitespace-nowrap min-w-[140px]">เวอร์ชัน & สิทธิ์</th>
+                    <th className="py-3.5 px-3 whitespace-nowrap min-w-[140px]">วันเผยแพร่ / หมดอายุ</th>
+                    <th className="py-3.5 px-3 text-center whitespace-nowrap min-w-[110px]">ดาวน์โหลด</th>
+                    <th className="py-3.5 px-4 text-right whitespace-nowrap min-w-[100px]">จัดการ</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 text-xs text-gray-700">
