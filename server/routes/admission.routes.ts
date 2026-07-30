@@ -49,7 +49,7 @@ const DEFAULT_APPLICANTS: any[] = [];
 function getNextApplicantCode(db: any): string {
   db.applicantCounter = (db.applicantCounter || 69000) + 1;
   writeDB(db);
-  return String(db.applicantCounter);
+  return `MCU-69-${db.applicantCounter}`;
 }
 
 // -------------------------------------------------------------
@@ -183,8 +183,9 @@ admissionRouter.post(['/upload/admission-documents', '/admissions/upload-documen
       });
     }
 
-    const cleanName = (fileName || 'document.pdf').replace(/[^a-zA-Z0-9._-]/g, '_');
-    const uniqueFileName = `${Date.now()}_${docType || 'doc'}_${cleanName}`;
+    const ext = path.extname(fileName || 'document.pdf') || '.pdf';
+    const docPrefix = docType?.includes('monk') || docType === 'nationalIdCopy' ? 'doc_monk' : 'doc_applicant';
+    const uniqueFileName = `${docPrefix}_MCU69${Math.floor(1000 + Math.random() * 9000)}_${Date.now()}${ext}`;
     const filePath = path.join(ADMISSION_UPLOADS_DIR, uniqueFileName);
 
     if (typeof fileData === 'string' && fileData.includes('base64,')) {

@@ -476,49 +476,56 @@ export default function AdmissionManager({ onNotify }: AdmissionManagerProps) {
 
               <div className="space-y-2 pt-1">
                 {[
-                  { key: 'nationalIdCopy', label: '1. สำเนาบัตรประชาชน / หนังสือสุทธิ', icon: '📄', url: selectedApplicant.documents?.nationalIdCopy },
-                  { key: 'transcriptCopy', label: '2. สำเนาวุฒิการศึกษาล่าสุด', icon: '🎓', url: selectedApplicant.documents?.transcriptCopy },
-                  { key: 'photoCopy', label: '3. รูปถ่ายหน้าตรง 1 นิ้ว', icon: '🖼️', url: selectedApplicant.documents?.photoCopy },
-                  { key: 'houseRegistrationCopy', label: '4. สำเนาทะเบียนบ้าน', icon: '🏠', url: selectedApplicant.documents?.houseRegistrationCopy },
-                  { key: 'otherDocumentsCopy', label: '5. เอกสารอื่นๆ (เช่น ใบเปลี่ยนชื่อ-นามสกุล / สุทธิเพิ่มเติม)', icon: '📎', url: selectedApplicant.documents?.otherDocumentsCopy }
-                ].map((doc, idx) => (
-                  <div key={idx} className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between gap-3">
-                    <div className="space-y-0.5 truncate">
-                      <span className="text-xs font-bold text-slate-800 block">{doc.label}</span>
-                      <span className="font-mono text-[11px] text-slate-500 truncate block">
-                        {doc.icon} {doc.url || 'ยังไม่ได้แนบเอกสาร'}
-                      </span>
-                    </div>
+                  { key: 'nationalIdCopy', label: '1. สำเนาบัตรประชาชน / หนังสือสุทธิ', icon: '📄', raw: selectedApplicant.documents?.nationalIdCopy },
+                  { key: 'transcriptCopy', label: '2. สำเนาวุฒิการศึกษาล่าสุด', icon: '🎓', raw: selectedApplicant.documents?.transcriptCopy },
+                  { key: 'photoCopy', label: '3. รูปถ่ายหน้าตรง 1 นิ้ว', icon: '🖼️', raw: selectedApplicant.documents?.photoCopy },
+                  { key: 'houseRegistrationCopy', label: '4. สำเนาทะเบียนบ้าน', icon: '🏠', raw: selectedApplicant.documents?.houseRegistrationCopy },
+                  { key: 'otherDocumentsCopy', label: '5. เอกสารอื่นๆ (เช่น ใบเปลี่ยนชื่อ-นามสกุล / สุทธิเพิ่มเติม)', icon: '📎', raw: selectedApplicant.documents?.otherDocumentsCopy }
+                ].map((doc, idx) => {
+                  const rawDoc = doc.raw;
+                  const docUrl = typeof rawDoc === 'object' ? (rawDoc?.url || '') : (typeof rawDoc === 'string' ? rawDoc : '');
+                  const docName = typeof rawDoc === 'object' ? (rawDoc?.name || rawDoc?.url || '') : (typeof rawDoc === 'string' ? rawDoc : '');
+                  const hasFile = Boolean(docUrl || docName);
 
-                    <div className="flex items-center gap-1.5 shrink-0">
-                      {doc.url ? (
-                        <>
-                          <button
-                            type="button"
-                            onClick={() => setPreviewDoc({ url: doc.url, title: doc.label })}
-                            className="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1"
-                          >
-                            <Eye size={13} />
-                            <span>ดูไฟล์</span>
-                          </button>
+                  return (
+                    <div key={idx} className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between gap-3">
+                      <div className="space-y-0.5 truncate">
+                        <span className="text-xs font-bold text-slate-800 block">{doc.label}</span>
+                        <span className="font-mono text-[11px] text-slate-500 truncate block">
+                          {doc.icon} {docName || 'ยังไม่ได้แนบเอกสาร'}
+                        </span>
+                      </div>
 
-                          <a
-                            href={doc.url}
-                            target="_blank"
-                            rel="noreferrer"
-                            download
-                            className="px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1"
-                          >
-                            <Download size={13} />
-                            <span>ดาวน์โหลด</span>
-                          </a>
-                        </>
-                      ) : (
-                        <span className="text-xs text-slate-400 italic">ไม่มีไฟล์</span>
-                      )}
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        {hasFile ? (
+                          <>
+                            <button
+                              type="button"
+                              onClick={() => setPreviewDoc({ url: docUrl || docName, title: doc.label })}
+                              className="px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1"
+                            >
+                              <Eye size={13} />
+                              <span>ดูไฟล์</span>
+                            </button>
+
+                            <a
+                              href={docUrl || docName}
+                              target="_blank"
+                              rel="noreferrer"
+                              download
+                              className="px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center gap-1"
+                            >
+                              <Download size={13} />
+                              <span>ดาวน์โหลด</span>
+                            </a>
+                          </>
+                        ) : (
+                          <span className="text-xs text-slate-400 italic">ไม่มีไฟล์</span>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -554,7 +561,14 @@ export default function AdmissionManager({ onNotify }: AdmissionManagerProps) {
             </div>
           }
         >
-          <div className="p-2 min-h-[400px] flex items-center justify-center bg-slate-900 rounded-xl overflow-hidden">
+          <div className="p-2 min-h-[400px] flex items-center justify-center bg-slate-900 rounded-xl overflow-hidden relative">
+            {/* PDPA Watermark Overlay for Privacy Security */}
+            <div className="absolute inset-0 z-10 pointer-events-none flex items-center justify-center rotate-[-25deg] opacity-30 select-none">
+              <span className="text-base sm:text-lg font-black text-rose-400 uppercase tracking-widest text-center px-6 py-3 border-4 border-rose-400 rounded-2xl bg-black/60 shadow-2xl backdrop-blur-xs">
+                🔒 ใช้เพื่อการสมัครเรียน มจร วิทยาลัยสงฆ์พ่อขุนผาเมือง เท่านั้น (PDPA PROTECTED)
+              </span>
+            </div>
+
             {previewDoc.url.endsWith('.pdf') || previewDoc.url.includes('pdf') ? (
               <iframe
                 src={previewDoc.url}
@@ -683,11 +697,25 @@ export default function AdmissionManager({ onNotify }: AdmissionManagerProps) {
               </div>
 
               {/* Candidate 1.5 inch Photo Box */}
-              <div className="w-28 h-36 border-2 border-dashed border-slate-400 rounded-lg flex flex-col items-center justify-center text-center p-2 bg-slate-50 text-[10px] text-slate-500 shrink-0 mx-auto sm:mx-0">
-                <span className="font-bold">ติดรูปถ่ายผู้สมัคร</span>
-                <span className="text-[9px] text-slate-400 mt-1">ขนาด 1.5 นิ้ว</span>
-                <span className="text-[9px] text-slate-400">(ถ่ายไว้ไม่เกิน 6 เดือน)</span>
-              </div>
+              {(() => {
+                const photoDoc = printApplicant.documents?.photoCopy || printApplicant.uploadedFiles?.photoCopy;
+                const photoUrl = typeof photoDoc === 'object' ? (photoDoc?.url || photoDoc?.name || '') : (photoDoc || '');
+                const hasPhoto = Boolean(photoUrl && photoUrl !== '/uploads/admissions/photo.jpg');
+
+                return hasPhoto ? (
+                  <img
+                    src={photoUrl}
+                    alt="รูปถ่ายผู้สมัคร"
+                    className="w-28 h-36 object-cover border-2 border-slate-800 rounded-lg shadow-xs shrink-0 mx-auto sm:mx-0 bg-slate-100"
+                  />
+                ) : (
+                  <div className="w-28 h-36 border-2 border-dashed border-slate-400 rounded-lg flex flex-col items-center justify-center text-center p-2 bg-slate-50 text-[10px] text-slate-500 shrink-0 mx-auto sm:mx-0">
+                    <span className="font-bold">ติดรูปถ่ายผู้สมัคร</span>
+                    <span className="text-[9px] text-slate-400 mt-1">ขนาด 1.5 นิ้ว</span>
+                    <span className="text-[9px] text-slate-400">(ถ่ายไว้ไม่เกิน 6 เดือน)</span>
+                  </div>
+                );
+              })()}
             </div>
 
             {/* Program Info */}

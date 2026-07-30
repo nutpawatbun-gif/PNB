@@ -39,7 +39,7 @@
       "mustChangePassword": false,
       "is2FAEnabled": false,
       "createdAt": "2026-07-22T11:12:05.118Z",
-      "lastLoginAt": "2026-07-30T12:37:17.463Z",
+      "lastLoginAt": "2026-07-30T21:20:23.274Z",
       "failedLoginAttempts": 0,
       "updatedAt": "2026-07-26T08:16:02.718Z",
       "customPermissions": [
@@ -1088,35 +1088,86 @@
   ],
   "applicants": [
     {
-      "id": "69001",
-      "applicationCode": "69001",
+      "id": "69004",
+      "applicationCode": "69004",
       "personType": "layperson",
       "prefix": "นาย",
-      "firstName": "อัีครเดช",
+      "firstName": "อัครเดช",
       "lastName": "บุญหิรัญไพศาล",
       "ordinationName": "",
       "templeName": "",
       "templeDistrict": "",
-      "templeProvince": "",
-      "fullName": "นาย อัีครเดช บุญหิรัญไพศาล",
-      "nationalId": "3460101077603",
-      "birthDate": "6/5/2523",
-      "phone": "0814625663",
+      "templeProvince": "เพชรบูรณ์",
+      "fullName": "นาย อัครเดช บุญหิรัญไพศาล",
+      "nationalId": "3-4601-01077-60-3",
+      "birthDate": "2523-06-05",
+      "phone": "081-462-5663",
       "email": "akkharadet.bun@mcu.ac.th",
-      "educationalBackground": "ม.6 (หรือธรรมเอก)",
-      "programId": "m2",
-      "programTitle": "หลักสูตรรัฐประศาสนศาสตรมหาบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
-      "degreeLevel": "รัฐประศาสนศาสตรมหาบัณฑิต (รป.ม.)",
+      "educationalBackground": "เปรียญธรรม",
+      "programId": "c2",
+      "programTitle": "หลักสูตรพุทธศาสตรบัณฑิต",
+      "degreeLevel": "ปริญญาตรี",
       "documents": {
-        "nationalIdCopy": "/uploads/admissions/1785038832922_nationalIdCopy__________________.pdf",
-        "transcriptCopy": "/uploads/admissions/1785038837956_transcriptCopy__________________.pdf",
-        "photoCopy": "/uploads/admissions/1785038842603_photoCopy_punyanuch.jpg",
-        "houseRegistrationCopy": "/uploads/admissions/1785038849838_houseRegistrationCopy__________________.pdf",
-        "otherDocumentsCopy": ""
+        "nationalIdCopy": {
+          "name": "1785266499960.jpg",
+          "size": "525.1 KB",
+          "url": "/uploads/admissions/1785446930364_nationalIdCopy_1785266499960.jpg"
+        },
+        "transcriptCopy": {
+          "name": "1785265748425.jpg",
+          "size": "630.8 KB",
+          "url": "/uploads/admissions/1785446933500_transcriptCopy_1785265748425.jpg"
+        },
+        "photoCopy": {
+          "name": "16_16_41.png",
+          "size": "1157.5 KB",
+          "url": "/uploads/admissions/1785446945666_photoCopy_16_16_41.png"
+        }
       },
       "status": "interview",
-      "submittedAt": "2026-07-26T04:07:37.823Z",
-      "updatedAt": "2026-07-26T19:05:17.649Z"
+      "submittedAt": "2026-07-30T21:29:13.688Z",
+      "updatedAt": "2026-07-30T21:36:05.490Z"
+    },
+    {
+      "id": "69003",
+      "applicationCode": "69003",
+      "personType": "monk",
+      "prefix": "พระมหา",
+      "firstName": "นิคม",
+      "lastName": "วงวิลาศ",
+      "ordinationName": "อิทฺธิชโย",
+      "templeName": "วัดมหาธาตุ",
+      "templeDistrict": "เมืองเพชรบูรณ์",
+      "templeProvince": "พิษณุโลก",
+      "fullName": "พระมหา นิคม วงวิลาศ (อิทฺธิชโย)",
+      "nationalId": "3-4601-01077-60-3",
+      "birthDate": "2523-05-06",
+      "phone": "081-462-5663",
+      "email": "akkharadet.bun@mcu.ac.th",
+      "educationalBackground": "นักธรรมตรี, โท, เอก",
+      "programId": "c1",
+      "programTitle": "หลักสูตรพุทธศาสตรบัณฑิต",
+      "degreeLevel": "ปริญญาตรี",
+      "documents": {
+        "nationalIdCopy": {
+          "name": "1785265731158.jpg",
+          "size": "604.9 KB",
+          "url": "/uploads/admissions/1785446334371_nationalIdCopy_1785265731158.jpg"
+        },
+        "transcriptCopy": {
+          "name": "1785266499960.jpg",
+          "size": "525.1 KB",
+          "url": "/uploads/admissions/1785446337873_transcriptCopy_1785266499960.jpg"
+        },
+        "photoCopy": {
+          "name": "16_16_41.png",
+          "size": "1157.5 KB",
+          "url": "/uploads/admissions/1785446370174_photoCopy_16_16_41.png"
+        }
+      },
+      "status": "interview",
+      "submittedAt": "2026-07-30T21:19:39.723Z",
+      "updatedAt": "2026-07-30T21:20:30.640Z"
     }
   ],
   "banners": [
@@ -1223,6 +1274,94 @@
     "updatedAt": "2026-07-30T08:20:41.414Z"
   },
   "audit_logs": [
+    {
+      "id": "audit_1785447365495_889",
+      "timestamp": "2026-07-30T21:36:05.495Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "UPDATE_APPLICANT_STATUS",
+      "module": "ADMISSION",
+      "targetId": "69004",
+      "details": "{\"status\":\"interview\",\"code\":\"69004\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785446953691_569",
+      "timestamp": "2026-07-30T21:29:13.691Z",
+      "userId": "system",
+      "username": "guest",
+      "action": "SUBMIT_APPLICATION",
+      "module": "ADMISSION",
+      "targetId": "69004",
+      "details": "{\"applicationCode\":\"69004\",\"fullName\":\"นาย อัครเดช บุญหิรัญไพศาล\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785446430643_716",
+      "timestamp": "2026-07-30T21:20:30.643Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "UPDATE_APPLICANT_STATUS",
+      "module": "ADMISSION",
+      "targetId": "69003",
+      "details": "{\"status\":\"interview\",\"code\":\"69003\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785446379726_747",
+      "timestamp": "2026-07-30T21:19:39.727Z",
+      "userId": "system",
+      "username": "guest",
+      "action": "SUBMIT_APPLICATION",
+      "module": "ADMISSION",
+      "targetId": "69003",
+      "details": "{\"applicationCode\":\"69003\",\"fullName\":\"พระมหา นิคม วงวิลาศ (อิทฺธิชโย)\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785446247310_946",
+      "timestamp": "2026-07-30T21:17:27.310Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_APPLICANT",
+      "module": "ADMISSION",
+      "targetId": "69001",
+      "details": "{\"fullName\":\"นาย อัีครเดช บุญหิรัญไพศาล\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785446244980_653",
+      "timestamp": "2026-07-30T21:17:24.980Z",
+      "userId": "admission",
+      "username": "admin",
+      "action": "DELETE_APPLICANT",
+      "module": "ADMISSION",
+      "targetId": "69002",
+      "details": "{\"fullName\":\"นาย อัครเด บุญหิรัญ\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785445729216_526",
+      "timestamp": "2026-07-30T21:08:49.216Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "UPDATE_APPLICANT_STATUS",
+      "module": "ADMISSION",
+      "targetId": "69002",
+      "details": "{\"status\":\"interview\",\"code\":\"69002\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785444814147_126",
+      "timestamp": "2026-07-30T20:53:34.147Z",
+      "userId": "system",
+      "username": "guest",
+      "action": "SUBMIT_APPLICATION",
+      "module": "ADMISSION",
+      "targetId": "69002",
+      "details": "{\"applicationCode\":\"69002\",\"fullName\":\"นาย อัครเด บุญหิรัญ\"}",
+      "ip": "127.0.0.1"
+    },
     {
       "id": "audit_1785399641422_206",
       "timestamp": "2026-07-30T08:20:41.422Z",
@@ -4478,7 +4617,7 @@
       "createdBy": "Super Admin"
     }
   ],
-  "applicantCounter": 69001,
+  "applicantCounter": 69004,
   "messages": [
     {
       "id": "msg_1785052284187",

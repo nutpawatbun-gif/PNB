@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import logoImg from '../../assets/images/regenerated_image_1784349405698.png';
 import { api } from '../../lib/api';
 import { coursesStore } from '../../data/coursesStore';
 import { Course } from '../../types';
@@ -50,18 +51,25 @@ export default function AdmissionPage({
 }: AdmissionPageProps) {
   const [projects, setProjects] = useState<any[]>([]);
   const [courses, setCourses] = useState<Course[]>(() => coursesStore.getCourses());
+  const [allApplicants, setAllApplicants] = useState<any[]>([]);
   const [searchCode, setSearchCode] = useState('');
   const [searchResult, setSearchResult] = useState<any | null>(null);
   const [selectedPrintApplicant, setSelectedPrintApplicant] = useState<any | null>(null);
+
+  // Security Verification Modal States
+  const [verifyingApplicant, setVerifyingApplicant] = useState<any | null>(null);
+  const [verifyInput, setVerifyInput] = useState<string>('');
+  const [verifyError, setVerifyError] = useState<string>('');
+
   const [isSearchingStatus, setIsSearchingStatus] = useState(false);
   const [programLevelFilter, setProgramLevelFilter] = useState<string>('all');
   const [submitSuccessCode, setSubmitSuccessCode] = useState<string | null>(null);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
-  // Active Menu Tab (Default to 'overview' if landing or unknown)
-  const currentTab = ['overview', 'announcements', 'programs', 'qualifications', 'workflow', 'documents', 'apply', 'status', 'faqs', 'contact'].includes(activeTab)
+  // Active Menu Tab (Default to 'apply' so Online Admission Wizard renders immediately)
+  const currentTab = ['announcements', 'programs', 'qualifications', 'workflow', 'documents', 'overview', 'status', 'faqs', 'contact'].includes(activeTab)
     ? activeTab
-    : 'overview';
+    : 'apply';
 
   const [toast, setToast] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
 
@@ -70,10 +78,16 @@ export default function AdmissionPage({
     setTimeout(() => setToast(null), 3500);
   };
 
-  // Synchronize courses database from API and coursesStore
+  // Synchronize courses and applicants database
   useEffect(() => {
     api.getAdmissions()
       .then((data) => setProjects(Array.isArray(data) ? data : []))
+      .catch(() => {});
+
+    api.getApplicants()
+      .then((data) => {
+        if (Array.isArray(data)) setAllApplicants(data);
+      })
       .catch(() => {});
 
     api.getCourses()
@@ -93,6 +107,46 @@ export default function AdmissionPage({
 
     return () => unsubscribe();
   }, []);
+
+  const handleStartVerifyPrint = (applicant: any) => {
+    setVerifyingApplicant(applicant);
+    setVerifyInput('');
+    setVerifyError('');
+  };
+
+  const handleConfirmVerify = () => {
+    if (!verifyingApplicant) return;
+
+    const cleanInput = verifyInput.replace(/\D/g, '');
+    const cleanPhone = (verifyingApplicant.phone || '').replace(/\D/g, '');
+    const cleanId = (verifyingApplicant.nationalId || '').replace(/\D/g, '');
+
+    if (!cleanInput) {
+      setVerifyError('กรุณากรอกเบอร์โทรศัพท์ หรือเลขบัตรประชาชน 13 หลัก');
+      return;
+    }
+
+    const isMatch = (cleanInput.length >= 7 && (cleanPhone.includes(cleanInput) || cleanInput.includes(cleanPhone))) ||
+                    (cleanInput.length >= 10 && (cleanId.includes(cleanInput) || cleanInput.includes(cleanId))) ||
+                    verifyInput.trim() === verifyingApplicant.email;
+
+    if (isMatch) {
+      const target = verifyingApplicant;
+      setVerifyingApplicant(null);
+      setVerifyInput('');
+      setVerifyError('');
+
+      if (target.status === 'pending') {
+        showToast('⏳ ใบสมัครของท่านอยู่ระหว่างรอเจ้าหน้าที่ตรวจสอบเอกสาร จะพิมพ์เอกสารได้เมื่อได้รับอนุมัติแล้ว', 'error');
+        setSelectedPrintApplicant(target);
+      } else {
+        showToast('✅ ยืนยันตัวตนสำเร็จ ระบบเปิดหน้าพิมพ์ใบสมัครให้อัตโนมัติ', 'success');
+        setSelectedPrintApplicant(target);
+      }
+    } else {
+      setVerifyError('❌ ข้อมูลยืนยันตัวตนไม่ถูกต้อง กรุณากรอกเบอร์โทรศัพท์ หรือเลขบัตรประชาชน 13 หลักของผู้สมัครรายนี้ให้ถูกต้อง');
+    }
+  };
 
   const handleCheckStatusWithCode = async (codeToSearch: string) => {
     if (!codeToSearch.trim()) return;
@@ -796,7 +850,7 @@ export default function AdmissionPage({
             )}
 
             {/* 7. สมัครเรียนออนไลน์ (Apply - 5-Step Form Process) */}
-            {currentTab === 'apply' && (
+            {(currentTab === 'apply' || currentTab === 'landing') && (
               <AdmissionFormWizard
                 courses={courses}
                 onCompleteSuccess={(code) => {
@@ -908,12 +962,97 @@ export default function AdmissionPage({
                       </button>
                     </div>
                   </div>
-                ) : (
-                  <div className="py-12 text-center text-slate-400 border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl">
-                    <Search className="w-10 h-10 mx-auto text-slate-300 mb-2" />
-                    <p className="text-xs">กรอกรหัสเพื่อเริ่มค้นหาข้อมูลใบสมัคร</p>
+                ) : null}
+
+                {/* PUBLIC APPLICANTS DIRECTORY TABLE */}
+                <div className="pt-6 border-t border-slate-100 dark:border-slate-800 space-y-4">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                    <div>
+                      <h3 className="text-base font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                        <Users size={18} className="text-amber-600" />
+                        <span>ตารางตรวจสอบรายชื่อผู้สมัครเรียนออนไลน์ ทั้งหมด</span>
+                      </h3>
+                      <p className="text-xs text-slate-500">
+                        แสดงรายชื่อผู้สมัครและสถานะการคัดเลือก (การพิมพ์/ดาวน์โหลดเอกสารต้องยืนยันเบอร์โทรศัพท์หรือเลขบัตร 13 หลัก)
+                      </p>
+                    </div>
+                    <span className="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-bold shrink-0">
+                      รวมทั้งสิ้น {allApplicants.length} รายการ
+                    </span>
                   </div>
-                )}
+
+                  <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs">
+                    <table className="w-full text-left border-collapse text-xs">
+                      <thead>
+                        <tr className="bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 font-bold border-b border-slate-200 dark:border-slate-800">
+                          <th className="p-3.5 text-center w-14">ลำดับ</th>
+                          <th className="p-3.5">รหัสที่สมัคร</th>
+                          <th className="p-3.5">ชื่อ/นามสกุล หรือฉายา (บรรพชิต)</th>
+                          <th className="p-3.5">สถานะ</th>
+                          <th className="p-3.5 text-center">ดาวน์โหลด / พิมพ์ใบสมัคร</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50 bg-white dark:bg-slate-900">
+                        {allApplicants.length > 0 ? (
+                          allApplicants.map((app, idx) => {
+                            const isClergy = app.personType === 'clergy' || app.personType === 'monk';
+                            const prefix = app.prefix || (isClergy ? 'พระมหา' : 'นาย');
+                            const displayName = app.fullName || (isClergy
+                              ? `${prefix} ${app.firstName || ''} ${app.lastName || ''} (${app.ordinationName || app.templeName || ''})`
+                              : `${prefix} ${app.firstName || ''} ${app.lastName || ''}`);
+
+                            return (
+                              <tr key={app.id || idx} className="hover:bg-amber-50/40 dark:hover:bg-amber-950/20 transition-colors">
+                                <td className="p-3.5 text-center font-semibold text-slate-500">{idx + 1}</td>
+                                <td className="p-3.5 font-mono font-bold text-mcu-pink">
+                                  {app.applicationCode || app.id}
+                                </td>
+                                <td className="p-3.5 font-bold text-slate-800 dark:text-slate-200">
+                                  {displayName}
+                                </td>
+                                <td className="p-3.5">
+                                  <span className={`px-2.5 py-1 rounded-full text-[11px] font-bold border ${
+                                    app.status === 'approved'
+                                      ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                                      : app.status === 'interview'
+                                      ? 'bg-sky-100 text-sky-800 border-sky-300'
+                                      : app.status === 'rejected'
+                                      ? 'bg-rose-100 text-rose-800 border-rose-300'
+                                      : 'bg-amber-100 text-amber-800 border-amber-300'
+                                  }`}>
+                                    {app.status === 'approved'
+                                      ? '✅ อนุมัติผ่าน'
+                                      : app.status === 'interview'
+                                      ? '🎙️ รอสัมภาษณ์'
+                                      : app.status === 'rejected'
+                                      ? '❌ ไม่อนุมัติ'
+                                      : '⏳ รอตรวจสอบ'}
+                                  </span>
+                                </td>
+                                <td className="p-3.5 text-center">
+                                  <button
+                                    type="button"
+                                    onClick={() => handleStartVerifyPrint(app)}
+                                    className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs font-bold shadow-xs transition-all cursor-pointer inline-flex items-center gap-1.5 active:scale-95"
+                                  >
+                                    <Printer size={13} className="text-amber-400" />
+                                    <span>ดาวน์โหลด / พิมพ์ 🔒</span>
+                                  </button>
+                                </td>
+                              </tr>
+                            );
+                          })
+                        ) : (
+                          <tr>
+                            <td colSpan={5} className="p-8 text-center text-slate-400">
+                              ยังไม่มีข้อมูลรายชื่อผู้สมัครยื่นเข้ามาในระบบ
+                            </td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             )}
 
@@ -987,6 +1126,68 @@ export default function AdmissionPage({
         </div>
       </div>
 
+      {/* IDENTITY VERIFICATION SECURITY MODAL */}
+      {verifyingApplicant && (
+        <Modal
+          isOpen={Boolean(verifyingApplicant)}
+          onClose={() => setVerifyingApplicant(null)}
+          title={`🔒 ยืนยันตัวตนเพื่อพิมพ์/ดาวน์โหลดใบสมัคร (รหัส: ${verifyingApplicant.applicationCode || verifyingApplicant.id})`}
+          maxWidth="md"
+        >
+          <div className="space-y-4 p-2 text-xs text-slate-800 dark:text-slate-100">
+            <div className="p-3 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 rounded-xl space-y-1">
+              <p className="font-bold text-amber-900 dark:text-amber-300 flex items-center gap-1.5">
+                <Info size={15} className="text-amber-600" />
+                <span>การคุ้มครองข้อมูลส่วนบุคคล (PDPA Identity Protection)</span>
+              </p>
+              <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                เพื่อความปลอดภัยของข้อมูลผู้สมัคร กรุณากรอก <strong>เบอร์โทรศัพท์</strong> หรือ <strong>เลขประจำตัวประชาชน / หนังสือสุทธิ 13 หลัก</strong> ของผู้สมัครรายนี้เพื่อยืนยันสิทธิ์พิมพ์ใบสมัคร
+              </p>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="font-bold text-slate-800 dark:text-slate-200 block">
+                เบอร์โทรศัพท์ หรือ เลขบัตรประชาชน 13 หลัก *
+              </label>
+              <input
+                type="text"
+                value={verifyInput}
+                onChange={(e) => {
+                  setVerifyInput(e.target.value);
+                  setVerifyError('');
+                }}
+                placeholder="เช่น 0812345678 หรือ 1234567890123"
+                className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-800 dark:text-slate-100 focus:ring-2 focus:ring-amber-500 focus:outline-hidden"
+              />
+              {verifyError && (
+                <p className="text-xs text-rose-600 font-bold flex items-center gap-1 pt-1">
+                  <AlertCircle size={14} />
+                  <span>{verifyError}</span>
+                </p>
+              )}
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+              <button
+                type="button"
+                onClick={() => setVerifyingApplicant(null)}
+                className="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold hover:bg-slate-200 cursor-pointer"
+              >
+                ยกเลิก
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmVerify}
+                className="px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md cursor-pointer"
+              >
+                <CheckCircle2 size={15} />
+                <span>ยืนยันสิทธิ์พิมพ์/ดาวน์โหลด</span>
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
+
       {/* OFFICIAL APPLICATION PRINT DOSSIER MODAL */}
       {selectedPrintApplicant && (
         <Modal
@@ -1007,43 +1208,77 @@ export default function AdmissionPage({
                 >
                   ปิดหน้าต่าง
                 </button>
-                <button
-                  type="button"
-                  onClick={() => window.print()}
-                  className="px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md cursor-pointer"
-                >
-                  <Printer size={16} />
-                  <span>พิมพ์ใบสมัครยื่นสอบสัมภาษณ์ 🖨️</span>
-                </button>
+                {selectedPrintApplicant.status === 'approved' || selectedPrintApplicant.status === 'interview' ? (
+                  <button
+                    type="button"
+                    onClick={() => window.print()}
+                    className="px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md cursor-pointer"
+                  >
+                    <Printer size={16} />
+                    <span>พิมพ์ใบสมัครยื่นสอบสัมภาษณ์ 🖨️</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    disabled
+                    className="px-5 py-2 bg-slate-200 text-slate-400 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-not-allowed opacity-70"
+                    title="พิมพ์ได้เมื่อได้รับการอนุมัติจากเจ้าหน้าที่เรียบร้อยแล้วเท่านั้น"
+                  >
+                    <Printer size={16} />
+                    <span>พิมพ์ใบสมัคร (รออนุมัติจากเจ้าหน้าที่) 🔒</span>
+                  </button>
+                )}
               </div>
             </div>
           }
         >
-          <div className="space-y-4 p-5 border border-slate-200 rounded-2xl text-xs leading-relaxed bg-white text-slate-800">
-            {/* Header Crest & Title */}
-            <div className="text-center border-b border-slate-200 pb-3 space-y-1">
-              <div className="w-12 h-12 mx-auto rounded-full bg-amber-600 text-white flex items-center justify-center text-xl font-black mb-1">
-                MCU
+          <div className="printable-document space-y-4 p-5 border border-slate-200 rounded-2xl text-xs leading-relaxed bg-white text-slate-800" id="printable-application">
+            {/* Header Crest, MCU Logo & Candidate Photo */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b-2 border-slate-800 pb-3">
+              <div className="flex items-center gap-3 text-center sm:text-left">
+                <img src={logoImg} alt="MCU Logo" className="w-16 h-16 shrink-0 mx-auto sm:mx-0 object-contain" />
+                <div className="space-y-0.5">
+                  <h2 className="text-sm sm:text-base font-black text-slate-900 leading-snug">
+                    วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย
+                  </h2>
+                  <h3 className="text-xs sm:text-sm font-bold text-amber-800">
+                    ใบสมัครเข้าศึกษาและบัตรประจำตัวผู้สมัคร ประจำปีการศึกษา 2569
+                  </h3>
+                  <div className="pt-0.5">
+                    <span className={`inline-block px-3 py-0.5 rounded-full text-[10px] font-extrabold border ${
+                      selectedPrintApplicant.status === 'approved'
+                        ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                        : selectedPrintApplicant.status === 'interview'
+                        ? 'bg-sky-100 text-sky-800 border-sky-300'
+                        : selectedPrintApplicant.status === 'rejected'
+                        ? 'bg-rose-100 text-rose-800 border-rose-300'
+                        : 'bg-amber-100 text-amber-800 border-amber-300'
+                    }`}>
+                      สถานะคัดเลือก: {selectedPrintApplicant.status === 'approved' ? '✅ อนุมัติผ่าน' : selectedPrintApplicant.status === 'interview' ? '🎙️ รอสัมภาษณ์' : selectedPrintApplicant.status === 'rejected' ? '❌ ไม่อนุมัติ' : '⏳ รอตรวจสอบ'}
+                    </span>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-base font-bold text-slate-900">
-                วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย
-              </h3>
-              <p className="text-xs font-semibold text-amber-800">
-                ใบสมัครเข้าศึกษาและบัตรประจำตัวผู้สมัคร ประจำปีการศึกษา 2569
-              </p>
-              <div className="pt-1">
-                <span className={`inline-block px-4 py-1 rounded-full text-xs font-extrabold border ${
-                  selectedPrintApplicant.status === 'approved'
-                    ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
-                    : selectedPrintApplicant.status === 'interview'
-                    ? 'bg-sky-100 text-sky-800 border-sky-300'
-                    : selectedPrintApplicant.status === 'rejected'
-                    ? 'bg-rose-100 text-rose-800 border-rose-300'
-                    : 'bg-amber-100 text-amber-800 border-amber-300'
-                }`}>
-                  สถานะการคัดเลือก: {selectedPrintApplicant.status === 'approved' ? '✅ อนุมัติผ่าน (ผ่านการคัดเลือก)' : selectedPrintApplicant.status === 'interview' ? '🎙️ รอสัมภาษณ์ (โปรดนำเอกสารนี้มายื่นในวันสอบ)' : selectedPrintApplicant.status === 'rejected' ? '❌ ไม่อนุมัติ' : '⏳ รอตรวจสอบ'}
-                </span>
-              </div>
+
+              {/* Candidate Uploaded Photo Box (1.5 Inch) */}
+              {(() => {
+                const photoDoc = selectedPrintApplicant.documents?.photoCopy || selectedPrintApplicant.uploadedFiles?.photoCopy;
+                const photoUrl = typeof photoDoc === 'object' ? (photoDoc?.url || photoDoc?.name || '') : (photoDoc || '');
+                const hasPhoto = Boolean(photoUrl && photoUrl !== '/uploads/admissions/photo.jpg');
+
+                return hasPhoto ? (
+                  <img
+                    src={photoUrl}
+                    alt="รูปถ่ายผู้สมัคร"
+                    className="w-24 h-32 object-cover border-2 border-slate-800 rounded-lg shadow-xs bg-slate-100 shrink-0 mx-auto sm:mx-0"
+                  />
+                ) : (
+                  <div className="w-24 h-32 border-2 border-dashed border-slate-400 rounded-lg flex flex-col items-center justify-center text-center p-1 bg-slate-50 text-[10px] text-slate-500 shrink-0 mx-auto sm:mx-0">
+                    <span className="font-bold">รูปถ่ายผู้สมัคร</span>
+                    <span className="text-[9px] text-slate-400 mt-0.5">ขนาด 1.5 นิ้ว</span>
+                  </div>
+                );
+              })()}
             </div>
 
             {/* Application Information Grid */}
