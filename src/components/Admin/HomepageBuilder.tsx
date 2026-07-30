@@ -559,6 +559,94 @@ export default function HomepageBuilder() {
         </div>
       )}
 
+      {/* EDIT SECTION MODAL */}
+      {editingSection && (
+        <Modal
+          isOpen={!!editingSection}
+          onClose={() => setEditingSection(null)}
+          title={`ตั้งค่าโมดูลหน้าแรก: ${editingSection.titleTh}`}
+          maxWidth="lg"
+          footer={
+            <div className="flex items-center justify-between w-full">
+              <button
+                type="button"
+                onClick={() => setEditingSection(null)}
+                className="px-4 py-2 border border-slate-300 rounded-xl text-slate-700 text-xs font-bold hover:bg-slate-100 cursor-pointer"
+              >
+                ยกเลิก
+              </button>
+              <button
+                type="button"
+                onClick={handleSaveEditSection}
+                disabled={saving}
+                className="px-6 py-2.5 bg-mcu-pink hover:bg-mcu-pink-deep text-white rounded-xl text-xs font-bold shadow-md cursor-pointer flex items-center gap-1.5"
+              >
+                <Save size={16} />
+                <span>{saving ? 'กำลังบันทึก...' : 'บันทึกการตั้งค่า'}</span>
+              </button>
+            </div>
+          }
+        >
+          <div className="space-y-4 py-2 text-xs">
+            <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl font-mono text-[11px] text-slate-600 flex items-center justify-between">
+              <span>Section ID: <strong className="text-slate-800">{editingSection.id}</strong></span>
+              <span>Key: <strong className="text-mcu-pink">{editingSection.key}</strong></span>
+            </div>
+
+            <div className="space-y-1">
+              <label className="font-bold text-slate-700">ชื่อหัวข้อส่วนประกอบ (ภาษาไทย) *</label>
+              <input
+                type="text"
+                required
+                value={editForm.titleTh}
+                onChange={(e) => setEditForm({ ...editForm, titleTh: e.target.value })}
+                placeholder="เช่น ข่าวสารรอบรั้ว มจร"
+                className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl focus:ring-1 focus:ring-mcu-pink outline-hidden"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="font-bold text-slate-700">ชื่อหัวข้อส่วนประกอบ (English)</label>
+              <input
+                type="text"
+                value={editForm.titleEn}
+                onChange={(e) => setEditForm({ ...editForm, titleEn: e.target.value })}
+                placeholder="เช่น News & Announcement"
+                className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl focus:ring-1 focus:ring-mcu-pink outline-hidden"
+              />
+            </div>
+
+            <div className="space-y-1">
+              <label className="font-bold text-slate-700">คำอธิบายย่อย (Description / Subtitle)</label>
+              <textarea
+                rows={2}
+                value={editForm.description}
+                onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
+                placeholder="คำอธิบายสั้นๆ ของส่วนประกอบนี้"
+                className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl focus:ring-1 focus:ring-mcu-pink outline-hidden"
+              />
+            </div>
+
+            {/* Custom Section Specific Options */}
+            {editingSection.key === 'announcements' && (
+              <div className="p-3.5 bg-amber-50 border border-amber-200 rounded-xl space-y-3">
+                <h5 className="font-bold text-amber-900 text-xs">ตั้งค่าแถบประกาศเร่งด่วน</h5>
+                <div className="space-y-1">
+                  <label className="font-semibold text-amber-800">ข้อความป้าย (Badge Text)</label>
+                  <input
+                    type="text"
+                    value={editForm.config?.badgeText || ''}
+                    onChange={(e) => setEditForm({ ...editForm, config: { ...(editForm.config || {}), badgeText: e.target.value } })}
+                    placeholder="ประกาศสำคัญ"
+                    className="w-full px-3 py-2 bg-white border border-amber-300 rounded-lg text-xs"
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+        </Modal>
+      )}
+
       {/* CREATE / EDIT BANNER MODAL */}
       {isBannerModalOpen && (
         <Modal
