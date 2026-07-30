@@ -39,7 +39,7 @@
       "mustChangePassword": false,
       "is2FAEnabled": false,
       "createdAt": "2026-07-22T11:12:05.118Z",
-      "lastLoginAt": "2026-07-30T08:06:56.248Z",
+      "lastLoginAt": "2026-07-30T08:17:57.470Z",
       "failedLoginAttempts": 0,
       "updatedAt": "2026-07-26T08:16:02.718Z",
       "customPermissions": [
@@ -1146,7 +1146,7 @@
     "phone": "081-462-5663",
     "fax": "056-711-224",
     "email": "akkharadet.bun@mcu.ac.th",
-    "contactEmail": "admin.mbc@mcu.ac.th",
+    "contactEmail": "akkharadet.bun@mcu.ac.th",
     "socialMedia": {
       "facebook": "https://facebook.com/mcuphetchabun",
       "line": "@mcuphetchabun",
@@ -1220,9 +1220,20 @@
     "addressTh": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ เลขที่ 109/2 หมู่ 5 ต.ปากช่อง อ.หล่มสัก จ.เพชรบูรณ์ 67110",
     "facebook": "https://facebook.com/mcuphetchabun",
     "youtube": "https://youtube.com",
-    "updatedAt": "2026-07-26T08:11:02.884Z"
+    "updatedAt": "2026-07-30T08:20:41.414Z"
   },
   "audit_logs": [
+    {
+      "id": "audit_1785399641422_206",
+      "timestamp": "2026-07-30T08:20:41.422Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "UPDATE_SETTINGS",
+      "module": "SYSTEM",
+      "targetId": "settings",
+      "details": "{\"siteName\":\"วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์\",\"siteNameEn\":\"Phokhun Phamuang Buddhist College, Phetchabun | MCU\",\"organizationName\":\"มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย\",\"organizationNameEn\":\"Mahachulalongkornrajavidyalaya University\",\"logoUrl\":\"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/MCU_Logo.svg/1200px-MCU_Logo.svg.png\",\"faviconUrl\":\"https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/MCU_Logo.svg/1200px-MCU_Logo.svg.png\",\"address\":\"วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ เลขที่ 109/2 หมู่ 5 ต.ปากช่อง อ.หล่มสัก จ.เพชรบูรณ์ 67110\",\"addressEn\":\"Phokhun Phamuang Buddhist College, 109/2 Moo 5, Pak Chong, Lom Sak, Phetchabun 67110\",\"phone\":\"081-462-5663\",\"fax\":\"056-711-224\",\"email\":\"akkharadet.bun@mcu.ac.th\",\"contactEmail\":\"akkharadet.bun@mcu.ac.th\",\"socialMedia\":{\"facebook\":\"https://facebook.com/mcuphetchabun\",\"line\":\"@mcuphetchabun\",\"youtube\":\"https://youtube.com/@mcuphetchabun\",\"tiktok\":\"https://tiktok.com/@mcuphetchabun\",\"twitterX\":\"https://x.com/mcuphetchabun\"},\"mapEmbedUrl\":\"https://maps.google.com/maps?q=16.680028,101.297694&z=16&output=embed\",\"googleMapsUrl\":\"https://maps.google.com/?q=16%C2%B040%2748.1%22N+101%C2%B017%2751.7%22E\",\"latitude\":16.680028,\"longitude\":101.297694,\"footerText\":\"วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย\",\"footerTextEn\":\"Pho Khun Pha Mueang Buddhist College, MCU Phetchabun\",\"footerDescription\":\"ศูนย์กลางการศึกษาวิชาการพระพุทธศาสนา วิจัย และบริการวิชาการแก่สังคมในเขตพื้นที่จังหวัดเพชรบูรณ์\",\"copyrightNotice\":\"© 2026 วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์. สงวนลิขสิทธิ์ตามกฎหมาย.\",\"defaultImage\":\"https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=800\",\"defaultBannerImage\":\"https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&q=80&w=1200\",\"defaultAvatar\":\"/uploads/upload_1785000470911_2561.png\",\"itemsPerPage\":10,\"dateFormat\":\"DD/MM/YYYY (พ.ศ.)\",\"defaultLanguage\":\"th\",\"timezone\":\"Asia/Bangkok\",\"smtp\":{\"host\":\"smtp.mcu.ac.th\",\"port\":587,\"secure\":false,\"username\":\"smtp_notify@mcu.ac.th\",\"password\":\"••••••••••••\",\"fromEmail\":\"noreply@mcu.ac.th\",\"fromName\":\"วิทยาลัยสงฆ์พ่อขุนผาเมือง (MCU Phetchabun System)\"},\"upload\":{\"maxFileSizeMB\":10,\"allowedExtensions\":\".jpg, .jpeg, .png, .gif, .webp, .pdf, .doc, .docx, .xls, .xlsx, .zip\",\"storageProvider\":\"local\",\"autoCompressImages\":true},\"seo\":{\"metaTitle\":\"วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ | มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย\",\"metaDescription\":\"เว็บไซต์อย่างเป็นทางการ วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ ข่าวประชาสัมพันธ์ ประกาศสถาบัน หลักสูตรการศึกษา และระบบรับสมัครนิสิตออนไลน์\",\"metaKeywords\":\"มจร, เพชรบูรณ์, วิทยาลัยสงฆ์พ่อขุนผาเมือง, มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย, เรียนต่อเพชรบูรณ์, พระพุทธศาสนา\",\"ogImageUrl\":\"https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=1200\",\"googleSiteVerification\":\"google-site-verification-mcu-phetchabun-code\"},\"maintenanceMode\":{\"enabled\":false,\"message\":\"ระบบกำลังปิดปรับปรุงชั่วคราวเพื่ออัปเดตประสิทธิภาพ ขออภัยในความไม่สะดวก\",\"allowedIps\":\"127.0.0.1, ::1\",\"estimatedEndTime\":\"\"},\"analytics\":{\"googleAnalyticsId\":\"G-MCU123456789\",\"googleTagManagerId\":\"GTM-MCUPHB12\",\"customHeaderScripts\":\"<!-- Global site tag (gtag.js) - Google Analytics -->\",\"customBodyScripts\":\"\"},\"cookieNotice\":{\"enabled\":true,\"message\":\"เว็บไซต์นี้ใช้คุกกี้เพื่อปรับปรุงประสบการณ์การใช้งานของคุณและเสนอบริการที่ดียิ่งขึ้น การใช้งานเว็บไซต์นี้ถือว่าคุณยินยอมตามนโยบายคุ้มครองข้อมูลส่วนบุคคล (PDPA)\",\"privacyPolicyUrl\":\"/privacy-policy\",\"acceptButtonText\":\"ยอมรับทั้งหมด\"},\"backup\":{\"autoBackupEnabled\":true,\"scheduleInterval\":\"daily\",\"retentionDays\":30,\"backupLocation\":\"local_server\",\"lastBackupAt\":\"2026-07-26T08:09:14.785Z\"},\"siteNameTh\":\"วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มจร\",\"addressTh\":\"วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ เลขที่ 109/2 หมู่ 5 ต.ปากช่อง อ.หล่มสัก จ.เพชรบูรณ์ 67110\",\"facebook\":\"https://facebook.com/mcuphetchabun\",\"youtube\":\"https://youtube.com\",\"updatedAt\":\"2026-07-26T08:11:02.884Z\"}",
+      "ip": "127.0.0.1"
+    },
     {
       "id": "audit_1785337334822_121",
       "timestamp": "2026-07-29T15:02:14.822Z",
@@ -4094,6 +4105,16 @@
     }
   ],
   "login_history": [
+    {
+      "id": "log_hist_1785399458813_34",
+      "userId": "u0",
+      "username": "akkharadet",
+      "timestamp": "2026-07-30T08:17:38.813Z",
+      "ip": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0",
+      "device": "Windows PC",
+      "status": "failed_password"
+    },
     {
       "id": "log_hist_1785398799933_586",
       "userId": "u0",

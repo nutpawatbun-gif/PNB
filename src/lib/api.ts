@@ -373,14 +373,29 @@ export const api = {
 
   // Homepage Layout Builder
   async getHomepageSections() {
+    const defaultSections: HomepageSection[] = [
+      { id: 'sec_hero_slider', key: 'hero_slider', titleTh: 'ภาพสไลด์ประชาสัมพันธ์', titleEn: 'Hero Banners', isVisible: true, order: 1 },
+      { id: 'sec_announcements', key: 'announcements', titleTh: 'แถบประกาศสำคัญประจำวัน', titleEn: 'Important Announcements', isVisible: true, order: 2 },
+      { id: 'sec_welcome_message', key: 'welcome_message', titleTh: 'สัมโมทนียกถาผู้อำนวยการวิทยาลัยสงฆ์พ่อขุนผาเมือง', titleEn: 'Director Welcome Message', isVisible: true, order: 3 },
+      { id: 'sec_quick_links', key: 'quick_links', titleTh: 'บริการและลิงก์ด่วน', titleEn: 'Quick Services & Links', isVisible: true, order: 4 },
+      { id: 'sec_featured_courses', key: 'recommended_courses', titleTh: 'หลักสูตรที่เปิดสอน', titleEn: 'Academic Programs', isVisible: true, order: 5 },
+      { id: 'sec_featured_news', key: 'featured_news', titleTh: 'ข่าวสารรอบรั้ว มจร', titleEn: 'Featured News & Activities', isVisible: true, order: 6 },
+      { id: 'sec_academic_highlights', key: 'academic_news', titleTh: 'ผลงานทางวิชาการ', titleEn: 'Academic Works & Research', isVisible: true, order: 7 },
+      { id: 'sec_upcoming_events', key: 'upcoming_events', titleTh: 'ปฏิทินกิจกรรมวิทยาลัยสงฆ์', titleEn: 'Upcoming Events Calendar', isVisible: true, order: 8 },
+      { id: 'sec_document_downloads', key: 'document_downloads', titleTh: 'เอกสารดาวน์โหลดสำหรับนิสิตและบุคลากร', titleEn: 'Document Downloads', isVisible: true, order: 9 },
+      { id: 'sec_key_stats', key: 'key_stats', titleTh: 'สรุปสถิติสถาบัน', titleEn: 'Institutional Statistics', isVisible: true, order: 10 },
+      { id: 'sec_org_logo', key: 'org_logo', titleTh: 'ปรัชญาและสัญลักษณ์สถาบัน', titleEn: 'Philosophy & Symbols', isVisible: true, order: 11 },
+      { id: 'sec_contact_channels', key: 'contact_channels', titleTh: 'ติดต่อวิทยาลัยสงฆ์และช่องทางออนไลน์', titleEn: 'Contact Channels', isVisible: true, order: 12 }
+    ];
+
     try {
       const res = await apiFetch('/homepage-sections', { headers: getHeaders() });
-      if (!res.ok) return [];
-      const data = await res.json().catch(() => []);
-      return Array.isArray(data) ? data : [];
+      if (!res.ok) return defaultSections;
+      const data = await handleResponse<HomepageSection[]>(res);
+      return Array.isArray(data) && data.length > 0 ? data : defaultSections;
     } catch (e) {
       console.warn('Failed to fetch homepage sections, using defaults', e);
-      return [];
+      return defaultSections;
     }
   },
 
