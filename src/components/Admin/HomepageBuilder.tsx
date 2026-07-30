@@ -200,9 +200,9 @@ export default function HomepageBuilder() {
         config: editForm.config
       });
 
-      setSections(prev => prev.map(s => s.id === updated.id ? updated : s));
       setEditingSection(null);
-      showToast(`อัปเดตข้อมูลส่วน "${updated.titleTh}" สำเร็จแล้ว`);
+      await fetchSections();
+      showToast(`อัปเดตข้อมูลส่วน "${editForm.titleTh || editingSection.titleTh}" สำเร็จแล้ว`);
     } catch (err: any) {
       showToast('เกิดข้อผิดพลาดในการบันทึก: ' + err.message, 'error');
     } finally {

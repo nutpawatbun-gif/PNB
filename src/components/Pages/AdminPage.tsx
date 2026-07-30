@@ -798,11 +798,11 @@ export default function AdminPage({ lang, onBackToHome }: AdminPageProps) {
           <button
             onClick={() => setActiveTab('homepage')}
             className={`w-full flex items-center space-x-3 px-4 py-2.5 rounded-lg text-sm transition-all font-medium ${
-              activeTab === 'homepage' ? 'bg-mcu-pink text-white shadow-md font-bold' : 'hover:bg-slate-800 text-slate-400 hover:text-slate-200'
+              activeTab === 'homepage' || activeTab === 'homepage_builder' ? 'bg-mcu-pink text-white shadow-md font-bold' : 'hover:bg-slate-800 text-slate-400 hover:text-slate-200'
             }`}
           >
-            <Layout size={18} />
-            <span>จัดการหน้าแรก & แบนเนอร์</span>
+            <Sliders size={18} />
+            <span>จัดการหน้าแรก & สไลด์แบนเนอร์ (Homepage CMS)</span>
           </button>
 
           <button
@@ -925,15 +925,6 @@ export default function AdminPage({ lang, onBackToHome }: AdminPageProps) {
             <span>ตั้งค่าความปลอดภัยบัญชี</span>
           </button>
 
-          <button
-            onClick={() => setActiveTab('homepage_builder')}
-            className={`w-full flex items-center space-x-3 px-4 py-2.5 rounded-lg text-sm transition-all font-medium ${
-              activeTab === 'homepage_builder' ? 'bg-mcu-pink text-white shadow-md font-bold' : 'hover:bg-slate-800 text-slate-400 hover:text-slate-200'
-            }`}
-          >
-            <Sliders size={18} />
-            <span>ปรับโครงสร้างหน้าแรก</span>
-          </button>
 
           <button
             onClick={() => setActiveTab('settings')}

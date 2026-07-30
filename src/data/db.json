@@ -39,7 +39,7 @@
       "mustChangePassword": false,
       "is2FAEnabled": false,
       "createdAt": "2026-07-22T11:12:05.118Z",
-      "lastLoginAt": "2026-07-30T07:34:20.794Z",
+      "lastLoginAt": "2026-07-30T08:06:56.248Z",
       "failedLoginAttempts": 0,
       "updatedAt": "2026-07-26T08:16:02.718Z",
       "customPermissions": [
@@ -4094,6 +4094,16 @@
     }
   ],
   "login_history": [
+    {
+      "id": "log_hist_1785398799933_586",
+      "userId": "u0",
+      "username": "akkharadet",
+      "timestamp": "2026-07-30T08:06:39.933Z",
+      "ip": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0",
+      "device": "Windows PC",
+      "status": "failed_password"
+    },
     {
       "id": "log_hist_1785341567045_424",
       "userId": "u0",
