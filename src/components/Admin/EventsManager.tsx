@@ -344,111 +344,188 @@ export default function EventsManager({ onNotify }: EventsManagerProps) {
             <p className="text-xs">ไม่พบข้อมูลกิจกรรมในปฏิทิน</p>
           </div>
         ) : (
-          <div className="overflow-x-auto border border-slate-200 rounded-xl shadow-2xs">
-            <table className="w-full text-left border-collapse min-w-[850px]">
-              <thead>
-                <tr className="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
-                  <th className="py-3 px-4 whitespace-nowrap min-w-[150px]">วันที่ & เวลา</th>
-                  <th className="py-3 px-4 whitespace-nowrap min-w-[260px]">ชื่อกิจกรรม / หมวดหมู่</th>
-                  <th className="py-3 px-4 whitespace-nowrap min-w-[180px]">สถานที่ / ลิงก์ออนไลน์</th>
-                  <th className="py-3 px-4 whitespace-nowrap min-w-[150px]">ผู้รับผิดชอบ</th>
-                  <th className="py-3 px-4 text-center whitespace-nowrap min-w-[110px]">ประเภท</th>
-                  <th className="py-3 px-4 text-right whitespace-nowrap min-w-[100px]">จัดการ</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
-                {filteredEvents.map((evt) => {
-                  const categoryInfo = CATEGORY_OPTIONS.find(c => c.value === evt.category);
-                  const isMulti = evt.startDate && evt.endDate && evt.startDate !== evt.endDate;
+          <div>
+            {/* 1. MOBILE RESPONSIVE CARD VIEW (< sm: 640px) */}
+            <div className="block sm:hidden divide-y divide-slate-100 border border-slate-200 rounded-2xl bg-white overflow-hidden shadow-2xs">
+              {filteredEvents.map((evt) => {
+                const categoryInfo = CATEGORY_OPTIONS.find(c => c.value === evt.category);
+                const isMulti = evt.startDate && evt.endDate && evt.startDate !== evt.endDate;
 
-                  return (
-                    <tr key={evt.id} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="py-3.5 px-4 font-medium whitespace-nowrap">
-                        <div className="flex items-center space-x-2">
+                return (
+                  <div key={evt.id} className="p-4 space-y-3 hover:bg-slate-50/60 transition-colors">
+                    {/* Top Header: Date, Color Tag, Title & Category */}
+                    <div className="space-y-1.5">
+                      <div className="flex items-center justify-between gap-2 flex-wrap text-xs">
+                        <div className="flex items-center gap-2">
                           <span 
-                            className="w-2.5 h-2.5 rounded-full shrink-0" 
+                            className="w-3 h-3 rounded-full shrink-0" 
                             style={{ backgroundColor: evt.color || categoryInfo?.color || '#2563eb' }}
                           />
-                          <div>
-                            <div className="font-bold text-slate-900">{evt.startDate || evt.date}</div>
-                            {isMulti && <div className="text-[10px] text-mcu-pink font-semibold">ถึง {evt.endDate}</div>}
-                            <div className="text-[10px] text-slate-400 mt-0.5">
-                              {evt.isAllDay ? 'ตลอดวัน' : (evt.startTime ? `${evt.startTime} - ${evt.endTime || ''}` : evt.time || '-')}
+                          <span className="font-bold text-slate-900">{evt.startDate || evt.date}</span>
+                          {isMulti && <span className="text-[10px] text-mcu-pink font-semibold">ถึง {evt.endDate}</span>}
+                        </div>
+
+                        <span 
+                          className="text-[10px] font-bold px-2 py-0.5 rounded-full text-white shadow-2xs"
+                          style={{ backgroundColor: evt.color || categoryInfo?.color || '#2563eb' }}
+                        >
+                          {evt.categoryLabel || categoryInfo?.label || 'กิจกรรม'}
+                        </span>
+                      </div>
+
+                      <h4 className="font-bold text-slate-900 text-sm leading-snug">
+                        {evt.title}
+                      </h4>
+                    </div>
+
+                    {/* Metadata Card Info */}
+                    <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60 space-y-2 text-xs text-slate-600">
+                      <div className="flex items-center justify-between gap-2 flex-wrap text-[11px]">
+                        <div className="flex items-center space-x-1">
+                          <MapPin size={12} className="text-mcu-gold shrink-0" />
+                          <span className="font-medium text-slate-700">{evt.location || 'ไม่ระบุสถานที่'}</span>
+                        </div>
+                        <span className="text-[10px] text-slate-400">
+                          {evt.isAllDay ? 'ตลอดวัน' : (evt.startTime ? `${evt.startTime} - ${evt.endTime || ''}` : evt.time || '-')}
+                        </span>
+                      </div>
+
+                      {evt.organizer && (
+                        <div className="text-[11px] text-slate-500 pt-1 border-t border-slate-200/50">
+                          ผู้รับผิดชอบ: {evt.organizer}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Mobile Action Buttons Bar */}
+                    <div className="flex items-center justify-end gap-1.5 pt-1">
+                      <button
+                        onClick={() => handleOpenEditModal(evt)}
+                        className="py-1.5 px-3 bg-pink-50 text-mcu-pink hover:bg-pink-100 rounded-lg text-xs font-semibold flex items-center justify-center gap-1 transition-colors cursor-pointer border border-pink-200/60"
+                      >
+                        <Edit3 size={14} /> แก้ไข
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(evt)}
+                        disabled={isDeleting === evt.id}
+                        className="py-1.5 px-3 bg-rose-50 text-rose-700 hover:bg-rose-100 rounded-lg text-xs font-semibold flex items-center justify-center gap-1 transition-colors cursor-pointer border border-rose-200/60"
+                      >
+                        <Trash2 size={14} /> ลบ
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* 2. DESKTOP TABLE VIEW (≥ sm: 640px) */}
+            <div className="hidden sm:block overflow-x-auto border border-slate-200 rounded-xl shadow-2xs">
+              <table className="w-full text-left border-collapse min-w-[850px]">
+                <thead>
+                  <tr className="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                    <th className="py-3 px-4 whitespace-nowrap min-w-[150px]">วันที่ & เวลา</th>
+                    <th className="py-3 px-4 whitespace-nowrap min-w-[260px]">ชื่อกิจกรรม / หมวดหมู่</th>
+                    <th className="py-3 px-4 whitespace-nowrap min-w-[180px]">สถานที่ / ลิงก์ออนไลน์</th>
+                    <th className="py-3 px-4 whitespace-nowrap min-w-[150px]">ผู้รับผิดชอบ</th>
+                    <th className="py-3 px-4 text-center whitespace-nowrap min-w-[110px]">ประเภท</th>
+                    <th className="py-3 px-4 text-right whitespace-nowrap min-w-[100px]">จัดการ</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
+                  {filteredEvents.map((evt) => {
+                    const categoryInfo = CATEGORY_OPTIONS.find(c => c.value === evt.category);
+                    const isMulti = evt.startDate && evt.endDate && evt.startDate !== evt.endDate;
+
+                    return (
+                      <tr key={evt.id} className="hover:bg-slate-50/80 transition-colors">
+                        <td className="py-3.5 px-4 font-medium whitespace-nowrap">
+                          <div className="flex items-center space-x-2">
+                            <span 
+                              className="w-2.5 h-2.5 rounded-full shrink-0" 
+                              style={{ backgroundColor: evt.color || categoryInfo?.color || '#2563eb' }}
+                            />
+                            <div>
+                              <div className="font-bold text-slate-900">{evt.startDate || evt.date}</div>
+                              {isMulti && <div className="text-[10px] text-mcu-pink font-semibold">ถึง {evt.endDate}</div>}
+                              <div className="text-[10px] text-slate-400 mt-0.5">
+                                {evt.isAllDay ? 'ตลอดวัน' : (evt.startTime ? `${evt.startTime} - ${evt.endTime || ''}` : evt.time || '-')}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </td>
+                        </td>
 
-                      <td className="py-3.5 px-4 max-w-xs">
-                        <div className="font-bold text-slate-800 line-clamp-1">{evt.title}</div>
-                        <div className="flex items-center space-x-2 mt-1">
-                          <span 
-                            className="text-[9px] font-bold px-2 py-0.5 rounded-full text-white"
-                            style={{ backgroundColor: evt.color || categoryInfo?.color || '#2563eb' }}
-                          >
-                            {evt.categoryLabel || categoryInfo?.label || 'กิจกรรม'}
-                          </span>
-                          {evt.recurrence && evt.recurrence !== 'none' && (
-                            <span className="text-[9px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full border border-amber-200">
-                              ประจำ ({evt.recurrence})
+                        <td className="py-3.5 px-4 max-w-xs">
+                          <div className="font-bold text-slate-800 line-clamp-1">{evt.title}</div>
+                          <div className="flex items-center space-x-2 mt-1">
+                            <span 
+                              className="text-[9px] font-bold px-2 py-0.5 rounded-full text-white"
+                              style={{ backgroundColor: evt.color || categoryInfo?.color || '#2563eb' }}
+                            >
+                              {evt.categoryLabel || categoryInfo?.label || 'กิจกรรม'}
                             </span>
-                          )}
-                        </div>
-                      </td>
-
-                      <td className="py-3.5 px-4 max-w-xs">
-                        <div className="flex items-center space-x-1 text-slate-600 line-clamp-1">
-                          <MapPin size={12} className="text-mcu-gold shrink-0" />
-                          <span className="truncate">{evt.location || 'ไม่ระบุสถานที่'}</span>
-                        </div>
-                        {evt.onlineLink && (
-                          <div className="flex items-center space-x-1 text-[10px] text-blue-600 font-medium mt-1">
-                            <Video size={11} className="shrink-0" />
-                            <a href={evt.onlineLink} target="_blank" rel="noreferrer" className="hover:underline truncate">
-                              {evt.meetingPlatform === 'zoom' ? 'Zoom Meeting' : evt.meetingPlatform === 'google_meet' ? 'Google Meet' : 'ประชุมออนไลน์'}
-                            </a>
+                            {evt.recurrence && evt.recurrence !== 'none' && (
+                              <span className="text-[9px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full border border-amber-200">
+                                ประจำ ({evt.recurrence})
+                              </span>
+                            )}
                           </div>
-                        )}
-                      </td>
+                        </td>
 
-                      <td className="py-3.5 px-4 whitespace-nowrap text-slate-600">
-                        {evt.organizer || '-'}
-                      </td>
+                        <td className="py-3.5 px-4 max-w-xs">
+                          <div className="flex items-center space-x-1 text-slate-600 line-clamp-1">
+                            <MapPin size={12} className="text-mcu-gold shrink-0" />
+                            <span className="truncate">{evt.location || 'ไม่ระบุสถานที่'}</span>
+                          </div>
+                          {evt.onlineLink && (
+                            <div className="flex items-center space-x-1 text-[10px] text-blue-600 font-medium mt-1">
+                              <Video size={11} className="shrink-0" />
+                              <a href={evt.onlineLink} target="_blank" rel="noreferrer" className="hover:underline truncate">
+                                {evt.meetingPlatform === 'zoom' ? 'Zoom Meeting' : evt.meetingPlatform === 'google_meet' ? 'Google Meet' : 'ประชุมออนไลน์'}
+                              </a>
+                            </div>
+                          )}
+                        </td>
 
-                      <td className="py-3.5 px-4 text-center whitespace-nowrap">
-                        <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
-                          isMulti 
-                            ? 'bg-purple-50 text-purple-700 border-purple-200' 
-                            : 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                        }`}>
-                          {isMulti ? 'หลายวัน' : 'วันเดียว'}
-                        </span>
-                      </td>
+                        <td className="py-3.5 px-4 whitespace-nowrap text-slate-600">
+                          {evt.organizer || '-'}
+                        </td>
 
-                      <td className="py-3.5 px-4 text-right whitespace-nowrap space-x-1">
-                        <button
-                          onClick={() => handleOpenEditModal(evt)}
-                          className="p-1.5 bg-slate-100 hover:bg-mcu-pink-soft text-slate-600 hover:text-mcu-pink-deep rounded-lg transition-colors"
-                          title="แก้ไขกิจกรรม"
-                        >
-                          <Edit3 size={14} />
-                        </button>
+                        <td className="py-3.5 px-4 text-center whitespace-nowrap">
+                          <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${
+                            isMulti 
+                              ? 'bg-purple-50 text-purple-700 border-purple-200' 
+                              : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                          }`}>
+                            {isMulti ? 'หลายวัน' : 'วันเดียว'}
+                          </span>
+                        </td>
 
-                        <button
-                          type="button"
-                          onClick={() => handleDelete(evt)}
-                          disabled={isDeleting === evt.id}
-                          className="p-1.5 bg-slate-100 hover:bg-rose-100 text-slate-600 hover:text-rose-600 rounded-lg transition-colors cursor-pointer"
-                          title="ลบกิจกรรม"
-                        >
-                          <Trash2 size={14} />
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                        <td className="py-3.5 px-4 text-right whitespace-nowrap space-x-1">
+                          <button
+                            onClick={() => handleOpenEditModal(evt)}
+                            className="p-1.5 bg-slate-100 hover:bg-mcu-pink-soft text-slate-600 hover:text-mcu-pink-deep rounded-lg transition-colors"
+                            title="แก้ไขกิจกรรม"
+                          >
+                            <Edit3 size={14} />
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => handleDelete(evt)}
+                            disabled={isDeleting === evt.id}
+                            className="p-1.5 bg-slate-100 hover:bg-rose-100 text-slate-600 hover:text-rose-600 rounded-lg transition-colors cursor-pointer"
+                            title="ลบกิจกรรม"
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
       </div>

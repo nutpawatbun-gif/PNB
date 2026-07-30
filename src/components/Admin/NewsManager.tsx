@@ -473,148 +473,249 @@ export default function NewsManager({ onNotify }: NewsManagerProps) {
             <p className="text-sm font-semibold text-slate-600">ไม่พบรายการข่าวสารตามเงื่อนไขที่เลือก</p>
           </div>
         ) : (
-          <div className="overflow-x-auto border border-slate-200 rounded-xl shadow-2xs">
-            <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[850px]">
-              <thead>
-                <tr className="bg-slate-50 text-slate-700 border-b border-slate-200 font-semibold">
-                  <th className="py-3 px-4 whitespace-nowrap min-w-[280px]">ภาพปก & หัวข้อข่าวสาร</th>
-                  <th className="py-3 px-4 whitespace-nowrap min-w-[140px]">หมวดหมู่ & แท็ก</th>
-                  <th className="py-3 px-4 whitespace-nowrap min-w-[160px]">ผู้เขียน / ผู้จัดการ</th>
-                  <th className="py-3 px-4 whitespace-nowrap min-w-[120px]">วันที่เผยแพร่</th>
-                  <th className="py-3 px-4 text-center whitespace-nowrap min-w-[140px]">สถานะ (8 Lifecycles)</th>
-                  <th className="py-3 px-4 text-right whitespace-nowrap min-w-[110px]">จัดการ</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {filteredNews.map((item) => {
-                  const stMeta = STATUS_CONFIG[item.status] || STATUS_CONFIG.Published;
+          <div>
+            {/* 1. MOBILE RESPONSIVE CARD VIEW (< sm: 640px) */}
+            <div className="block sm:hidden divide-y divide-slate-100 border border-slate-200 rounded-2xl bg-white overflow-hidden shadow-2xs">
+              {filteredNews.map((item) => {
+                const stMeta = STATUS_CONFIG[item.status] || STATUS_CONFIG.Published;
 
-                  return (
-                    <tr key={item.id} className="hover:bg-slate-50/80 transition-colors">
-                      
-                      {/* Image & Title */}
-                      <td className="py-3.5 px-4 max-w-md">
-                        <div className="flex items-start gap-3">
-                          <img
-                            src={getEmbeddableDriveUrl(item.imageUrl || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400')}
-                            alt={item.title}
-                            className="w-16 h-12 object-cover rounded-lg border border-slate-200 shrink-0 bg-slate-100"
-                            referrerPolicy="no-referrer"
-                          />
-                          <div className="space-y-1">
-                            <div className="flex items-center gap-1.5 flex-wrap">
-                              {item.isFeatured && (
-                                <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-1.5 py-0.2 rounded border border-amber-200 whitespace-nowrap">
-                                  ★ ข่าวเด่น
-                                </span>
-                              )}
-                              <span className="font-bold text-slate-800 line-clamp-2">{item.title}</span>
-                            </div>
-                            {item.titleEn && (
-                              <p className="text-[11px] text-slate-400 italic line-clamp-1">{item.titleEn}</p>
-                            )}
-                            <div className="flex items-center gap-3 text-[11px] text-slate-500 pt-0.5 whitespace-nowrap">
-                              {item.galleryUrls && item.galleryUrls.length > 0 && (
-                                <span className="flex items-center gap-1 text-mcu-pink font-medium">
-                                  <ImageIcon size={12} /> {item.galleryUrls.length} ภาพในอัลบั้ม
-                                </span>
-                              )}
-                              {item.attachments && item.attachments.length > 0 && (
-                                <span className="flex items-center gap-1 text-blue-600 font-medium">
-                                  <Paperclip size={12} /> {item.attachments.length} เอกสารแนบ
-                                </span>
-                              )}
-                            </div>
-                          </div>
+                return (
+                  <div key={item.id} className="p-4 space-y-3 hover:bg-slate-50/60 transition-colors">
+                    {/* Top Header: Image, Title, Featured & Status Badge */}
+                    <div className="flex items-start gap-3">
+                      <img
+                        src={getEmbeddableDriveUrl(item.imageUrl || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400')}
+                        alt={item.title}
+                        className="w-20 h-16 object-cover rounded-xl border border-slate-200 shrink-0 bg-slate-100 shadow-2xs"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="space-y-1 flex-1 min-w-0">
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          {item.isFeatured && (
+                            <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-200 whitespace-nowrap">
+                              ★ ข่าวเด่น
+                            </span>
+                          )}
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border whitespace-nowrap ${stMeta.bgClass} ${stMeta.borderClass} ${stMeta.textClass}`}>
+                            {stMeta.labelTh}
+                          </span>
                         </div>
-                      </td>
-
-                      {/* Category & Tags */}
-                      <td className="py-3.5 px-4 space-y-1 whitespace-nowrap">
-                        <span className="inline-block px-2.5 py-0.5 rounded text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200 whitespace-nowrap">
-                          {item.categoryLabel || item.category}
-                        </span>
-                        {item.tags && item.tags.length > 0 && (
-                          <div className="flex flex-wrap gap-1">
-                            {item.tags.slice(0, 3).map((tg, i) => (
-                              <span key={i} className="text-[10px] text-slate-500 font-mono bg-slate-50 px-1.5 py-0.2 rounded whitespace-nowrap">
-                                {tg}
-                              </span>
-                            ))}
-                          </div>
+                        <h4 className="font-bold text-slate-900 text-sm leading-snug line-clamp-2">
+                          {item.title}
+                        </h4>
+                        {item.titleEn && (
+                          <p className="text-[11px] text-slate-400 italic line-clamp-1">{item.titleEn}</p>
                         )}
-                      </td>
+                      </div>
+                    </div>
 
-                      {/* Author */}
-                      <td className="py-3.5 px-4 text-xs space-y-0.5 whitespace-nowrap">
-                        <div className="font-medium text-slate-800 flex items-center gap-1">
+                    {/* Metadata Card Info */}
+                    <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/60 space-y-2 text-xs">
+                      <div className="flex items-center justify-between gap-2 flex-wrap text-[11px]">
+                        <span className="inline-block px-2.5 py-0.5 rounded font-semibold bg-white text-slate-700 border border-slate-200 shadow-2xs whitespace-nowrap">
+                          📁 {item.categoryLabel || item.category}
+                        </span>
+                        <span className="flex items-center gap-1 text-slate-500 font-mono">
+                          <Calendar size={12} className="text-mcu-gold shrink-0" /> {item.date}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-200/50">
+                        <div className="flex items-center gap-1">
                           <User size={12} className="text-slate-400 shrink-0" />
                           <span>{item.authorName || 'ฝ่ายประชาสัมพันธ์'}</span>
                         </div>
-                        <div className="text-[11px] text-slate-400">{item.authorRole || 'เจ้าหน้าที่'}</div>
-                      </td>
-
-                      {/* Date */}
-                      <td className="py-3.5 px-4 text-xs text-slate-600 space-y-0.5 whitespace-nowrap">
-                        <div className="flex items-center gap-1">
-                          <Calendar size={12} className="text-mcu-gold shrink-0" />
-                          <span>{item.date}</span>
+                        <div className="flex items-center gap-2">
+                          {item.galleryUrls && item.galleryUrls.length > 0 && (
+                            <span className="text-mcu-pink font-medium">📷 {item.galleryUrls.length} ภาพ</span>
+                          )}
+                          {item.attachments && item.attachments.length > 0 && (
+                            <span className="text-blue-600 font-medium">📎 {item.attachments.length} ไฟล์</span>
+                          )}
                         </div>
-                        {item.scheduledAt && (
-                          <div className="text-[10px] text-indigo-600 font-mono">
-                            ตั้งเวลา: {item.scheduledAt.replace('T', ' ')}
+                      </div>
+                    </div>
+
+                    {/* Mobile Action Buttons Bar */}
+                    <div className="flex items-center justify-end gap-1.5 pt-1">
+                      <button
+                        type="button"
+                        onClick={() => setPreviewItem(item)}
+                        className="flex-1 py-1.5 px-2 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg text-xs font-semibold flex items-center justify-center gap-1 transition-colors cursor-pointer border border-blue-200/60"
+                      >
+                        <Eye size={14} /> ดูตัวอย่าง
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setHistoryModalItem({ id: item.id, title: item.title })}
+                        className="py-1.5 px-3 bg-amber-50 text-amber-700 hover:bg-amber-100 rounded-lg text-xs font-semibold flex items-center justify-center gap-1 transition-colors cursor-pointer border border-amber-200/60"
+                      >
+                        <History size={14} /> ประวัติ
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleOpenForm(item)}
+                        className="py-1.5 px-3 bg-pink-50 text-mcu-pink hover:bg-pink-100 rounded-lg text-xs font-semibold flex items-center justify-center gap-1 transition-colors cursor-pointer border border-pink-200/60"
+                      >
+                        <Edit3 size={14} /> แก้ไข
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setDeleteConfirmItem({ id: item.id, title: item.title })}
+                        className="py-1.5 px-3 bg-rose-50 text-rose-700 hover:bg-rose-100 rounded-lg text-xs font-semibold flex items-center justify-center gap-1 transition-colors cursor-pointer border border-rose-200/60"
+                      >
+                        <Trash2 size={14} /> ลบ
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* 2. DESKTOP TABLE VIEW (≥ sm: 640px) */}
+            <div className="hidden sm:block overflow-x-auto border border-slate-200 rounded-xl shadow-2xs">
+              <table className="w-full text-left text-xs sm:text-sm border-collapse min-w-[850px]">
+                <thead>
+                  <tr className="bg-slate-50 text-slate-700 border-b border-slate-200 font-semibold">
+                    <th className="py-3 px-4 whitespace-nowrap min-w-[280px]">ภาพปก & หัวข้อข่าวสาร</th>
+                    <th className="py-3 px-4 whitespace-nowrap min-w-[140px]">หมวดหมู่ & แท็ก</th>
+                    <th className="py-3 px-4 whitespace-nowrap min-w-[160px]">ผู้เขียน / ผู้จัดการ</th>
+                    <th className="py-3 px-4 whitespace-nowrap min-w-[120px]">วันที่เผยแพร่</th>
+                    <th className="py-3 px-4 text-center whitespace-nowrap min-w-[140px]">สถานะ (8 Lifecycles)</th>
+                    <th className="py-3 px-4 text-right whitespace-nowrap min-w-[110px]">จัดการ</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {filteredNews.map((item) => {
+                    const stMeta = STATUS_CONFIG[item.status] || STATUS_CONFIG.Published;
+
+                    return (
+                      <tr key={item.id} className="hover:bg-slate-50/80 transition-colors">
+                        
+                        {/* Image & Title */}
+                        <td className="py-3.5 px-4 max-w-md">
+                          <div className="flex items-start gap-3">
+                            <img
+                              src={getEmbeddableDriveUrl(item.imageUrl || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400')}
+                              alt={item.title}
+                              className="w-16 h-12 object-cover rounded-lg border border-slate-200 shrink-0 bg-slate-100"
+                              referrerPolicy="no-referrer"
+                            />
+                            <div className="space-y-1">
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                {item.isFeatured && (
+                                  <span className="bg-amber-100 text-amber-800 text-[10px] font-bold px-1.5 py-0.2 rounded border border-amber-200 whitespace-nowrap">
+                                    ★ ข่าวเด่น
+                                  </span>
+                                )}
+                                <span className="font-bold text-slate-800 line-clamp-2">{item.title}</span>
+                              </div>
+                              {item.titleEn && (
+                                <p className="text-[11px] text-slate-400 italic line-clamp-1">{item.titleEn}</p>
+                              )}
+                              <div className="flex items-center gap-3 text-[11px] text-slate-500 pt-0.5 whitespace-nowrap">
+                                {item.galleryUrls && item.galleryUrls.length > 0 && (
+                                  <span className="flex items-center gap-1 text-mcu-pink font-medium">
+                                    <ImageIcon size={12} /> {item.galleryUrls.length} ภาพในอัลบั้ม
+                                  </span>
+                                )}
+                                {item.attachments && item.attachments.length > 0 && (
+                                  <span className="flex items-center gap-1 text-blue-600 font-medium">
+                                    <Paperclip size={12} /> {item.attachments.length} เอกสารแนบ
+                                  </span>
+                                )}
+                              </div>
+                            </div>
                           </div>
-                        )}
-                      </td>
+                        </td>
 
-                      {/* Status */}
-                      <td className="py-3.5 px-4 text-center whitespace-nowrap">
-                        <span className={`inline-block px-2.5 py-1 rounded-full text-xs font-bold border whitespace-nowrap ${stMeta.bgClass} ${stMeta.borderClass} ${stMeta.textClass}`}>
-                          {stMeta.labelTh}
-                        </span>
-                      </td>
+                        {/* Category & Tags */}
+                        <td className="py-3.5 px-4 space-y-1 whitespace-nowrap">
+                          <span className="inline-block px-2.5 py-0.5 rounded text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200 whitespace-nowrap">
+                            {item.categoryLabel || item.category}
+                          </span>
+                          {item.tags && item.tags.length > 0 && (
+                            <div className="flex flex-wrap gap-1">
+                              {item.tags.slice(0, 3).map((tg, i) => (
+                                <span key={i} className="text-[10px] text-slate-500 font-mono bg-slate-50 px-1.5 py-0.2 rounded whitespace-nowrap">
+                                  {tg}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                        </td>
 
-                      {/* Actions */}
-                      <td className="py-3.5 px-4 text-right space-x-1 whitespace-nowrap">
-                        <button
-                          type="button"
-                          onClick={() => setPreviewItem(item)}
-                          className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer"
-                          title="ดูตัวอย่างข่าวสาร"
-                        >
-                          <Eye className="w-4 h-4" />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setHistoryModalItem({ id: item.id, title: item.title })}
-                          className="p-1.5 text-amber-600 hover:bg-amber-50 rounded-lg transition-colors cursor-pointer"
-                          title="ประวัติการแก้ไข (Revision History)"
-                        >
-                          <History className="w-4 h-4" />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleOpenForm(item)}
-                          className="p-1.5 text-mcu-pink hover:bg-mcu-pink-soft rounded-lg transition-colors cursor-pointer"
-                          title="แก้ไขข่าวสาร"
-                        >
-                          <Edit3 className="w-4 h-4" />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setDeleteConfirmItem({ id: item.id, title: item.title })}
-                          className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
-                          title="ลบข่าวสาร"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
-                      </td>
+                        {/* Author */}
+                        <td className="py-3.5 px-4 text-xs space-y-0.5 whitespace-nowrap">
+                          <div className="font-medium text-slate-800 flex items-center gap-1">
+                            <User size={12} className="text-slate-400 shrink-0" />
+                            <span>{item.authorName || 'ฝ่ายประชาสัมพันธ์'}</span>
+                          </div>
+                          <div className="text-[11px] text-slate-400">{item.authorRole || 'เจ้าหน้าที่'}</div>
+                        </td>
 
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                        {/* Date */}
+                        <td className="py-3.5 px-4 text-xs text-slate-600 space-y-0.5 whitespace-nowrap">
+                          <div className="flex items-center gap-1">
+                            <Calendar size={12} className="text-mcu-gold shrink-0" />
+                            <span>{item.date}</span>
+                          </div>
+                          {item.scheduledAt && (
+                            <div className="text-[10px] text-indigo-600 font-mono">
+                              ตั้งเวลา: {item.scheduledAt.replace('T', ' ')}
+                            </div>
+                          )}
+                        </td>
+
+                        {/* Status */}
+                        <td className="py-3.5 px-4 text-center whitespace-nowrap">
+                          <span className={`inline-block px-2.5 py-1 rounded-full text-xs font-bold border whitespace-nowrap ${stMeta.bgClass} ${stMeta.borderClass} ${stMeta.textClass}`}>
+                            {stMeta.labelTh}
+                          </span>
+                        </td>
+
+                        {/* Actions */}
+                        <td className="py-3.5 px-4 text-right space-x-1 whitespace-nowrap">
+                          <button
+                            type="button"
+                            onClick={() => setPreviewItem(item)}
+                            className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer"
+                            title="ดูตัวอย่างข่าวสาร"
+                          >
+                            <Eye className="w-4 h-4" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setHistoryModalItem({ id: item.id, title: item.title })}
+                            className="p-1.5 text-amber-600 hover:bg-amber-50 rounded-lg transition-colors cursor-pointer"
+                            title="ประวัติการแก้ไข (Revision History)"
+                          >
+                            <History className="w-4 h-4" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleOpenForm(item)}
+                            className="p-1.5 text-mcu-pink hover:bg-mcu-pink-soft rounded-lg transition-colors cursor-pointer"
+                            title="แก้ไขข่าวสาร"
+                          >
+                            <Edit3 className="w-4 h-4" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setDeleteConfirmItem({ id: item.id, title: item.title })}
+                            className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
+                            title="ลบข่าวสาร"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </td>
+
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
       </div>
