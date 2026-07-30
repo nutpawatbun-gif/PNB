@@ -16,7 +16,7 @@ import {
 } from '../types';
 
 export const directorData: DirectorMessage = {
-  title: "สารจากผู้อำนวยการวิทยาลัยสงฆ์",
+  title: "สัมโมทนียกถาผู้อำนวยการวิทยาลัยสงฆ์",
   name: "พระราชพัชรธรรมเมธี, ดร.",
   position: "ผู้อำนวยการวิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์",
   avatarUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=600", // Will render as placeholder, styled roundly

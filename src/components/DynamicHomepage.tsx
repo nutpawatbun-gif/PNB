@@ -67,7 +67,7 @@ export default function DynamicHomepage({ lang, navigateTo }: DynamicHomepagePro
           setSections([
             { id: 'sec_hero_slider', key: 'hero_slider', titleTh: 'ภาพสไลด์ประชาสัมพันธ์', isVisible: true, order: 1 },
             { id: 'sec_announcements', key: 'announcements', titleTh: 'แถบประกาศสำคัญประจำวัน', isVisible: true, order: 2 },
-            { id: 'sec_welcome_message', key: 'welcome_message', titleTh: 'สารจากผู้อำนวยการวิทยาลัยสงฆ์พ่อขุนผาเมือง', isVisible: true, order: 3 },
+            { id: 'sec_welcome_message', key: 'welcome_message', titleTh: 'สัมโมทนียกถาผู้อำนวยการวิทยาลัยสงฆ์พ่อขุนผาเมือง', isVisible: true, order: 3 },
             { id: 'sec_quick_links', key: 'quick_links', titleTh: 'บริการและลิงก์ด่วน', isVisible: true, order: 4 },
             { id: 'sec_featured_courses', key: 'recommended_courses', titleTh: 'หลักสูตรที่เปิดสอน', isVisible: true, order: 5 },
             { id: 'sec_featured_news', key: 'featured_news', titleTh: 'ข่าวสารรอบรั้ว มจร', isVisible: true, order: 6 },

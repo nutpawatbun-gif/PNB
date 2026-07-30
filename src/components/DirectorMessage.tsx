@@ -20,9 +20,9 @@ export default function DirectorMessage({ lang }: DirectorMessageProps) {
   const portraitUrl = directorImg;
 
   const t = {
-    readMore: lang === 'th' ? 'อ่านสารจากผู้อำนวยการวิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์' : 'Read Full Welcome Message',
+    readMore: lang === 'th' ? 'สัมโมทนียกถาผู้อำนวยการวิทยาลัยสงฆ์พ่อขุนผาเมือง เพชบูรณ์' : 'Read Full Welcome Message',
     close: lang === 'th' ? 'ปิดหน้าต่าง' : 'Close',
-    greet: lang === 'th' ? 'สารต้อนรับจากผู้อำนวยการ' : 'Welcome Address from Director',
+    greet: lang === 'th' ? 'สัมโมทนียกถา' : 'Welcome Address from Director',
     institution: lang === 'th' ? 'วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์' : 'Phokhun Phamuang Buddhist College, Phetchabun'
   };
 
