@@ -120,6 +120,91 @@ systemRouter.get(['/settings/backup/download', '/backup/download/:filename?'], (
   res.download(filePath, path.basename(filePath));
 });
 
+// 1.5 HOMEPAGE SECTIONS CMS
+const DEFAULT_HOMEPAGE_SECTIONS = [
+  { id: 'sec_hero_slider', key: 'hero_slider', titleTh: 'ภาพสไลด์ประชาสัมพันธ์', titleEn: 'Hero Banners', isVisible: true, order: 1 },
+  { id: 'sec_announcements', key: 'announcements', titleTh: 'แถบประกาศสำคัญประจำวัน', titleEn: 'Important Announcements', isVisible: true, order: 2 },
+  { id: 'sec_welcome_message', key: 'welcome_message', titleTh: 'สัมโมทนียกถาผู้อำนวยการวิทยาลัยสงฆ์พ่อขุนผาเมือง', titleEn: 'Director Welcome Message', isVisible: true, order: 3 },
+  { id: 'sec_quick_links', key: 'quick_links', titleTh: 'บริการและลิงก์ด่วน', titleEn: 'Quick Services & Links', isVisible: true, order: 4 },
+  { id: 'sec_featured_courses', key: 'recommended_courses', titleTh: 'หลักสูตรที่เปิดสอน', titleEn: 'Academic Programs', isVisible: true, order: 5 },
+  { id: 'sec_featured_news', key: 'featured_news', titleTh: 'ข่าวสารรอบรั้ว มจร', titleEn: 'Featured News & Activities', isVisible: true, order: 6 },
+  { id: 'sec_academic_highlights', key: 'academic_news', titleTh: 'ผลงานทางวิชาการ', titleEn: 'Academic Works & Research', isVisible: true, order: 7 },
+  { id: 'sec_upcoming_events', key: 'upcoming_events', titleTh: 'ปฏิทินกิจกรรมวิทยาลัยสงฆ์', titleEn: 'Upcoming Events Calendar', isVisible: true, order: 8 },
+  { id: 'sec_document_downloads', key: 'document_downloads', titleTh: 'เอกสารดาวน์โหลดสำหรับนิสิตและบุคลากร', titleEn: 'Document Downloads', isVisible: true, order: 9 },
+  { id: 'sec_key_stats', key: 'key_stats', titleTh: 'สรุปสถิติสถาบัน', titleEn: 'Institutional Statistics', isVisible: true, order: 10 },
+  { id: 'sec_org_logo', key: 'org_logo', titleTh: 'ปรัชญาและสัญลักษณ์สถาบัน', titleEn: 'Philosophy & Symbols', isVisible: true, order: 11 },
+  { id: 'sec_contact_channels', key: 'contact_channels', titleTh: 'ติดต่อวิทยาลัยสงฆ์และช่องทางออนไลน์', titleEn: 'Contact Channels', isVisible: true, order: 12 }
+];
+
+function getHomepageSectionsList(db: any) {
+  if (!Array.isArray(db.homepage_sections) || db.homepage_sections.length === 0) {
+    db.homepage_sections = DEFAULT_HOMEPAGE_SECTIONS;
+    writeDB(db);
+  }
+  return db.homepage_sections.sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+}
+
+systemRouter.get(['/homepage-sections', '/homepageSections'], (req: Request, res: Response) => {
+  const db = readDB();
+  const sections = getHomepageSectionsList(db);
+  sendStandardResponse(res, 200, {
+    success: true,
+    data: sections
+  });
+});
+
+systemRouter.put(['/homepage-sections/reorder', '/homepageSections/reorder'], (req: Request, res: Response) => {
+  const db = readDB();
+  const reordered = req.body.reorderedSections || req.body.sections || req.body;
+  
+  if (Array.isArray(reordered)) {
+    db.homepage_sections = reordered.map((sec: any, idx: number) => ({
+      ...sec,
+      order: idx + 1,
+      updatedAt: new Date().toISOString()
+    }));
+    writeDB(db);
+    logAuditAction('system', (req as any).user?.id || 'admin', 'REORDER_HOMEPAGE_SECTIONS', 'SYSTEM', 'homepage_sections', {}, req.ip);
+  }
+
+  const sections = getHomepageSectionsList(db);
+  sendStandardResponse(res, 200, {
+    success: true,
+    data: sections
+  });
+});
+
+systemRouter.put(['/homepage-sections/:id', '/homepageSections/:id'], (req: Request, res: Response) => {
+  const db = readDB();
+  const sections = getHomepageSectionsList(db);
+  const { id } = req.params;
+  const index = sections.findIndex((s: any) => String(s.id) === id || String(s.key) === id);
+
+  if (index === -1) {
+    sendStandardResponse(res, 404, {
+      success: false,
+      error: { code: 'SECTION_NOT_FOUND', message: 'ไม่พบส่วนประกอบหน้าแรกที่ระบุ' }
+    });
+    return;
+  }
+
+  sections[index] = {
+    ...sections[index],
+    ...req.body,
+    id: sections[index].id,
+    updatedAt: new Date().toISOString()
+  };
+
+  db.homepage_sections = sections;
+  writeDB(db);
+  logAuditAction('system', (req as any).user?.id || 'admin', 'UPDATE_HOMEPAGE_SECTION', 'SYSTEM', id, req.body, req.ip);
+
+  sendStandardResponse(res, 200, {
+    success: true,
+    data: sections[index]
+  });
+});
+
 // 2. MENUS
 systemRouter.get('/menus', (req: Request, res: Response) => {
   const db = readDB();
