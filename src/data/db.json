@@ -39,7 +39,7 @@
       "mustChangePassword": false,
       "is2FAEnabled": false,
       "createdAt": "2026-07-22T11:12:05.118Z",
-      "lastLoginAt": "2026-07-30T21:20:23.274Z",
+      "lastLoginAt": "2026-07-31T04:30:58.339Z",
       "failedLoginAttempts": 0,
       "updatedAt": "2026-07-26T08:16:02.718Z",
       "customPermissions": [
@@ -584,7 +584,7 @@
         "บุคลากรในหน่วยงานภาครัฐและเอกชน",
         "นักวิจัยด้านพุทธศาสนาและสังคมศาสตร์"
       ],
-      "status": "inactive",
+      "status": "active",
       "applyUrl": "/admission/apply",
       "applyMethod": "internal",
       "coverImageUrl": "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=800",
@@ -611,7 +611,7 @@
         "description": "",
         "keywords": ""
       },
-      "updatedAt": "2026-07-26T06:11:54.657Z"
+      "updatedAt": "2026-07-31T04:32:18.615Z"
     },
     {
       "id": "b2",
@@ -641,7 +641,7 @@
         "ครูผู้สอนวิชาพระพุทธศาสนา",
         "นักพัฒนาชุมชนแนวพุทธ"
       ],
-      "status": "inactive",
+      "status": "active",
       "applyUrl": "/admission/apply",
       "applyMethod": "internal",
       "coverImageUrl": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=800",
@@ -668,7 +668,7 @@
         "description": "",
         "keywords": ""
       },
-      "updatedAt": "2026-07-26T06:11:42.596Z"
+      "updatedAt": "2026-07-31T04:32:05.310Z"
     },
     {
       "id": "b3",
@@ -697,7 +697,7 @@
         "นักบริหารงานส่วนท้องถิ่น (อบต., เทศบาล, อบจ.)",
         "ผู้จัดการฝ่ายบริหารทรัพยากรบุคคล"
       ],
-      "status": "inactive",
+      "status": "active",
       "applyUrl": "/admission/apply",
       "applyMethod": "internal",
       "coverImageUrl": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800",
@@ -711,7 +711,7 @@
         "description": "",
         "keywords": ""
       },
-      "updatedAt": "2026-07-26T05:56:49.644Z",
+      "updatedAt": "2026-07-31T04:31:47.351Z",
       "level": "bachelor",
       "qualification": [
         "สำเร็จการศึกษาระดับมัธยมศึกษาตอนปลาย (ม.6) หรือเทียบเท่า",
@@ -752,7 +752,7 @@
         "นักวิจัยสถาบันวิจัยพุทธศาสตร์",
         "ผู้บริหารองค์กรทางพระพุทธศาสนา"
       ],
-      "status": "inactive",
+      "status": "active",
       "applyUrl": "/admission/apply",
       "applyMethod": "internal",
       "coverImageUrl": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800",
@@ -778,7 +778,7 @@
         "description": "",
         "keywords": ""
       },
-      "updatedAt": "2026-07-26T06:12:11.656Z"
+      "updatedAt": "2026-07-31T04:31:25.354Z"
     },
     {
       "id": "m2",
@@ -807,7 +807,7 @@
         "ที่ปรึกษาด้านการบริหารจัดการภาครัฐ",
         "นักวิชาการด้านการปกครองระดับสูง"
       ],
-      "status": "inactive",
+      "status": "active",
       "applyUrl": "/admission/apply",
       "applyMethod": "internal",
       "coverImageUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800",
@@ -829,7 +829,7 @@
         "description": "",
         "keywords": ""
       },
-      "updatedAt": "2026-07-26T06:12:03.053Z",
+      "updatedAt": "2026-07-31T04:31:15.209Z",
       "level": "master",
       "qualification": [
         "สำเร็จการศึกษาระดับปริญญาตรีทุกสาขาวิชา",
@@ -869,7 +869,7 @@
         "นักวิชาการผู้เชี่ยวชาญระดับชาติและนานาชาติ",
         "ผู้เชี่ยวชาญคัมภีร์และปรัชญาพุทธศาสนา"
       ],
-      "status": "inactive",
+      "status": "active",
       "applyUrl": "/admission/apply",
       "applyMethod": "internal",
       "coverImageUrl": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=800",
@@ -894,7 +894,7 @@
         "description": "",
         "keywords": ""
       },
-      "updatedAt": "2026-07-26T06:12:19.292Z"
+      "updatedAt": "2026-07-31T04:31:34.792Z"
     },
     {
       "id": "c1",
@@ -1088,8 +1088,48 @@
   ],
   "applicants": [
     {
-      "id": "69004",
-      "applicationCode": "69004",
+      "id": "MCU-69-69003",
+      "applicationCode": "MCU-69-69003",
+      "personType": "monk",
+      "prefix": "พระมหา",
+      "firstName": "นิคม",
+      "lastName": "ทดสอบ",
+      "ordinationName": "อิทธิชโย",
+      "templeName": "มหาธาตุ",
+      "templeDistrict": "เมือง",
+      "templeProvince": "เพชรบูรณ์",
+      "fullName": "พระมหา นิคม ทดสอบ (อิทธิชโย)",
+      "nationalId": "3-4601-01077-60-3",
+      "birthDate": "2523-05-06",
+      "phone": "081-462-5663",
+      "email": "akkharadet.bun@mcu.ac.th",
+      "educationalBackground": "พระปริยัติธรรมแผนกสามัญศึกษา",
+      "programId": "b3",
+      "programTitle": "หลักสูตรพุทธศาสตรบัณฑิต",
+      "degreeLevel": "ปริญญาตรี",
+      "documents": {
+        "nationalIdCopy": {
+          "name": "1785266499960.jpg",
+          "size": "525.1 KB",
+          "url": "/uploads/admissions/doc_monk_MCU693611_1785472457592.jpg"
+        },
+        "transcriptCopy": {
+          "name": "1785266499960.jpg",
+          "size": "525.1 KB",
+          "url": "/uploads/admissions/doc_applicant_MCU693839_1785472462812.jpg"
+        },
+        "photoCopy": {
+          "name": "100977.jpg",
+          "size": "16.1 KB",
+          "url": "/uploads/admissions/doc_applicant_MCU692569_1785472484309.jpg"
+        }
+      },
+      "status": "pending",
+      "submittedAt": "2026-07-31T04:35:00.315Z"
+    },
+    {
+      "id": "MCU-69-69004",
+      "applicationCode": "MCU-69-69004",
       "personType": "layperson",
       "prefix": "นาย",
       "firstName": "อัครเดช",
@@ -1129,8 +1169,8 @@
       "updatedAt": "2026-07-30T21:36:05.490Z"
     },
     {
-      "id": "69003",
-      "applicationCode": "69003",
+      "id": "MCU-69-69005",
+      "applicationCode": "MCU-69-69005",
       "personType": "monk",
       "prefix": "พระมหา",
       "firstName": "นิคม",
@@ -1274,6 +1314,83 @@
     "updatedAt": "2026-07-30T08:20:41.414Z"
   },
   "audit_logs": [
+    {
+      "id": "audit_1785472500327_122",
+      "timestamp": "2026-07-31T04:35:00.327Z",
+      "userId": "system",
+      "username": "guest",
+      "action": "SUBMIT_APPLICATION",
+      "module": "ADMISSION",
+      "targetId": "MCU-69-69005",
+      "details": "{\"applicationCode\":\"MCU-69-69005\",\"fullName\":\"พระมหา นิคม ทดสอบ (อิทธิชโย)\"}",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785472338625_116",
+      "timestamp": "2026-07-31T04:32:18.625Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "b1",
+      "details": "หลักสูตรพุทธศาสตรบัณฑิต สาขาวิชาศาสนาและปรัชญา",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785472325318_432",
+      "timestamp": "2026-07-31T04:32:05.318Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "b2",
+      "details": "หลักสูตรพุทธศาสตรบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785472307359_295",
+      "timestamp": "2026-07-31T04:31:47.359Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "b3",
+      "details": "หลักสูตรรัฐประศาสนศาสตรบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785472294801_521",
+      "timestamp": "2026-07-31T04:31:34.801Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "d1",
+      "details": "หลักสูตรพุทธศาสตรดุษฎีบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785472285365_229",
+      "timestamp": "2026-07-31T04:31:25.366Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "m1",
+      "details": "หลักสูตรพุทธศาสตรมหาบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785472275217_654",
+      "timestamp": "2026-07-31T04:31:15.217Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "m2",
+      "details": "หลักสูตรรัฐประศาสนศาสตรมหาบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "ip": "127.0.0.1"
+    },
     {
       "id": "audit_1785447365495_889",
       "timestamp": "2026-07-30T21:36:05.495Z",
@@ -4617,7 +4734,7 @@
       "createdBy": "Super Admin"
     }
   ],
-  "applicantCounter": 69004,
+  "applicantCounter": 69005,
   "messages": [
     {
       "id": "msg_1785052284187",
@@ -4630,6 +4747,104 @@
       "createdAt": "2026-07-26T07:51:24.187Z",
       "status": "read",
       "readAt": "2026-07-26T08:01:46.264Z"
+    }
+  ],
+  "homepage_sections": [
+    {
+      "id": "sec_hero_slider",
+      "key": "hero_slider",
+      "titleTh": "ภาพสไลด์ประชาสัมพันธ์",
+      "titleEn": "Hero Banners",
+      "isVisible": true,
+      "order": 1
+    },
+    {
+      "id": "sec_announcements",
+      "key": "announcements",
+      "titleTh": "แถบประกาศสำคัญประจำวัน",
+      "titleEn": "Important Announcements",
+      "isVisible": true,
+      "order": 2
+    },
+    {
+      "id": "sec_welcome_message",
+      "key": "welcome_message",
+      "titleTh": "สัมโมทนียกถาผู้อำนวยการวิทยาลัยสงฆ์พ่อขุนผาเมือง",
+      "titleEn": "Director Welcome Message",
+      "isVisible": true,
+      "order": 3
+    },
+    {
+      "id": "sec_quick_links",
+      "key": "quick_links",
+      "titleTh": "บริการและลิงก์ด่วน",
+      "titleEn": "Quick Services & Links",
+      "isVisible": true,
+      "order": 4
+    },
+    {
+      "id": "sec_featured_courses",
+      "key": "recommended_courses",
+      "titleTh": "หลักสูตรที่เปิดสอน",
+      "titleEn": "Academic Programs",
+      "isVisible": true,
+      "order": 5
+    },
+    {
+      "id": "sec_featured_news",
+      "key": "featured_news",
+      "titleTh": "ข่าวสารรอบรั้ว มจร",
+      "titleEn": "Featured News & Activities",
+      "isVisible": true,
+      "order": 6
+    },
+    {
+      "id": "sec_academic_highlights",
+      "key": "academic_news",
+      "titleTh": "ผลงานทางวิชาการ",
+      "titleEn": "Academic Works & Research",
+      "isVisible": true,
+      "order": 7
+    },
+    {
+      "id": "sec_upcoming_events",
+      "key": "upcoming_events",
+      "titleTh": "ปฏิทินกิจกรรมวิทยาลัยสงฆ์",
+      "titleEn": "Upcoming Events Calendar",
+      "isVisible": true,
+      "order": 8
+    },
+    {
+      "id": "sec_document_downloads",
+      "key": "document_downloads",
+      "titleTh": "เอกสารดาวน์โหลดสำหรับนิสิตและบุคลากร",
+      "titleEn": "Document Downloads",
+      "isVisible": true,
+      "order": 9
+    },
+    {
+      "id": "sec_key_stats",
+      "key": "key_stats",
+      "titleTh": "สรุปสถิติสถาบัน",
+      "titleEn": "Institutional Statistics",
+      "isVisible": true,
+      "order": 10
+    },
+    {
+      "id": "sec_org_logo",
+      "key": "org_logo",
+      "titleTh": "ปรัชญาและสัญลักษณ์สถาบัน",
+      "titleEn": "Philosophy & Symbols",
+      "isVisible": true,
+      "order": 11
+    },
+    {
+      "id": "sec_contact_channels",
+      "key": "contact_channels",
+      "titleTh": "ติดต่อวิทยาลัยสงฆ์และช่องทางออนไลน์",
+      "titleEn": "Contact Channels",
+      "isVisible": true,
+      "order": 12
     }
   ]
 }

@@ -26,6 +26,8 @@ import Step2PersonalInfo from './Admission/Step2PersonalInfo';
 import Step3DocumentUpload from './Admission/Step3DocumentUpload';
 import Step4ReviewSummary from './Admission/Step4ReviewSummary';
 import Step5SuccessPrint from './Admission/Step5SuccessPrint';
+import { QRCodeSVG } from './ui/QRCodeSVG';
+import { formatMCUCode } from '../utils/formatters';
 
 interface AdmissionFormWizardProps {
   courses: Course[];
@@ -326,7 +328,8 @@ export default function AdmissionFormWizard({ courses, onCompleteSuccess, onNavi
       // Clear draft after success
       clearDraft();
 
-      const finalCode = code && code !== '69001' ? code : (storeApplicant.id || 'MCU-69-69001');
+      const rawCode = code || storeApplicant?.id || '69001';
+      const finalCode = formatMCUCode(rawCode);
       setSubmittedCode(finalCode);
       onCompleteSuccess(finalCode);
       setCurrentStep(5);
@@ -699,12 +702,9 @@ export default function AdmissionFormWizard({ courses, onCompleteSuccess, onNavi
                 กรรมการสอบสัมภาษณ์สามารถสแกน QR Code นี้เพื่อตรวจเช็กเอกสารตัวจริง
               </p>
             </div>
-            <img
-              src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(
-                `https://pkpm.mcu.ac.th/admission/track?code=${submittedCode || 'MCU-69-69001'}`
-              )}`}
-              alt="Scan Verification QR Code"
-              className="w-20 h-20 border p-1 bg-white rounded-lg shadow-2xs shrink-0"
+            <QRCodeSVG
+              value={`https://pkpm.mcu.ac.th/admission/track?code=${formatMCUCode(submittedCode)}`}
+              size={80}
             />
           </div>
 

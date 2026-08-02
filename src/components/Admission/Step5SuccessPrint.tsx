@@ -1,5 +1,7 @@
 import React from 'react';
 import { CheckCircle2, Printer, Search, QrCode, Clock, Lock } from 'lucide-react';
+import { QRCodeSVG } from '../ui/QRCodeSVG';
+import { formatMCUCode } from '../../utils/formatters';
 
 interface Step5SuccessPrintProps {
   submittedCode: string;
@@ -14,14 +16,8 @@ export default function Step5SuccessPrint({
   onOpenPrintModal,
   onNavigateToStatus
 }: Step5SuccessPrintProps) {
-  const codeFormatted = submittedCode.startsWith('MCU-69-')
-    ? submittedCode
-    : `MCU-69-${submittedCode.replace(/\D/g, '') || '69001'}`;
-
-  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(
-    `https://pkpm.mcu.ac.th/admission/track?code=${codeFormatted}`
-  )}`;
-
+  const codeFormatted = formatMCUCode(submittedCode);
+  const qrTargetUrl = `https://pkpm.mcu.ac.th/admission/track?code=${codeFormatted}`;
   const isApprovedOrInterview = applicantStatus === 'approved' || applicantStatus === 'interview';
 
   return (
@@ -72,11 +68,7 @@ export default function Step5SuccessPrint({
           <span>Interview Verification QR Code</span>
         </div>
         <div className="p-2 bg-white rounded-xl border border-slate-200 shadow-2xs inline-block">
-          <img
-            src={qrCodeUrl}
-            alt="Applicant QR Code"
-            className="w-32 h-32 mx-auto"
-          />
+          <QRCodeSVG value={qrTargetUrl} size={128} />
         </div>
         <p className="text-[10px] text-slate-500 font-medium">
           กรรมการสอบสัมภาษณ์สามารถสแกนเพื่อตรวจสอบเอกสารตัวจริงได้ทันที

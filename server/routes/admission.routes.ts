@@ -47,7 +47,21 @@ const DEFAULT_APPLICANTS: any[] = [];
 
 // Helper to ensure applicants sequence code
 function getNextApplicantCode(db: any): string {
-  db.applicantCounter = (db.applicantCounter || 69000) + 1;
+  const applicants = Array.isArray(db.applicants) ? db.applicants : [];
+  let maxCounter = 69005;
+
+  applicants.forEach((a: any) => {
+    const code = String(a.applicationCode || a.id || '');
+    const digits = code.replace(/\D/g, '');
+    if (digits) {
+      const num = parseInt(digits, 10);
+      if (!isNaN(num) && num > maxCounter) {
+        maxCounter = num;
+      }
+    }
+  });
+
+  db.applicantCounter = Math.max((db.applicantCounter || 69000), maxCounter) + 1;
   writeDB(db);
   return `MCU-69-${db.applicantCounter}`;
 }

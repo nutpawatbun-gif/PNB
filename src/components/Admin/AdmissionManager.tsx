@@ -6,6 +6,8 @@ import { coursesStore } from '../../data/coursesStore';
 import { AdmissionProject, DegreeLevel } from '../../types';
 import { DataTable, Column } from '../ui/DataTable';
 import { Modal } from '../ui/Modal';
+import { QRCodeSVG } from '../ui/QRCodeSVG';
+import { formatMCUCode } from '../../utils/formatters';
 import { InputField, SelectField, TextareaField } from '../ui/FormControls';
 import {
   GraduationCap,
@@ -669,7 +671,7 @@ export default function AdmissionManager({ onNotify }: AdmissionManagerProps) {
                 ใบสมัครเข้าศึกษาและเอกสารยื่นสอบสัมภาษณ์ ประจำปีการศึกษา 2569
               </h3>
               <div className="flex items-center justify-between text-xs text-slate-600 pt-1 font-mono">
-                <span>รหัสผู้สมัคร: <strong className="text-slate-900">{printApplicant.applicationCode || printApplicant.id}</strong></span>
+                <span>รหัสผู้สมัคร: <strong className="text-slate-900">{formatMCUCode(printApplicant.applicationCode || printApplicant.id)}</strong></span>
                 <span>วันที่ออกเอกสาร: {new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
               </div>
             </div>

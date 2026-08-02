@@ -5,6 +5,8 @@ import { coursesStore } from '../../data/coursesStore';
 import { Course } from '../../types';
 import AdmissionFormWizard from '../AdmissionFormWizard';
 import { Modal } from '../ui/Modal';
+import { QRCodeSVG } from '../ui/QRCodeSVG';
+import { formatMCUCode } from '../../utils/formatters';
 import { InputField, SelectField, TextareaField } from '../ui/FormControls';
 import {
   GraduationCap,
@@ -1005,7 +1007,7 @@ export default function AdmissionPage({
                               <tr key={app.id || idx} className="hover:bg-amber-50/40 dark:hover:bg-amber-950/20 transition-colors">
                                 <td className="p-3.5 text-center font-semibold text-slate-500">{idx + 1}</td>
                                 <td className="p-3.5 font-mono font-bold text-mcu-pink">
-                                  {app.applicationCode || app.id}
+                                  {formatMCUCode(app.applicationCode || app.id)}
                                 </td>
                                 <td className="p-3.5 font-bold text-slate-800 dark:text-slate-200">
                                   {displayName}
@@ -1283,7 +1285,7 @@ export default function AdmissionPage({
 
             {/* Application Information Grid */}
             <div className="grid grid-cols-2 gap-3 pt-1">
-              <p><strong>รหัสผู้สมัคร:</strong> <span className="font-mono text-amber-800 font-bold">{selectedPrintApplicant.applicationCode || selectedPrintApplicant.id}</span></p>
+              <p><strong>รหัสผู้สมัคร:</strong> <span className="font-mono text-amber-800 font-bold">{formatMCUCode(selectedPrintApplicant.applicationCode || selectedPrintApplicant.id)}</span></p>
               <p><strong>ประเภทผู้สมัคร:</strong> {selectedPrintApplicant.personType === 'monk' || selectedPrintApplicant.personType === 'clergy' ? 'บรรพชิต (พระภิกษุ-สามเณร)' : 'คฤหัสถ์ (บุคคลทั่วไป)'}</p>
               <p><strong>ชื่อ-นามสกุล:</strong> {selectedPrintApplicant.fullName}</p>
               <p><strong>เลขบัตรประชาชน/สุทธิ:</strong> {selectedPrintApplicant.nationalId || '-'}</p>
@@ -1303,6 +1305,22 @@ export default function AdmissionPage({
               <p><strong>หลักสูตรที่เลือกสมัคร:</strong> <span className="text-amber-900 font-bold">{selectedPrintApplicant.programTitle}</span></p>
               <p><strong>วุฒิการศึกษาสูงสุดเดิม:</strong> {selectedPrintApplicant.educationalBackground}</p>
               <p><strong>วันที่ยื่นสมัครออนไลน์:</strong> {selectedPrintApplicant.submittedAt ? new Date(selectedPrintApplicant.submittedAt).toLocaleDateString('th-TH') : '-'}</p>
+            </div>
+
+            {/* Interview Verification QR Code Box */}
+            <div className="flex items-center justify-between border border-slate-200 p-3 rounded-xl bg-slate-50">
+              <div className="space-y-1">
+                <span className="text-xs font-bold text-slate-800 block">
+                  Interview Verification QR Code
+                </span>
+                <p className="text-[11px] text-slate-500">
+                  กรรมการสอบสัมภาษณ์สามารถสแกน QR Code นี้เพื่อตรวจเช็กเอกสารตัวจริง
+                </p>
+              </div>
+              <QRCodeSVG
+                value={`https://pkpm.mcu.ac.th/admission/track?code=${formatMCUCode(selectedPrintApplicant.applicationCode || selectedPrintApplicant.id)}`}
+                size={80}
+              />
             </div>
 
             {/* Checklist for Interview Day */}
