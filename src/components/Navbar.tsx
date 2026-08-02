@@ -235,9 +235,22 @@ export default function Navbar({
 
       const align = item.align || (idx >= Math.floor(sorted.length / 2) ? 'right' : 'left');
 
+      // Label Shortener Engine to guarantee clean, concise menu titles
+      let cleanLabelTh = item.labelTh || (defaultMatch ? defaultMatch.labelTh : pageKey);
+      if (pageKey === 'courses' || cleanLabelTh.includes('หลักสูตร')) cleanLabelTh = 'หลักสูตร';
+      else if (pageKey === 'downloads' || cleanLabelTh.includes('ดาวน์โหลด')) cleanLabelTh = 'ดาวน์โหลด';
+      else if (pageKey === 'eservices' || cleanLabelTh.includes('บริการออนไลน์')) cleanLabelTh = 'บริการออนไลน์';
+      else if (pageKey === 'academic' || cleanLabelTh.includes('ผลงานวิชาการ')) cleanLabelTh = 'ผลงานวิชาการ';
+      else if (pageKey === 'news' || cleanLabelTh.includes('ข่าวสาร')) cleanLabelTh = 'ข่าวสาร & ประกาศ';
+      else if (pageKey === 'about' || cleanLabelTh.includes('เกี่ยวกับ')) cleanLabelTh = 'เกี่ยวกับ';
+      else if (pageKey === 'admission' || cleanLabelTh.includes('สมัครเรียน')) cleanLabelTh = 'สมัครเรียน';
+      else if (pageKey === 'calendar' || cleanLabelTh.includes('ปฏิทิน')) cleanLabelTh = 'ปฏิทินกิจกรรม';
+      else if (pageKey === 'contact' || cleanLabelTh.includes('ติดต่อ')) cleanLabelTh = 'ติดต่อเรา';
+      else if (pageKey === 'home' || cleanLabelTh.includes('หน้าแรก')) cleanLabelTh = 'หน้าแรก';
+
       return {
         page: pageKey,
-        labelTh: item.labelTh || (defaultMatch ? defaultMatch.labelTh : pageKey),
+        labelTh: cleanLabelTh,
         labelEn: item.labelEn || (defaultMatch ? defaultMatch.labelEn : pageKey),
         iconName: item.icon || item.iconName || (defaultMatch ? defaultMatch.iconName : 'Home'),
         hasDropdown: subItems.length > 0,
