@@ -215,7 +215,22 @@ code, pre, .font-mono {
   transform: scale(1.25) rotate(-6deg);
 }
 
-/* Glassmorphic Dropdown Styling */
+/* Solid, High-Contrast Dropdown Menu Styling (Fixes Text Bleed-Through & Visual Overlapping) */
+.glass-dropdown {
+  background-color: #ffffff !important;
+  border: 1px solid rgba(217, 119, 6, 0.25) !important;
+  box-shadow: 0 20px 40px -15px rgba(101, 19, 53, 0.25), 0 0 25px rgba(217, 119, 6, 0.15) !important;
+  opacity: 1 !important;
+}
+
+.dark .glass-dropdown,
+[data-theme="dark"] .glass-dropdown {
+  background-color: #0f172a !important;
+  border: 1px solid rgba(244, 63, 94, 0.25) !important;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8), 0 0 25px rgba(244, 63, 94, 0.2) !important;
+  opacity: 1 !important;
+}
+
 /* ============================================================================
    STRICT PRINT ENGINE (Hides all buttons, modal footers, navbars, & controls)
    ============================================================================ */

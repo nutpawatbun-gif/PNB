@@ -194,7 +194,7 @@ export default function Navbar({
     searchResults.personnel.length;
 
   return (
-    <header className="sticky top-0 z-40 w-full transition-all">
+    <header className="sticky top-0 z-[999] w-full transition-all">
       {/* Top Info Bar */}
       <div className="bg-gradient-to-r from-amber-950 via-amber-900 to-mcu-pink-deep text-amber-100 text-xs py-1.5 px-3 sm:px-8 flex items-center justify-between border-b border-amber-500/20 shadow-xs">
         <div className="flex items-center gap-2 shrink-0">
@@ -208,7 +208,7 @@ export default function Navbar({
         </div>
         <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           {/* Theme Switcher Dropdown in Top Bar */}
-          <div className="relative" ref={themeDropdownRef}>
+          <div className="relative z-[9999]" ref={themeDropdownRef}>
             <button
               onClick={() => setIsThemeDropdownOpen(!isThemeDropdownOpen)}
               className="flex items-center gap-1 hover:text-white font-semibold transition-all bg-white/10 hover:bg-white/20 hover:shadow-xs px-2.5 sm:px-3 py-1 rounded-full text-[11px] sm:text-xs cursor-pointer border border-white/15 whitespace-nowrap"
@@ -220,7 +220,7 @@ export default function Navbar({
             </button>
 
             {isThemeDropdownOpen && (
-              <div className="absolute top-full right-0 mt-2 w-56 glass-dropdown rounded-2xl p-1.5 z-50 animate-in fade-in slide-in-from-top-2 text-slate-800 dark:text-slate-100 shadow-xl">
+              <div className="absolute top-full right-0 mt-2 w-56 glass-dropdown rounded-2xl p-1.5 z-[9999] animate-in fade-in slide-in-from-top-2 text-slate-800 dark:text-slate-100 shadow-2xl">
                 <div className="px-3 py-1.5 text-[10px] font-extrabold text-amber-600 dark:text-amber-400 uppercase tracking-wider border-b border-slate-100 dark:border-slate-800 mb-1 flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                   {lang === 'th' ? 'เลือกธีมแสดงผลเว็บไซต์' : 'Select Site Theme'}
@@ -341,7 +341,7 @@ export default function Navbar({
                     <div
                       key={link.page}
                       ref={dropdownRef}
-                      className="relative group shrink-0"
+                      className="relative group shrink-0 z-[9999]"
                       onMouseEnter={() => setIsAboutDropdownOpen(true)}
                       onMouseLeave={() => setIsAboutDropdownOpen(false)}
                     >
@@ -363,7 +363,7 @@ export default function Navbar({
 
                       {/* About Submenus Dropdown Menu */}
                       {isAboutDropdownOpen && (
-                        <div className="absolute top-full left-0 mt-1 w-68 glass-dropdown rounded-2xl p-2 space-y-1 z-50 animate-in fade-in slide-in-from-top-2 shadow-2xl">
+                        <div className="absolute top-full left-0 mt-1 w-68 glass-dropdown rounded-2xl p-2 space-y-1 z-[9999] animate-in fade-in slide-in-from-top-2 shadow-2xl">
                           {aboutSubItems.map((subItem) => (
                             <button
                               key={subItem.subPage}
