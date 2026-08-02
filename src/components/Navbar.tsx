@@ -166,16 +166,16 @@ export default function Navbar({
   ];
 
   const navLinks = [
-    { page: 'home', labelTh: 'หน้าแรก', labelEn: 'Home', iconName: 'Home' },
-    { page: 'about', labelTh: 'เกี่ยวกับ', labelEn: 'About', iconName: 'Info', hasDropdown: true, subItems: aboutSubItems },
-    { page: 'courses', labelTh: 'หลักสูตร', labelEn: 'Courses', iconName: 'GraduationCap', hasDropdown: true, subItems: coursesSubItems },
-    { page: 'admission', labelTh: 'สมัครเรียน', labelEn: 'Admissions', iconName: 'UserPlus', hasDropdown: true, subItems: admissionSubItems },
-    { page: 'eservices', labelTh: 'บริการออนไลน์', labelEn: 'E-Services', iconName: 'Monitor', hasDropdown: true, subItems: eservicesSubItems },
-    { page: 'news', labelTh: 'ข่าวสาร & ประกาศ', labelEn: 'News', iconName: 'Newspaper', hasDropdown: true, subItems: newsSubItems },
-    { page: 'academic', labelTh: 'ผลงานวิชาการ', labelEn: 'Academic Research', iconName: 'BookOpen', hasDropdown: true, subItems: academicSubItems },
-    { page: 'calendar', labelTh: 'ปฏิทินกิจกรรม', labelEn: 'Calendar', iconName: 'Calendar' },
-    { page: 'downloads', labelTh: 'ดาวน์โหลด', labelEn: 'Downloads', iconName: 'Download', hasDropdown: true, subItems: downloadsSubItems },
-    { page: 'contact', labelTh: 'ติดต่อเรา', labelEn: 'Contact Us', iconName: 'Phone' }
+    { page: 'home', labelTh: 'หน้าแรก', labelEn: 'Home', iconName: 'Home', align: 'left' },
+    { page: 'about', labelTh: 'เกี่ยวกับ', labelEn: 'About', iconName: 'Info', hasDropdown: true, subItems: aboutSubItems, align: 'left' },
+    { page: 'courses', labelTh: 'หลักสูตร', labelEn: 'Courses', iconName: 'GraduationCap', hasDropdown: true, subItems: coursesSubItems, align: 'left' },
+    { page: 'admission', labelTh: 'สมัครเรียน', labelEn: 'Admissions', iconName: 'UserPlus', hasDropdown: true, subItems: admissionSubItems, align: 'left' },
+    { page: 'eservices', labelTh: 'บริการออนไลน์', labelEn: 'E-Services', iconName: 'Monitor', hasDropdown: true, subItems: eservicesSubItems, align: 'right' },
+    { page: 'news', labelTh: 'ข่าวสาร & ประกาศ', labelEn: 'News', iconName: 'Newspaper', hasDropdown: true, subItems: newsSubItems, align: 'right' },
+    { page: 'academic', labelTh: 'ผลงานวิชาการ', labelEn: 'Academic Research', iconName: 'BookOpen', hasDropdown: true, subItems: academicSubItems, align: 'right' },
+    { page: 'calendar', labelTh: 'ปฏิทินกิจกรรม', labelEn: 'Calendar', iconName: 'Calendar', align: 'right' },
+    { page: 'downloads', labelTh: 'ดาวน์โหลด', labelEn: 'Downloads', iconName: 'Download', hasDropdown: true, subItems: downloadsSubItems, align: 'right' },
+    { page: 'contact', labelTh: 'ติดต่อเรา', labelEn: 'Contact Us', iconName: 'Phone', align: 'right' }
   ];
 
   // Real Live Search State
@@ -397,12 +397,13 @@ export default function Navbar({
 
         {/* ROW 2: Main Menu Navigation Bar */}
         <div className="hidden lg:block bg-slate-50/70 dark:bg-slate-900/80 border-t border-slate-100 dark:border-slate-800">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between py-1.5">
-            <div className="flex items-center gap-1 xl:gap-2 flex-nowrap w-full">
+          <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 flex items-center justify-between py-1.5">
+            <div className="flex items-center gap-0.5 xl:gap-1.5 justify-between w-full">
               {navLinks.map((link) => {
                 const isActive = currentPage === link.page;
                 const isDropdownOpen = activeDropdownPage === link.page;
                 const subList = link.subItems || [];
+                const isRightAligned = link.align === 'right';
                 
                 if (link.hasDropdown && subList.length > 0) {
                   return (
@@ -422,25 +423,25 @@ export default function Navbar({
                             handleMouseEnter(link.page);
                           }
                         }}
-                        className={`px-3 xl:px-4 py-2 rounded-xl text-xs xl:text-sm font-semibold transition-all flex items-center whitespace-nowrap nav-link-glow group shrink-0 cursor-pointer ${
+                        className={`px-2.5 xl:px-3.5 py-1.5 xl:py-2 rounded-xl text-xs xl:text-[13.5px] font-semibold transition-all flex items-center whitespace-nowrap nav-link-glow group shrink-0 cursor-pointer ${
                           isActive
                             ? 'active bg-mcu-pink/10 text-mcu-pink-deep dark:text-amber-400 font-bold shadow-xs'
                             : 'text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink-deep hover:shadow-xs'
                         }`}
                       >
-                        <LucideIcon name={link.iconName} size={15} className="mr-1.5 text-mcu-pink nav-icon-bounce shrink-0" />
+                        <LucideIcon name={link.iconName} size={14} className="mr-1 text-mcu-pink nav-icon-bounce shrink-0" />
                         <span className="whitespace-nowrap">{lang === 'th' ? link.labelTh : link.labelEn}</span>
-                        <LucideIcon name="ChevronDown" size={14} className={`ml-1 transition-transform duration-300 shrink-0 ${isDropdownOpen ? 'rotate-180 text-mcu-pink' : 'text-slate-400'}`} />
+                        <LucideIcon name="ChevronDown" size={13} className={`ml-1 transition-transform duration-300 shrink-0 ${isDropdownOpen ? 'rotate-180 text-mcu-pink' : 'text-slate-400'}`} />
                       </button>
 
-                      {/* Dynamic Submenus Dropdown Menu (Gapless pt-1.5 Wrapper) */}
+                      {/* Smart Right/Left Aligned Dropdown Menu */}
                       {isDropdownOpen && (
                         <div 
-                          className="absolute top-full left-0 pt-1.5 w-72 z-[9999]"
+                          className={`absolute top-full ${isRightAligned ? 'right-0' : 'left-0'} pt-1.5 w-64 sm:w-72 max-w-[calc(100vw-2rem)] z-[9999]`}
                           onMouseEnter={() => handleMouseEnter(link.page)}
                           onMouseLeave={handleMouseLeave}
                         >
-                          <div className="glass-dropdown rounded-2xl p-2 space-y-1 z-[9999] animate-in fade-in slide-in-from-top-2 shadow-2xl">
+                          <div className="glass-dropdown rounded-2xl p-2 space-y-1 z-[9999] animate-in fade-in slide-in-from-top-2 shadow-2xl max-h-[80vh] overflow-y-auto">
                             {subList.map((subItem) => (
                               <button
                                 key={subItem.subPage}
@@ -464,13 +465,13 @@ export default function Navbar({
                   <button
                     key={link.page}
                     onClick={() => handleNav(link.page)}
-                    className={`px-3 xl:px-4 py-2 rounded-xl text-xs xl:text-sm font-semibold transition-all flex items-center whitespace-nowrap nav-link-glow group shrink-0 ${
+                    className={`px-2.5 xl:px-3.5 py-1.5 xl:py-2 rounded-xl text-xs xl:text-[13.5px] font-semibold transition-all flex items-center whitespace-nowrap nav-link-glow group shrink-0 ${
                       isActive
                         ? 'active bg-mcu-pink/10 text-mcu-pink-deep dark:text-amber-400 font-bold shadow-xs'
                         : 'text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink-deep hover:shadow-xs'
                     }`}
                   >
-                    <LucideIcon name={link.iconName} size={15} className="mr-1.5 text-mcu-pink nav-icon-bounce shrink-0" />
+                    <LucideIcon name={link.iconName} size={14} className="mr-1 text-mcu-pink nav-icon-bounce shrink-0" />
                     <span className="whitespace-nowrap">{lang === 'th' ? link.labelTh : link.labelEn}</span>
                   </button>
                 );
