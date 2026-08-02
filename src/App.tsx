@@ -191,7 +191,7 @@ export default function App() {
   const renderContent = () => {
     switch (currentPage) {
       case 'home':
-        return <DynamicHomepage navigateTo={navigateTo} />;
+        return <DynamicHomepage lang={lang} navigateTo={navigateTo} />;
       case 'about':
         return <AboutPage lang={lang} />;
       case 'courses':
