@@ -334,7 +334,7 @@ export default function NewsPage({ lang, activeCategory = 'all' }: NewsPageProps
 
       {/* Full Article Details Modal */}
       {selectedNews && (
-        <div className="fixed inset-0 bg-mcu-pink-deep/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in">
+        <div className="fixed inset-0 bg-mcu-pink-deep/60 backdrop-blur-sm flex items-center justify-center p-4 z-[99999] animate-fade-in">
           <div className="bg-white rounded-2xl shadow-2xl border-2 border-mcu-gold max-w-3xl w-full max-h-[85vh] overflow-y-auto animate-slide-up">
             
             {/* Header image and title */}

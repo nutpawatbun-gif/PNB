@@ -89,6 +89,10 @@
 }
 
 /* Accessibility Font Scale Engine (สำหรับปรับขนาดตัวอักษรเพื่อผู้สูงอายุและพระเถระ) */
+html {
+  scroll-padding-top: 140px;
+  scroll-behavior: smooth;
+}
 html.font-scale-sm {
   font-size: 14.5px !important;
 }

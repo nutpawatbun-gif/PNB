@@ -286,7 +286,7 @@ export default function NewsSection({
 
       {/* 100% COMPLETE ARTICLE & GALLERY POPUP MODAL */}
       {selectedNews && (
-        <div className="fixed inset-0 bg-mcu-pink-deep/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in overflow-y-auto">
+        <div className="fixed inset-0 bg-mcu-pink-deep/60 backdrop-blur-sm flex items-center justify-center p-4 z-[99999] animate-fade-in overflow-y-auto">
           <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border-2 border-mcu-gold max-w-3xl w-full max-h-[90vh] overflow-y-auto my-6 animate-slide-up">
             
             {/* Cover Image & Overlay */}
