@@ -43,6 +43,24 @@ export default function Navbar({
   const [activeMobilePage, setActiveMobilePage] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const themeDropdownRef = useRef<HTMLDivElement>(null);
+  const hoverTimerRef = useRef<any>(null);
+
+  const handleMouseEnter = (page: string) => {
+    if (hoverTimerRef.current) {
+      clearTimeout(hoverTimerRef.current);
+      hoverTimerRef.current = null;
+    }
+    setActiveDropdownPage(page);
+  };
+
+  const handleMouseLeave = () => {
+    if (hoverTimerRef.current) {
+      clearTimeout(hoverTimerRef.current);
+    }
+    hoverTimerRef.current = setTimeout(() => {
+      setActiveDropdownPage(null);
+    }, 180);
+  };
 
   useEffect(() => {
     api.getMenus()
@@ -77,6 +95,10 @@ export default function Navbar({
   }, []);
 
   const handleNav = (page: string, subPage: string = 'landing', search: string = '') => {
+    if (hoverTimerRef.current) {
+      clearTimeout(hoverTimerRef.current);
+      hoverTimerRef.current = null;
+    }
     if (navigateTo) {
       navigateTo(page, subPage, search);
     } else {
@@ -262,7 +284,8 @@ export default function Navbar({
             </button>
 
             {isThemeDropdownOpen && (
-              <div className="absolute top-full right-0 mt-2 w-56 glass-dropdown rounded-2xl p-1.5 z-[9999] animate-in fade-in slide-in-from-top-2 text-slate-800 dark:text-slate-100 shadow-2xl">
+              <div className="absolute top-full right-0 pt-1.5 w-56 z-[9999]">
+                <div className="glass-dropdown rounded-2xl p-1.5 z-[9999] animate-in fade-in slide-in-from-top-2 text-slate-800 dark:text-slate-100 shadow-2xl">
                 <div className="px-3 py-1.5 text-[10px] font-extrabold text-amber-600 dark:text-amber-400 uppercase tracking-wider border-b border-slate-100 dark:border-slate-800 mb-1 flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                   {lang === 'th' ? 'เลือกธีมแสดงผลเว็บไซต์' : 'Select Site Theme'}
@@ -288,7 +311,8 @@ export default function Navbar({
                   </button>
                 ))}
               </div>
-            )}
+            </div>
+          )}
           </div>
 
           <button
@@ -386,13 +410,17 @@ export default function Navbar({
                       key={link.page}
                       ref={dropdownRef}
                       className="relative group shrink-0 z-[9999]"
-                      onMouseEnter={() => setActiveDropdownPage(link.page)}
-                      onMouseLeave={() => setActiveDropdownPage(null)}
+                      onMouseEnter={() => handleMouseEnter(link.page)}
+                      onMouseLeave={handleMouseLeave}
                     >
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          setActiveDropdownPage(isDropdownOpen ? null : link.page);
+                          if (activeDropdownPage === link.page) {
+                            setActiveDropdownPage(null);
+                          } else {
+                            handleMouseEnter(link.page);
+                          }
                         }}
                         className={`px-3 xl:px-4 py-2 rounded-xl text-xs xl:text-sm font-semibold transition-all flex items-center whitespace-nowrap nav-link-glow group shrink-0 cursor-pointer ${
                           isActive
@@ -405,21 +433,27 @@ export default function Navbar({
                         <LucideIcon name="ChevronDown" size={14} className={`ml-1 transition-transform duration-300 shrink-0 ${isDropdownOpen ? 'rotate-180 text-mcu-pink' : 'text-slate-400'}`} />
                       </button>
 
-                      {/* Dynamic Submenus Dropdown Menu */}
+                      {/* Dynamic Submenus Dropdown Menu (Gapless pt-1.5 Wrapper) */}
                       {isDropdownOpen && (
-                        <div className="absolute top-full left-0 mt-1 w-72 glass-dropdown rounded-2xl p-2 space-y-1 z-[9999] animate-in fade-in slide-in-from-top-2 shadow-2xl">
-                          {subList.map((subItem) => (
-                            <button
-                              key={subItem.subPage}
-                              onClick={() => handleNav(subItem.targetPage || link.page, subItem.subPage)}
-                              className="w-full px-3.5 py-2.5 rounded-xl text-left text-xs xl:text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-mcu-pink/10 hover:text-mcu-pink-deep flex items-center whitespace-nowrap transition-all group cursor-pointer"
-                            >
-                              <div className="p-1.5 rounded-lg bg-mcu-pink/10 group-hover:bg-mcu-pink group-hover:text-white transition-colors mr-2.5 shrink-0">
-                                <LucideIcon name={subItem.iconName} size={14} className="text-mcu-pink group-hover:text-white shrink-0 transition-transform group-hover:scale-110" />
-                              </div>
-                              <span className="whitespace-nowrap">{lang === 'th' ? subItem.labelTh : subItem.labelEn}</span>
-                            </button>
-                          ))}
+                        <div 
+                          className="absolute top-full left-0 pt-1.5 w-72 z-[9999]"
+                          onMouseEnter={() => handleMouseEnter(link.page)}
+                          onMouseLeave={handleMouseLeave}
+                        >
+                          <div className="glass-dropdown rounded-2xl p-2 space-y-1 z-[9999] animate-in fade-in slide-in-from-top-2 shadow-2xl">
+                            {subList.map((subItem) => (
+                              <button
+                                key={subItem.subPage}
+                                onClick={() => handleNav(subItem.targetPage || link.page, subItem.subPage)}
+                                className="w-full px-3.5 py-2.5 rounded-xl text-left text-xs xl:text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-mcu-pink/10 hover:text-mcu-pink-deep flex items-center whitespace-nowrap transition-all group cursor-pointer"
+                              >
+                                <div className="p-1.5 rounded-lg bg-mcu-pink/10 group-hover:bg-mcu-pink group-hover:text-white transition-colors mr-2.5 shrink-0">
+                                  <LucideIcon name={subItem.iconName} size={14} className="text-mcu-pink group-hover:text-white shrink-0 transition-transform group-hover:scale-110" />
+                                </div>
+                                <span className="whitespace-nowrap">{lang === 'th' ? subItem.labelTh : subItem.labelEn}</span>
+                              </button>
+                            ))}
+                          </div>
                         </div>
                       )}
                     </div>
