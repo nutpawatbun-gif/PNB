@@ -41,7 +41,7 @@ export default function Navbar({
   // Active Dropdown States
   const [activeDropdownPage, setActiveDropdownPage] = useState<string | null>(null);
   const [activeMobilePage, setActiveMobilePage] = useState<string | null>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const navContainerRef = useRef<HTMLDivElement>(null);
   const themeDropdownRef = useRef<HTMLDivElement>(null);
   const hoverTimerRef = useRef<any>(null);
 
@@ -83,15 +83,15 @@ export default function Navbar({
   // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (navContainerRef.current && !navContainerRef.current.contains(event.target as Node)) {
         setActiveDropdownPage(null);
       }
       if (themeDropdownRef.current && !themeDropdownRef.current.contains(event.target as Node)) {
         setIsThemeDropdownOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
   const handleNav = (page: string, subPage: string = 'landing', search: string = '') => {
@@ -258,7 +258,7 @@ export default function Navbar({
     searchResults.personnel.length;
 
   return (
-    <header className="sticky top-0 z-[999] w-full transition-all">
+    <header ref={navContainerRef} className="sticky top-0 z-[999] w-full transition-all">
       {/* Top Info Bar */}
       <div className="bg-gradient-to-r from-amber-950 via-amber-900 to-mcu-pink-deep text-amber-100 text-xs py-1.5 px-3 sm:px-8 flex items-center justify-between border-b border-amber-500/20 shadow-xs">
         <div className="flex items-center gap-2 shrink-0">
@@ -409,7 +409,6 @@ export default function Navbar({
                   return (
                     <div
                       key={link.page}
-                      ref={dropdownRef}
                       className="relative group shrink-0 z-[9999]"
                       onMouseEnter={() => handleMouseEnter(link.page)}
                       onMouseLeave={handleMouseLeave}
@@ -417,11 +416,7 @@ export default function Navbar({
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          if (activeDropdownPage === link.page) {
-                            setActiveDropdownPage(null);
-                          } else {
-                            handleMouseEnter(link.page);
-                          }
+                          handleNav(link.page);
                         }}
                         className={`px-2.5 xl:px-3.5 py-1.5 xl:py-2 rounded-xl text-xs xl:text-[13.5px] font-semibold transition-all flex items-center whitespace-nowrap nav-link-glow group shrink-0 cursor-pointer ${
                           isActive
