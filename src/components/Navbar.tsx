@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import logoImg from '../assets/images/regenerated_image_1784349405698.png';
 import { api } from '../lib/api';
 import AdminLoginModal from './AdminLoginModal';
@@ -62,7 +62,7 @@ export default function Navbar({
     }, 180);
   };
 
-  useEffect(() => {
+  const loadMenus = () => {
     api.getMenus()
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
@@ -70,6 +70,12 @@ export default function Navbar({
         }
       })
       .catch(() => {});
+  };
+
+  useEffect(() => {
+    loadMenus();
+    window.addEventListener('mcu_menus_updated', loadMenus);
+    return () => window.removeEventListener('mcu_menus_updated', loadMenus);
   }, []);
 
   useEffect(() => {
@@ -177,6 +183,52 @@ export default function Navbar({
     { page: 'downloads', labelTh: 'ดาวน์โหลด', labelEn: 'Downloads', iconName: 'Download', hasDropdown: true, subItems: downloadsSubItems, align: 'right' },
     { page: 'contact', labelTh: 'ติดต่อเรา', labelEn: 'Contact Us', iconName: 'Phone', align: 'right' }
   ];
+
+  // Dynamic Menu Merger: Combines dbMenus from Back-end CMS with default navLinks 100%
+  const displayNavLinks = useMemo(() => {
+    if (!Array.isArray(dbMenus) || dbMenus.length === 0) {
+      return navLinks;
+    }
+
+    const sorted = [...dbMenus].sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+
+    return sorted.map((item: any, idx: number) => {
+      let pageKey = item.page || (item.url ? item.url.replace(/^\//, '') : '') || item.id || `menu_${idx}`;
+      if (!pageKey || pageKey === 'index') pageKey = 'home';
+      if (pageKey === 'services') pageKey = 'eservices';
+
+      const defaultMatch = navLinks.find(n => n.page === pageKey);
+
+      let subItems: any[] = [];
+      if (Array.isArray(item.submenus) && item.submenus.length > 0) {
+        subItems = item.submenus.map((sm: any) => ({
+          subPage: sm.subPage || (sm.url ? sm.url.replace(/^\//, '') : '') || sm.id,
+          labelTh: sm.labelTh,
+          labelEn: sm.labelEn || sm.labelTh,
+          iconName: sm.icon || sm.iconName || 'FileText',
+          targetPage: sm.targetPage || pageKey
+        }));
+      } else if (Array.isArray(item.subItems) && item.subItems.length > 0) {
+        subItems = item.subItems;
+      } else if (defaultMatch && defaultMatch.subItems) {
+        subItems = defaultMatch.subItems;
+      }
+
+      const align = item.align || (idx >= Math.floor(sorted.length / 2) ? 'right' : 'left');
+
+      return {
+        page: pageKey,
+        labelTh: item.labelTh || (defaultMatch ? defaultMatch.labelTh : pageKey),
+        labelEn: item.labelEn || (defaultMatch ? defaultMatch.labelEn : pageKey),
+        iconName: item.icon || item.iconName || (defaultMatch ? defaultMatch.iconName : 'Home'),
+        hasDropdown: subItems.length > 0,
+        subItems,
+        align,
+        target: item.target || '_self',
+        url: item.url || (pageKey === 'home' ? '/' : `/${pageKey}`)
+      };
+    });
+  }, [dbMenus]);
 
   // Real Live Search State
   const [searchResults, setSearchResults] = useState<{
@@ -399,7 +451,7 @@ export default function Navbar({
         <div className="hidden lg:block bg-slate-50/70 dark:bg-slate-900/80 border-t border-slate-100 dark:border-slate-800">
           <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 flex items-center justify-between py-1.5">
             <div className="flex items-center gap-0.5 xl:gap-1.5 justify-between w-full">
-              {navLinks.map((link) => {
+              {displayNavLinks.map((link) => {
                 const isActive = currentPage === link.page;
                 const isDropdownOpen = activeDropdownPage === link.page;
                 const subList = link.subItems || [];
@@ -478,7 +530,7 @@ export default function Navbar({
         {/* Mobile Navigation Drawer */}
         {isMobileMenuOpen && (
           <div className="lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3 space-y-1 animate-in slide-in-from-top-2">
-            {navLinks.map((link) => {
+            {displayNavLinks.map((link) => {
               const isMobileOpen = activeMobilePage === link.page;
               const subList = link.subItems || [];
 

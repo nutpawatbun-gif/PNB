@@ -63,6 +63,7 @@ export default function MenuManager() {
       // Sort by order asc
       const sorted = data.sort((a: any, b: any) => a.order - b.order);
       setMenus(sorted);
+      window.dispatchEvent(new Event('mcu_menus_updated'));
     } catch (e) {
       console.error('Error fetching menus:', e);
     } finally {
