@@ -136,56 +136,56 @@ export default function Navbar({
   const aboutSubItems = [
     { subPage: 'history', labelTh: 'ประวัติความเป็นมา', labelEn: 'History & Background', iconName: 'History', targetPage: 'about' },
     { subPage: 'philosophy', labelTh: 'ปรัชญา ปณิธาน และอัตลักษณ์', labelEn: 'Philosophy & Vision', iconName: 'Sparkles', targetPage: 'about' },
-    { subPage: 'executives', labelTh: 'คณะผู้บริหารวิทยาลัยสงฆ์', labelEn: 'College Executives', iconName: 'Award', targetPage: 'about' },
+    { subPage: 'executives', labelTh: 'สัมโมทนียกถา & คณะผู้บริหาร', labelEn: 'College Executives', iconName: 'Crown', targetPage: 'about' },
     { subPage: 'structure', labelTh: 'โครงสร้างองค์กรวิทยาลัยสงฆ์', labelEn: 'Organization Structure', iconName: 'Building', targetPage: 'about' },
     { subPage: 'landing', labelTh: 'ทำเนียบบุคลากร', labelEn: 'Personnel Directory', iconName: 'Users', targetPage: 'personnel' }
   ];
 
   // 2. Sub-items for "หลักสูตร"
   const coursesSubItems = [
-    { subPage: 'bachelor', labelTh: '🎓 ระดับปริญญาตรี', labelEn: "Bachelor's Degree", iconName: 'GraduationCap', targetPage: 'courses' },
-    { subPage: 'master', labelTh: '🎓 ระดับปริญญาโท', labelEn: "Master's Degree", iconName: 'Award', targetPage: 'courses' },
-    { subPage: 'doctor', labelTh: '🎓 ระดับปริญญาเอก', labelEn: 'Doctoral Degree', iconName: 'Sparkles', targetPage: 'courses' },
-    { subPage: 'certificate', labelTh: '📜 หลักสูตรประกาศนียบัตร', labelEn: 'Certificate Programs', iconName: 'FileText', targetPage: 'courses' }
+    { subPage: 'bachelor', labelTh: 'ระดับปริญญาตรี', labelEn: "Bachelor's Degree", iconName: 'GraduationCap', targetPage: 'courses' },
+    { subPage: 'master', labelTh: 'ระดับปริญญาโท', labelEn: "Master's Degree", iconName: 'Award', targetPage: 'courses' },
+    { subPage: 'doctor', labelTh: 'ระดับปริญญาเอก', labelEn: 'Doctoral Degree', iconName: 'Sparkles', targetPage: 'courses' },
+    { subPage: 'certificate', labelTh: 'หลักสูตรประกาศนียบัตร', labelEn: 'Certificate Programs', iconName: 'Scroll', targetPage: 'courses' }
   ];
 
   // 3. Sub-items for "สมัครเรียน"
   const admissionSubItems = [
-    { subPage: 'apply', labelTh: '📝 ยื่นใบสมัครออนไลน์', labelEn: 'Apply Online Wizard', iconName: 'UserPlus', targetPage: 'admission' },
-    { subPage: 'status', labelTh: '🔍 ตรวจสอบสถานะ & พิมพ์ใบสมัคร', labelEn: 'Track & Print Status', iconName: 'Search', targetPage: 'admission' },
-    { subPage: 'qualifications', labelTh: '📋 คุณสมบัติผู้สมัครเรียน', labelEn: 'Qualifications & Rules', iconName: 'UserCheck', targetPage: 'admission' },
-    { subPage: 'documents', labelTh: '📌 เอกสารประกอบการสมัคร', labelEn: 'Required Documents', iconName: 'FileText', targetPage: 'admission' }
+    { subPage: 'apply', labelTh: 'ยื่นใบสมัครออนไลน์', labelEn: 'Apply Online Wizard', iconName: 'UserPlus', targetPage: 'admission' },
+    { subPage: 'status', labelTh: 'ตรวจสอบสถานะ & พิมพ์ใบสมัคร', labelEn: 'Track & Print Status', iconName: 'Search', targetPage: 'admission' },
+    { subPage: 'qualifications', labelTh: 'คุณสมบัติผู้สมัครเรียน', labelEn: 'Qualifications & Rules', iconName: 'UserCheck', targetPage: 'admission' },
+    { subPage: 'documents', labelTh: 'เอกสารประกอบการสมัคร', labelEn: 'Required Documents', iconName: 'FileCheck', targetPage: 'admission' }
   ];
 
   // 4. Sub-items for "บริการออนไลน์ (E-Services)"
   const eservicesSubItems = [
-    { subPage: 'student', labelTh: '👨‍🎓 สำหรับนิสิต', labelEn: 'Student E-Services', iconName: 'GraduationCap', targetPage: 'eservices' },
-    { subPage: 'staff', labelTh: '👨‍🏫 สำหรับอาจารย์ & บุคลากร', labelEn: 'Staff & Faculty E-Services', iconName: 'Users', targetPage: 'eservices' },
-    { subPage: 'public', labelTh: '🏛️ บริการประชาชน & จองสถานที่', labelEn: 'Public Services & Booking', iconName: 'Building', targetPage: 'eservices' }
+    { subPage: 'student', labelTh: 'สำหรับนิสิต (REG / LMS / Library)', labelEn: 'Student E-Services', iconName: 'UserCheck', targetPage: 'eservices' },
+    { subPage: 'staff', labelTh: 'สำหรับอาจารย์ & บุคลากร (E-Saraban / HR)', labelEn: 'Staff & Faculty E-Services', iconName: 'Users', targetPage: 'eservices' },
+    { subPage: 'public', labelTh: 'บริการประชาชน & จองสถานที่', labelEn: 'Public Services & Booking', iconName: 'Building2', targetPage: 'eservices' }
   ];
 
   // 5. Sub-items for "ข่าวสาร & ประกาศ" (6 CMS Categories)
   const newsSubItems = [
-    { subPage: 'general', labelTh: '📢 ข่าวประชาสัมพันธ์', labelEn: 'General News', iconName: 'Newspaper', targetPage: 'news' },
-    { subPage: 'academic', labelTh: '🎓 ข่าววิชาการ', labelEn: 'Academic News', iconName: 'BookOpen', targetPage: 'news' },
-    { subPage: 'activity', labelTh: '🎨 ข่าวกิจกรรม', labelEn: 'Activities & Events', iconName: 'Calendar', targetPage: 'news' },
-    { subPage: 'mcu_announcement', labelTh: '🏛️ ข่าวประกาศมหาวิทยาลัย', labelEn: 'MCU Announcements', iconName: 'Building', targetPage: 'news' },
-    { subPage: 'student_affairs', labelTh: '👤 ข่าวกิจการนิสิต', labelEn: 'Student Affairs', iconName: 'UserCheck', targetPage: 'news' },
-    { subPage: 'procurement', labelTh: '📑 ข่าวจัดซื้อจัดจ้าง', labelEn: 'Procurement & Bids', iconName: 'FileText', targetPage: 'news' }
+    { subPage: 'general', labelTh: 'ข่าวประชาสัมพันธ์', labelEn: 'General News', iconName: 'Megaphone', targetPage: 'news' },
+    { subPage: 'academic', labelTh: 'ข่าววิชาการ', labelEn: 'Academic News', iconName: 'GraduationCap', targetPage: 'news' },
+    { subPage: 'activity', labelTh: 'ข่าวกิจกรรม', labelEn: 'Activities & Events', iconName: 'Palette', targetPage: 'news' },
+    { subPage: 'mcu_announcement', labelTh: 'ข่าวประกาศมหาวิทยาลัย', labelEn: 'MCU Announcements', iconName: 'Building', targetPage: 'news' },
+    { subPage: 'student_affairs', labelTh: 'ข่าวกิจการนิสิต', labelEn: 'Student Affairs', iconName: 'Users', targetPage: 'news' },
+    { subPage: 'procurement', labelTh: 'ข่าวจัดซื้อจัดจ้าง', labelEn: 'Procurement & Bids', iconName: 'FileText', targetPage: 'news' }
   ];
 
   // 6. Sub-items for "ผลงานวิชาการ"
   const academicSubItems = [
-    { subPage: 'journals', labelTh: '📚 วารสารวิชาการ', labelEn: 'Academic Journals', iconName: 'BookOpen', targetPage: 'academic' },
-    { subPage: 'research', labelTh: '🔬 งานวิจัย & วิทยานิพนธ์', labelEn: 'Research Papers', iconName: 'FileText', targetPage: 'academic' },
-    { subPage: 'textbooks', labelTh: '📖 ตำรา & เอกสารประกอบการสอน', labelEn: 'Courseware', iconName: 'BookOpen', targetPage: 'academic' }
+    { subPage: 'journals', labelTh: 'วารสารวิชาการ', labelEn: 'Academic Journals', iconName: 'BookOpen', targetPage: 'academic' },
+    { subPage: 'research', labelTh: 'งานวิจัย & วิทยานิพนธ์', labelEn: 'Research Papers', iconName: 'Microscope', targetPage: 'academic' },
+    { subPage: 'textbooks', labelTh: 'ตำรา & เอกสารประกอบการสอน', labelEn: 'Courseware', iconName: 'BookMarked', targetPage: 'academic' }
   ];
 
   // 7. Sub-items for "ดาวน์โหลด"
   const downloadsSubItems = [
-    { subPage: 'students', labelTh: '👨‍🎓 แบบฟอร์มสำหรับนิสิต', labelEn: 'Student Forms', iconName: 'FileText', targetPage: 'downloads' },
-    { subPage: 'staff', labelTh: '👨‍🏫 แบบฟอร์มสำหรับบุคลากร', labelEn: 'Staff Forms', iconName: 'Users', targetPage: 'downloads' },
-    { subPage: 'regulations', labelTh: '📜 ระเบียบ & ข้อบังคับวิทยาลัย', labelEn: 'College Regulations', iconName: 'FileCheck', targetPage: 'downloads' }
+    { subPage: 'students', labelTh: 'แบบฟอร์มสำหรับนิสิต', labelEn: 'Student Forms', iconName: 'User', targetPage: 'downloads' },
+    { subPage: 'staff', labelTh: 'แบบฟอร์มสำหรับบุคลากร', labelEn: 'Staff Forms', iconName: 'UserCheck', targetPage: 'downloads' },
+    { subPage: 'regulations', labelTh: 'ระเบียบ & ข้อบังคับวิทยาลัย', labelEn: 'College Regulations', iconName: 'FileCheck2', targetPage: 'downloads' }
   ];
 
   const navLinks = [
@@ -581,24 +581,36 @@ export default function Navbar({
                                   </button>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                                   <div className="bg-slate-50/80 dark:bg-slate-900/60 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
                                     <div className="text-[11px] font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5 uppercase tracking-wider">
                                       <span className="w-2 h-2 rounded-full bg-amber-500"></span>
                                       {lang === 'th' ? 'ปริญญาตรี (Bachelor)' : 'Bachelor Degree'}
                                     </div>
                                     <div className="space-y-1">
-                                      <button onClick={() => handleNav('courses', 'bachelor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-1.5">
-                                        <span>🎓</span> <span>สาขาวิชาพระพุทธศาสนา</span>
+                                      <button onClick={() => handleNav('courses', 'bachelor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
+                                        <div className="p-1 rounded bg-amber-500/10 text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition-colors">
+                                          <LucideIcon name="BookOpen" size={13} />
+                                        </div>
+                                        <span>สาขาวิชาพระพุทธศาสนา</span>
                                       </button>
-                                      <button onClick={() => handleNav('courses', 'bachelor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-1.5">
-                                        <span>🎓</span> <span>สาขาวิชาการสอนภาษาไทย</span>
+                                      <button onClick={() => handleNav('courses', 'bachelor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
+                                        <div className="p-1 rounded bg-rose-500/10 text-rose-600 group-hover:bg-rose-500 group-hover:text-white transition-colors">
+                                          <LucideIcon name="Languages" size={13} />
+                                        </div>
+                                        <span>สาขาวิชาการสอนภาษาไทย</span>
                                       </button>
-                                      <button onClick={() => handleNav('courses', 'bachelor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-1.5">
-                                        <span>🎓</span> <span>สาขาวิชารัฐศาสตร์</span>
+                                      <button onClick={() => handleNav('courses', 'bachelor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
+                                        <div className="p-1 rounded bg-sky-500/10 text-sky-600 group-hover:bg-sky-500 group-hover:text-white transition-colors">
+                                          <LucideIcon name="Landmark" size={13} />
+                                        </div>
+                                        <span>สาขาวิชารัฐศาสตร์</span>
                                       </button>
-                                      <button onClick={() => handleNav('courses', 'bachelor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-1.5">
-                                        <span>🎓</span> <span>สาขาวิชาสังคมศึกษา</span>
+                                      <button onClick={() => handleNav('courses', 'bachelor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
+                                        <div className="p-1 rounded bg-emerald-500/10 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                                          <LucideIcon name="Globe" size={13} />
+                                        </div>
+                                        <span>สาขาวิชาสังคมศึกษา</span>
                                       </button>
                                     </div>
                                   </div>
@@ -609,11 +621,17 @@ export default function Navbar({
                                       {lang === 'th' ? 'ปริญญาโท (Master)' : 'Master Degree'}
                                     </div>
                                     <div className="space-y-1">
-                                      <button onClick={() => handleNav('courses', 'master')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-1.5">
-                                        <span>🎓</span> <span>พระพุทธศาสนา (พธ.ม.)</span>
+                                      <button onClick={() => handleNav('courses', 'master')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
+                                        <div className="p-1 rounded bg-amber-500/10 text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition-colors">
+                                          <LucideIcon name="Award" size={13} />
+                                        </div>
+                                        <span>พระพุทธศาสนา (พธ.ม.)</span>
                                       </button>
-                                      <button onClick={() => handleNav('courses', 'master')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-1.5">
-                                        <span>🎓</span> <span>การบริหารการศึกษา (ค.ม.)</span>
+                                      <button onClick={() => handleNav('courses', 'master')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
+                                        <div className="p-1 rounded bg-indigo-500/10 text-indigo-600 group-hover:bg-indigo-500 group-hover:text-white transition-colors">
+                                          <LucideIcon name="GraduationCap" size={13} />
+                                        </div>
+                                        <span>การบริหารการศึกษา (ค.ม.)</span>
                                       </button>
                                     </div>
                                   </div>
@@ -624,8 +642,11 @@ export default function Navbar({
                                       {lang === 'th' ? 'ปริญญาเอก (Doctoral)' : 'Doctoral Degree'}
                                     </div>
                                     <div className="space-y-1">
-                                      <button onClick={() => handleNav('courses', 'doctor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-1.5">
-                                        <span>🎓</span> <span>พระพุทธศาสนา (พธ.ด.)</span>
+                                      <button onClick={() => handleNav('courses', 'doctor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
+                                        <div className="p-1 rounded bg-purple-500/10 text-purple-600 group-hover:bg-purple-500 group-hover:text-white transition-colors">
+                                          <LucideIcon name="Sparkles" size={13} />
+                                        </div>
+                                        <span>พระพุทธศาสนา (พธ.ด.)</span>
                                       </button>
                                     </div>
                                   </div>
@@ -636,11 +657,17 @@ export default function Navbar({
                                       {lang === 'th' ? 'ประกาศนียบัตร (Cert)' : 'Certificates'}
                                     </div>
                                     <div className="space-y-1">
-                                      <button onClick={() => handleNav('courses', 'certificate')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-1.5">
-                                        <span>📜</span> <span>ประกาศนียบัตรบริหารธุรกิจ</span>
+                                      <button onClick={() => handleNav('courses', 'certificate')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
+                                        <div className="p-1 rounded bg-blue-500/10 text-blue-600 group-hover:bg-blue-500 group-hover:text-white transition-colors">
+                                          <LucideIcon name="Briefcase" size={13} />
+                                        </div>
+                                        <span>ประกาศนียบัตรบริหารธุรกิจ</span>
                                       </button>
-                                      <button onClick={() => handleNav('courses', 'certificate')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-1.5">
-                                        <span>📜</span> <span>ประกาศนียบัตรพระพุทธศาสนา</span>
+                                      <button onClick={() => handleNav('courses', 'certificate')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
+                                        <div className="p-1 rounded bg-emerald-500/10 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                                          <LucideIcon name="Scroll" size={13} />
+                                        </div>
+                                        <span>ประกาศนียบัตรพระพุทธศาสนา</span>
                                       </button>
                                     </div>
                                   </div>
@@ -670,19 +697,34 @@ export default function Navbar({
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                   <div className="bg-slate-50/80 dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
                                     <div className="text-[11px] font-bold text-sky-700 dark:text-sky-400 flex items-center gap-1.5 uppercase tracking-wider">
-                                      <span className="w-2.5 h-2.5 rounded-full bg-sky-500"></span> 👨‍🎓 บริการสำหรับนิสิต
+                                      <span className="w-2.5 h-2.5 rounded-full bg-sky-500"></span> บริการสำหรับนิสิต
                                     </div>
                                     <div className="space-y-1 pt-1">
                                       <button onClick={() => handleNav('eservices', 'student')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-sky-600 transition-all flex items-center justify-between group">
-                                        <span>🎓 ระบบทะเบียนนิสิต (REG)</span>
+                                        <div className="flex items-center gap-2">
+                                          <div className="p-1 rounded bg-sky-500/10 text-sky-600 group-hover:bg-sky-500 group-hover:text-white transition-colors">
+                                            <LucideIcon name="UserCheck" size={13} />
+                                          </div>
+                                          <span>ระบบทะเบียนนิสิต (REG)</span>
+                                        </div>
                                         <LucideIcon name="ExternalLink" size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                                       </button>
                                       <button onClick={() => handleNav('eservices', 'student')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-sky-600 transition-all flex items-center justify-between group">
-                                        <span>📖 ระบบเรียนออนไลน์ (LMS)</span>
+                                        <div className="flex items-center gap-2">
+                                          <div className="p-1 rounded bg-indigo-500/10 text-indigo-600 group-hover:bg-indigo-500 group-hover:text-white transition-colors">
+                                            <LucideIcon name="Laptop" size={13} />
+                                          </div>
+                                          <span>ระบบเรียนออนไลน์ (LMS)</span>
+                                        </div>
                                         <LucideIcon name="ExternalLink" size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                                       </button>
                                       <button onClick={() => handleNav('eservices', 'student')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-sky-600 transition-all flex items-center justify-between group">
-                                        <span>📚 คลังปัญญาดิจิทัล (E-Library)</span>
+                                        <div className="flex items-center gap-2">
+                                          <div className="p-1 rounded bg-emerald-500/10 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                                            <LucideIcon name="BookOpenCheck" size={13} />
+                                          </div>
+                                          <span>คลังปัญญาดิจิทัล (E-Library)</span>
+                                        </div>
                                         <LucideIcon name="ExternalLink" size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                                       </button>
                                     </div>
@@ -690,19 +732,34 @@ export default function Navbar({
 
                                   <div className="bg-slate-50/80 dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
                                     <div className="text-[11px] font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5 uppercase tracking-wider">
-                                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span> 👨‍🏫 สำหรับอาจารย์ & บุคลากร
+                                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span> สำหรับอาจารย์ & บุคลากร
                                     </div>
                                     <div className="space-y-1 pt-1">
                                       <button onClick={() => handleNav('eservices', 'staff')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-amber-600 transition-all flex items-center justify-between group">
-                                        <span>📄 ระบบสารบรรณอิเล็กทรอนิกส์</span>
+                                        <div className="flex items-center gap-2">
+                                          <div className="p-1 rounded bg-amber-500/10 text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition-colors">
+                                            <LucideIcon name="FileText" size={13} />
+                                          </div>
+                                          <span>ระบบสารบรรณอิเล็กทรอนิกส์</span>
+                                        </div>
                                         <LucideIcon name="ExternalLink" size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                                       </button>
                                       <button onClick={() => handleNav('eservices', 'staff')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-amber-600 transition-all flex items-center justify-between group">
-                                        <span>👥 ระบบทรัพยากรบุคคล (HR)</span>
+                                        <div className="flex items-center gap-2">
+                                          <div className="p-1 rounded bg-purple-500/10 text-purple-600 group-hover:bg-purple-500 group-hover:text-white transition-colors">
+                                            <LucideIcon name="Users" size={13} />
+                                          </div>
+                                          <span>ระบบทรัพยากรบุคคล (HR)</span>
+                                        </div>
                                         <LucideIcon name="ExternalLink" size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                                       </button>
                                       <button onClick={() => handleNav('eservices', 'staff')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-amber-600 transition-all flex items-center justify-between group">
-                                        <span>📝 ระบบบันทึกผลการเรียน</span>
+                                        <div className="flex items-center gap-2">
+                                          <div className="p-1 rounded bg-rose-500/10 text-rose-600 group-hover:bg-rose-500 group-hover:text-white transition-colors">
+                                            <LucideIcon name="ClipboardList" size={13} />
+                                          </div>
+                                          <span>ระบบบันทึกผลการเรียน</span>
+                                        </div>
                                         <LucideIcon name="ExternalLink" size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                                       </button>
                                     </div>
@@ -710,15 +767,25 @@ export default function Navbar({
 
                                   <div className="bg-slate-50/80 dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
                                     <div className="text-[11px] font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5 uppercase tracking-wider">
-                                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span> 🏛️ บริการประชาชน & จองสถานที่
+                                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span> บริการประชาชน & จองสถานที่
                                     </div>
                                     <div className="space-y-1 pt-1">
                                       <button onClick={() => handleNav('eservices', 'public')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-rose-600 transition-all flex items-center justify-between group">
-                                        <span>🏛️ ระบบจองห้องประชุม & อาคาร</span>
+                                        <div className="flex items-center gap-2">
+                                          <div className="p-1 rounded bg-amber-500/10 text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition-colors">
+                                            <LucideIcon name="Building2" size={13} />
+                                          </div>
+                                          <span>ระบบจองห้องประชุม & อาคาร</span>
+                                        </div>
                                         <LucideIcon name="ExternalLink" size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                                       </button>
                                       <button onClick={() => handleNav('eservices', 'public')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-rose-600 transition-all flex items-center justify-between group">
-                                        <span>📬 ระบบรับเรื่องร้องเรียน (E-Petition)</span>
+                                        <div className="flex items-center gap-2">
+                                          <div className="p-1 rounded bg-teal-500/10 text-teal-600 group-hover:bg-teal-500 group-hover:text-white transition-colors">
+                                            <LucideIcon name="MessageSquareText" size={13} />
+                                          </div>
+                                          <span>ระบบรับเรื่องร้องเรียน (E-Petition)</span>
+                                        </div>
                                         <LucideIcon name="ExternalLink" size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                                       </button>
                                     </div>
@@ -749,39 +816,54 @@ export default function Navbar({
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                   <div className="bg-slate-50/80 dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
                                     <div className="text-[11px] font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5 uppercase tracking-wider">
-                                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span> 🏛️ ข้อมูลสถาบัน
+                                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span> ข้อมูลสถาบัน
                                     </div>
                                     <div className="space-y-1 pt-1">
-                                      <button onClick={() => handleNav('about', 'history')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all">
-                                        📜 ประวัติความเป็นมาวิทยาลัยสงฆ์
+                                      <button onClick={() => handleNav('about', 'history')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
+                                        <div className="p-1 rounded bg-amber-500/10 text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition-colors">
+                                          <LucideIcon name="History" size={13} />
+                                        </div>
+                                        <span>ประวัติความเป็นมาวิทยาลัยสงฆ์</span>
                                       </button>
-                                      <button onClick={() => handleNav('about', 'philosophy')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all">
-                                        ✨ ปรัชญา ปณิธาน และอัตลักษณ์
+                                      <button onClick={() => handleNav('about', 'philosophy')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
+                                        <div className="p-1 rounded bg-purple-500/10 text-purple-600 group-hover:bg-purple-500 group-hover:text-white transition-colors">
+                                          <LucideIcon name="Sparkles" size={13} />
+                                        </div>
+                                        <span>ปรัชญา ปณิธาน และอัตลักษณ์</span>
                                       </button>
                                     </div>
                                   </div>
 
                                   <div className="bg-slate-50/80 dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
                                     <div className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5 uppercase tracking-wider">
-                                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> 👤 ผู้บริหาร & บุคลากร
+                                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> ผู้บริหาร & บุคลากร
                                     </div>
                                     <div className="space-y-1 pt-1">
-                                      <button onClick={() => handleNav('about', 'executive')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all">
-                                        👑 สัมโมทนียกถา & คณะผู้บริหาร
+                                      <button onClick={() => handleNav('about', 'executive')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
+                                        <div className="p-1 rounded bg-amber-500/10 text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition-colors">
+                                          <LucideIcon name="Crown" size={13} />
+                                        </div>
+                                        <span>สัมโมทนียกถา & คณะผู้บริหาร</span>
                                       </button>
-                                      <button onClick={() => handleNav('personnel')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all">
-                                        👨‍🏫 ทำเนียบคณาจารย์และบุคลากร
+                                      <button onClick={() => handleNav('personnel')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
+                                        <div className="p-1 rounded bg-emerald-500/10 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                                          <LucideIcon name="Users" size={13} />
+                                        </div>
+                                        <span>ทำเนียบคณาจารย์และบุคลากร</span>
                                       </button>
                                     </div>
                                   </div>
 
                                   <div className="bg-slate-50/80 dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
                                     <div className="text-[11px] font-bold text-purple-700 dark:text-purple-400 flex items-center gap-1.5 uppercase tracking-wider">
-                                      <span className="w-2.5 h-2.5 rounded-full bg-purple-500"></span> 📍 แผนที่ & การเดินทาง
+                                      <span className="w-2.5 h-2.5 rounded-full bg-purple-500"></span> แผนที่ & การเดินทาง
                                     </div>
                                     <div className="space-y-1 pt-1">
-                                      <button onClick={() => handleNav('contact')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all">
-                                        🗺️ แผนที่ที่ตั้งและช่องทางติดต่อ
+                                      <button onClick={() => handleNav('contact')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
+                                        <div className="p-1 rounded bg-rose-500/10 text-rose-600 group-hover:bg-rose-500 group-hover:text-white transition-colors">
+                                          <LucideIcon name="MapPin" size={13} />
+                                        </div>
+                                        <span>แผนที่ที่ตั้งและช่องทางติดต่อ</span>
                                       </button>
                                     </div>
                                   </div>
