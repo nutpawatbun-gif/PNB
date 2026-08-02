@@ -179,7 +179,7 @@ export default function NewsPage({ lang, activeCategory = 'all' }: NewsPageProps
           {/* Tabs */}
           <div className="flex flex-wrap gap-1.5">
             {[
-              { key: 'all', label: 'ทั้งหมด (All)' },
+              { key: 'all', label: 'ทั้งหมด' },
               { key: 'general', label: '📢 ข่าวประชาสัมพันธ์' },
               { key: 'pr', label: '📢 ข่าวทั่วไป' },
               { key: 'academic', label: '🎓 ข่าววิชาการ' },

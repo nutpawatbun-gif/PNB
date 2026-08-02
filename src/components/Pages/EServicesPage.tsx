@@ -209,10 +209,10 @@ export default function EServicesPage({
             {/* Category Filter Buttons */}
             <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
               {[
-                { id: 'all', label: 'ทั้งหมด (All Services)' },
-                { id: 'student', label: '👨‍🎓 สำหรับนิสิต (Student)' },
-                { id: 'staff', label: '👨‍🏫 สำหรับอาจารย์ & บุคลากร (Staff)' },
-                { id: 'public', label: '🏛️ บริการประชาชน (Public)' }
+                { id: 'all', label: 'ทั้งหมด' },
+                { id: 'student', label: '👨‍🎓 สำหรับนิสิต' },
+                { id: 'staff', label: '👨‍🏫 สำหรับอาจารย์ & บุคลากร' },
+                { id: 'public', label: '🏛️ บริการประชาชน' }
               ].map((tab) => (
                 <button
                   key={tab.id}

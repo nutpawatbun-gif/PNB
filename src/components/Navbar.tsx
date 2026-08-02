@@ -136,32 +136,32 @@ export default function Navbar({
 
   // 4. Sub-items for "บริการออนไลน์ (E-Services)"
   const eservicesSubItems = [
-    { subPage: 'student', labelTh: '👨‍🎓 สำหรับนิสิต (REG / LMS / Library)', labelEn: 'Student E-Services', iconName: 'GraduationCap', targetPage: 'eservices' },
-    { subPage: 'staff', labelTh: '👨‍🏫 สำหรับอาจารย์ & บุคลากร (E-Saraban / HR)', labelEn: 'Staff & Faculty E-Services', iconName: 'Users', targetPage: 'eservices' },
+    { subPage: 'student', labelTh: '👨‍🎓 สำหรับนิสิต', labelEn: 'Student E-Services', iconName: 'GraduationCap', targetPage: 'eservices' },
+    { subPage: 'staff', labelTh: '👨‍🏫 สำหรับอาจารย์ & บุคลากร', labelEn: 'Staff & Faculty E-Services', iconName: 'Users', targetPage: 'eservices' },
     { subPage: 'public', labelTh: '🏛️ บริการประชาชน & จองสถานที่', labelEn: 'Public Services & Booking', iconName: 'Building', targetPage: 'eservices' }
   ];
 
   // 5. Sub-items for "ข่าวสาร & ประกาศ" (6 CMS Categories)
   const newsSubItems = [
-    { subPage: 'general', labelTh: '📢 ข่าวประชาสัมพันธ์ (General PR)', labelEn: 'General News', iconName: 'Newspaper', targetPage: 'news' },
-    { subPage: 'academic', labelTh: '🎓 ข่าววิชาการ (Academic News)', labelEn: 'Academic News', iconName: 'BookOpen', targetPage: 'news' },
-    { subPage: 'activity', labelTh: '🎨 ข่าวกิจกรรม (Activities & Events)', labelEn: 'Activities & Events', iconName: 'Calendar', targetPage: 'news' },
-    { subPage: 'mcu_announcement', labelTh: '🏛️ ข่าวประกาศมหาวิทยาลัย (MCU News)', labelEn: 'MCU Announcements', iconName: 'Building', targetPage: 'news' },
-    { subPage: 'student_affairs', labelTh: '👤 ข่าวกิจการนิสิต (Student Affairs)', labelEn: 'Student Affairs', iconName: 'UserCheck', targetPage: 'news' },
-    { subPage: 'procurement', labelTh: '📑 ข่าวจัดซื้อจัดจ้าง (Procurement & Bids)', labelEn: 'Procurement & Bids', iconName: 'FileText', targetPage: 'news' }
+    { subPage: 'general', labelTh: '📢 ข่าวประชาสัมพันธ์', labelEn: 'General News', iconName: 'Newspaper', targetPage: 'news' },
+    { subPage: 'academic', labelTh: '🎓 ข่าววิชาการ', labelEn: 'Academic News', iconName: 'BookOpen', targetPage: 'news' },
+    { subPage: 'activity', labelTh: '🎨 ข่าวกิจกรรม', labelEn: 'Activities & Events', iconName: 'Calendar', targetPage: 'news' },
+    { subPage: 'mcu_announcement', labelTh: '🏛️ ข่าวประกาศมหาวิทยาลัย', labelEn: 'MCU Announcements', iconName: 'Building', targetPage: 'news' },
+    { subPage: 'student_affairs', labelTh: '👤 ข่าวกิจการนิสิต', labelEn: 'Student Affairs', iconName: 'UserCheck', targetPage: 'news' },
+    { subPage: 'procurement', labelTh: '📑 ข่าวจัดซื้อจัดจ้าง', labelEn: 'Procurement & Bids', iconName: 'FileText', targetPage: 'news' }
   ];
 
   // 6. Sub-items for "ผลงานวิชาการ"
   const academicSubItems = [
-    { subPage: 'journals', labelTh: '📚 วารสารวิชาการ (Academic Journals)', labelEn: 'Academic Journals', iconName: 'BookOpen', targetPage: 'academic' },
-    { subPage: 'research', labelTh: '🔬 งานวิจัย & วิทยานิพนธ์ (Research)', labelEn: 'Research Papers', iconName: 'FileText', targetPage: 'academic' },
+    { subPage: 'journals', labelTh: '📚 วารสารวิชาการ', labelEn: 'Academic Journals', iconName: 'BookOpen', targetPage: 'academic' },
+    { subPage: 'research', labelTh: '🔬 งานวิจัย & วิทยานิพนธ์', labelEn: 'Research Papers', iconName: 'FileText', targetPage: 'academic' },
     { subPage: 'textbooks', labelTh: '📖 ตำรา & เอกสารประกอบการสอน', labelEn: 'Courseware', iconName: 'BookOpen', targetPage: 'academic' }
   ];
 
   // 7. Sub-items for "ดาวน์โหลด"
   const downloadsSubItems = [
-    { subPage: 'students', labelTh: '👨‍🎓 แบบฟอร์มสำหรับนิสิต (Student Forms)', labelEn: 'Student Forms', iconName: 'FileText', targetPage: 'downloads' },
-    { subPage: 'staff', labelTh: '👨‍🏫 แบบฟอร์มสำหรับบุคลากร (Staff Forms)', labelEn: 'Staff Forms', iconName: 'Users', targetPage: 'downloads' },
+    { subPage: 'students', labelTh: '👨‍🎓 แบบฟอร์มสำหรับนิสิต', labelEn: 'Student Forms', iconName: 'FileText', targetPage: 'downloads' },
+    { subPage: 'staff', labelTh: '👨‍🏫 แบบฟอร์มสำหรับบุคลากร', labelEn: 'Staff Forms', iconName: 'Users', targetPage: 'downloads' },
     { subPage: 'regulations', labelTh: '📜 ระเบียบ & ข้อบังคับวิทยาลัย', labelEn: 'College Regulations', iconName: 'FileCheck', targetPage: 'downloads' }
   ];
 
