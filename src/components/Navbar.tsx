@@ -45,6 +45,23 @@ export default function Navbar({
   const themeDropdownRef = useRef<HTMLDivElement>(null);
   const hoverTimerRef = useRef<any>(null);
 
+  // Font Size Accessibility State (สำหรับปรับขนาดตัวอักษรเพื่อผู้สูงอายุและพระเถระ)
+  const [fontScale, setFontScale] = useState<'sm' | 'md' | 'lg' | 'xl'>(() => {
+    return (localStorage.getItem('mcu_font_scale') as any) || 'md';
+  });
+
+  const changeFontScale = (scale: 'sm' | 'md' | 'lg' | 'xl') => {
+    setFontScale(scale);
+    localStorage.setItem('mcu_font_scale', scale);
+    document.documentElement.classList.remove('font-scale-sm', 'font-scale-md', 'font-scale-lg', 'font-scale-xl');
+    document.documentElement.classList.add(`font-scale-${scale}`);
+  };
+
+  useEffect(() => {
+    document.documentElement.classList.remove('font-scale-sm', 'font-scale-md', 'font-scale-lg', 'font-scale-xl');
+    document.documentElement.classList.add(`font-scale-${fontScale}`);
+  }, [fontScale]);
+
   const handleMouseEnter = (page: string) => {
     if (hoverTimerRef.current) {
       clearTimeout(hoverTimerRef.current);
@@ -323,6 +340,41 @@ export default function Navbar({
           </span>
         </div>
         <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+          {/* Accessibility Font Size Control Bar */}
+          <div className="hidden sm:flex items-center bg-white/10 border border-white/15 rounded-full px-2 py-0.5 text-[11px] gap-1 font-bold">
+            <span className="text-[10px] text-amber-200 mr-1 flex items-center gap-1">
+              <LucideIcon name="Eye" size={12} /> {lang === 'th' ? 'ขนาดอักษร:' : 'Text Size:'}
+            </span>
+            <button 
+              onClick={() => changeFontScale('sm')} 
+              className={`px-1.5 py-0.5 rounded cursor-pointer transition-all ${fontScale === 'sm' ? 'bg-amber-400 text-slate-900 font-extrabold' : 'hover:bg-white/20'}`}
+              title="ขนาดกะทัดรัด (Small Text)"
+            >
+              A-
+            </button>
+            <button 
+              onClick={() => changeFontScale('md')} 
+              className={`px-1.5 py-0.5 rounded cursor-pointer transition-all ${fontScale === 'md' ? 'bg-amber-400 text-slate-900 font-extrabold' : 'hover:bg-white/20'}`}
+              title="ขนาดปกติ (Normal Text)"
+            >
+              A
+            </button>
+            <button 
+              onClick={() => changeFontScale('lg')} 
+              className={`px-1.5 py-0.5 rounded cursor-pointer transition-all ${fontScale === 'lg' ? 'bg-amber-400 text-slate-900 font-extrabold' : 'hover:bg-white/20'}`}
+              title="ขนาดโตพิเศษสำหรับผู้สูงอายุ/พระเถระ (Large Text)"
+            >
+              A+
+            </button>
+            <button 
+              onClick={() => changeFontScale('xl')} 
+              className={`px-1.5 py-0.5 rounded cursor-pointer transition-all ${fontScale === 'xl' ? 'bg-amber-400 text-slate-900 font-extrabold' : 'hover:bg-white/20'}`}
+              title="ขนาดใหญ่มากพิเศษ (Extra Large Text)"
+            >
+              A++
+            </button>
+          </div>
+
           {/* Theme Switcher Dropdown in Top Bar */}
           <div className="relative z-[9999]" ref={themeDropdownRef}>
             <button
@@ -481,26 +533,262 @@ export default function Navbar({
                         <LucideIcon name="ChevronDown" size={13} className={`ml-1 transition-transform duration-300 shrink-0 ${isDropdownOpen ? 'rotate-180 text-mcu-pink' : 'text-slate-400'}`} />
                       </button>
 
-                      {/* Smart Right/Left Aligned Dropdown Menu */}
+                      {/* Smart Mega Menu Fullview & Standard Dropdown Engine */}
                       {isDropdownOpen && (
                         <div 
-                          className={`absolute top-full ${isRightAligned ? 'right-0' : 'left-0'} pt-1.5 w-64 sm:w-72 max-w-[calc(100vw-2rem)] z-[9999]`}
+                          className={`absolute top-full ${
+                            link.page === 'courses' || link.page === 'eservices' || link.page === 'about'
+                              ? 'left-1/2 -translate-x-1/2 w-[90vw] max-w-5xl'
+                              : isRightAligned ? 'right-0 w-64 sm:w-72' : 'left-0 w-64 sm:w-72'
+                          } pt-1.5 z-[9999]`}
                           onMouseEnter={() => handleMouseEnter(link.page)}
                           onMouseLeave={handleMouseLeave}
                         >
-                          <div className="glass-dropdown rounded-2xl p-2 space-y-1 z-[9999] animate-in fade-in slide-in-from-top-2 shadow-2xl max-h-[80vh] overflow-y-auto">
-                            {subList.map((subItem) => (
-                              <button
-                                key={subItem.subPage}
-                                onClick={() => handleNav(subItem.targetPage || link.page, subItem.subPage)}
-                                className="w-full px-3.5 py-2.5 rounded-xl text-left text-xs xl:text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-mcu-pink/10 hover:text-mcu-pink-deep flex items-center whitespace-nowrap transition-all group cursor-pointer"
-                              >
-                                <div className="p-1.5 rounded-lg bg-mcu-pink/10 group-hover:bg-mcu-pink group-hover:text-white transition-colors mr-2.5 shrink-0">
-                                  <LucideIcon name={subItem.iconName} size={14} className="text-mcu-pink group-hover:text-white shrink-0 transition-transform group-hover:scale-110" />
+                          <div className="glass-dropdown rounded-3xl p-5 z-[9999] animate-in fade-in slide-in-from-top-2 shadow-2xl max-h-[85vh] overflow-y-auto border border-amber-200/50 dark:border-slate-800">
+                            {link.page === 'courses' ? (
+                              <div className="space-y-4 text-left">
+                                <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+                                  <div className="flex items-center gap-2.5">
+                                    <div className="p-2.5 rounded-2xl bg-mcu-pink text-white shadow-md">
+                                      <LucideIcon name="GraduationCap" size={20} />
+                                    </div>
+                                    <div>
+                                      <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+                                        {lang === 'th' ? '🎓 หลักสูตรที่เปิดสอน (Academic Programs)' : '🎓 Academic Programs'}
+                                      </h4>
+                                      <p className="text-xs text-slate-500 font-normal">
+                                        {lang === 'th' ? 'ระดับปริญญาตรี ปริญญาโท ปริญญาเอก และประกาศนียบัตร' : 'Bachelor, Master, Doctoral, and Certificate Degrees'}
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <button onClick={() => handleNav('courses')} className="text-xs font-bold text-mcu-pink hover:underline flex items-center gap-1 cursor-pointer">
+                                    {lang === 'th' ? 'ดูหลักสูตรทั้งหมด' : 'View All Programs'} <LucideIcon name="ArrowRight" size={14} />
+                                  </button>
                                 </div>
-                                <span className="whitespace-nowrap">{lang === 'th' ? subItem.labelTh : subItem.labelEn}</span>
-                              </button>
-                            ))}
+
+                                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                  <div className="bg-slate-50/80 dark:bg-slate-900/60 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
+                                    <div className="text-[11px] font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5 uppercase tracking-wider">
+                                      <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+                                      {lang === 'th' ? 'ปริญญาตรี (Bachelor)' : 'Bachelor Degree'}
+                                    </div>
+                                    <div className="space-y-1">
+                                      <button onClick={() => handleNav('courses', 'bachelor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-1.5">
+                                        <span>🎓</span> <span>สาขาวิชาพระพุทธศาสนา</span>
+                                      </button>
+                                      <button onClick={() => handleNav('courses', 'bachelor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-1.5">
+                                        <span>🎓</span> <span>สาขาวิชาการสอนภาษาไทย</span>
+                                      </button>
+                                      <button onClick={() => handleNav('courses', 'bachelor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-1.5">
+                                        <span>🎓</span> <span>สาขาวิชารัฐศาสตร์</span>
+                                      </button>
+                                      <button onClick={() => handleNav('courses', 'bachelor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-1.5">
+                                        <span>🎓</span> <span>สาขาวิชาสังคมศึกษา</span>
+                                      </button>
+                                    </div>
+                                  </div>
+
+                                  <div className="bg-slate-50/80 dark:bg-slate-900/60 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
+                                    <div className="text-[11px] font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5 uppercase tracking-wider">
+                                      <span className="w-2 h-2 rounded-full bg-rose-500"></span>
+                                      {lang === 'th' ? 'ปริญญาโท (Master)' : 'Master Degree'}
+                                    </div>
+                                    <div className="space-y-1">
+                                      <button onClick={() => handleNav('courses', 'master')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-1.5">
+                                        <span>🎓</span> <span>พระพุทธศาสนา (พธ.ม.)</span>
+                                      </button>
+                                      <button onClick={() => handleNav('courses', 'master')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-1.5">
+                                        <span>🎓</span> <span>การบริหารการศึกษา (ค.ม.)</span>
+                                      </button>
+                                    </div>
+                                  </div>
+
+                                  <div className="bg-slate-50/80 dark:bg-slate-900/60 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
+                                    <div className="text-[11px] font-bold text-purple-700 dark:text-purple-400 flex items-center gap-1.5 uppercase tracking-wider">
+                                      <span className="w-2 h-2 rounded-full bg-purple-500"></span>
+                                      {lang === 'th' ? 'ปริญญาเอก (Doctoral)' : 'Doctoral Degree'}
+                                    </div>
+                                    <div className="space-y-1">
+                                      <button onClick={() => handleNav('courses', 'doctor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-1.5">
+                                        <span>🎓</span> <span>พระพุทธศาสนา (พธ.ด.)</span>
+                                      </button>
+                                    </div>
+                                  </div>
+
+                                  <div className="bg-slate-50/80 dark:bg-slate-900/60 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
+                                    <div className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5 uppercase tracking-wider">
+                                      <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                                      {lang === 'th' ? 'ประกาศนียบัตร (Cert)' : 'Certificates'}
+                                    </div>
+                                    <div className="space-y-1">
+                                      <button onClick={() => handleNav('courses', 'certificate')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-1.5">
+                                        <span>📜</span> <span>ประกาศนียบัตรบริหารธุรกิจ</span>
+                                      </button>
+                                      <button onClick={() => handleNav('courses', 'certificate')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-1.5">
+                                        <span>📜</span> <span>ประกาศนียบัตรพระพุทธศาสนา</span>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ) : link.page === 'eservices' ? (
+                              <div className="space-y-4 text-left">
+                                <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+                                  <div className="flex items-center gap-2.5">
+                                    <div className="p-2.5 rounded-2xl bg-amber-600 text-white shadow-md">
+                                      <LucideIcon name="Monitor" size={20} />
+                                    </div>
+                                    <div>
+                                      <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+                                        {lang === 'th' ? '🌐 ศูนย์บริการออนไลน์ (E-Services Portal)' : '🌐 E-Services Portal'}
+                                      </h4>
+                                      <p className="text-xs text-slate-500 font-normal">
+                                        {lang === 'th' ? 'ระบบสารสนเทศครบวงจรสำหรับนิสิต บุคลากร และประชาชน' : 'One-stop E-Services for Students, Staff, and Public'}
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <button onClick={() => handleNav('eservices')} className="text-xs font-bold text-amber-600 hover:underline flex items-center gap-1 cursor-pointer">
+                                    {lang === 'th' ? 'เข้าสู่ E-Services Portal' : 'Launch E-Services Portal'} <LucideIcon name="ArrowRight" size={14} />
+                                  </button>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                  <div className="bg-slate-50/80 dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
+                                    <div className="text-[11px] font-bold text-sky-700 dark:text-sky-400 flex items-center gap-1.5 uppercase tracking-wider">
+                                      <span className="w-2.5 h-2.5 rounded-full bg-sky-500"></span> 👨‍🎓 บริการสำหรับนิสิต
+                                    </div>
+                                    <div className="space-y-1 pt-1">
+                                      <button onClick={() => handleNav('eservices', 'student')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-sky-600 transition-all flex items-center justify-between group">
+                                        <span>🎓 ระบบทะเบียนนิสิต (REG)</span>
+                                        <LucideIcon name="ExternalLink" size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                                      </button>
+                                      <button onClick={() => handleNav('eservices', 'student')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-sky-600 transition-all flex items-center justify-between group">
+                                        <span>📖 ระบบเรียนออนไลน์ (LMS)</span>
+                                        <LucideIcon name="ExternalLink" size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                                      </button>
+                                      <button onClick={() => handleNav('eservices', 'student')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-sky-600 transition-all flex items-center justify-between group">
+                                        <span>📚 คลังปัญญาดิจิทัล (E-Library)</span>
+                                        <LucideIcon name="ExternalLink" size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                                      </button>
+                                    </div>
+                                  </div>
+
+                                  <div className="bg-slate-50/80 dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
+                                    <div className="text-[11px] font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5 uppercase tracking-wider">
+                                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span> 👨‍🏫 สำหรับอาจารย์ & บุคลากร
+                                    </div>
+                                    <div className="space-y-1 pt-1">
+                                      <button onClick={() => handleNav('eservices', 'staff')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-amber-600 transition-all flex items-center justify-between group">
+                                        <span>📄 ระบบสารบรรณอิเล็กทรอนิกส์</span>
+                                        <LucideIcon name="ExternalLink" size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                                      </button>
+                                      <button onClick={() => handleNav('eservices', 'staff')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-amber-600 transition-all flex items-center justify-between group">
+                                        <span>👥 ระบบทรัพยากรบุคคล (HR)</span>
+                                        <LucideIcon name="ExternalLink" size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                                      </button>
+                                      <button onClick={() => handleNav('eservices', 'staff')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-amber-600 transition-all flex items-center justify-between group">
+                                        <span>📝 ระบบบันทึกผลการเรียน</span>
+                                        <LucideIcon name="ExternalLink" size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                                      </button>
+                                    </div>
+                                  </div>
+
+                                  <div className="bg-slate-50/80 dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
+                                    <div className="text-[11px] font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5 uppercase tracking-wider">
+                                      <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span> 🏛️ บริการประชาชน & จองสถานที่
+                                    </div>
+                                    <div className="space-y-1 pt-1">
+                                      <button onClick={() => handleNav('eservices', 'public')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-rose-600 transition-all flex items-center justify-between group">
+                                        <span>🏛️ ระบบจองห้องประชุม & อาคาร</span>
+                                        <LucideIcon name="ExternalLink" size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                                      </button>
+                                      <button onClick={() => handleNav('eservices', 'public')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-rose-600 transition-all flex items-center justify-between group">
+                                        <span>📬 ระบบรับเรื่องร้องเรียน (E-Petition)</span>
+                                        <LucideIcon name="ExternalLink" size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ) : link.page === 'about' ? (
+                              <div className="space-y-4 text-left">
+                                <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+                                  <div className="flex items-center gap-2.5">
+                                    <div className="p-2.5 rounded-2xl bg-mcu-pink text-white shadow-md">
+                                      <LucideIcon name="Info" size={20} />
+                                    </div>
+                                    <div>
+                                      <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+                                        {lang === 'th' ? '🏛️ เกี่ยวกับวิทยาลัยสงฆ์พ่อขุนผาเมือง' : '🏛️ About Phokhun Phamuang Buddhist College'}
+                                      </h4>
+                                      <p className="text-xs text-slate-500 font-normal">
+                                        {lang === 'th' ? 'ประวัติความเป็นมา ปรัชญา ผู้บริหาร และโครงสร้างสถาบัน' : 'History, Vision, Leadership, and Structure'}
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <button onClick={() => handleNav('about')} className="text-xs font-bold text-mcu-pink hover:underline flex items-center gap-1 cursor-pointer">
+                                    {lang === 'th' ? 'อ่านข้อมูลสถาบันเพิ่มเติม' : 'Learn More'} <LucideIcon name="ArrowRight" size={14} />
+                                  </button>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                  <div className="bg-slate-50/80 dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
+                                    <div className="text-[11px] font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5 uppercase tracking-wider">
+                                      <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span> 🏛️ ข้อมูลสถาบัน
+                                    </div>
+                                    <div className="space-y-1 pt-1">
+                                      <button onClick={() => handleNav('about', 'history')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all">
+                                        📜 ประวัติความเป็นมาวิทยาลัยสงฆ์
+                                      </button>
+                                      <button onClick={() => handleNav('about', 'philosophy')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all">
+                                        ✨ ปรัชญา ปณิธาน และอัตลักษณ์
+                                      </button>
+                                    </div>
+                                  </div>
+
+                                  <div className="bg-slate-50/80 dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
+                                    <div className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5 uppercase tracking-wider">
+                                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> 👤 ผู้บริหาร & บุคลากร
+                                    </div>
+                                    <div className="space-y-1 pt-1">
+                                      <button onClick={() => handleNav('about', 'executive')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all">
+                                        👑 สัมโมทนียกถา & คณะผู้บริหาร
+                                      </button>
+                                      <button onClick={() => handleNav('personnel')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all">
+                                        👨‍🏫 ทำเนียบคณาจารย์และบุคลากร
+                                      </button>
+                                    </div>
+                                  </div>
+
+                                  <div className="bg-slate-50/80 dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
+                                    <div className="text-[11px] font-bold text-purple-700 dark:text-purple-400 flex items-center gap-1.5 uppercase tracking-wider">
+                                      <span className="w-2.5 h-2.5 rounded-full bg-purple-500"></span> 📍 แผนที่ & การเดินทาง
+                                    </div>
+                                    <div className="space-y-1 pt-1">
+                                      <button onClick={() => handleNav('contact')} className="w-full text-left p-2 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all">
+                                        🗺️ แผนที่ที่ตั้งและช่องทางติดต่อ
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ) : (
+                              /* Standard Single Column Dropdown for other items */
+                              <div className="space-y-1 text-left">
+                                {subList.map((subItem) => (
+                                  <button
+                                    key={subItem.subPage}
+                                    onClick={() => handleNav(subItem.targetPage || link.page, subItem.subPage)}
+                                    className="w-full px-3.5 py-2.5 rounded-xl text-left text-xs xl:text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-mcu-pink/10 hover:text-mcu-pink-deep flex items-center whitespace-nowrap transition-all group cursor-pointer"
+                                  >
+                                    <div className="p-1.5 rounded-lg bg-mcu-pink/10 group-hover:bg-mcu-pink group-hover:text-white transition-colors mr-2.5 shrink-0">
+                                      <LucideIcon name={subItem.iconName} size={14} className="text-mcu-pink group-hover:text-white shrink-0 transition-transform group-hover:scale-110" />
+                                    </div>
+                                    <span className="whitespace-nowrap">{lang === 'th' ? subItem.labelTh : subItem.labelEn}</span>
+                                  </button>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         </div>
                       )}

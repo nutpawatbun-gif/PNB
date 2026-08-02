@@ -88,6 +88,20 @@
   --mcu-gold-light: #fde68a;
 }
 
+/* Accessibility Font Scale Engine (สำหรับปรับขนาดตัวอักษรเพื่อผู้สูงอายุและพระเถระ) */
+html.font-scale-sm {
+  font-size: 14.5px !important;
+}
+html.font-scale-md {
+  font-size: 16px !important;
+}
+html.font-scale-lg {
+  font-size: 18px !important;
+}
+html.font-scale-xl {
+  font-size: 20px !important;
+}
+
 [data-theme="platinum"] {
   --color-mcu-pink: #1e40af;
   --color-mcu-pink-dark: #1e3a8a;
