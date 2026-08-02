@@ -211,7 +211,9 @@ export default function Navbar({
 
     return sorted.map((item: any, idx: number) => {
       let pageKey = item.page || (item.url ? item.url.replace(/^\//, '') : '') || item.id || `menu_${idx}`;
-      if (!pageKey || pageKey === 'index') pageKey = 'home';
+      if (!pageKey || pageKey === 'index' || pageKey === 'landing' || item.url === '/' || item.labelTh === 'หน้าแรก' || item.labelEn === 'Home') {
+        pageKey = 'home';
+      }
       if (pageKey === 'services') pageKey = 'eservices';
 
       const defaultMatch = navLinks.find(n => n.page === pageKey);

@@ -126,7 +126,11 @@ export default function App() {
 
   // Enhanced navigateTo supporting deep filter subPages
   const navigateTo = (page: string, subPage: string = 'landing', search: string = '') => {
-    setCurrentPage(page);
+    let targetPage = page;
+    if (!targetPage || targetPage === '/' || targetPage === 'index' || targetPage === 'landing') {
+      targetPage = 'home';
+    }
+    setCurrentPage(targetPage);
     if (page === 'admission') {
       setAdmissionSubPage(subPage);
     }
@@ -190,7 +194,11 @@ export default function App() {
 
   const renderContent = () => {
     switch (currentPage) {
+      case '':
+      case '/':
       case 'home':
+      case 'landing':
+      case 'index':
         return <DynamicHomepage lang={lang} navigateTo={navigateTo} />;
       case 'about':
         return <AboutPage lang={lang} />;
