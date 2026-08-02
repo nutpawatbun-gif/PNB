@@ -12,11 +12,22 @@ import { Modal } from '../ui/Modal';
 
 interface CoursesPageProps {
   lang: 'th' | 'en';
+  selectedLevel?: string;
   onApplyCourse: (courseId?: string) => void;
 }
 
-export default function CoursesPage({ lang, onApplyCourse }: CoursesPageProps) {
-  const [activeTab, setActiveTab] = useState<'bachelor' | 'master' | 'doctor' | 'certificate'>('bachelor');
+export default function CoursesPage({ lang, selectedLevel = 'bachelor', onApplyCourse }: CoursesPageProps) {
+  const initialLevel = ['bachelor', 'master', 'doctor', 'certificate'].includes(selectedLevel)
+    ? (selectedLevel as 'bachelor' | 'master' | 'doctor' | 'certificate')
+    : 'bachelor';
+
+  const [activeTab, setActiveTab] = useState<'bachelor' | 'master' | 'doctor' | 'certificate'>(initialLevel);
+
+  useEffect(() => {
+    if (['bachelor', 'master', 'doctor', 'certificate'].includes(selectedLevel)) {
+      setActiveTab(selectedLevel as any);
+    }
+  }, [selectedLevel]);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [courses, setCourses] = useState<Course[]>(() => coursesStore.getCourses());
 

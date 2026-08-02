@@ -13,12 +13,18 @@ import { Facebook, MessageCircle, Twitter, Link as LinkIcon, Eye, Video, FileTex
 
 interface NewsPageProps {
   lang: 'th' | 'en';
+  activeCategory?: string;
 }
 
-export default function NewsPage({ lang }: NewsPageProps) {
+export default function NewsPage({ lang, activeCategory = 'all' }: NewsPageProps) {
   const { news: rawNewsList, refreshNews } = useNews();
   const newsList = Array.isArray(rawNewsList) ? rawNewsList : [];
-  const [filter, setFilter] = useState<'all' | 'pr' | 'academic' | 'activity'>('all');
+  const [filter, setFilter] = useState<string>(activeCategory || 'all');
+
+  // Update filter if activeCategory prop changes
+  React.useEffect(() => {
+    if (activeCategory) setFilter(activeCategory);
+  }, [activeCategory]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
   const [toast, setToast] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
@@ -93,19 +99,25 @@ export default function NewsPage({ lang }: NewsPageProps) {
     const cat = itemCat.toLowerCase().trim();
     const filterKey = targetFilter.toLowerCase().trim();
 
-    if (filterKey === 'pr' || filterKey === 'ข่าวประชาสัมพันธ์') {
-      return cat === 'pr' || cat === 'cat_pr' || cat === 'cat_admission' || cat.includes('ประชาสัมพันธ์') || cat.includes('รับสมัคร');
+    if (filterKey === 'pr' || filterKey === 'general' || filterKey === 'ข่าวประชาสัมพันธ์') {
+      return cat === 'pr' || cat === 'general' || cat === 'cat_pr' || cat.includes('ประชาสัมพันธ์') || cat.includes('ทั่วไป');
     }
     if (filterKey === 'academic' || filterKey === 'ข่าววิชาการ') {
       return cat === 'academic' || cat === 'cat_academic' || cat.includes('วิชาการ') || cat.includes('สัมมนา');
     }
     if (filterKey === 'activity' || filterKey === 'ข่าวกิจกรรม') {
-      return cat === 'activity' || cat === 'cat_activity' || cat.includes('กิจกรรม') || cat.includes('นิสิต');
+      return cat === 'activity' || cat === 'cat_activity' || cat.includes('กิจกรรม');
     }
-    if (filterKey === 'announcement' || filterKey === 'ประกาศมหาวิทยาลัย') {
-      return cat === 'announcement' || cat === 'cat_announcement' || cat.includes('ประกาศ');
+    if (filterKey === 'mcu_announcement' || filterKey === 'announcement' || filterKey === 'ข่าวประกาศมหาวิทยาลัย') {
+      return cat === 'mcu_announcement' || cat === 'announcement' || cat === 'cat_announcement' || cat.includes('ประกาศ');
     }
-    return cat === filterKey;
+    if (filterKey === 'student_affairs' || filterKey === 'ข่าวกิจการนิสิต') {
+      return cat === 'student_affairs' || cat.includes('นิสิต') || cat.includes('ทุน');
+    }
+    if (filterKey === 'procurement' || filterKey === 'ข่าวจัดซื้อจัดจ้าง') {
+      return cat === 'procurement' || cat.includes('จัดซื้อ') || cat.includes('ประกวดราคา');
+    }
+    return cat === filterKey || cat.includes(filterKey);
   };
 
   // Dynamic search and filter
@@ -167,15 +179,19 @@ export default function NewsPage({ lang }: NewsPageProps) {
           {/* Tabs */}
           <div className="flex flex-wrap gap-1.5">
             {[
-              { key: 'all', label: t.all },
-              { key: 'pr', label: t.pr },
-              { key: 'academic', label: t.academic },
-              { key: 'activity', label: t.activity }
+              { key: 'all', label: 'ทั้งหมด (All)' },
+              { key: 'general', label: '📢 ข่าวประชาสัมพันธ์' },
+              { key: 'pr', label: '📢 ข่าวทั่วไป' },
+              { key: 'academic', label: '🎓 ข่าววิชาการ' },
+              { key: 'activity', label: '🎨 ข่าวกิจกรรม' },
+              { key: 'mcu_announcement', label: '🏛️ ข่าวประกาศมหาวิทยาลัย' },
+              { key: 'student_affairs', label: '👤 ข่าวกิจการนิสิต' },
+              { key: 'procurement', label: '📑 ข่าวจัดซื้อจัดจ้าง' }
             ].map((btn) => (
               <button
                 key={btn.key}
-                onClick={() => setFilter(btn.key as any)}
-                className={`px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                onClick={() => setFilter(btn.key)}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                   filter === btn.key
                     ? 'bg-mcu-pink text-white shadow-md'
                     : 'bg-mcu-pink-soft text-mcu-pink-deep hover:bg-mcu-pink-light/50 border border-mcu-pink-light/30'

@@ -38,9 +38,9 @@ export default function Navbar({
   const [searchQuery, setSearchQuery] = useState('');
   const [dbMenus, setDbMenus] = useState<any[]>([]);
 
-  // About Submenus Dropdown State
-  const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
-  const [isMobileAboutOpen, setIsMobileAboutOpen] = useState(false);
+  // Active Dropdown States
+  const [activeDropdownPage, setActiveDropdownPage] = useState<string | null>(null);
+  const [activeMobilePage, setActiveMobilePage] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const themeDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -66,7 +66,7 @@ export default function Navbar({
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsAboutDropdownOpen(false);
+        setActiveDropdownPage(null);
       }
       if (themeDropdownRef.current && !themeDropdownRef.current.contains(event.target as Node)) {
         setIsThemeDropdownOpen(false);
@@ -82,12 +82,12 @@ export default function Navbar({
     } else {
       setCurrentPage(page);
     }
-    setIsAboutDropdownOpen(false);
+    setActiveDropdownPage(null);
     setIsMobileMenuOpen(false);
     setIsSearchModalOpen(false);
   };
 
-  // Sub-items for "เกี่ยวกับเรา"
+  // 1. Sub-items for "เกี่ยวกับเรา"
   const aboutSubItems = [
     { subPage: 'history', labelTh: 'ประวัติความเป็นมา', labelEn: 'History & Background', iconName: 'History', targetPage: 'about' },
     { subPage: 'philosophy', labelTh: 'ปรัชญา ปณิธาน และอัตลักษณ์', labelEn: 'Philosophy & Vision', iconName: 'Sparkles', targetPage: 'about' },
@@ -96,21 +96,63 @@ export default function Navbar({
     { subPage: 'landing', labelTh: 'ทำเนียบบุคลากร', labelEn: 'Personnel Directory', iconName: 'Users', targetPage: 'personnel' }
   ];
 
+  // 2. Sub-items for "หลักสูตร"
+  const coursesSubItems = [
+    { subPage: 'bachelor', labelTh: '🎓 ระดับปริญญาตรี', labelEn: "Bachelor's Degree", iconName: 'GraduationCap', targetPage: 'courses' },
+    { subPage: 'master', labelTh: '🎓 ระดับปริญญาโท', labelEn: "Master's Degree", iconName: 'Award', targetPage: 'courses' },
+    { subPage: 'doctor', labelTh: '🎓 ระดับปริญญาเอก', labelEn: 'Doctoral Degree', iconName: 'Sparkles', targetPage: 'courses' },
+    { subPage: 'certificate', labelTh: '📜 หลักสูตรประกาศนียบัตร', labelEn: 'Certificate Programs', iconName: 'FileText', targetPage: 'courses' }
+  ];
+
+  // 3. Sub-items for "สมัครเรียน"
+  const admissionSubItems = [
+    { subPage: 'apply', labelTh: '📝 ยื่นใบสมัครออนไลน์', labelEn: 'Apply Online Wizard', iconName: 'UserPlus', targetPage: 'admission' },
+    { subPage: 'status', labelTh: '🔍 ตรวจสอบสถานะ & พิมพ์ใบสมัคร', labelEn: 'Track & Print Status', iconName: 'Search', targetPage: 'admission' },
+    { subPage: 'qualifications', labelTh: '📋 คุณสมบัติผู้สมัครเรียน', labelEn: 'Qualifications & Rules', iconName: 'UserCheck', targetPage: 'admission' },
+    { subPage: 'documents', labelTh: '📌 เอกสารประกอบการสมัคร', labelEn: 'Required Documents', iconName: 'FileText', targetPage: 'admission' }
+  ];
+
+  // 4. Sub-items for "บริการออนไลน์ (E-Services)"
+  const eservicesSubItems = [
+    { subPage: 'student', labelTh: '👨‍🎓 สำหรับนิสิต (REG / LMS / Library)', labelEn: 'Student E-Services', iconName: 'GraduationCap', targetPage: 'eservices' },
+    { subPage: 'staff', labelTh: '👨‍🏫 สำหรับอาจารย์ & บุคลากร (E-Saraban / HR)', labelEn: 'Staff & Faculty E-Services', iconName: 'Users', targetPage: 'eservices' },
+    { subPage: 'public', labelTh: '🏛️ บริการประชาชน & จองสถานที่', labelEn: 'Public Services & Booking', iconName: 'Building', targetPage: 'eservices' }
+  ];
+
+  // 5. Sub-items for "ข่าวสาร & ประกาศ" (6 CMS Categories)
+  const newsSubItems = [
+    { subPage: 'general', labelTh: '📢 ข่าวประชาสัมพันธ์ (General PR)', labelEn: 'General News', iconName: 'Newspaper', targetPage: 'news' },
+    { subPage: 'academic', labelTh: '🎓 ข่าววิชาการ (Academic News)', labelEn: 'Academic News', iconName: 'BookOpen', targetPage: 'news' },
+    { subPage: 'activity', labelTh: '🎨 ข่าวกิจกรรม (Activities & Events)', labelEn: 'Activities & Events', iconName: 'Calendar', targetPage: 'news' },
+    { subPage: 'mcu_announcement', labelTh: '🏛️ ข่าวประกาศมหาวิทยาลัย (MCU News)', labelEn: 'MCU Announcements', iconName: 'Building', targetPage: 'news' },
+    { subPage: 'student_affairs', labelTh: '👤 ข่าวกิจการนิสิต (Student Affairs)', labelEn: 'Student Affairs', iconName: 'UserCheck', targetPage: 'news' },
+    { subPage: 'procurement', labelTh: '📑 ข่าวจัดซื้อจัดจ้าง (Procurement & Bids)', labelEn: 'Procurement & Bids', iconName: 'FileText', targetPage: 'news' }
+  ];
+
+  // 6. Sub-items for "ผลงานวิชาการ"
+  const academicSubItems = [
+    { subPage: 'journals', labelTh: '📚 วารสารวิชาการ (Academic Journals)', labelEn: 'Academic Journals', iconName: 'BookOpen', targetPage: 'academic' },
+    { subPage: 'research', labelTh: '🔬 งานวิจัย & วิทยานิพนธ์ (Research)', labelEn: 'Research Papers', iconName: 'FileText', targetPage: 'academic' },
+    { subPage: 'textbooks', labelTh: '📖 ตำรา & เอกสารประกอบการสอน', labelEn: 'Courseware', iconName: 'BookOpen', targetPage: 'academic' }
+  ];
+
+  // 7. Sub-items for "ดาวน์โหลด"
+  const downloadsSubItems = [
+    { subPage: 'students', labelTh: '👨‍🎓 แบบฟอร์มสำหรับนิสิต (Student Forms)', labelEn: 'Student Forms', iconName: 'FileText', targetPage: 'downloads' },
+    { subPage: 'staff', labelTh: '👨‍🏫 แบบฟอร์มสำหรับบุคลากร (Staff Forms)', labelEn: 'Staff Forms', iconName: 'Users', targetPage: 'downloads' },
+    { subPage: 'regulations', labelTh: '📜 ระเบียบ & ข้อบังคับวิทยาลัย', labelEn: 'College Regulations', iconName: 'FileCheck', targetPage: 'downloads' }
+  ];
+
   const navLinks = [
     { page: 'home', labelTh: 'หน้าแรก', labelEn: 'Home', iconName: 'Home' },
-    { 
-      page: 'about', 
-      labelTh: 'เกี่ยวกับ', 
-      labelEn: 'About', 
-      iconName: 'Info',
-      hasDropdown: true
-    },
-    { page: 'courses', labelTh: 'หลักสูตร', labelEn: 'Courses', iconName: 'GraduationCap' },
-    { page: 'admission', labelTh: 'สมัครเรียน', labelEn: 'Admissions', iconName: 'UserPlus' },
-    { page: 'academic', labelTh: 'ผลงานวิชาการ', labelEn: 'Academic Research', iconName: 'BookOpen' },
-    { page: 'news', labelTh: 'ข่าวสาร & ประกาศ', labelEn: 'News & Announcements', iconName: 'Newspaper' },
+    { page: 'about', labelTh: 'เกี่ยวกับ', labelEn: 'About', iconName: 'Info', hasDropdown: true, subItems: aboutSubItems },
+    { page: 'courses', labelTh: 'หลักสูตร', labelEn: 'Courses', iconName: 'GraduationCap', hasDropdown: true, subItems: coursesSubItems },
+    { page: 'admission', labelTh: 'สมัครเรียน', labelEn: 'Admissions', iconName: 'UserPlus', hasDropdown: true, subItems: admissionSubItems },
+    { page: 'eservices', labelTh: 'บริการออนไลน์', labelEn: 'E-Services', iconName: 'Monitor', hasDropdown: true, subItems: eservicesSubItems },
+    { page: 'news', labelTh: 'ข่าวสาร & ประกาศ', labelEn: 'News', iconName: 'Newspaper', hasDropdown: true, subItems: newsSubItems },
+    { page: 'academic', labelTh: 'ผลงานวิชาการ', labelEn: 'Academic Research', iconName: 'BookOpen', hasDropdown: true, subItems: academicSubItems },
     { page: 'calendar', labelTh: 'ปฏิทินกิจกรรม', labelEn: 'Calendar', iconName: 'Calendar' },
-    { page: 'downloads', labelTh: 'ดาวน์โหลด', labelEn: 'Downloads', iconName: 'Download' },
+    { page: 'downloads', labelTh: 'ดาวน์โหลด', labelEn: 'Downloads', iconName: 'Download', hasDropdown: true, subItems: downloadsSubItems },
     { page: 'contact', labelTh: 'ติดต่อเรา', labelEn: 'Contact Us', iconName: 'Phone' }
   ];
 
@@ -335,20 +377,22 @@ export default function Navbar({
             <div className="flex items-center gap-1 xl:gap-2 flex-nowrap w-full">
               {navLinks.map((link) => {
                 const isActive = currentPage === link.page;
+                const isDropdownOpen = activeDropdownPage === link.page;
+                const subList = link.subItems || [];
                 
-                if (link.hasDropdown) {
+                if (link.hasDropdown && subList.length > 0) {
                   return (
                     <div
                       key={link.page}
                       ref={dropdownRef}
                       className="relative group shrink-0 z-[9999]"
-                      onMouseEnter={() => setIsAboutDropdownOpen(true)}
-                      onMouseLeave={() => setIsAboutDropdownOpen(false)}
+                      onMouseEnter={() => setActiveDropdownPage(link.page)}
+                      onMouseLeave={() => setActiveDropdownPage(null)}
                     >
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          setIsAboutDropdownOpen(!isAboutDropdownOpen);
+                          setActiveDropdownPage(isDropdownOpen ? null : link.page);
                         }}
                         className={`px-3 xl:px-4 py-2 rounded-xl text-xs xl:text-sm font-semibold transition-all flex items-center whitespace-nowrap nav-link-glow group shrink-0 cursor-pointer ${
                           isActive
@@ -358,16 +402,16 @@ export default function Navbar({
                       >
                         <LucideIcon name={link.iconName} size={15} className="mr-1.5 text-mcu-pink nav-icon-bounce shrink-0" />
                         <span className="whitespace-nowrap">{lang === 'th' ? link.labelTh : link.labelEn}</span>
-                        <LucideIcon name="ChevronDown" size={14} className={`ml-1 transition-transform duration-300 shrink-0 ${isAboutDropdownOpen ? 'rotate-180 text-mcu-pink' : 'text-slate-400'}`} />
+                        <LucideIcon name="ChevronDown" size={14} className={`ml-1 transition-transform duration-300 shrink-0 ${isDropdownOpen ? 'rotate-180 text-mcu-pink' : 'text-slate-400'}`} />
                       </button>
 
-                      {/* About Submenus Dropdown Menu */}
-                      {isAboutDropdownOpen && (
-                        <div className="absolute top-full left-0 mt-1 w-68 glass-dropdown rounded-2xl p-2 space-y-1 z-[9999] animate-in fade-in slide-in-from-top-2 shadow-2xl">
-                          {aboutSubItems.map((subItem) => (
+                      {/* Dynamic Submenus Dropdown Menu */}
+                      {isDropdownOpen && (
+                        <div className="absolute top-full left-0 mt-1 w-72 glass-dropdown rounded-2xl p-2 space-y-1 z-[9999] animate-in fade-in slide-in-from-top-2 shadow-2xl">
+                          {subList.map((subItem) => (
                             <button
                               key={subItem.subPage}
-                              onClick={() => handleNav(subItem.targetPage || 'about', subItem.subPage)}
+                              onClick={() => handleNav(subItem.targetPage || link.page, subItem.subPage)}
                               className="w-full px-3.5 py-2.5 rounded-xl text-left text-xs xl:text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-mcu-pink/10 hover:text-mcu-pink-deep flex items-center whitespace-nowrap transition-all group cursor-pointer"
                             >
                               <div className="p-1.5 rounded-lg bg-mcu-pink/10 group-hover:bg-mcu-pink group-hover:text-white transition-colors mr-2.5 shrink-0">
@@ -405,11 +449,14 @@ export default function Navbar({
         {isMobileMenuOpen && (
           <div className="lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 py-3 space-y-1 animate-in slide-in-from-top-2">
             {navLinks.map((link) => {
-              if (link.hasDropdown) {
+              const isMobileOpen = activeMobilePage === link.page;
+              const subList = link.subItems || [];
+
+              if (link.hasDropdown && subList.length > 0) {
                 return (
                   <div key={link.page} className="space-y-1">
                     <button
-                      onClick={() => setIsMobileAboutOpen(!isMobileAboutOpen)}
+                      onClick={() => setActiveMobilePage(isMobileOpen ? null : link.page)}
                       className={`w-full text-left px-3 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between ${
                         currentPage === link.page
                           ? 'bg-mcu-pink text-white font-bold'
@@ -420,15 +467,15 @@ export default function Navbar({
                         <LucideIcon name={link.iconName} size={15} className={`mr-1.5 ${currentPage === link.page ? 'text-white' : 'text-mcu-pink'}`} />
                         <span>{lang === 'th' ? link.labelTh : link.labelEn}</span>
                       </div>
-                      <LucideIcon name="ChevronDown" size={14} className={`ml-1 transition-transform ${isMobileAboutOpen ? 'rotate-180' : ''}`} />
+                      <LucideIcon name="ChevronDown" size={14} className={`ml-1 transition-transform ${isMobileOpen ? 'rotate-180' : ''}`} />
                     </button>
 
-                    {isMobileAboutOpen && (
+                    {isMobileOpen && (
                       <div className="pl-6 space-y-1 border-l-2 border-mcu-pink/30 ml-3">
-                        {aboutSubItems.map((subItem) => (
+                        {subList.map((subItem) => (
                           <button
                             key={subItem.subPage}
-                            onClick={() => handleNav(subItem.targetPage || 'about', subItem.subPage)}
+                            onClick={() => handleNav(subItem.targetPage || link.page, subItem.subPage)}
                             className="w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-400 hover:bg-mcu-pink/10 hover:text-mcu-pink-deep flex items-center"
                           >
                             <LucideIcon name={subItem.iconName} size={15} className="mr-1.5 text-mcu-pink shrink-0" />

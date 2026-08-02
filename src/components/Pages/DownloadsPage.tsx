@@ -11,12 +11,22 @@ import LucideIcon from '../LucideIcon';
 
 interface DownloadsPageProps {
   lang: 'th' | 'en';
+  activeCategory?: string;
 }
 
-export default function DownloadsPage({ lang }: DownloadsPageProps) {
+export default function DownloadsPage({ lang, activeCategory = 'all' }: DownloadsPageProps) {
   const [downloads, setDownloads] = useState<DownloadableFile[]>(() => downloadsStore.getDownloads());
   const [categories, setCategories] = useState<DocumentCategory[]>(() => downloadsStore.getCategories());
-  const [selectedCatId, setSelectedCatId] = useState<string>('all');
+  const [selectedCatId, setSelectedCatId] = useState<string>(activeCategory || 'all');
+
+  useEffect(() => {
+    if (activeCategory) {
+      if (activeCategory === 'students') setSelectedCatId('cat_students');
+      else if (activeCategory === 'staff') setSelectedCatId('cat_staff');
+      else if (activeCategory === 'regulations') setSelectedCatId('cat_regulations');
+      else setSelectedCatId(activeCategory);
+    }
+  }, [activeCategory]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedFormat, setSelectedFormat] = useState<string>('all');
   const [downloadingId, setDownloadingId] = useState<string | null>(null);

@@ -36,6 +36,7 @@ import AcademicPage from './components/Pages/AcademicPage';
 import AnnouncementsPage from './components/Pages/AnnouncementsPage';
 import CalendarPage from './components/Pages/CalendarPage';
 import PersonnelPage from './components/Pages/PersonnelPage';
+import EServicesPage from './components/Pages/EServicesPage';
 
 import { ErrorBoundary } from './components/ErrorBoundary';
 
@@ -63,6 +64,10 @@ export default function App() {
 
   const [admissionSubPage, setAdmissionSubPage] = useState<string>('landing');
   const [academicCategory, setAcademicCategory] = useState<string>('all');
+  const [newsCategory, setNewsCategory] = useState<string>('all');
+  const [coursesLevel, setCoursesLevel] = useState<string>('all');
+  const [downloadsCategory, setDownloadsCategory] = useState<string>('all');
+  const [eservicesCategory, setEservicesCategory] = useState<string>('all');
   const [personnelSlug, setPersonnelSlug] = useState<string>('');
 
   // Parse current URL and set initial state
@@ -119,7 +124,7 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Standardized navigation function
+  // Enhanced navigateTo supporting deep filter subPages
   const navigateTo = (page: string, subPage: string = 'landing', search: string = '') => {
     setCurrentPage(page);
     if (page === 'admission') {
@@ -127,6 +132,18 @@ export default function App() {
     }
     if (page === 'academic') {
       setAcademicCategory(subPage);
+    }
+    if (page === 'news') {
+      setNewsCategory(subPage);
+    }
+    if (page === 'courses') {
+      setCoursesLevel(subPage);
+    }
+    if (page === 'downloads') {
+      setDownloadsCategory(subPage);
+    }
+    if (page === 'eservices' || page === 'services') {
+      setEservicesCategory(subPage);
     }
     if (page === 'personnel') {
       setPersonnelSlug(subPage && subPage !== 'landing' && subPage !== 'personnel' && subPage !== 'all' ? subPage : '');
@@ -144,7 +161,7 @@ export default function App() {
     }
     else if (page === 'downloads') path = '/downloads';
     else if (page === 'contact') path = '/contact';
-    else if (page === 'services') path = '/services';
+    else if (page === 'services' || page === 'eservices') path = '/eservices';
     else if (page === 'admin') path = '/admin';
     else if (page === 'news') path = '/news';
     else if (page === 'announcements') path = '/announcements';
@@ -174,19 +191,19 @@ export default function App() {
   const renderContent = () => {
     switch (currentPage) {
       case 'home':
-        return <DynamicHomepage lang={lang} navigateTo={navigateTo} />;
-
+        return <DynamicHomepage navigateTo={navigateTo} />;
       case 'about':
         return <AboutPage lang={lang} />;
       case 'courses':
         return (
           <CoursesPage 
             lang={lang} 
+            selectedLevel={coursesLevel}
             onApplyCourse={(courseId) => navigateTo('admission', 'apply', `?program=${courseId}`)} 
           />
         );
       case 'news':
-        return <NewsPage lang={lang} />;
+        return <NewsPage lang={lang} activeCategory={newsCategory} />;
       case 'announcements':
         return <AnnouncementsPage lang={lang} />;
       case 'calendar':
@@ -202,11 +219,12 @@ export default function App() {
           />
         );
       case 'downloads':
-        return <DownloadsPage lang={lang} />;
+        return <DownloadsPage lang={lang} activeCategory={downloadsCategory} />;
       case 'contact':
         return <ContactPage lang={lang} />;
       case 'services':
-        return <ServicesPage lang={lang} />;
+      case 'eservices':
+        return <EServicesPage lang={lang} activeCategory={eservicesCategory} navigateTo={navigateTo} />;
       case 'personnel':
         return <PersonnelPage initialSlug={personnelSlug} navigateTo={navigateTo} />;
       case 'academic':
