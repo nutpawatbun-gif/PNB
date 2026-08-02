@@ -17,6 +17,14 @@
   --color-mcu-gold-light: #e8c978;
   --color-mcu-gold-soft: #f8efd8;
 
+  /* Phetchabun Cultural & Natural Earth Tones */
+  --color-pkpm-gold: #c89b3c;
+  --color-pkpm-gold-dark: #b38228;
+  --color-pkpm-forest: #059669;
+  --color-pkpm-forest-dark: #065f46;
+  --color-pkpm-sand: #fdfbf7;
+  --color-pkpm-sand-muted: #fef3c7;
+
   --color-border-mcu: #eadde3;
   --color-text-mcu: #1f1a1c;
   --color-heading-mcu: #651335;

@@ -161,11 +161,14 @@ export default function NewsSection({
   };
 
   const getCategoryColor = (category: string) => {
-    if (category === 'pr' || category === 'cat_pr' || category === 'cat_admission') return 'bg-sky-50 text-sky-700 border-sky-200';
-    if (category === 'academic' || category === 'cat_academic') return 'bg-amber-50 text-amber-800 border-amber-200';
-    if (category === 'activity' || category === 'cat_activity') return 'bg-emerald-50 text-emerald-700 border-emerald-200';
-    if (category === 'announcement' || category === 'cat_announcement') return 'bg-rose-50 text-rose-700 border-rose-200 font-bold';
-    return 'bg-gray-50 text-gray-700 border-gray-200';
+    const cat = (category || '').toLowerCase().trim();
+    if (cat === 'pr' || cat === 'general' || cat === 'cat_pr' || cat.includes('ประชาสัมพันธ์')) return 'bg-sky-100 text-sky-800 border-sky-300 font-semibold';
+    if (cat === 'academic' || cat === 'cat_academic' || cat.includes('วิชาการ')) return 'bg-amber-100 text-amber-900 border-amber-400 font-bold';
+    if (cat === 'activity' || cat === 'cat_activity' || cat.includes('กิจกรรม')) return 'bg-emerald-100 text-emerald-800 border-emerald-300 font-semibold';
+    if (cat === 'mcu_announcement' || cat === 'announcement' || cat.includes('ประกาศ')) return 'bg-rose-100 text-rose-800 border-rose-300 font-bold';
+    if (cat === 'student_affairs' || cat.includes('นิสิต')) return 'bg-purple-100 text-purple-800 border-purple-300 font-semibold';
+    if (cat === 'procurement' || cat.includes('จัดซื้อ')) return 'bg-stone-100 text-stone-800 border-stone-300 font-semibold';
+    return 'bg-slate-100 text-slate-800 border-slate-300 font-semibold';
   };
 
   return (

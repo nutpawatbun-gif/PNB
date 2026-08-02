@@ -27,9 +27,9 @@ export default function DirectorMessage({ lang }: DirectorMessageProps) {
   };
 
   return (
-    <section className="py-16 bg-gradient-to-b from-mcu-pink-soft to-white border-b border-mcu-pink-light">
+    <section className="py-16 bg-gradient-to-b from-[#fdfbf7] via-amber-50/40 to-white border-b border-amber-200/60">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-2xl shadow-mcu-card border border-mcu-pink-light overflow-hidden flex flex-col md:flex-row items-center">
+        <div className="bg-white/90 dark:bg-slate-900 rounded-3xl shadow-xl border border-amber-200/80 dark:border-slate-800 overflow-hidden flex flex-col md:flex-row items-center">
           
           {/* Portrait Image Block */}
           <div className="w-full md:w-2/5 p-8 md:p-12 flex flex-col items-center justify-center bg-gradient-to-br from-mcu-pink-deep to-mcu-pink-dark text-white relative">
