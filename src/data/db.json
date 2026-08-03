@@ -39,7 +39,7 @@
       "mustChangePassword": false,
       "is2FAEnabled": false,
       "createdAt": "2026-07-22T11:12:05.118Z",
-      "lastLoginAt": "2026-08-03T05:32:16.574Z",
+      "lastLoginAt": "2026-08-03T05:55:41.717Z",
       "failedLoginAttempts": 0,
       "updatedAt": "2026-07-26T08:16:02.718Z",
       "customPermissions": [
@@ -313,21 +313,39 @@
       "submenus": [
         {
           "id": "sm_dl_std",
-          "labelTh": "เอกสารสำหรับนิสิต",
+          "labelTh": "แบบฟอร์มคำร้องนิสิต",
           "labelEn": "Student Forms",
-          "url": "/downloads?cat=student"
+          "url": "/downloads?cat=cat_student_forms"
         },
         {
-          "id": "sm_dl_stf",
-          "labelTh": "เอกสารสำหรับอาจารย์และบุคลากร",
-          "labelEn": "Faculty & Staff Forms",
-          "url": "/downloads?cat=staff"
+          "id": "sm_dl_hb",
+          "labelTh": "คู่มือการศึกษา & แผนการเรียน",
+          "labelEn": "Handbooks & Plans",
+          "url": "/downloads?cat=cat_handbooks"
         },
         {
           "id": "sm_dl_rul",
-          "labelTh": "ระเบียบ ข้อบังคับ และข้อตกลง",
-          "labelEn": "Regulations & Bylaws",
-          "url": "/downloads?cat=rules"
+          "labelTh": "ระเบียบ ข้อบังคับ & ประกาศ",
+          "labelEn": "Regulations & Policies",
+          "url": "/downloads?cat=cat_regulations"
+        },
+        {
+          "id": "sm_dl_stf",
+          "labelTh": "แบบฟอร์มอาจารย์ & บุคลากร",
+          "labelEn": "Faculty & Staff Forms",
+          "url": "/downloads?cat=cat_staff_forms"
+        },
+        {
+          "id": "sm_dl_ac",
+          "labelTh": "แบบฟอร์มงานวิจัย & วิชาการ",
+          "labelEn": "Academic & Research",
+          "url": "/downloads?cat=cat_academic_papers"
+        },
+        {
+          "id": "sm_dl_med",
+          "labelTh": "สื่อประชาสัมพันธ์ & กราฟิก",
+          "labelEn": "Media & Brochures",
+          "url": "/downloads?cat=cat_media_brochures"
         }
       ]
     },

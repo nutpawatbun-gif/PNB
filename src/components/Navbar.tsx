@@ -209,11 +209,14 @@ export default function Navbar({
     { subPage: 'textbooks', labelTh: 'ตำรา & เอกสารประกอบการสอน', labelEn: 'Courseware', iconName: 'BookMarked', targetPage: 'academic' }
   ];
 
-  // 7. Sub-items for "ดาวน์โหลด"
+  // 7. Sub-items for "ดาวน์โหลด" (6 Document Categories)
   const downloadsSubItems = [
-    { subPage: 'students', labelTh: 'แบบฟอร์มสำหรับนิสิต', labelEn: 'Student Forms', iconName: 'User', targetPage: 'downloads' },
-    { subPage: 'staff', labelTh: 'แบบฟอร์มสำหรับบุคลากร', labelEn: 'Staff Forms', iconName: 'UserCheck', targetPage: 'downloads' },
-    { subPage: 'regulations', labelTh: 'ระเบียบ & ข้อบังคับวิทยาลัย', labelEn: 'College Regulations', iconName: 'FileCheck2', targetPage: 'downloads' }
+    { subPage: 'cat_student_forms', labelTh: 'แบบฟอร์มคำร้องนิสิต', labelEn: 'Student Forms', iconName: 'FileText', targetPage: 'downloads' },
+    { subPage: 'cat_handbooks', labelTh: 'คู่มือการศึกษา & แผนการเรียน', labelEn: 'Handbooks & Plans', iconName: 'BookOpen', targetPage: 'downloads' },
+    { subPage: 'cat_regulations', labelTh: 'ระเบียบ ข้อบังคับ & ประกาศ', labelEn: 'Regulations & Policies', iconName: 'ShieldAlert', targetPage: 'downloads' },
+    { subPage: 'cat_staff_forms', labelTh: 'แบบฟอร์มอาจารย์ & บุคลากร', labelEn: 'Faculty & Staff Forms', iconName: 'Users', targetPage: 'downloads' },
+    { subPage: 'cat_academic_papers', labelTh: 'แบบฟอร์มงานวิจัย & วิชาการ', labelEn: 'Academic & Research', iconName: 'FileSpreadsheet', targetPage: 'downloads' },
+    { subPage: 'cat_media_brochures', labelTh: 'สื่อประชาสัมพันธ์ & กราฟิก', labelEn: 'Media & Brochures', iconName: 'Image', targetPage: 'downloads' }
   ];
 
   const navLinks = [

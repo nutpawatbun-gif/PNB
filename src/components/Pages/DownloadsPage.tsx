@@ -22,9 +22,9 @@ export default function DownloadsPage({ lang, activeCategory = 'all' }: Download
   useEffect(() => {
     if (activeCategory) {
       if (activeCategory === 'landing' || activeCategory === 'all') setSelectedCatId('all');
-      else if (activeCategory === 'students') setSelectedCatId('cat_students');
-      else if (activeCategory === 'staff') setSelectedCatId('cat_staff');
-      else if (activeCategory === 'regulations') setSelectedCatId('cat_regulations');
+      else if (activeCategory === 'students' || activeCategory === 'cat_students' || activeCategory === 'cat_student_forms') setSelectedCatId('cat_student_forms');
+      else if (activeCategory === 'staff' || activeCategory === 'cat_staff' || activeCategory === 'cat_staff_forms') setSelectedCatId('cat_staff_forms');
+      else if (activeCategory === 'regulations' || activeCategory === 'rules' || activeCategory === 'cat_regulations') setSelectedCatId('cat_regulations');
       else setSelectedCatId(activeCategory);
     }
   }, [activeCategory]);
