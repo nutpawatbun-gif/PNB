@@ -95,36 +95,81 @@ export default function NewsPage({ lang, activeCategory = 'all' }: NewsPageProps
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 9;
 
-  // Flexible category matching helper
-  const matchCategory = (itemCat: string = '', targetFilter: string) => {
-    if (!targetFilter || targetFilter === 'all') return true;
-    const cat = itemCat.toLowerCase().trim();
-    const filterKey = targetFilter.toLowerCase().trim();
+  // Flexible category matching helper checking both category ID and categoryLabel
+  const matchCategory = (itemCat: string = '', itemLabel: string = '', targetFilter: string = '') => {
+    if (!targetFilter || targetFilter === 'all' || targetFilter === 'landing') return true;
+    const cat = (itemCat || '').toLowerCase().trim();
+    const label = (itemLabel || '').toLowerCase().trim();
+    const filterKey = (targetFilter || '').toLowerCase().trim();
 
-    if (filterKey === 'pr' || filterKey === 'general' || filterKey === 'ข่าวประชาสัมพันธ์') {
-      return cat === 'pr' || cat === 'general' || cat === 'cat_pr' || cat.includes('ประชาสัมพันธ์') || cat.includes('ทั่วไป');
+    const combined = `${cat} ${label}`;
+
+    if (filterKey === 'pr' || filterKey === 'general' || filterKey === 'ข่าวประชาสัมพันธ์' || filterKey === 'pr_news') {
+      return (
+        cat === 'pr' ||
+        cat === 'general' ||
+        cat === 'cat_pr' ||
+        cat === 'cat_admission' ||
+        cat === 'ข่าวประชาสัมพันธ์' ||
+        combined.includes('ประชาสัมพันธ์') ||
+        combined.includes('ข่าวทั่วไป') ||
+        combined.includes('รับสมัคร') ||
+        combined.includes('การรับสมัคร')
+      );
     }
     if (filterKey === 'academic' || filterKey === 'ข่าววิชาการ') {
-      return cat === 'academic' || cat === 'cat_academic' || cat.includes('วิชาการ') || cat.includes('สัมมนา');
+      return (
+        cat === 'academic' ||
+        cat === 'cat_academic' ||
+        cat === 'ข่าววิชาการ' ||
+        combined.includes('วิชาการ') ||
+        combined.includes('สัมมนา')
+      );
     }
     if (filterKey === 'activity' || filterKey === 'ข่าวกิจกรรม') {
-      return cat === 'activity' || cat === 'cat_activity' || cat.includes('กิจกรรม');
+      return (
+        cat === 'activity' ||
+        cat === 'cat_activity' ||
+        cat === 'ข่าวกิจกรรม' ||
+        combined.includes('กิจกรรม')
+      );
     }
     if (filterKey === 'mcu_announcement' || filterKey === 'announcement' || filterKey === 'ข่าวประกาศมหาวิทยาลัย' || filterKey === 'ประกาศมหาวิทยาลัย') {
-      return cat === 'mcu_announcement' || cat === 'announcement' || cat === 'cat_announcement' || cat.includes('ประกาศ');
+      return (
+        cat === 'mcu_announcement' ||
+        cat === 'announcement' ||
+        cat === 'cat_announcement' ||
+        cat === 'ประกาศมหาวิทยาลัย' ||
+        combined.includes('ประกาศ')
+      );
     }
     if (filterKey === 'student_affairs' || filterKey === 'ข่าวกิจการนิสิต') {
-      return cat === 'student_affairs' || cat.includes('นิสิต') || cat.includes('ทุน');
+      return (
+        cat === 'student_affairs' ||
+        cat === 'ข่าวกิจการนิสิต' ||
+        combined.includes('นิสิต') ||
+        combined.includes('ทุน') ||
+        combined.includes('สวัสดิการ')
+      );
     }
     if (filterKey === 'procurement' || filterKey === 'ข่าวจัดซื้อจัดจ้าง') {
-      return cat === 'procurement' || cat.includes('จัดซื้อ') || cat.includes('ประกวดราคา');
+      return (
+        cat === 'procurement' ||
+        cat === 'ข่าวจัดซื้อจัดจ้าง' ||
+        combined.includes('จัดซื้อ') ||
+        combined.includes('ประกวดราคา')
+      );
     }
-    return cat === filterKey || cat.includes(filterKey);
+    return cat === filterKey || label === filterKey || combined.includes(filterKey);
   };
 
   // Dynamic search and filter
   const filteredNews = newsList.filter((news) => {
-    const matchesFilter = matchCategory(news.category, filter);
+    const matchesFilter = matchCategory(
+      news.category || '',
+      (news as any).categoryLabel || (news as any).category_name || (news as any).title || '',
+      filter
+    );
     
     const titleText = lang === 'th' ? news.title : news.titleEn;
     const descText = news.excerpt || '';
