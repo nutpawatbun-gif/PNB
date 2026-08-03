@@ -22,7 +22,7 @@
       "googleSub": "104352531616051270269",
       "createdAt": "2026-07-29T14:59:04.711Z",
       "updatedAt": "2026-07-29T15:02:14.809Z",
-      "lastLoginAt": "2026-07-29T16:09:13.853Z",
+      "lastLoginAt": "2026-08-03T06:34:04.536Z",
       "mustChangePassword": false,
       "is2FAEnabled": false,
       "approvedAt": "2026-07-29T15:02:14.809Z"
@@ -4404,6 +4404,16 @@
   ],
   "login_history": [
     {
+      "id": "log_hist_1785738824758_382",
+      "userId": "u0",
+      "username": "akkharadet",
+      "timestamp": "2026-08-03T06:33:44.758Z",
+      "ip": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0",
+      "device": "Windows PC",
+      "status": "failed_password"
+    },
+    {
       "id": "log_hist_1785738005658_852",
       "userId": "u0",
       "username": "akkharadet",
@@ -4474,198 +4484,7 @@
       "status": "failed_password"
     }
   ],
-  "notifications": [
-    {
-      "id": "notif_1785052284187",
-      "title": "📩 มีข้อความติดต่อใหม่จากผู้เข้าชม",
-      "message": "คุณ พระสมชาย ญาณวโร ติดต่อเรื่อง \"สอบถามเรื่องการยื่นสมัครเรียนและเอกสารประกอบ\" (ฝ่ายบริการประสานงาน)",
-      "createdAt": "2026-07-26T07:51:24.187Z",
-      "read": false,
-      "type": "message",
-      "link": "/admin/messages"
-    },
-    {
-      "id": "notif_seed_1",
-      "type": "pending_review",
-      "title": "มีเนื้อหาใหม่รอการตรวจสอบอนุมัติ",
-      "message": "อาจารย์ ดร. สมชาย เพิ่มบทความ \"ผลงานวิจัยธรรมะประยุกต์ยุคดิจิทัล\" รอการตรวจสอบเนื้อหาจากผู้ดูแลระบบ",
-      "severity": "warning",
-      "sourceType": "academic",
-      "sourceId": "ac_101",
-      "link": "/admin?tab=academic",
-      "targetRoles": [
-        "Super Admin",
-        "Admin",
-        "Editor"
-      ],
-      "isRead": false,
-      "createdAt": "2026-07-22T15:03:46.915Z",
-      "emailStatus": "queued",
-      "emailRecipient": "editor.mbc@mcu.ac.th",
-      "emailTemplateId": "tpl_pending_review"
-    },
-    {
-      "id": "notif_seed_2",
-      "type": "approved",
-      "title": "เนื้อหาข่าวสารได้รับการอนุมัติแล้ว",
-      "message": "ข่าว \"พิธีไหว้ครูประเพณี ประจำปีการศึกษา 2569\" ผ่านการอนุมัติและเผยแพร่ลงหน้าเว็บไซต์เรียบร้อยแล้ว",
-      "severity": "success",
-      "sourceType": "news",
-      "sourceId": "news_202",
-      "link": "/admin?tab=news",
-      "targetRoles": [
-        "Author",
-        "Editor"
-      ],
-      "isRead": false,
-      "createdAt": "2026-07-22T13:33:46.915Z",
-      "emailStatus": "sent",
-      "emailSentAt": "2026-07-22T13:35:46.915Z",
-      "emailRecipient": "author.mbc@mcu.ac.th",
-      "emailTemplateId": "tpl_content_approved"
-    },
-    {
-      "id": "notif_seed_3",
-      "type": "returned_for_revision",
-      "title": "เนื้อหาประกาศถูกส่งกลับแก้ไข",
-      "message": "ประกาศ \"กำหนดการลงทะเบียนเรียนภาคค่ำ\" ถูกส่งกลับเนื่องจากรูปแบบไฟล์ PDF แนบไม่ชัดเจน",
-      "severity": "error",
-      "sourceType": "announcement",
-      "sourceId": "anc_303",
-      "link": "/admin?tab=announcements",
-      "targetRoles": [
-        "Author",
-        "Editor"
-      ],
-      "isRead": false,
-      "createdAt": "2026-07-22T11:33:46.915Z",
-      "emailStatus": "sent",
-      "emailSentAt": "2026-07-22T11:38:46.915Z",
-      "emailRecipient": "staff.mbc@mcu.ac.th",
-      "emailTemplateId": "tpl_returned_revision"
-    },
-    {
-      "id": "notif_seed_4",
-      "type": "expiring_soon",
-      "title": "ประกาศเรื่องทุนการศึกษาใกล้หมดอายุ",
-      "message": "ประกาศ \"ทุนการศึกษาเฉลิมพระเกียรติ ประจำปี 2569\" จะหมดอายุการแสดงผลในอีก 2 วัน",
-      "severity": "warning",
-      "sourceType": "announcement",
-      "sourceId": "anc_404",
-      "link": "/admin?tab=announcements",
-      "targetRoles": [
-        "Super Admin",
-        "Admin",
-        "Editor"
-      ],
-      "isRead": false,
-      "createdAt": "2026-07-22T09:33:46.915Z",
-      "emailStatus": "queued",
-      "emailRecipient": "admin.mbc@mcu.ac.th",
-      "emailTemplateId": "tpl_expiring_soon"
-    },
-    {
-      "id": "notif_seed_5",
-      "type": "admission_closing",
-      "title": "โครงการรับสมัครนิสิตระดับปริญญาตรี ใกล้ปิดรับสมัคร",
-      "message": "โครงการรับสมัครนิสิตใหม่ รอบที่ 1 (TCAS69) จะปิดรับสมัครในวันที่ 25 กรกฎาคม 2569 นี้",
-      "severity": "warning",
-      "sourceType": "admission",
-      "sourceId": "adm_505",
-      "link": "/admin?tab=admission_manager",
-      "targetRoles": [
-        "Super Admin",
-        "Admin"
-      ],
-      "isRead": false,
-      "createdAt": "2026-07-22T07:13:46.915Z",
-      "emailStatus": "queued",
-      "emailRecipient": "academic.mbc@mcu.ac.th",
-      "emailTemplateId": "tpl_admission_closing"
-    },
-    {
-      "id": "notif_seed_6",
-      "type": "event_upcoming",
-      "title": "กิจกรรมเสวนาพระพุทธศาสนาใกล้ถึงวันจัดงาน",
-      "message": "กิจกรรม \"สัมมนาวิชาการพระไตรปิฎกศึกษา\" จะจัดขึ้นในวันที่ 28 กรกฎาคม 2569 ณ หอประชุมสถาบัน",
-      "severity": "info",
-      "sourceType": "event",
-      "sourceId": "ev_606",
-      "link": "/admin?tab=events",
-      "targetRoles": [
-        "Super Admin",
-        "Admin",
-        "Editor"
-      ],
-      "isRead": true,
-      "readAt": "2026-07-22T05:33:46.915Z",
-      "createdAt": "2026-07-22T03:53:46.915Z",
-      "emailStatus": "sent",
-      "emailSentAt": "2026-07-22T04:03:46.915Z",
-      "emailRecipient": "events.mbc@mcu.ac.th",
-      "emailTemplateId": "tpl_event_upcoming"
-    },
-    {
-      "id": "notif_seed_7",
-      "type": "failed_logins",
-      "title": "ตรวจพบการกรอกรหัสผ่านผิดหลายครั้ง",
-      "message": "IP 182.52.12.99 พยายามเข้าสู่ระบบด้วยชื่อผู้ใช้ \"editor_test\" ผิดพลาดติดต่อกัน 5 ครั้ง (ระบบบล็อก IP ชั่วคราว)",
-      "severity": "error",
-      "sourceType": "security",
-      "sourceId": "sec_707",
-      "link": "/admin?tab=users_rbac",
-      "targetRoles": [
-        "Super Admin",
-        "Admin"
-      ],
-      "isRead": false,
-      "createdAt": "2026-07-22T15:18:46.915Z",
-      "emailStatus": "queued",
-      "emailRecipient": "security.mbc@mcu.ac.th",
-      "emailTemplateId": "tpl_failed_logins"
-    },
-    {
-      "id": "notif_seed_8",
-      "type": "critical_setting_changed",
-      "title": "มีการแก้ไขข้อมูลการตั้งค่าความปลอดภัยระบบ",
-      "message": "ผู้ดูแลระบบ Super Admin ได้ทำการปรับเปลี่ยนพารามิเตอร์ SMTP และนโยบายการล็อกเอาต์ผู้ใช้งาน",
-      "severity": "warning",
-      "sourceType": "settings",
-      "sourceId": "set_808",
-      "link": "/admin?tab=settings",
-      "targetRoles": [
-        "Super Admin"
-      ],
-      "isRead": true,
-      "readAt": "2026-07-21T22:53:46.915Z",
-      "createdAt": "2026-07-21T19:33:46.915Z",
-      "emailStatus": "sent",
-      "emailSentAt": "2026-07-21T19:43:46.915Z",
-      "emailRecipient": "superadmin.mbc@mcu.ac.th",
-      "emailTemplateId": "tpl_critical_settings"
-    },
-    {
-      "id": "notif_seed_9",
-      "type": "upload_failed",
-      "title": "มีไฟล์อัปโหลดล้มเหลว (Upload Failure)",
-      "message": "ผู้ใช้พยายามอัปโหลดไฟล์ \"annual_report_2026.pdf\" แต่ขนาดไฟล์เกินขีดจำกัดที่กำหนด (15MB > 10MB)",
-      "severity": "error",
-      "sourceType": "upload",
-      "sourceId": "up_909",
-      "link": "/admin?tab=media",
-      "targetRoles": [
-        "Super Admin",
-        "Admin",
-        "Editor"
-      ],
-      "isRead": false,
-      "createdAt": "2026-07-22T14:48:46.915Z",
-      "emailStatus": "failed",
-      "emailError": "SMTP server response code 550 - recipient address rejected",
-      "emailRecipient": "admin.mbc@mcu.ac.th",
-      "emailTemplateId": "tpl_upload_failed"
-    }
-  ],
+  "notifications": [],
   "trash_items": [],
   "content_revisions": [],
   "sessions": [

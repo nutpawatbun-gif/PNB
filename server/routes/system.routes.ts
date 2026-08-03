@@ -682,6 +682,9 @@ function syncLiveNotifications(db: any) {
   db.deleted_notification_ids = db.deleted_notification_ids || [];
   const deletedSet = new Set(db.deleted_notification_ids);
 
+  // Purge any old static seed mock notifications that start with notif_seed_ or notif_init_
+  db.notifications = db.notifications.filter((n: any) => !n.id.startsWith('notif_seed_') && !n.id.startsWith('notif_init_'));
+
   let newGenerated = 0;
 
   // 1. Live Messages Sync
@@ -751,6 +754,30 @@ function syncLiveNotifications(db: any) {
           severity: 'success',
           emailStatus: 'none',
           link: 'admission'
+        });
+        newGenerated++;
+      }
+    }
+  }
+
+  // 4. Live Events Sync
+  const upcomingEvents = (db.events || []).slice(0, 5);
+  for (const ev of upcomingEvents) {
+    const notifId = `notif_ev_${ev.id}`;
+    if (!deletedSet.has(notifId)) {
+      const exists = db.notifications.some((n: any) => n.id === notifId);
+      if (!exists) {
+        db.notifications.unshift({
+          id: notifId,
+          title: `📅 กิจกรรมสำคัญ: ${ev.titleTh || ev.title}`,
+          message: `กำหนดจัดงานวันที่: ${ev.date || ev.startDate || 'เร็วๆ นี้'} ณ ${ev.location || 'วิทยาลัยสงฆ์พ่อขุนผาเมือง'}`,
+          createdAt: ev.createdAt || new Date().toISOString(),
+          isRead: true,
+          read: true,
+          type: 'event_upcoming',
+          severity: 'info',
+          emailStatus: 'none',
+          link: 'events'
         });
         newGenerated++;
       }
