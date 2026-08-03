@@ -22,7 +22,7 @@
       "googleSub": "104352531616051270269",
       "createdAt": "2026-07-29T14:59:04.711Z",
       "updatedAt": "2026-07-29T15:02:14.809Z",
-      "lastLoginAt": "2026-08-03T06:55:21.379Z",
+      "lastLoginAt": "2026-08-03T07:01:05.380Z",
       "mustChangePassword": false,
       "is2FAEnabled": false,
       "approvedAt": "2026-07-29T15:02:14.809Z"
@@ -622,7 +622,7 @@
         "บุคลากรในหน่วยงานภาครัฐและเอกชน",
         "นักวิจัยด้านพุทธศาสนาและสังคมศาสตร์"
       ],
-      "status": "active",
+      "status": "inactive",
       "applyUrl": "/admission/apply",
       "applyMethod": "internal",
       "coverImageUrl": "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=800",
@@ -649,7 +649,7 @@
         "description": "",
         "keywords": ""
       },
-      "updatedAt": "2026-07-31T04:32:18.615Z"
+      "updatedAt": "2026-08-03T07:02:49.322Z"
     },
     {
       "id": "b2",
@@ -679,7 +679,7 @@
         "ครูผู้สอนวิชาพระพุทธศาสนา",
         "นักพัฒนาชุมชนแนวพุทธ"
       ],
-      "status": "active",
+      "status": "inactive",
       "applyUrl": "/admission/apply",
       "applyMethod": "internal",
       "coverImageUrl": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=800",
@@ -706,7 +706,7 @@
         "description": "",
         "keywords": ""
       },
-      "updatedAt": "2026-07-31T04:32:05.310Z"
+      "updatedAt": "2026-08-03T07:02:56.872Z"
     },
     {
       "id": "b3",
@@ -735,7 +735,7 @@
         "นักบริหารงานส่วนท้องถิ่น (อบต., เทศบาล, อบจ.)",
         "ผู้จัดการฝ่ายบริหารทรัพยากรบุคคล"
       ],
-      "status": "active",
+      "status": "inactive",
       "applyUrl": "/admission/apply",
       "applyMethod": "internal",
       "coverImageUrl": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800",
@@ -749,7 +749,7 @@
         "description": "",
         "keywords": ""
       },
-      "updatedAt": "2026-07-31T04:31:47.351Z",
+      "updatedAt": "2026-08-03T07:02:16.550Z",
       "level": "bachelor",
       "qualification": [
         "สำเร็จการศึกษาระดับมัธยมศึกษาตอนปลาย (ม.6) หรือเทียบเท่า",
@@ -790,7 +790,7 @@
         "นักวิจัยสถาบันวิจัยพุทธศาสตร์",
         "ผู้บริหารองค์กรทางพระพุทธศาสนา"
       ],
-      "status": "active",
+      "status": "inactive",
       "applyUrl": "/admission/apply",
       "applyMethod": "internal",
       "coverImageUrl": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800",
@@ -816,7 +816,7 @@
         "description": "",
         "keywords": ""
       },
-      "updatedAt": "2026-07-31T04:31:25.354Z"
+      "updatedAt": "2026-08-03T07:01:39.065Z"
     },
     {
       "id": "m2",
@@ -845,7 +845,7 @@
         "ที่ปรึกษาด้านการบริหารจัดการภาครัฐ",
         "นักวิชาการด้านการปกครองระดับสูง"
       ],
-      "status": "active",
+      "status": "inactive",
       "applyUrl": "/admission/apply",
       "applyMethod": "internal",
       "coverImageUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800",
@@ -867,7 +867,7 @@
         "description": "",
         "keywords": ""
       },
-      "updatedAt": "2026-07-31T04:31:15.209Z",
+      "updatedAt": "2026-08-03T07:01:30.578Z",
       "level": "master",
       "qualification": [
         "สำเร็จการศึกษาระดับปริญญาตรีทุกสาขาวิชา",
@@ -907,7 +907,7 @@
         "นักวิชาการผู้เชี่ยวชาญระดับชาติและนานาชาติ",
         "ผู้เชี่ยวชาญคัมภีร์และปรัชญาพุทธศาสนา"
       ],
-      "status": "active",
+      "status": "inactive",
       "applyUrl": "/admission/apply",
       "applyMethod": "internal",
       "coverImageUrl": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=800",
@@ -932,7 +932,7 @@
         "description": "",
         "keywords": ""
       },
-      "updatedAt": "2026-07-31T04:31:34.792Z"
+      "updatedAt": "2026-08-03T07:01:45.203Z"
     },
     {
       "id": "c1",
@@ -942,14 +942,14 @@
       "titleTh": "หลักสูตรประกาศนียบัตรการบริหารกิจการคณะสงฆ์ (ป.บส.)",
       "nameEn": "Certificate Program in Sangha Administration",
       "degreeLevel": "certificate",
-      "degree": "ประกาศนียบัตรการบริหารกิจการคณะสงฆ์ (ป.บส.)",
-      "degreeEn": "Certificate in Sangha Administration",
+      "degree": "ประกาศนียบัตรวิชาการ",
+      "degreeEn": "Certificate Program in Sangha Administration",
       "major": "การบริหารกิจการคณะสงฆ์",
       "faculty": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
       "duration": "1 ปี (2 ภาคการศึกษา)",
       "totalCredits": 30,
       "tuitionFee": "ได้รับการสนับสนุนทุนการศึกษาจากคณะสงฆ์และมหาวิทยาลัย",
-      "studyMode": "วันเสาร์ - อาทิตย์",
+      "studyMode": "1 ปี (2 ภาคการศึกษา)",
       "description": "เสริมสร้างทักษะการบริหารวัด ศาสนสมบัติ การปกครองคณะสงฆ์ งานศาสนศึกษา และงานเผยแผ่แก่พระสังฆาธิการและพระภิกษุสามเณร",
       "qualifications": [
         "พระสังฆาธิการ เจ้าอาวาส รองเจ้าอาวาส ผู้ช่วยเจ้าอาวาส",
@@ -960,10 +960,32 @@
         "เลขานุการเจ้าคณะจังหวัด/อำเภอ/ตำบล",
         "ผู้บริหารงานศาสนสมบัติและสาธารณูปการ"
       ],
-      "status": "active",
+      "status": "inactive",
       "applyUrl": "/admission/apply",
       "applyMethod": "internal",
-      "coverImageUrl": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=800"
+      "coverImageUrl": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=800",
+      "level": "certificate",
+      "highlights": [],
+      "qualification": [
+        "พระสังฆาธิการ เจ้าอาวาส รองเจ้าอาวาส ผู้ช่วยเจ้าอาวาส",
+        "พระภิกษุสามเณรผู้ได้รับมอบหมายงานบริหารกิจการคณะสงฆ์"
+      ],
+      "structure": [],
+      "estimatedFee": "ได้รับการสนับสนุนทุนการศึกษาจากคณะสงฆ์และมหาวิทยาลัย",
+      "careerPath": [
+        "พระสังฆาธิการผู้ทรงประสิทธิภาพในการบริหารวัด",
+        "เลขานุการเจ้าคณะจังหวัด/อำเภอ/ตำบล",
+        "ผู้บริหารงานศาสนสมบัติและสาธารณูปการ"
+      ],
+      "instructors": [],
+      "documents": [],
+      "galleryUrls": [],
+      "seo": {
+        "title": "",
+        "description": "",
+        "keywords": ""
+      },
+      "updatedAt": "2026-08-03T07:02:07.747Z"
     },
     {
       "id": "c2",
@@ -973,14 +995,14 @@
       "titleTh": "หลักสูตรประกาศนียบัตรวิปัสสนาภาวนา",
       "nameEn": "Certificate Program in Vipassana Meditation",
       "degreeLevel": "certificate",
-      "degree": "ประกาศนียบัตรวิปัสสนาภาวนา",
-      "degreeEn": "Certificate in Vipassana Meditation",
+      "degree": "ประกาศนียบัตรวิชาการ",
+      "degreeEn": "Certificate Program in Vipassana Meditation",
       "major": "วิปัสสนาภาวนา",
       "faculty": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
       "duration": "1 ปี (2 ภาคการศึกษา)",
       "totalCredits": 24,
       "tuitionFee": "ฟรีค่าธรรมเนียมการศึกษา",
-      "studyMode": "ปฏิบัติธรรมภาคเข้มข้น และการเรียนวันเสาร์ - อาทิตย์",
+      "studyMode": "1 ปี (2 ภาคการศึกษา)",
       "description": "ฝึกอบรมการปฏิบัติวิปัสสนากรรมฐานตามแนวสติปัฏฐาน 4 และเทคนิคการสอนปฏิบัติธรรมแก่ประชาชน",
       "qualifications": [
         "พระภิกษุ สามเณร และพุทธศาสนิกชนผู้มีจิตศรัทธาในการปฏิบัติธรรม",
@@ -990,10 +1012,31 @@
         "พระวิปัสสนาจารย์ / วิทยากรฝึกอบรมสมาธิภาวนา",
         "ผู้ดำเนินงานศูนย์ปฏิบัติธรรมและสำนักปฏิบัติธรรมประจำจังหวัด"
       ],
-      "status": "active",
+      "status": "inactive",
       "applyUrl": "/admission/apply",
       "applyMethod": "internal",
-      "coverImageUrl": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=800"
+      "coverImageUrl": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=800",
+      "level": "certificate",
+      "highlights": [],
+      "qualification": [
+        "พระภิกษุ สามเณร และพุทธศาสนิกชนผู้มีจิตศรัทธาในการปฏิบัติธรรม",
+        "สามารถเข้าร่วมการปฏิบัติกรรมฐานภาคเข้มข้นได้ตามกำหนด"
+      ],
+      "structure": [],
+      "estimatedFee": "ฟรีค่าธรรมเนียมการศึกษา",
+      "careerPath": [
+        "พระวิปัสสนาจารย์ / วิทยากรฝึกอบรมสมาธิภาวนา",
+        "ผู้ดำเนินงานศูนย์ปฏิบัติธรรมและสำนักปฏิบัติธรรมประจำจังหวัด"
+      ],
+      "instructors": [],
+      "documents": [],
+      "galleryUrls": [],
+      "seo": {
+        "title": "",
+        "description": "",
+        "keywords": ""
+      },
+      "updatedAt": "2026-08-03T07:01:59.820Z"
     },
     {
       "id": "c3",
@@ -1003,14 +1046,14 @@
       "titleTh": "หลักสูตรประกาศนียบัตรการสอนศีลธรรมในโรงเรียน (ป.สศ.)",
       "nameEn": "Certificate Program in School Moral Teaching",
       "degreeLevel": "certificate",
-      "degree": "ประกาศนียบัตรการสอนศีลธรรมในโรงเรียน (ป.สศ.)",
-      "degreeEn": "Certificate in School Moral Teaching",
+      "degree": "ประกาศนียบัตรวิชาการ",
+      "degreeEn": "Certificate Program in School Moral Teaching",
       "major": "การสอนศีลธรรม",
       "faculty": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มหาวิทยาลัยมหาจุฬาลงกรณราชวิทยาลัย",
       "duration": "1 ปี (2 ภาคการศึกษา)",
       "totalCredits": 30,
       "tuitionFee": "รับทุนสนับสนุนการเรียนจากมหาวิทยาลัย",
-      "studyMode": "วันเสาร์ - อาทิตย์",
+      "studyMode": "1 ปี (2 ภาคการศึกษา)",
       "description": "พัฒนาทักษะวิชาชีพครูพระสอนศีลธรรม การผลิตสื่อการเรียนรู้ จิตวิทยาเยาวชน และเทคนิคการสอนคุณธรรมจริยธรรมในสถานศึกษา",
       "qualifications": [
         "พระภิกษุครูพระสอนศีลธรรมในโรงเรียน",
@@ -1021,10 +1064,32 @@
         "วิทยากรบรรยายคุณธรรมจริยธรรมแก่นักเรียนและเยาวชน",
         "นักจัดกิจกรรมพัฒนาจริยธรรมในสถานศึกษา"
       ],
-      "status": "active",
+      "status": "inactive",
       "applyUrl": "/admission/apply",
       "applyMethod": "internal",
-      "coverImageUrl": "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=800"
+      "coverImageUrl": "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=800",
+      "level": "certificate",
+      "highlights": [],
+      "qualification": [
+        "พระภิกษุครูพระสอนศีลธรรมในโรงเรียน",
+        "พระภิกษุ สามเณร หรือผู้สนใจงานสอนธรรมะแก่เยาวชน"
+      ],
+      "structure": [],
+      "estimatedFee": "รับทุนสนับสนุนการเรียนจากมหาวิทยาลัย",
+      "careerPath": [
+        "ครูพระสอนศีลธรรมในโรงเรียนประจำจังหวัดเพชรบูรณ์",
+        "วิทยากรบรรยายคุณธรรมจริยธรรมแก่นักเรียนและเยาวชน",
+        "นักจัดกิจกรรมพัฒนาจริยธรรมในสถานศึกษา"
+      ],
+      "instructors": [],
+      "documents": [],
+      "galleryUrls": [],
+      "seo": {
+        "title": "",
+        "description": "",
+        "keywords": ""
+      },
+      "updatedAt": "2026-08-03T07:01:51.413Z"
     }
   ],
   "downloadCategories": [
@@ -1083,29 +1148,7 @@
       "sortOrder": 6
     }
   ],
-  "downloads": [
-    {
-      "id": "dl_1785088210985",
-      "name": "ทดสอบ",
-      "title": "ทดสอบ",
-      "description": "",
-      "url": "https://drive.google.com/file/d/10e8W8J9rRFM3Yh5-4AHlww-HyQRzuFaV/view?usp=drive_link",
-      "fileUrl": "https://drive.google.com/file/d/10e8W8J9rRFM3Yh5-4AHlww-HyQRzuFaV/view?usp=drive_link",
-      "format": "PDF",
-      "fileType": "PDF",
-      "size": "1.2 MB",
-      "fileSize": "1.2 MB",
-      "categoryId": "cat_student_forms",
-      "category": "แบบฟอร์มคำร้องนิสิต",
-      "ownerDepartment": "กลุ่มงานทะเบียนและวัดผล",
-      "downloadPermission": "public",
-      "version": "v1.0",
-      "downloadCount": 6,
-      "downloadsCount": 6,
-      "createdAt": "2026-07-26T17:50:10.985Z",
-      "updatedAt": "2026-07-26T17:50:10.985Z"
-    }
-  ],
+  "downloads": [],
   "academic_works": [
     {
       "id": "acad_1",
@@ -1352,6 +1395,105 @@
     "updatedAt": "2026-07-30T08:20:41.414Z"
   },
   "audit_logs": [
+    {
+      "id": "audit_1785740576875_668",
+      "timestamp": "2026-08-03T07:02:56.875Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "b2",
+      "details": "หลักสูตรพุทธศาสตรบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785740569326_820",
+      "timestamp": "2026-08-03T07:02:49.326Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "b1",
+      "details": "หลักสูตรพุทธศาสตรบัณฑิต สาขาวิชาศาสนาและปรัชญา",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785740536554_707",
+      "timestamp": "2026-08-03T07:02:16.554Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "b3",
+      "details": "หลักสูตรรัฐประศาสนศาสตรบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785740527750_75",
+      "timestamp": "2026-08-03T07:02:07.750Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "c1",
+      "details": "หลักสูตรประกาศนียบัตรการบริหารกิจการคณะสงฆ์ (ป.บส.)",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785740519825_669",
+      "timestamp": "2026-08-03T07:01:59.825Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "c2",
+      "details": "หลักสูตรประกาศนียบัตรวิปัสสนาภาวนา",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785740511417_818",
+      "timestamp": "2026-08-03T07:01:51.417Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "c3",
+      "details": "หลักสูตรประกาศนียบัตรการสอนศีลธรรมในโรงเรียน (ป.สศ.)",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785740505207_38",
+      "timestamp": "2026-08-03T07:01:45.207Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "d1",
+      "details": "หลักสูตรพุทธศาสตรดุษฎีบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785740499069_698",
+      "timestamp": "2026-08-03T07:01:39.069Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "m1",
+      "details": "หลักสูตรพุทธศาสตรมหาบัณฑิต สาขาวิชาพระพุทธศาสนา",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785740490583_80",
+      "timestamp": "2026-08-03T07:01:30.583Z",
+      "userId": "courses",
+      "username": "admin",
+      "action": "UPDATE_COURSE",
+      "module": "COURSES",
+      "targetId": "m2",
+      "details": "หลักสูตรรัฐประศาสนศาสตรมหาบัณฑิต สาขาวิชารัฐประศาสนศาสตร์",
+      "ip": "127.0.0.1"
+    },
     {
       "id": "audit_1785740196405_744",
       "timestamp": "2026-08-03T06:56:36.405Z",
@@ -4646,6 +4788,48 @@
   ],
   "applicantCounter": 69005,
   "messages": [],
+  "contact_departments": [
+    {
+      "id": "dept_academic",
+      "nameTh": "ฝ่ายวิชาการและงานวิจัย",
+      "nameEn": "Academic & Research",
+      "phone": "081-462-5663 ต่อ 101",
+      "email": "academic@mcu-pkpm.ac.th",
+      "officerName": "ผศ.ดร.อัครเดช บุนนาค",
+      "officerRole": "รองผู้อำนวยการฝ่ายวิชาการ",
+      "iconName": "GraduationCap"
+    },
+    {
+      "id": "dept_reg",
+      "nameTh": "ฝ่ายทะเบียนและวัดผล",
+      "nameEn": "Registrar & Admissions",
+      "phone": "081-462-5663 ต่อ 102",
+      "email": "reg@mcu-pkpm.ac.th",
+      "officerName": "พระมหาจำนงค์ อภิปุญโญ, ดร.",
+      "officerRole": "หัวหน้าฝ่ายทะเบียน",
+      "iconName": "FileCheck"
+    },
+    {
+      "id": "dept_finance",
+      "nameTh": "ฝ่ายบริหารงานคลังและพัสดุ",
+      "nameEn": "Finance & Procurement",
+      "phone": "081-462-5663 ต่อ 103",
+      "email": "finance@mcu-pkpm.ac.th",
+      "officerName": "อาจารย์สิริภัทร ชาญวุฒิ",
+      "officerRole": "หัวหน้างานคลังและพัสดุ",
+      "iconName": "Building"
+    },
+    {
+      "id": "dept_student",
+      "nameTh": "ฝ่ายกิจการนิสิตและทำนุบำรุงศิลปวัฒนธรรม",
+      "nameEn": "Student Affairs",
+      "phone": "081-462-5663 ต่อ 104",
+      "email": "student@mcu-pkpm.ac.th",
+      "officerName": "พระมหาปรีชา ญาณวิสุทโธ",
+      "officerRole": "ผู้ช่วยผู้อำนวยการฝ่ายกิจการนิสิต",
+      "iconName": "Users"
+    }
+  ],
   "homepage_sections": [
     {
       "id": "sec_hero_slider",

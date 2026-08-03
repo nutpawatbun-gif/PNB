@@ -955,8 +955,8 @@ systemRouter.post('/notifications/:id/test-email', (req: Request, res: Response)
   });
 });
 
-// 7. CONTACT MESSAGES API
-systemRouter.post('/contact', (req: Request, res: Response) => {
+// 7. CONTACT MESSAGES & DEPARTMENTS API
+const handleCreateContactMessage = (req: Request, res: Response) => {
   const db = readDB();
   const { name, email, phone, subject, message, department } = req.body;
 
@@ -986,13 +986,17 @@ systemRouter.post('/contact', (req: Request, res: Response) => {
   // Add system notification for admin
   db.notifications = db.notifications || [];
   db.notifications.unshift({
-    id: 'notif_' + Date.now(),
-    title: `📩 มีข้อความติดต่อใหม่จากผู้เข้าชม`,
-    message: `คุณ ${name} ติดต่อเรื่อง "${subject}" (ฝ่ายบริการประสานงาน)`,
+    id: 'notif_msg_' + newMessage.id,
+    title: `📬 ข้อความสอบถามใหม่จากคุณ ${name}`,
+    message: `เรื่อง: "${subject}" (${department || 'ฝ่ายบริการประสานงาน'})`,
     createdAt: new Date().toISOString(),
+    isRead: false,
     read: false,
-    type: 'message',
-    link: '/admin/messages'
+    type: 'pending_review',
+    severity: 'warning',
+    emailStatus: 'queued',
+    emailRecipient: email,
+    link: 'messages'
   });
 
   writeDB(db);
@@ -1002,7 +1006,10 @@ systemRouter.post('/contact', (req: Request, res: Response) => {
     success: true,
     data: newMessage
   });
-});
+};
+
+systemRouter.post('/contact', handleCreateContactMessage);
+systemRouter.post('/messages', handleCreateContactMessage);
 
 systemRouter.get('/messages', (req: Request, res: Response) => {
   const db = readDB();
@@ -1016,7 +1023,7 @@ systemRouter.get('/messages', (req: Request, res: Response) => {
   });
 });
 
-systemRouter.put('/messages/:id/read', (req: Request, res: Response) => {
+const handleMarkMessageRead = (req: Request, res: Response) => {
   const db = readDB();
   const { id } = req.params;
 
@@ -1032,6 +1039,37 @@ systemRouter.put('/messages/:id/read', (req: Request, res: Response) => {
     success: true,
     data: { id, message: 'ทำเครื่องหมายว่าอ่านแล้วเรียบร้อย' }
   });
+};
+
+systemRouter.put('/messages/:id/read', handleMarkMessageRead);
+systemRouter.patch('/messages/:id/read', handleMarkMessageRead);
+
+systemRouter.post('/messages/:id/reply', (req: Request, res: Response) => {
+  const db = readDB();
+  const { id } = req.params;
+  const { replyContent } = req.body;
+
+  let updatedMsg: any = null;
+  db.messages = (db.messages || []).map((m: any) => {
+    if (m.id === id) {
+      updatedMsg = {
+        ...m,
+        status: 'replied',
+        replyContent: replyContent || m.replyContent,
+        repliedAt: new Date().toISOString()
+      };
+      return updatedMsg;
+    }
+    return m;
+  });
+
+  writeDB(db);
+  logAuditAction('system', 'admin', 'REPLY_CONTACT_MESSAGE', 'MESSAGES', id, { replyContent }, req.ip);
+
+  sendStandardResponse(res, 200, {
+    success: true,
+    data: updatedMsg || { id, status: 'replied' }
+  });
 });
 
 systemRouter.delete('/messages/:id', (req: Request, res: Response) => {
@@ -1044,6 +1082,111 @@ systemRouter.delete('/messages/:id', (req: Request, res: Response) => {
   sendStandardResponse(res, 200, {
     success: true,
     data: { id, message: 'ลบข้อความติดต่อเรียบร้อยแล้ว' }
+  });
+});
+
+// CONTACT DEPARTMENTS & EXTENSIONS CRUD
+systemRouter.get('/contact/departments', (req: Request, res: Response) => {
+  const db = readDB();
+  let depts = db.contact_departments || [];
+  if (depts.length === 0) {
+    depts = [
+      { id: 'dept_academic', nameTh: 'ฝ่ายวิชาการและงานวิจัย', nameEn: 'Academic & Research', phone: '081-462-5663 ต่อ 101', email: 'academic@mcu-pkpm.ac.th', officerName: 'ผศ.ดร.อัครเดช บุนนาค', officerRole: 'รองผู้อำนวยการฝ่ายวิชาการ', iconName: 'GraduationCap' },
+      { id: 'dept_reg', nameTh: 'ฝ่ายทะเบียนและวัดผล', nameEn: 'Registrar & Admissions', phone: '081-462-5663 ต่อ 102', email: 'reg@mcu-pkpm.ac.th', officerName: 'พระมหาจำนงค์ อภิปุญโญ, ดร.', officerRole: 'หัวหน้าฝ่ายทะเบียน', iconName: 'FileCheck' },
+      { id: 'dept_finance', nameTh: 'ฝ่ายบริหารงานคลังและพัสดุ', nameEn: 'Finance & Procurement', phone: '081-462-5663 ต่อ 103', email: 'finance@mcu-pkpm.ac.th', officerName: 'อาจารย์สิริภัทร ชาญวุฒิ', officerRole: 'หัวหน้างานคลังและพัสดุ', iconName: 'Building' },
+      { id: 'dept_student', nameTh: 'ฝ่ายกิจการนิสิตและทำนุบำรุงศิลปวัฒนธรรม', nameEn: 'Student Affairs', phone: '081-462-5663 ต่อ 104', email: 'student@mcu-pkpm.ac.th', officerName: 'พระมหาปรีชา ญาณวิสุทโธ', officerRole: 'ผู้ช่วยผู้อำนวยการฝ่ายกิจการนิสิต', iconName: 'Users' }
+    ];
+    db.contact_departments = depts;
+    writeDB(db);
+  }
+
+  sendStandardResponse(res, 200, {
+    success: true,
+    data: depts
+  });
+});
+
+systemRouter.post('/contact/departments', (req: Request, res: Response) => {
+  const db = readDB();
+  const { nameTh, nameEn, phone, email, officerName, officerRole, iconName, imageUrl } = req.body;
+
+  if (!nameTh) {
+    sendStandardResponse(res, 400, {
+      success: false,
+      error: { code: 'INVALID_INPUT', message: 'กรุณาระบุชื่อฝ่าย/แผนก (ภาษาไทย)' }
+    });
+    return;
+  }
+
+  const newDept = {
+    id: 'dept_' + Date.now(),
+    nameTh: nameTh.trim(),
+    nameEn: (nameEn || '').trim(),
+    phone: (phone || '081-462-5663').trim(),
+    email: (email || '').trim(),
+    officerName: (officerName || '').trim(),
+    officerRole: (officerRole || '').trim(),
+    iconName: iconName || 'Building',
+    imageUrl: imageUrl || '',
+    createdAt: new Date().toISOString()
+  };
+
+  db.contact_departments = db.contact_departments || [];
+  db.contact_departments.push(newDept);
+  writeDB(db);
+  logAuditAction('system', 'admin', 'CREATE_CONTACT_DEPARTMENT', 'DEPARTMENTS', newDept.id, { nameTh }, req.ip);
+
+  sendStandardResponse(res, 201, {
+    success: true,
+    data: newDept
+  });
+});
+
+systemRouter.put('/contact/departments/:id', (req: Request, res: Response) => {
+  const db = readDB();
+  const { id } = req.params;
+  const { nameTh, nameEn, phone, email, officerName, officerRole, iconName, imageUrl } = req.body;
+
+  let updatedDept: any = null;
+  db.contact_departments = (db.contact_departments || []).map((d: any) => {
+    if (d.id === id) {
+      updatedDept = {
+        ...d,
+        nameTh: nameTh !== undefined ? nameTh.trim() : d.nameTh,
+        nameEn: nameEn !== undefined ? nameEn.trim() : d.nameEn,
+        phone: phone !== undefined ? phone.trim() : d.phone,
+        email: email !== undefined ? email.trim() : d.email,
+        officerName: officerName !== undefined ? officerName.trim() : d.officerName,
+        officerRole: officerRole !== undefined ? officerRole.trim() : d.officerRole,
+        iconName: iconName || d.iconName,
+        imageUrl: imageUrl !== undefined ? imageUrl : d.imageUrl,
+        updatedAt: new Date().toISOString()
+      };
+      return updatedDept;
+    }
+    return d;
+  });
+
+  writeDB(db);
+  logAuditAction('system', 'admin', 'UPDATE_CONTACT_DEPARTMENT', 'DEPARTMENTS', id, { nameTh }, req.ip);
+
+  sendStandardResponse(res, 200, {
+    success: true,
+    data: updatedDept || { id }
+  });
+});
+
+systemRouter.delete('/contact/departments/:id', (req: Request, res: Response) => {
+  const db = readDB();
+  const { id } = req.params;
+
+  db.contact_departments = (db.contact_departments || []).filter((d: any) => d.id !== id);
+  writeDB(db);
+  logAuditAction('system', 'admin', 'DELETE_CONTACT_DEPARTMENT', 'DEPARTMENTS', id, {}, req.ip);
+
+  sendStandardResponse(res, 200, {
+    success: true,
+    data: { id, message: 'ลบข้อมูลฝ่าย/แผนกเรียบร้อยแล้ว' }
   });
 });
 
