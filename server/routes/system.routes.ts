@@ -1346,3 +1346,46 @@ systemRouter.delete('/trash/:id', (req: Request, res: Response) => {
     data: { id, message: 'ลบข้อมูลถาวรเรียบร้อยแล้ว' }
   });
 });
+
+// ACADEMIC YEAR 2569 STATS ENDPOINTS
+systemRouter.get('/stats', (req: Request, res: Response) => {
+  const db = readDB();
+  const defaultStats = {
+    academicYear: '2569',
+    mode: 'manual',
+    lastUpdated: new Date().toISOString(),
+    items: [
+      { id: 'stat_students', key: 'students', value: 1250, suffix: '+ รูป/คน', labelTh: 'นิสิตปัจจุบันปีการศึกษา 2569', labelEn: 'Active Students (A.Y. 2569)', iconName: 'Users', isVisible: true },
+      { id: 'stat_graduates', key: 'graduates', value: 4500, suffix: '+ รูป/คน', labelTh: 'บัณฑิตผู้สำเร็จการศึกษาสะสม', labelEn: 'Total Graduates', iconName: 'GraduationCap', isVisible: true },
+      { id: 'stat_courses', key: 'courses', value: 12, suffix: ' หลักสูตร', labelTh: 'หลักสูตรที่เปิดสอน', labelEn: 'Academic Programs Offered', iconName: 'BookOpen', isVisible: true },
+      { id: 'stat_personnel', key: 'personnel', value: 85, suffix: ' ท่าน', labelTh: 'คณาจารย์ประจำและบุคลากร', labelEn: 'Faculty & Staff Members', iconName: 'UserCheck', isVisible: true },
+      { id: 'stat_research', key: 'research', value: 120, suffix: '+ เรื่อง', labelTh: 'ผลงานวิจัยและบทความตีพิมพ์', labelEn: 'Research Publications', iconName: 'Award', isVisible: true },
+      { id: 'stat_mou', key: 'mou', value: 25, suffix: ' สถาบัน', labelTh: 'เครือข่ายความร่วมมือวิชาการ', labelEn: 'MOU Academic Partners', iconName: 'Building2', isVisible: true }
+    ]
+  };
+
+  const currentStats = db.stats || defaultStats;
+  sendStandardResponse(res, 200, {
+    success: true,
+    data: currentStats
+  });
+});
+
+systemRouter.put('/stats', (req: Request, res: Response) => {
+  const db = readDB();
+  const payload = req.body;
+
+  db.stats = {
+    ...db.stats,
+    ...payload,
+    lastUpdated: new Date().toISOString()
+  };
+
+  writeDB(db);
+  logAuditAction('system', 'admin', 'UPDATE_ACADEMIC_STATS_2569', 'SYSTEM', 'stats_2569', payload, req.ip);
+
+  sendStandardResponse(res, 200, {
+    success: true,
+    data: db.stats
+  });
+});

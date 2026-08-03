@@ -1859,6 +1859,71 @@ export const api = {
         headers: getHeaders()
       })
     );
+  },
+
+  // ============================================================================
+  // ACADEMIC YEAR 2569 STATS MANAGEMENT API
+  // ============================================================================
+  async getAcademicStats() {
+    const defaultStats = {
+      academicYear: '2569',
+      mode: 'manual',
+      lastUpdated: new Date().toISOString(),
+      items: [
+        { id: 'stat_students', key: 'students', value: 1250, suffix: '+ รูป/คน', labelTh: 'นิสิตปัจจุบันปีการศึกษา 2569', labelEn: 'Active Students (A.Y. 2569)', iconName: 'Users' },
+        { id: 'stat_graduates', key: 'graduates', value: 4500, suffix: '+ รูป/คน', labelTh: 'บัณฑิตผู้สำเร็จการศึกษาสะสม', labelEn: 'Total Graduates', iconName: 'GraduationCap' },
+        { id: 'stat_courses', key: 'courses', value: 12, suffix: ' หลักสูตร', labelTh: 'หลักสูตรที่เปิดสอน', labelEn: 'Academic Programs Offered', iconName: 'BookOpen' },
+        { id: 'stat_personnel', key: 'personnel', value: 85, suffix: ' ท่าน', labelTh: 'คณาจารย์ประจำและบุคลากร', labelEn: 'Faculty & Staff Members', iconName: 'UserCheck' },
+        { id: 'stat_research', key: 'research', value: 120, suffix: '+ เรื่อง', labelTh: 'ผลงานวิจัยและบทความตีพิมพ์', labelEn: 'Research Publications', iconName: 'Award' },
+        { id: 'stat_mou', key: 'mou', value: 25, suffix: ' สถาบัน', labelTh: 'เครือข่ายความร่วมมือวิชาการ', labelEn: 'MOU Academic Partners', iconName: 'Building2' }
+      ]
+    };
+
+    try {
+      const data = await handleResponse<any>(await apiFetch('/stats', { headers: getHeaders() }));
+      if (data && typeof data === 'object' && data.items) {
+        try { localStorage.setItem('mcu_academic_stats_2569', JSON.stringify(data)); } catch (e) {}
+        return data;
+      }
+    } catch (e) {
+      console.warn('Failed to fetch stats from API, checking local storage:', e);
+    }
+
+    try {
+      const local = localStorage.getItem('mcu_academic_stats_2569');
+      if (local) {
+        const parsed = JSON.parse(local);
+        if (parsed && parsed.items) return parsed;
+      }
+    } catch (e) {}
+
+    return defaultStats;
+  },
+
+  async updateAcademicStats(statsPayload: any) {
+    let serverData: any = null;
+    try {
+      serverData = await handleResponse<any>(
+        await apiFetch('/stats', {
+          method: 'PUT',
+          headers: getHeaders(),
+          body: JSON.stringify(statsPayload)
+        })
+      );
+    } catch (e) {
+      console.warn('API updateAcademicStats failed, using local storage fallback:', e);
+    }
+
+    const finalData = serverData || {
+      ...statsPayload,
+      lastUpdated: new Date().toISOString()
+    };
+
+    try {
+      localStorage.setItem('mcu_academic_stats_2569', JSON.stringify(finalData));
+    } catch (e) {}
+
+    return finalData;
   }
 };
 

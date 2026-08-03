@@ -27,8 +27,10 @@ import { BackupManager } from '../Admin/BackupManager';
 import { DashboardNotificationCenter } from '../Admin/DashboardNotificationCenter';
 import { DataTableManager } from '../Admin/DataTableManager';
 import MessagesManager from '../Admin/MessagesManager';
+import StatsManager from '../Admin/StatsManager';
 import { ErrorBoundary } from '../ErrorBoundary';
 import { 
+  BarChart3,
   Mail,
   Database,
   History,
@@ -762,6 +764,16 @@ export default function AdminPage({ lang, onBackToHome }: AdminPageProps) {
           </button>
 
           <button
+            onClick={() => setActiveTab('stats')}
+            className={`w-full flex items-center space-x-3 px-4 py-2.5 rounded-lg text-sm transition-all font-medium ${
+              activeTab === 'stats' || activeTab === 'academic_stats' ? 'bg-amber-600 text-white shadow-md font-bold' : 'hover:bg-slate-800 text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            <BarChart3 size={18} />
+            <span>สถิติประจำปีการศึกษา 2569</span>
+          </button>
+
+          <button
             onClick={() => setActiveTab('messages')}
             className={`w-full flex items-center space-x-3 px-4 py-2.5 rounded-lg text-sm transition-all font-medium ${
               activeTab === 'messages' || activeTab === 'contact_messages' ? 'bg-amber-600 text-white shadow-md font-bold' : 'hover:bg-slate-800 text-slate-400 hover:text-slate-200'
@@ -1137,6 +1149,9 @@ export default function AdminPage({ lang, onBackToHome }: AdminPageProps) {
           <ErrorBoundary fallbackTitle="เกิดข้อผิดพลาดในการโหลดโมดูลผู้ดูแลระบบนี้">
             {activeTab === 'notifications' && (
               <DashboardNotificationCenter onNavigateTab={(tab) => setActiveTab(tab)} triggerToast={triggerToast} />
+            )}
+            {(activeTab === 'stats' || activeTab === 'academic_stats') && (
+              <StatsManager onNotify={triggerToast} />
             )}
             {(activeTab === 'messages' || activeTab === 'contact_messages') && (
               <MessagesManager onNotify={triggerToast} />
