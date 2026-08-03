@@ -110,7 +110,7 @@ export default function NewsPage({ lang, activeCategory = 'all' }: NewsPageProps
     if (filterKey === 'activity' || filterKey === 'ข่าวกิจกรรม') {
       return cat === 'activity' || cat === 'cat_activity' || cat.includes('กิจกรรม');
     }
-    if (filterKey === 'mcu_announcement' || filterKey === 'announcement' || filterKey === 'ข่าวประกาศมหาวิทยาลัย') {
+    if (filterKey === 'mcu_announcement' || filterKey === 'announcement' || filterKey === 'ข่าวประกาศมหาวิทยาลัย' || filterKey === 'ประกาศมหาวิทยาลัย') {
       return cat === 'mcu_announcement' || cat === 'announcement' || cat === 'cat_announcement' || cat.includes('ประกาศ');
     }
     if (filterKey === 'student_affairs' || filterKey === 'ข่าวกิจการนิสิต') {
@@ -185,10 +185,9 @@ export default function NewsPage({ lang, activeCategory = 'all' }: NewsPageProps
             {[
               { key: 'all', label: 'ทั้งหมด' },
               { key: 'general', label: '📢 ข่าวประชาสัมพันธ์' },
-              { key: 'pr', label: '📢 ข่าวทั่วไป' },
               { key: 'academic', label: '🎓 ข่าววิชาการ' },
               { key: 'activity', label: '🎨 ข่าวกิจกรรม' },
-              { key: 'mcu_announcement', label: '🏛️ ข่าวประกาศมหาวิทยาลัย' },
+              { key: 'mcu_announcement', label: '🏛️ ประกาศมหาวิทยาลัย' },
               { key: 'student_affairs', label: '👤 ข่าวกิจการนิสิต' },
               { key: 'procurement', label: '📑 ข่าวจัดซื้อจัดจ้าง' }
             ].map((btn) => (

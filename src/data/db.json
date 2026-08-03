@@ -39,7 +39,7 @@
       "mustChangePassword": false,
       "is2FAEnabled": false,
       "createdAt": "2026-07-22T11:12:05.118Z",
-      "lastLoginAt": "2026-08-02T20:46:38.036Z",
+      "lastLoginAt": "2026-08-03T05:32:16.574Z",
       "failedLoginAttempts": 0,
       "updatedAt": "2026-07-26T08:16:02.718Z",
       "customPermissions": [
@@ -228,16 +228,40 @@
       "icon": "Newspaper",
       "submenus": [
         {
-          "id": "sm_news_all",
-          "labelTh": "ข่าวสารทั้งหมด",
-          "labelEn": "All News Feed",
-          "url": "/news"
+          "id": "sm_news_gen",
+          "labelTh": "ข่าวประชาสัมพันธ์",
+          "labelEn": "General News",
+          "url": "/news?cat=general"
         },
         {
-          "id": "sm_news_cal",
-          "labelTh": "ปฏิทินกิจกรรมวิทยาลัย",
-          "labelEn": "Activity Calendar",
-          "url": "/calendar"
+          "id": "sm_news_ac",
+          "labelTh": "ข่าววิชาการ",
+          "labelEn": "Academic News",
+          "url": "/news?cat=academic"
+        },
+        {
+          "id": "sm_news_act",
+          "labelTh": "ข่าวกิจกรรม",
+          "labelEn": "Activities & Events",
+          "url": "/news?cat=activity"
+        },
+        {
+          "id": "sm_news_anc",
+          "labelTh": "ประกาศมหาวิทยาลัย",
+          "labelEn": "MCU Announcements",
+          "url": "/news?cat=mcu_announcement"
+        },
+        {
+          "id": "sm_news_std",
+          "labelTh": "ข่าวกิจการนิสิต",
+          "labelEn": "Student Affairs",
+          "url": "/news?cat=student_affairs"
+        },
+        {
+          "id": "sm_news_proc",
+          "labelTh": "ข่าวจัดซื้อจัดจ้าง",
+          "labelEn": "Procurement & Bids",
+          "url": "/news?cat=procurement"
         }
       ]
     },

@@ -197,7 +197,7 @@ export default function Navbar({
     { subPage: 'general', labelTh: 'ข่าวประชาสัมพันธ์', labelEn: 'General News', iconName: 'Megaphone', targetPage: 'news' },
     { subPage: 'academic', labelTh: 'ข่าววิชาการ', labelEn: 'Academic News', iconName: 'GraduationCap', targetPage: 'news' },
     { subPage: 'activity', labelTh: 'ข่าวกิจกรรม', labelEn: 'Activities & Events', iconName: 'Palette', targetPage: 'news' },
-    { subPage: 'mcu_announcement', labelTh: 'ข่าวประกาศมหาวิทยาลัย', labelEn: 'MCU Announcements', iconName: 'Building', targetPage: 'news' },
+    { subPage: 'mcu_announcement', labelTh: 'ประกาศมหาวิทยาลัย', labelEn: 'MCU Announcements', iconName: 'Building', targetPage: 'news' },
     { subPage: 'student_affairs', labelTh: 'ข่าวกิจการนิสิต', labelEn: 'Student Affairs', iconName: 'Users', targetPage: 'news' },
     { subPage: 'procurement', labelTh: 'ข่าวจัดซื้อจัดจ้าง', labelEn: 'Procurement & Bids', iconName: 'FileText', targetPage: 'news' }
   ];
