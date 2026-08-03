@@ -1704,46 +1704,114 @@ export const api = {
   // CONTACT DEPARTMENTS & MESSAGES MANAGEMENT API
   // ============================================================================
   async getContactDepartments() {
+    const defaultDepts = [
+      { id: 'dept_reg', nameTh: 'ฝ่ายทะเบียนและวัดผล', nameEn: 'Academic Registry & Evaluation', phone: '081-462-5663', email: 'registry@mcu-pkpm.ac.th', officerName: 'นางสาววิมลพรรณ ปัทมวิชัย', officerRole: 'เจ้าหน้าที่หลัก', iconName: 'FileCheck', imageUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200' },
+      { id: 'dept_pr', nameTh: 'ฝ่ายประชาสัมพันธ์สมัครนิสิต', nameEn: 'Student PR & Admissions', phone: '081-462-5663', email: 'admission@mcu-pkpm.ac.th', officerName: 'นายรัฐศาสตร์ มโนธรรม', officerRole: 'เจ้าหน้าที่แนะแนว', iconName: 'UserPlus', imageUrl: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200' },
+      { id: 'dept_finance', nameTh: 'ฝ่ายการเงินและงบประมาณ', nameEn: 'Financial & Tuition Office', phone: '081-462-5663', email: 'finance@mcu-pkpm.ac.th', officerName: 'นางสมศรี รัตนเรือง', officerRole: 'เจ้าหน้าที่การเงิน', iconName: 'Building', imageUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=200' }
+    ];
+
     try {
-      return await handleResponse<any[]>(await apiFetch('/contact/departments', { headers: getHeaders() }));
+      const data = await handleResponse<any[]>(await apiFetch('/contact/departments', { headers: getHeaders() }));
+      if (Array.isArray(data) && data.length > 0) {
+        try { localStorage.setItem('mcu_contact_departments', JSON.stringify(data)); } catch (e) {}
+        return data;
+      }
     } catch (e) {
-      console.warn('Failed to fetch contact departments, returning defaults:', e);
-      return [
-        { id: 'dept_academic', nameTh: 'ฝ่ายวิชาการและงานวิจัย', nameEn: 'Academic & Research', phone: '056-711-450 ต่อ 101', email: 'academic@mcu-pkpm.ac.th', officerName: 'ผศ.ดร.อัครเดช บุนนาค', officerRole: 'รองผู้อำนวยการฝ่ายวิชาการ', iconName: 'GraduationCap' },
-        { id: 'dept_reg', nameTh: 'ฝ่ายทะเบียนและวัดผล', nameEn: 'Registrar & Admissions', phone: '056-711-450 ต่อ 102', email: 'reg@mcu-pkpm.ac.th', officerName: 'พระมหาจำนงค์ อภิปุญโญ, ดร.', officerRole: 'หัวหน้าฝ่ายทะเบียน', iconName: 'FileCheck' },
-        { id: 'dept_finance', nameTh: 'ฝ่ายบริหารงานคลังและพัสดุ', nameEn: 'Finance & Procurement', phone: '056-711-450 ต่อ 103', email: 'finance@mcu-pkpm.ac.th', officerName: 'อาจารย์สิริภัทร ชาญวุฒิ', officerRole: 'หัวหน้างานคลังและพัสดุ', iconName: 'Building' },
-        { id: 'dept_student', nameTh: 'ฝ่ายกิจการนิสิตและทำนุบำรุงศิลปวัฒนธรรม', nameEn: 'Student Affairs', phone: '056-711-450 ต่อ 104', email: 'student@mcu-pkpm.ac.th', officerName: 'พระมหาปรีชา ญาณวิสุทโธ', officerRole: 'ผู้ช่วยผู้อำนวยการฝ่ายกิจการนิสิต', iconName: 'Users' }
-      ];
+      console.warn('Failed to fetch contact departments from API, checking local storage:', e);
     }
+
+    try {
+      const local = localStorage.getItem('mcu_contact_departments');
+      if (local) {
+        const parsed = JSON.parse(local);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch (e) {}
+
+    return defaultDepts;
   },
 
   async createContactDepartment(dept: any) {
-    return handleResponse<any>(
-      await apiFetch('/contact/departments', {
-        method: 'POST',
-        headers: getHeaders(),
-        body: JSON.stringify(dept)
-      })
-    );
+    const newDept = {
+      id: 'dept_' + Date.now(),
+      nameTh: dept.nameTh || '',
+      nameEn: dept.nameEn || '',
+      phone: dept.phone || '081-462-5663',
+      email: dept.email || '',
+      officerName: dept.officerName || '',
+      officerRole: dept.officerRole || '',
+      iconName: dept.iconName || 'Building',
+      imageUrl: dept.imageUrl || '',
+      createdAt: new Date().toISOString()
+    };
+
+    let serverDept: any = null;
+    try {
+      serverDept = await handleResponse<any>(
+        await apiFetch('/contact/departments', {
+          method: 'POST',
+          headers: getHeaders(),
+          body: JSON.stringify(dept)
+        })
+      );
+    } catch (e) {
+      console.warn('API createContactDepartment failed, using local storage fallback:', e);
+    }
+
+    const finalDept = serverDept || newDept;
+
+    try {
+      const existing = await this.getContactDepartments();
+      const updated = [...existing, finalDept];
+      localStorage.setItem('mcu_contact_departments', JSON.stringify(updated));
+    } catch (e) {}
+
+    return finalDept;
   },
 
   async updateContactDepartment(id: string, dept: any) {
-    return handleResponse<any>(
-      await apiFetch(`/contact/departments/${id}`, {
-        method: 'PUT',
-        headers: getHeaders(),
-        body: JSON.stringify(dept)
-      })
-    );
+    let serverDept: any = null;
+    try {
+      serverDept = await handleResponse<any>(
+        await apiFetch(`/contact/departments/${id}`, {
+          method: 'PUT',
+          headers: getHeaders(),
+          body: JSON.stringify(dept)
+        })
+      );
+    } catch (e) {
+      console.warn('API updateContactDepartment failed, using local storage fallback:', e);
+    }
+
+    try {
+      const existing = await this.getContactDepartments();
+      const updated = existing.map((d: any) => d.id === id ? { ...d, ...dept } : d);
+      localStorage.setItem('mcu_contact_departments', JSON.stringify(updated));
+      return serverDept || updated.find((d: any) => d.id === id) || dept;
+    } catch (e) {}
+
+    return serverDept || { ...dept, id };
   },
 
   async deleteContactDepartment(id: string) {
-    return handleResponse<{ success: boolean }>(
-      await apiFetch(`/contact/departments/${id}`, {
-        method: 'DELETE',
-        headers: getHeaders()
-      })
-    );
+    try {
+      await handleResponse<{ success: boolean }>(
+        await apiFetch(`/contact/departments/${id}`, {
+          method: 'DELETE',
+          headers: getHeaders()
+        })
+      );
+    } catch (e) {
+      console.warn('API deleteContactDepartment failed, using local storage fallback:', e);
+    }
+
+    try {
+      const existing = await this.getContactDepartments();
+      const updated = existing.filter((d: any) => d.id !== id);
+      localStorage.setItem('mcu_contact_departments', JSON.stringify(updated));
+    } catch (e) {}
+
+    return { success: true, id };
   },
 
   async getMessages() {
