@@ -220,13 +220,55 @@ export default function Navbar({
 
       let subItems: any[] = [];
       if (Array.isArray(item.submenus) && item.submenus.length > 0) {
-        subItems = item.submenus.map((sm: any) => ({
-          subPage: sm.subPage || (sm.url ? sm.url.replace(/^\//, '') : '') || sm.id,
-          labelTh: sm.labelTh,
-          labelEn: sm.labelEn || sm.labelTh,
-          iconName: sm.icon || sm.iconName || 'FileText',
-          targetPage: sm.targetPage || pageKey
-        }));
+        subItems = item.submenus.map((sm: any) => {
+          const subPage = sm.subPage || (sm.url ? sm.url.replace(/^\//, '') : '') || sm.id;
+          const label = sm.labelTh || '';
+
+          let iconName = sm.icon || sm.iconName;
+          if (!iconName || iconName === 'FileText' || iconName === 'Bookmark') {
+            if (defaultMatch && Array.isArray(defaultMatch.subItems)) {
+              const matchedSub = defaultMatch.subItems.find((d: any) => d.subPage === subPage || label.includes(d.labelTh) || d.labelTh.includes(label));
+              if (matchedSub && matchedSub.iconName) iconName = matchedSub.iconName;
+            }
+          }
+
+          if (!iconName || iconName === 'FileText') {
+            if (subPage === 'history' || label.includes('ประวัติ')) iconName = 'History';
+            else if (subPage === 'philosophy' || label.includes('ปรัชญา')) iconName = 'Sparkles';
+            else if (subPage === 'executives' || label.includes('ผู้บริหาร') || label.includes('สัมโมทนียกถา')) iconName = 'Crown';
+            else if (subPage === 'structure' || label.includes('โครงสร้าง')) iconName = 'Building';
+            else if (subPage === 'bachelor' || label.includes('ปริญญาตรี')) iconName = 'GraduationCap';
+            else if (subPage === 'master' || label.includes('ปริญญาโท')) iconName = 'Award';
+            else if (subPage === 'doctor' || label.includes('ปริญญาเอก')) iconName = 'Sparkles';
+            else if (subPage === 'certificate' || label.includes('ประกาศนียบัตร')) iconName = 'Scroll';
+            else if (subPage === 'apply' || label.includes('สมัคร')) iconName = 'UserPlus';
+            else if (subPage === 'status' || label.includes('สถานะ')) iconName = 'Search';
+            else if (subPage === 'qualifications' || label.includes('คุณสมบัติ')) iconName = 'UserCheck';
+            else if (subPage === 'documents' || label.includes('เอกสาร')) iconName = 'FileCheck';
+            else if (subPage === 'student' || label.includes('นิสิต')) iconName = 'UserCheck';
+            else if (subPage === 'staff' || label.includes('บุคลากร') || label.includes('อาจารย์')) iconName = 'Users';
+            else if (subPage === 'public' || label.includes('ประชาชน') || label.includes('สถานที่')) iconName = 'Building2';
+            else if (subPage === 'general' || label.includes('ประชาสัมพันธ์')) iconName = 'Megaphone';
+            else if (subPage === 'academic' || label.includes('ข่าววิชาการ')) iconName = 'GraduationCap';
+            else if (subPage === 'activity' || label.includes('กิจกรรม')) iconName = 'Palette';
+            else if (subPage === 'mcu_announcement' || label.includes('มหาวิทยาลัย')) iconName = 'Building';
+            else if (subPage === 'student_affairs' || label.includes('กิจการนิสิต')) iconName = 'Users';
+            else if (subPage === 'procurement' || label.includes('จัดซื้อจัดจ้าง')) iconName = 'FileText';
+            else if (subPage === 'journals' || label.includes('วารสาร')) iconName = 'BookOpen';
+            else if (subPage === 'research' || label.includes('วิจัย')) iconName = 'Microscope';
+            else if (subPage === 'textbooks' || label.includes('ตำรา')) iconName = 'BookMarked';
+            else if (subPage === 'regulations' || label.includes('ระเบียบ')) iconName = 'FileCheck2';
+            else iconName = 'Bookmark';
+          }
+
+          return {
+            subPage,
+            labelTh: sm.labelTh,
+            labelEn: sm.labelEn || sm.labelTh,
+            iconName,
+            targetPage: sm.targetPage || pageKey
+          };
+        });
       } else if (Array.isArray(item.subItems) && item.subItems.length > 0) {
         subItems = item.subItems;
       } else if (defaultMatch && defaultMatch.subItems) {
