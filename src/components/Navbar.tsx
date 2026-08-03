@@ -249,7 +249,47 @@ export default function Navbar({
       let subItems: any[] = [];
       if (Array.isArray(item.submenus) && item.submenus.length > 0) {
         subItems = item.submenus.map((sm: any) => {
-          const subPage = sm.subPage || (sm.url ? sm.url.replace(/^\//, '') : '') || sm.id;
+          // Robust URL & SubPage Parser to cleanly extract targetPage and category subPage
+          let subPage = sm.subPage;
+          let targetPage = sm.targetPage || pageKey;
+
+          if (sm.url) {
+            const rawUrl = sm.url.trim();
+            if (rawUrl.includes('?')) {
+              const [pathPart, queryPart] = rawUrl.split('?');
+              const pathClean = pathPart.replace(/^\//, '').split('#')[0];
+              if (pathClean && pathClean !== 'index' && pathClean !== 'landing') {
+                targetPage = pathClean;
+              }
+              const searchParams = new URLSearchParams(queryPart);
+              subPage = searchParams.get('cat') || 
+                        searchParams.get('level') || 
+                        searchParams.get('subPage') || 
+                        searchParams.get('tag') || 
+                        searchParams.get('type') || 
+                        (queryPart.includes('=') ? queryPart.split('=')[1] : subPage);
+            } else if (rawUrl.includes('#')) {
+              const [pathPart, hashPart] = rawUrl.split('#');
+              const pathClean = pathPart.replace(/^\//, '');
+              if (pathClean) targetPage = pathClean;
+              subPage = hashPart || subPage;
+            } else {
+              const pathClean = rawUrl.replace(/^\//, '');
+              if (pathClean.includes('/')) {
+                const parts = pathClean.split('/');
+                targetPage = parts[0];
+                subPage = parts[1];
+              } else {
+                subPage = pathClean || subPage;
+              }
+            }
+          }
+
+          if (!subPage || subPage === targetPage || subPage === 'landing') {
+            subPage = sm.id || 'all';
+          }
+          if (targetPage === 'services') targetPage = 'eservices';
+
           const label = sm.labelTh || '';
 
           let iconName = sm.icon || sm.iconName;
@@ -294,7 +334,7 @@ export default function Navbar({
             labelTh: sm.labelTh,
             labelEn: sm.labelEn || sm.labelTh,
             iconName,
-            targetPage: sm.targetPage || pageKey
+            targetPage
           };
         });
       } else if (Array.isArray(item.subItems) && item.subItems.length > 0) {
