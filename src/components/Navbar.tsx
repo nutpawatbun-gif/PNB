@@ -571,7 +571,7 @@ export default function Navbar({
                   return (
                     <div
                       key={link.page}
-                      className="relative group shrink-0 z-[9999]"
+                      className={`${isMegaMenu ? '' : 'relative'} group shrink-0 z-[9999]`}
                       onMouseEnter={() => handleMouseEnter(link.page)}
                       onMouseLeave={handleMouseLeave}
                     >
@@ -596,7 +596,7 @@ export default function Navbar({
                         <div 
                           className={`absolute top-full ${
                             isMegaMenu
-                              ? 'left-1/2 -translate-x-1/2 w-[calc(100vw-2.5rem)] max-w-6xl'
+                              ? 'left-1/2 -translate-x-1/2 w-full max-w-6xl'
                               : isRightAligned ? 'right-0 w-64 sm:w-72' : 'left-0 w-64 sm:w-72'
                           } pt-1.5 z-[9999]`}
                           onMouseEnter={() => handleMouseEnter(link.page)}
