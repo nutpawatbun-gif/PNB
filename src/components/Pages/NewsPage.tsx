@@ -23,7 +23,9 @@ export default function NewsPage({ lang, activeCategory = 'all' }: NewsPageProps
 
   // Update filter if activeCategory prop changes
   React.useEffect(() => {
-    if (activeCategory) setFilter(activeCategory);
+    if (activeCategory) {
+      setFilter(activeCategory === 'landing' ? 'all' : activeCategory);
+    }
   }, [activeCategory]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);

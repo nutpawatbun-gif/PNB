@@ -21,7 +21,8 @@ export default function DownloadsPage({ lang, activeCategory = 'all' }: Download
 
   useEffect(() => {
     if (activeCategory) {
-      if (activeCategory === 'students') setSelectedCatId('cat_students');
+      if (activeCategory === 'landing' || activeCategory === 'all') setSelectedCatId('all');
+      else if (activeCategory === 'students') setSelectedCatId('cat_students');
       else if (activeCategory === 'staff') setSelectedCatId('cat_staff');
       else if (activeCategory === 'regulations') setSelectedCatId('cat_regulations');
       else setSelectedCatId(activeCategory);

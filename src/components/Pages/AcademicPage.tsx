@@ -159,7 +159,7 @@ export default function AcademicPage({ lang, selectedCategory, setSelectedCatego
       const coAuthors = w.coResearchers || w.coAuthors || '';
 
       // 1. Filter by category
-      if (selectedCategory !== 'all' && w.category !== selectedCategory) {
+      if (selectedCategory && selectedCategory !== 'all' && selectedCategory !== 'landing' && w.category !== selectedCategory) {
         return false;
       }
       // 2. Filter by publication year

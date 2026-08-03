@@ -78,6 +78,9 @@ export default function App() {
       setCurrentPage('about');
     } else if (path.startsWith('/courses')) {
       setCurrentPage('courses');
+      const params = new URLSearchParams(window.location.search);
+      const lvl = params.get('level');
+      setCoursesLevel(lvl && lvl !== 'landing' ? lvl : 'all');
     } else if (path.startsWith('/admission')) {
       setCurrentPage('admission');
       const sub = path.replace('/admission', '').replace('/', '');
@@ -89,14 +92,23 @@ export default function App() {
       }
     } else if (path.startsWith('/downloads')) {
       setCurrentPage('downloads');
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get('cat');
+      setDownloadsCategory(cat && cat !== 'landing' ? cat : 'all');
     } else if (path.startsWith('/contact')) {
       setCurrentPage('contact');
-    } else if (path.startsWith('/services')) {
-      setCurrentPage('services');
+    } else if (path.startsWith('/services') || path.startsWith('/eservices')) {
+      setCurrentPage('eservices');
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get('cat');
+      setEservicesCategory(cat && cat !== 'landing' ? cat : 'all');
     } else if (path.startsWith('/admin')) {
       setCurrentPage('admin');
     } else if (path.startsWith('/news')) {
       setCurrentPage('news');
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get('cat');
+      setNewsCategory(cat && cat !== 'landing' ? cat : 'all');
     } else if (path.startsWith('/announcements')) {
       setCurrentPage('announcements');
     } else if (path.startsWith('/calendar') || path.startsWith('/events')) {
@@ -104,11 +116,12 @@ export default function App() {
     } else if (path.startsWith('/personnel')) {
       setCurrentPage('personnel');
       const slug = path.replace('/personnel', '').replace('/', '').split('?')[0];
-      setPersonnelSlug(slug || '');
+      setPersonnelSlug(slug && slug !== 'all' && slug !== 'landing' && slug !== 'personnel' ? slug : '');
     } else if (path.startsWith('/academic')) {
       setCurrentPage('academic');
       const params = new URLSearchParams(window.location.search);
-      setAcademicCategory(params.get('cat') || 'all');
+      const cat = params.get('cat');
+      setAcademicCategory(cat && cat !== 'landing' ? cat : 'all');
     } else {
       setCurrentPage('home');
     }
@@ -131,23 +144,26 @@ export default function App() {
       targetPage = 'home';
     }
     setCurrentPage(targetPage);
+
+    const categoryValue = (!subPage || subPage === 'landing' || subPage === 'all' || subPage === page) ? 'all' : subPage;
+
     if (page === 'admission') {
       setAdmissionSubPage(subPage);
     }
     if (page === 'academic') {
-      setAcademicCategory(subPage);
+      setAcademicCategory(categoryValue);
     }
     if (page === 'news') {
-      setNewsCategory(subPage);
+      setNewsCategory(categoryValue);
     }
     if (page === 'courses') {
-      setCoursesLevel(subPage);
+      setCoursesLevel(categoryValue);
     }
     if (page === 'downloads') {
-      setDownloadsCategory(subPage);
+      setDownloadsCategory(categoryValue);
     }
     if (page === 'eservices' || page === 'services') {
-      setEservicesCategory(subPage);
+      setEservicesCategory(categoryValue);
     }
     if (page === 'personnel') {
       setPersonnelSlug(subPage && subPage !== 'landing' && subPage !== 'personnel' && subPage !== 'all' ? subPage : '');
@@ -178,7 +194,7 @@ export default function App() {
     }
     else if (page === 'academic') {
       path = '/academic';
-      if (subPage && subPage !== 'all') {
+      if (subPage && subPage !== 'all' && subPage !== 'landing') {
         search = `?cat=${subPage}`;
       }
     }
