@@ -891,43 +891,7 @@ export const api = {
     );
   },
 
-  // Contact Messages API
-  async sendContactMessage(data: { name: string; email: string; phone?: string; subject: string; message: string; department?: string }) {
-    return handleResponse<{ success: boolean; data: any; message: string }>(
-      await fetch(`${API_BASE}/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-    );
-  },
 
-  async getMessages() {
-    try {
-      return await handleResponse<any[]>(await apiFetch('/messages', { headers: getHeaders() }));
-    } catch (e) {
-      console.warn('Failed to fetch messages:', e);
-      return [];
-    }
-  },
-
-  async deleteMessage(id: string) {
-    return handleResponse<{ success: boolean }>(
-      await fetch(`${API_BASE}/messages/${id}`, {
-        method: 'DELETE',
-        headers: getHeaders(),
-      })
-    );
-  },
-
-  async markMessageRead(id: string) {
-    return handleResponse<{ success: boolean }>(
-      await fetch(`${API_BASE}/messages/${id}/read`, {
-        method: 'PUT',
-        headers: getHeaders(),
-      })
-    );
-  },
 
   // Notification System API
   async getNotifications() {
@@ -1732,6 +1696,99 @@ export const api = {
         method: 'POST',
         headers: getHeaders(),
         body: JSON.stringify({ changeSummary })
+      })
+    );
+  },
+
+  // ============================================================================
+  // CONTACT DEPARTMENTS & MESSAGES MANAGEMENT API
+  // ============================================================================
+  async getContactDepartments() {
+    try {
+      return await handleResponse<any[]>(await apiFetch('/contact/departments', { headers: getHeaders() }));
+    } catch (e) {
+      console.warn('Failed to fetch contact departments, returning defaults:', e);
+      return [
+        { id: 'dept_academic', nameTh: 'ฝ่ายวิชาการและงานวิจัย', nameEn: 'Academic & Research', phone: '056-711-450 ต่อ 101', email: 'academic@mcu-pkpm.ac.th', officerName: 'ผศ.ดร.อัครเดช บุนนาค', officerRole: 'รองผู้อำนวยการฝ่ายวิชาการ', iconName: 'GraduationCap' },
+        { id: 'dept_reg', nameTh: 'ฝ่ายทะเบียนและวัดผล', nameEn: 'Registrar & Admissions', phone: '056-711-450 ต่อ 102', email: 'reg@mcu-pkpm.ac.th', officerName: 'พระมหาจำนงค์ อภิปุญโญ, ดร.', officerRole: 'หัวหน้าฝ่ายทะเบียน', iconName: 'FileCheck' },
+        { id: 'dept_finance', nameTh: 'ฝ่ายบริหารงานคลังและพัสดุ', nameEn: 'Finance & Procurement', phone: '056-711-450 ต่อ 103', email: 'finance@mcu-pkpm.ac.th', officerName: 'อาจารย์สิริภัทร ชาญวุฒิ', officerRole: 'หัวหน้างานคลังและพัสดุ', iconName: 'Building' },
+        { id: 'dept_student', nameTh: 'ฝ่ายกิจการนิสิตและทำนุบำรุงศิลปวัฒนธรรม', nameEn: 'Student Affairs', phone: '056-711-450 ต่อ 104', email: 'student@mcu-pkpm.ac.th', officerName: 'พระมหาปรีชา ญาณวิสุทโธ', officerRole: 'ผู้ช่วยผู้อำนวยการฝ่ายกิจการนิสิต', iconName: 'Users' }
+      ];
+    }
+  },
+
+  async createContactDepartment(dept: any) {
+    return handleResponse<any>(
+      await apiFetch('/contact/departments', {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify(dept)
+      })
+    );
+  },
+
+  async updateContactDepartment(id: string, dept: any) {
+    return handleResponse<any>(
+      await apiFetch(`/contact/departments/${id}`, {
+        method: 'PUT',
+        headers: getHeaders(),
+        body: JSON.stringify(dept)
+      })
+    );
+  },
+
+  async deleteContactDepartment(id: string) {
+    return handleResponse<{ success: boolean }>(
+      await apiFetch(`/contact/departments/${id}`, {
+        method: 'DELETE',
+        headers: getHeaders()
+      })
+    );
+  },
+
+  async getMessages() {
+    try {
+      return await handleResponse<any[]>(await apiFetch('/messages', { headers: getHeaders() }));
+    } catch (e) {
+      console.warn('Failed to fetch messages:', e);
+      return [];
+    }
+  },
+
+  async sendContactMessage(msg: { name: string; email: string; phone?: string; subject: string; message: string; department?: string }) {
+    return handleResponse<any>(
+      await apiFetch('/messages', {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify(msg)
+      })
+    );
+  },
+
+  async markMessageRead(id: string) {
+    return handleResponse<any>(
+      await apiFetch(`/messages/${id}/read`, {
+        method: 'PATCH',
+        headers: getHeaders()
+      })
+    );
+  },
+
+  async replyContactMessage(id: string, replyContent: string) {
+    return handleResponse<any>(
+      await apiFetch(`/messages/${id}/reply`, {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify({ replyContent })
+      })
+    );
+  },
+
+  async deleteMessage(id: string) {
+    return handleResponse<{ success: boolean }>(
+      await apiFetch(`/messages/${id}`, {
+        method: 'DELETE',
+        headers: getHeaders()
       })
     );
   }

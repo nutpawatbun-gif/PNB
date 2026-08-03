@@ -42,6 +42,18 @@ export default function ContactPage({ lang }: ContactPageProps) {
     }
   };
 
+  const [departments, setDepartments] = useState<any[]>([]);
+
+  React.useEffect(() => {
+    import('../../lib/api').then(({ api }) => {
+      api.getContactDepartments().then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setDepartments(data);
+        }
+      }).catch(() => {});
+    });
+  }, []);
+
   const isOnline = getThailandOnlineStatus();
 
   const t = {
@@ -188,35 +200,43 @@ export default function ContactPage({ lang }: ContactPageProps) {
               </h3>
               
               <div className="space-y-4">
-                {[
+                {(departments.length > 0 ? departments : [
                   {
                     id: 'registry',
-                    name: lang === 'th' ? 'ฝ่ายทะเบียนและวัดผล' : 'Academic Registry & Evaluation',
-                    officer: lang === 'th' ? 'นางสาววิมลพรรณ ปัทมวิชัย (เจ้าหน้าที่หลัก)' : 'Ms. Wimonphan Patamawichai (Registrar)',
+                    nameTh: 'ฝ่ายทะเบียนและวัดผล',
+                    nameEn: 'Academic Registry & Evaluation',
+                    officerName: 'นางสาววิมลพรรณ ปัทมวิชัย (เจ้าหน้าที่หลัก)',
                     phone: '081-462-5663',
-                    line: '@mcu.registry',
-                    lineUrl: 'https://line.me/ti/p/~@mcu.registry',
-                    image: registryOfficerImg
+                    email: 'registry@mcu-pkpm.ac.th',
+                    image: registryOfficerImg,
+                    iconName: 'FileCheck'
                   },
                   {
                     id: 'pr',
-                    name: lang === 'th' ? 'ฝ่ายประชาสัมพันธ์สมัครนิสิต' : 'Student PR & Admissions',
-                    officer: lang === 'th' ? 'นายรัฐศาสตร์ มโนธรรม (เจ้าหน้าที่แนะแนว)' : 'Mr. Rattasart Manotham (PR Counselor)',
+                    nameTh: 'ฝ่ายประชาสัมพันธ์สมัครนิสิต',
+                    nameEn: 'Student PR & Admissions',
+                    officerName: 'นายรัฐศาสตร์ มโนธรรม (เจ้าหน้าที่แนะแนว)',
                     phone: '081-462-5663',
-                    line: '@mcu.admission',
-                    lineUrl: 'https://line.me/ti/p/~@mcu.admission',
-                    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200'
+                    email: 'admission@mcu-pkpm.ac.th',
+                    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200',
+                    iconName: 'UserPlus'
                   },
                   {
                     id: 'finance',
-                    name: lang === 'th' ? 'ฝ่ายการเงินและงบประมาณ' : 'Financial & Tuition Office',
-                    officer: lang === 'th' ? 'นางสมศรี รัตนเรือง (เจ้าหน้าที่การเงิน)' : 'Mrs. Somsri Rattanasri (Treasurer)',
+                    nameTh: 'ฝ่ายการเงินและงบประมาณ',
+                    nameEn: 'Financial & Tuition Office',
+                    officerName: 'นางสมศรี รัตนเรือง (เจ้าหน้าที่การเงิน)',
                     phone: '081-462-5663',
-                    line: '@mcu.finance',
-                    lineUrl: 'https://line.me/ti/p/~@mcu.finance',
-                    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=200'
+                    email: 'finance@mcu-pkpm.ac.th',
+                    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=200',
+                    iconName: 'Building'
                   }
-                ].map((dept, index) => {
+                ]).map((dept: any, index: number) => {
+                  const deptName = lang === 'th' ? (dept.nameTh || dept.name) : (dept.nameEn || dept.nameTh || dept.name);
+                  const officerName = dept.officerName || dept.officer || dept.officerRole || '';
+                  const deptPhone = dept.phone || '081-462-5663';
+                  const deptImage = dept.image || dept.imageUrl || 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200';
+                  
                   return (
                     <div 
                       key={index}
@@ -226,14 +246,13 @@ export default function ContactPage({ lang }: ContactPageProps) {
                           : 'border-slate-200/60 bg-slate-50/50 opacity-75 hover:opacity-90'
                       }`}
                     >
-                      {/* Circle Avatar with Online Dot */}
                       <div className="relative flex-shrink-0">
                         <div className={`w-14 h-14 rounded-full overflow-hidden border shadow-sm bg-white transition-all duration-300 ${
                           isOnline ? 'border-mcu-pink-light scale-100' : 'border-slate-300 filter grayscale scale-95'
                         }`}>
                           <img 
-                            src={dept.image} 
-                            alt={dept.officer}
+                            src={deptImage} 
+                            alt={officerName || deptName}
                             className="w-full h-full object-cover"
                             referrerPolicy="no-referrer"
                           />
