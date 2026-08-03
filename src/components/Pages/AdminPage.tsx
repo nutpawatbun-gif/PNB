@@ -1054,27 +1054,36 @@ export default function AdminPage({ lang, onBackToHome }: AdminPageProps) {
                     {!recentNotifications || recentNotifications.length === 0 ? (
                       <p className="text-xs text-gray-400 text-center py-4">ไม่มีรายการแจ้งเตือน</p>
                     ) : (
-                      (recentNotifications || []).map((item: any) => (
-                        <div 
-                          key={item.id}
-                          onClick={() => {
-                            setShowBellDropdown(false);
-                            setActiveTab('notifications');
-                          }}
-                          className={`p-2.5 rounded-xl text-xs cursor-pointer transition-colors border ${
-                            item.isRead ? 'bg-gray-50/50 border-gray-100' : 'bg-rose-50/40 border-rose-100 hover:bg-rose-50'
-                          }`}
-                        >
-                          <div className="flex items-center justify-between mb-1">
-                            <span className="font-bold text-gray-800 line-clamp-1">{item.title}</span>
-                            {!item.isRead && <span className="w-2 h-2 rounded-full bg-mcu-pink flex-shrink-0"></span>}
+                      (recentNotifications || []).map((item: any) => {
+                        const itemIsRead = Boolean(item.isRead || item.read);
+                        return (
+                          <div 
+                            key={item.id}
+                            onClick={() => {
+                              setShowBellDropdown(false);
+                              if (item.link) {
+                                if (item.link.includes('/messages') || item.link.includes('messages')) setActiveTab('messages');
+                                else if (item.link.includes('/news') || item.link.includes('news')) setActiveTab('news');
+                                else setActiveTab('notifications');
+                              } else {
+                                setActiveTab('notifications');
+                              }
+                            }}
+                            className={`p-2.5 rounded-xl text-xs cursor-pointer transition-colors border ${
+                              itemIsRead ? 'bg-gray-50/50 border-gray-100' : 'bg-rose-50/40 border-rose-100 hover:bg-rose-50'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="font-bold text-gray-800 line-clamp-1">{item.title}</span>
+                              {!itemIsRead && <span className="w-2 h-2 rounded-full bg-mcu-pink flex-shrink-0"></span>}
+                            </div>
+                            <p className="text-[11px] text-gray-600 line-clamp-2 leading-tight">{item.message}</p>
+                            <span className="text-[9px] text-gray-400 mt-1 block font-mono">
+                              {new Date(item.createdAt).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })}
+                            </span>
                           </div>
-                          <p className="text-[11px] text-gray-600 line-clamp-2 leading-tight">{item.message}</p>
-                          <span className="text-[9px] text-gray-400 mt-1 block font-mono">
-                            {new Date(item.createdAt).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })}
-                          </span>
-                        </div>
-                      ))
+                        );
+                      })
                     )}
                   </div>
 

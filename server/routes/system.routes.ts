@@ -676,25 +676,216 @@ systemRouter.post('/stats/reset', (req: Request, res: Response) => {
   });
 });
 
-// 6. NOTIFICATIONS API
+// 6. NOTIFICATIONS API & REAL-TIME SYSTEM SCANNER
 systemRouter.get('/notifications', (req: Request, res: Response) => {
   const db = readDB();
-  const notifications = db.notifications || [
-    {
-      id: 'notif_1',
-      title: 'มีการยื่นสมัครเรียนใหม่',
-      message: 'โครงการรับสมัครนิสิตใหม่ ปริญญาโท สาขาวิชาพระพุทธศาสนา 2569',
-      createdAt: new Date().toISOString(),
-      read: false,
-      type: 'info'
-    }
-  ];
+  let list = db.notifications || [];
+  
+  if (list.length === 0) {
+    list = [
+      {
+        id: 'notif_init_1',
+        title: '📩 ยินดีต้อนรับสู่ศูนย์แจ้งเตือนระบบ MCU-PKPM CMS',
+        message: 'ระบบพร้อมแจ้งเตือนข้อความสอบถาม, ข่าวสารรออนุมัติ, และกำหนดการสำคัญอย่างครอบคลุม',
+        createdAt: new Date().toISOString(),
+        isRead: false,
+        read: false,
+        type: 'info',
+        severity: 'info',
+        emailStatus: 'none',
+        link: 'messages'
+      }
+    ];
+    db.notifications = list;
+    writeDB(db);
+  }
+
+  // Standardize isRead & read properties
+  const sanitized = list.map((n: any) => ({
+    ...n,
+    isRead: Boolean(n.isRead || n.read),
+    read: Boolean(n.isRead || n.read),
+    severity: n.severity || 'info',
+    emailStatus: n.emailStatus || 'none'
+  }));
+
+  const unreadCount = sanitized.filter((n: any) => !n.isRead).length;
 
   sendStandardResponse(res, 200, {
     success: true,
     data: {
-      notifications,
-      unreadCount: notifications.filter((n: any) => !n.read).length
+      notifications: sanitized,
+      unreadCount,
+      totalCount: sanitized.length,
+      smtpConfigured: Boolean(db.settings?.smtp?.host)
+    }
+  });
+});
+
+systemRouter.put('/notifications/:id/read', (req: Request, res: Response) => {
+  const db = readDB();
+  const { id } = req.params;
+  let targetItem: any = null;
+
+  db.notifications = (db.notifications || []).map((n: any) => {
+    if (n.id === id) {
+      targetItem = { ...n, isRead: true, read: true, readAt: new Date().toISOString() };
+      return targetItem;
+    }
+    return n;
+  });
+
+  writeDB(db);
+
+  sendStandardResponse(res, 200, {
+    success: true,
+    data: {
+      success: true,
+      item: targetItem || { id, isRead: true, read: true }
+    }
+  });
+});
+
+systemRouter.put('/notifications/read-all', (req: Request, res: Response) => {
+  const db = readDB();
+  let updatedCount = 0;
+
+  db.notifications = (db.notifications || []).map((n: any) => {
+    if (!n.isRead && !n.read) {
+      updatedCount++;
+    }
+    return { ...n, isRead: true, read: true, readAt: new Date().toISOString() };
+  });
+
+  writeDB(db);
+
+  sendStandardResponse(res, 200, {
+    success: true,
+    data: {
+      success: true,
+      count: updatedCount
+    }
+  });
+});
+
+systemRouter.delete('/notifications/clear-read', (req: Request, res: Response) => {
+  const db = readDB();
+  const initialLen = (db.notifications || []).length;
+  db.notifications = (db.notifications || []).filter((n: any) => !n.isRead && !n.read);
+  const clearedCount = initialLen - db.notifications.length;
+
+  writeDB(db);
+
+  sendStandardResponse(res, 200, {
+    success: true,
+    data: {
+      success: true,
+      clearedCount
+    }
+  });
+});
+
+systemRouter.delete('/notifications/:id', (req: Request, res: Response) => {
+  const db = readDB();
+  const { id } = req.params;
+  db.notifications = (db.notifications || []).filter((n: any) => n.id !== id);
+  writeDB(db);
+
+  sendStandardResponse(res, 200, {
+    success: true,
+    data: {
+      success: true,
+      deletedId: id
+    }
+  });
+});
+
+systemRouter.post('/notifications/trigger-scan', (req: Request, res: Response) => {
+  const db = readDB();
+  db.notifications = db.notifications || [];
+  let newGenerated = 0;
+
+  // 1. Scan for unread visitor messages
+  const unreadMsgs = (db.messages || []).filter((m: any) => m.status === 'unread');
+  for (const msg of unreadMsgs) {
+    const exists = db.notifications.some((n: any) => n.id === `notif_msg_${msg.id}`);
+    if (!exists) {
+      db.notifications.unshift({
+        id: `notif_msg_${msg.id}`,
+        title: `📬 ข้อความสอบถามใหม่จากคุณ ${msg.name}`,
+        message: `เรื่อง: "${msg.subject}" (${msg.department || 'ฝ่ายบริการประสานงาน'})`,
+        createdAt: msg.createdAt || new Date().toISOString(),
+        isRead: false,
+        read: false,
+        type: 'pending_review',
+        severity: 'warning',
+        emailStatus: 'queued',
+        emailRecipient: msg.email,
+        link: 'messages'
+      });
+      newGenerated++;
+    }
+  }
+
+  // 2. Scan for draft news pending review
+  const draftNews = (db.news || []).filter((n: any) => n.status === 'draft' || n.status === 'pending');
+  for (const item of draftNews) {
+    const exists = db.notifications.some((n: any) => n.id === `notif_news_${item.id}`);
+    if (!exists) {
+      db.notifications.unshift({
+        id: `notif_news_${item.id}`,
+        title: `📰 ข่าวสารฉบับร่างรอการอนุมัติ`,
+        message: `หัวข้อ: "${item.titleTh || item.title}" (หมวดหมู่: ${item.categoryLabel || item.category || 'ทั่วไป'})`,
+        createdAt: item.createdAt || new Date().toISOString(),
+        isRead: false,
+        read: false,
+        type: 'pending_review',
+        severity: 'info',
+        emailStatus: 'none',
+        link: 'news'
+      });
+      newGenerated++;
+    }
+  }
+
+  writeDB(db);
+
+  sendStandardResponse(res, 200, {
+    success: true,
+    data: {
+      success: true,
+      newNotificationsGenerated: newGenerated,
+      totalNotifications: db.notifications.length,
+      unreadCount: db.notifications.filter((n: any) => !n.isRead && !n.read).length
+    }
+  });
+});
+
+systemRouter.post('/notifications/:id/test-email', (req: Request, res: Response) => {
+  const db = readDB();
+  const { id } = req.params;
+  let targetItem: any = null;
+
+  db.notifications = (db.notifications || []).map((n: any) => {
+    if (n.id === id) {
+      targetItem = {
+        ...n,
+        emailStatus: 'sent',
+        sentAt: new Date().toISOString()
+      };
+      return targetItem;
+    }
+    return n;
+  });
+
+  writeDB(db);
+
+  sendStandardResponse(res, 200, {
+    success: true,
+    data: {
+      success: true,
+      message: `จำลองการส่งอีเมลไปยัง ${targetItem?.emailRecipient || 'เจ้าหน้าที่ผู้ดูแล'} เรียบร้อยแล้ว`,
+      notification: targetItem || { id, emailStatus: 'sent' }
     }
   });
 });

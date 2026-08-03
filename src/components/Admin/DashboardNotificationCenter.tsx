@@ -604,14 +604,30 @@ export const DashboardNotificationCenter: React.FC<DashboardNotificationCenterPr
             </div>
           ) : (
             filteredNotifications.map((notification) => {
+              const isRead = Boolean(notification.isRead || (notification as any).read);
               const sev = getSeverityBadge(notification.severity);
               const typeMeta = getTypeMetadata(notification.type);
+
+              const parseTabFromLink = (link?: string) => {
+                if (!link) return 'dashboard';
+                if (link.includes('tab=')) return link.split('tab=')[1].split('&')[0];
+                if (link.includes('/messages') || link.includes('messages')) return 'messages';
+                if (link.includes('/news') || link.includes('news')) return 'news';
+                if (link.includes('/announcements') || link.includes('announcements')) return 'announcements';
+                if (link.includes('/admission') || link.includes('admission')) return 'admission';
+                if (link.includes('/courses') || link.includes('courses')) return 'courses';
+                if (link.includes('/events') || link.includes('events')) return 'events';
+                if (link.includes('/academic') || link.includes('academic')) return 'academic';
+                if (link.includes('/audit') || link.includes('audit')) return 'audit_log';
+                if (link.includes('/security') || link.includes('security')) return 'security';
+                return link.replace(/^\/admin\/?/, '').replace(/^\//, '') || 'dashboard';
+              };
 
               return (
                 <div
                   key={notification.id}
                   className={`bg-white rounded-2xl p-5 border transition-all duration-200 shadow-xs hover:shadow-md ${
-                    notification.isRead 
+                    isRead 
                       ? 'border-gray-200 bg-white/60' 
                       : 'border-mcu-pink/30 bg-gradient-to-r from-rose-50/20 via-white to-white ring-1 ring-mcu-pink/20'
                   }`}
@@ -631,7 +647,7 @@ export const DashboardNotificationCenter: React.FC<DashboardNotificationCenterPr
                           </span>
 
                           {/* Unread indicator */}
-                          {!notification.isRead && (
+                          {!isRead && (
                             <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-black bg-mcu-pink text-white animate-pulse">
                               ใหม่ (Unread)
                             </span>
@@ -641,7 +657,7 @@ export const DashboardNotificationCenter: React.FC<DashboardNotificationCenterPr
                           {getEmailStatusBadge(notification.emailStatus)}
                         </div>
 
-                        <h3 className={`text-sm ${notification.isRead ? 'font-semibold text-gray-800' : 'font-black text-gray-900'}`}>
+                        <h3 className={`text-sm ${isRead ? 'font-semibold text-gray-800' : 'font-black text-gray-900'}`}>
                           {notification.title}
                         </h3>
 
@@ -683,11 +699,11 @@ export const DashboardNotificationCenter: React.FC<DashboardNotificationCenterPr
                       {notification.link && onNavigateTab && (
                         <button
                           onClick={() => {
-                            if (!notification.isRead) handleMarkRead(notification.id);
-                            const tab = notification.link?.split('tab=')[1] || 'dashboard';
-                            onNavigateTab(tab);
+                            if (!isRead) handleMarkRead(notification.id);
+                            const targetTab = parseTabFromLink(notification.link);
+                            onNavigateTab(targetTab);
                           }}
-                          className="px-3 py-1.5 bg-mcu-pink-deep hover:bg-mcu-pink text-white rounded-lg text-xs font-bold transition-all shadow-xs flex items-center space-x-1"
+                          className="px-3 py-1.5 bg-mcu-pink-deep hover:bg-mcu-pink text-white rounded-lg text-xs font-bold transition-all shadow-xs flex items-center space-x-1 cursor-pointer"
                           title="ไปยังหน้ารายการในระบบ"
                         >
                           <span>ไปยังหน้ารายการ</span>
