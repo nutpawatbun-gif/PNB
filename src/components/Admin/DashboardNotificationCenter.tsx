@@ -53,14 +53,37 @@ export const DashboardNotificationCenter: React.FC<DashboardNotificationCenterPr
   const [selectedTemplate, setSelectedTemplate] = useState<string>('tpl_pending_review');
   const [testingEmailId, setTestingEmailId] = useState<string | null>(null);
 
+  const getLocalDeletedIds = (): string[] => {
+    try {
+      const stored = localStorage.getItem('mcu_deleted_notif_ids');
+      return stored ? JSON.parse(stored) : [];
+    } catch (_) {
+      return [];
+    }
+  };
+
+  const addLocalDeletedId = (id: string) => {
+    try {
+      const current = getLocalDeletedIds();
+      if (!current.includes(id)) {
+        current.push(id);
+        localStorage.setItem('mcu_deleted_notif_ids', JSON.stringify(current));
+      }
+    } catch (_) {}
+  };
+
   // Fetch Notifications
   const loadNotifications = async () => {
     setLoading(true);
     try {
       const res = await api.getNotifications();
       if (res) {
-        setNotifications(res.notifications || []);
-        setUnreadCount(res.unreadCount || 0);
+        const deletedIds = getLocalDeletedIds();
+        const deletedSet = new Set(deletedIds);
+        const filtered = (res.notifications || []).filter(n => !deletedSet.has(n.id));
+
+        setNotifications(filtered);
+        setUnreadCount(filtered.filter(n => !(n.isRead || (n as any).read)).length);
         setSmtpConfigured(res.smtpConfigured || false);
       }
     } catch (err: any) {
@@ -102,7 +125,7 @@ export const DashboardNotificationCenter: React.FC<DashboardNotificationCenterPr
   const handleMarkRead = async (id: string) => {
     try {
       await api.markNotificationRead(id);
-      setNotifications(prev => prev.map(n => n.id === id ? { ...n, isRead: true, readAt: new Date().toISOString() } : n));
+      setNotifications(prev => prev.map(n => n.id === id ? { ...n, isRead: true, read: true, readAt: new Date().toISOString() } : n));
       setUnreadCount(prev => Math.max(0, prev - 1));
     } catch (err) {
       console.error(err);
@@ -113,7 +136,7 @@ export const DashboardNotificationCenter: React.FC<DashboardNotificationCenterPr
   const handleMarkAllRead = async () => {
     try {
       await api.markAllNotificationsRead();
-      setNotifications(prev => prev.map(n => ({ ...n, isRead: true, readAt: new Date().toISOString() })));
+      setNotifications(prev => prev.map(n => ({ ...n, isRead: true, read: true, readAt: new Date().toISOString() })));
       setUnreadCount(0);
       if (triggerToast) triggerToast('ทำเครื่องหมายอ่านแล้วทุกรายการเรียบร้อย', 'success');
     } catch (err) {
@@ -124,9 +147,12 @@ export const DashboardNotificationCenter: React.FC<DashboardNotificationCenterPr
   // Clear read
   const handleClearRead = async () => {
     try {
+      const readNotifications = notifications.filter(n => n.isRead || (n as any).read);
+      readNotifications.forEach(n => addLocalDeletedId(n.id));
+
       const res = await api.clearAllReadNotifications();
-      setNotifications(prev => prev.filter(n => !n.isRead));
-      if (triggerToast) triggerToast(`ลบรายการที่อ่านแล้วออกจำนวน ${res.clearedCount || 0} รายการ`, 'info');
+      setNotifications(prev => prev.filter(n => !(n.isRead || (n as any).read)));
+      if (triggerToast) triggerToast(`ลบรายการที่อ่านแล้วออกจำนวน ${res.clearedCount || readNotifications.length} รายการ`, 'info');
     } catch (err) {
       if (triggerToast) triggerToast('เกิดข้อผิดพลาดในการลบรายการ', 'error');
     }

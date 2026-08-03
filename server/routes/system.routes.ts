@@ -676,29 +676,100 @@ systemRouter.post('/stats/reset', (req: Request, res: Response) => {
   });
 });
 
+// Helper to sync live database entities to notifications
+function syncLiveNotifications(db: any) {
+  db.notifications = db.notifications || [];
+  db.deleted_notification_ids = db.deleted_notification_ids || [];
+  const deletedSet = new Set(db.deleted_notification_ids);
+
+  let newGenerated = 0;
+
+  // 1. Live Messages Sync
+  const unreadMsgs = (db.messages || []).filter((m: any) => m.status === 'unread');
+  for (const msg of unreadMsgs) {
+    const notifId = `notif_msg_${msg.id}`;
+    if (!deletedSet.has(notifId)) {
+      const exists = db.notifications.some((n: any) => n.id === notifId);
+      if (!exists) {
+        db.notifications.unshift({
+          id: notifId,
+          title: `📬 มีข้อความสอบถามใหม่จากคุณ ${msg.name}`,
+          message: `เรื่อง: "${msg.subject}" (${msg.department || 'ฝ่ายบริการประสานงาน'})`,
+          createdAt: msg.createdAt || new Date().toISOString(),
+          isRead: false,
+          read: false,
+          type: 'pending_review',
+          severity: 'warning',
+          emailStatus: 'queued',
+          emailRecipient: msg.email,
+          link: 'messages'
+        });
+        newGenerated++;
+      }
+    }
+  }
+
+  // 2. Live Draft News Sync
+  const draftNews = (db.news || []).filter((n: any) => n.status === 'draft' || n.status === 'pending');
+  for (const item of draftNews) {
+    const notifId = `notif_news_${item.id}`;
+    if (!deletedSet.has(notifId)) {
+      const exists = db.notifications.some((n: any) => n.id === notifId);
+      if (!exists) {
+        db.notifications.unshift({
+          id: notifId,
+          title: `📰 ข่าวสารฉบับร่างรอการอนุมัติ`,
+          message: `หัวข้อ: "${item.titleTh || item.title}" (หมวดหมู่: ${item.categoryLabel || item.category || 'ทั่วไป'})`,
+          createdAt: item.createdAt || new Date().toISOString(),
+          isRead: false,
+          read: false,
+          type: 'pending_review',
+          severity: 'info',
+          emailStatus: 'none',
+          link: 'news'
+        });
+        newGenerated++;
+      }
+    }
+  }
+
+  // 3. Live Admission Projects / Applicants Sync
+  const pendingApplicants = (db.applicants || []).filter((a: any) => a.status === 'pending');
+  for (const app of pendingApplicants) {
+    const notifId = `notif_app_${app.id}`;
+    if (!deletedSet.has(notifId)) {
+      const exists = db.notifications.some((n: any) => n.id === notifId);
+      if (!exists) {
+        db.notifications.unshift({
+          id: notifId,
+          title: `🎓 มีผู้สมัครเรียนใหม่รอดำเนินการ`,
+          message: `คุณ ${app.fullName || app.name} สมัครหลักสูตร ${app.courseName || 'สาขาวิชาพระพุทธศาสนา'}`,
+          createdAt: app.createdAt || new Date().toISOString(),
+          isRead: false,
+          read: false,
+          type: 'admission_closing',
+          severity: 'success',
+          emailStatus: 'none',
+          link: 'admission'
+        });
+        newGenerated++;
+      }
+    }
+  }
+
+  // Filter out any previously deleted IDs
+  db.notifications = db.notifications.filter((n: any) => !deletedSet.has(n.id));
+
+  return newGenerated;
+}
+
 // 6. NOTIFICATIONS API & REAL-TIME SYSTEM SCANNER
 systemRouter.get('/notifications', (req: Request, res: Response) => {
   const db = readDB();
+  syncLiveNotifications(db);
+  writeDB(db);
+
   let list = db.notifications || [];
-  
-  if (list.length === 0) {
-    list = [
-      {
-        id: 'notif_init_1',
-        title: '📩 ยินดีต้อนรับสู่ศูนย์แจ้งเตือนระบบ MCU-PKPM CMS',
-        message: 'ระบบพร้อมแจ้งเตือนข้อความสอบถาม, ข่าวสารรออนุมัติ, และกำหนดการสำคัญอย่างครอบคลุม',
-        createdAt: new Date().toISOString(),
-        isRead: false,
-        read: false,
-        type: 'info',
-        severity: 'info',
-        emailStatus: 'none',
-        link: 'messages'
-      }
-    ];
-    db.notifications = list;
-    writeDB(db);
-  }
 
   // Standardize isRead & read properties
   const sanitized = list.map((n: any) => ({
@@ -770,9 +841,12 @@ systemRouter.put('/notifications/read-all', (req: Request, res: Response) => {
 
 systemRouter.delete('/notifications/clear-read', (req: Request, res: Response) => {
   const db = readDB();
-  const initialLen = (db.notifications || []).length;
+  db.deleted_notification_ids = db.deleted_notification_ids || [];
+
+  const readItems = (db.notifications || []).filter((n: any) => n.isRead || n.read);
+  readItems.forEach((n: any) => db.deleted_notification_ids.push(n.id));
+
   db.notifications = (db.notifications || []).filter((n: any) => !n.isRead && !n.read);
-  const clearedCount = initialLen - db.notifications.length;
 
   writeDB(db);
 
@@ -780,7 +854,7 @@ systemRouter.delete('/notifications/clear-read', (req: Request, res: Response) =
     success: true,
     data: {
       success: true,
-      clearedCount
+      clearedCount: readItems.length
     }
   });
 });
@@ -788,6 +862,12 @@ systemRouter.delete('/notifications/clear-read', (req: Request, res: Response) =
 systemRouter.delete('/notifications/:id', (req: Request, res: Response) => {
   const db = readDB();
   const { id } = req.params;
+  
+  db.deleted_notification_ids = db.deleted_notification_ids || [];
+  if (!db.deleted_notification_ids.includes(id)) {
+    db.deleted_notification_ids.push(id);
+  }
+
   db.notifications = (db.notifications || []).filter((n: any) => n.id !== id);
   writeDB(db);
 
@@ -802,61 +882,19 @@ systemRouter.delete('/notifications/:id', (req: Request, res: Response) => {
 
 systemRouter.post('/notifications/trigger-scan', (req: Request, res: Response) => {
   const db = readDB();
-  db.notifications = db.notifications || [];
-  let newGenerated = 0;
-
-  // 1. Scan for unread visitor messages
-  const unreadMsgs = (db.messages || []).filter((m: any) => m.status === 'unread');
-  for (const msg of unreadMsgs) {
-    const exists = db.notifications.some((n: any) => n.id === `notif_msg_${msg.id}`);
-    if (!exists) {
-      db.notifications.unshift({
-        id: `notif_msg_${msg.id}`,
-        title: `📬 ข้อความสอบถามใหม่จากคุณ ${msg.name}`,
-        message: `เรื่อง: "${msg.subject}" (${msg.department || 'ฝ่ายบริการประสานงาน'})`,
-        createdAt: msg.createdAt || new Date().toISOString(),
-        isRead: false,
-        read: false,
-        type: 'pending_review',
-        severity: 'warning',
-        emailStatus: 'queued',
-        emailRecipient: msg.email,
-        link: 'messages'
-      });
-      newGenerated++;
-    }
-  }
-
-  // 2. Scan for draft news pending review
-  const draftNews = (db.news || []).filter((n: any) => n.status === 'draft' || n.status === 'pending');
-  for (const item of draftNews) {
-    const exists = db.notifications.some((n: any) => n.id === `notif_news_${item.id}`);
-    if (!exists) {
-      db.notifications.unshift({
-        id: `notif_news_${item.id}`,
-        title: `📰 ข่าวสารฉบับร่างรอการอนุมัติ`,
-        message: `หัวข้อ: "${item.titleTh || item.title}" (หมวดหมู่: ${item.categoryLabel || item.category || 'ทั่วไป'})`,
-        createdAt: item.createdAt || new Date().toISOString(),
-        isRead: false,
-        read: false,
-        type: 'pending_review',
-        severity: 'info',
-        emailStatus: 'none',
-        link: 'news'
-      });
-      newGenerated++;
-    }
-  }
-
+  const newGenerated = syncLiveNotifications(db);
   writeDB(db);
+
+  const activeList = db.notifications || [];
+  const unreadCount = activeList.filter((n: any) => !n.isRead && !n.read).length;
 
   sendStandardResponse(res, 200, {
     success: true,
     data: {
       success: true,
       newNotificationsGenerated: newGenerated,
-      totalNotifications: db.notifications.length,
-      unreadCount: db.notifications.filter((n: any) => !n.isRead && !n.read).length
+      totalNotifications: activeList.length,
+      unreadCount
     }
   });
 });

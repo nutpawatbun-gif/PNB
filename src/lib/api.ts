@@ -910,7 +910,7 @@ export const api = {
 
   async markNotificationRead(id: string) {
     return handleResponse<{ success: boolean; item: DashboardNotification }>(
-      await fetch(`${API_BASE}/notifications/${id}/read`, {
+      await apiFetch(`/notifications/${id}/read`, {
         method: 'PUT',
         headers: getHeaders(),
       })
@@ -919,7 +919,7 @@ export const api = {
 
   async markAllNotificationsRead() {
     return handleResponse<{ success: boolean; count: number }>(
-      await fetch(`${API_BASE}/notifications/read-all`, {
+      await apiFetch('/notifications/read-all', {
         method: 'PUT',
         headers: getHeaders(),
       })
@@ -928,7 +928,7 @@ export const api = {
 
   async deleteNotification(id: string) {
     return handleResponse<{ success: boolean; deleted: any }>(
-      await fetch(`${API_BASE}/notifications/${id}`, {
+      await apiFetch(`/notifications/${id}`, {
         method: 'DELETE',
         headers: getHeaders(),
       })
@@ -937,7 +937,7 @@ export const api = {
 
   async clearAllReadNotifications() {
     return handleResponse<{ success: boolean; clearedCount: number }>(
-      await fetch(`${API_BASE}/notifications/clear-read`, {
+      await apiFetch('/notifications/clear-read', {
         method: 'DELETE',
         headers: getHeaders(),
       })
@@ -951,7 +951,7 @@ export const api = {
       totalNotifications: number;
       unreadCount: number;
     }>(
-      await fetch(`${API_BASE}/notifications/trigger-scan`, {
+      await apiFetch('/notifications/trigger-scan', {
         method: 'POST',
         headers: getHeaders(),
       })
