@@ -281,12 +281,19 @@ export default function NewsPage({ lang, activeCategory = 'all' }: NewsPageProps
               key={news.id}
               className="bg-white rounded-xl overflow-hidden border border-border-mcu shadow-mcu-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full group"
             >
-              {/* Image with ReferrerPolicy */}
-              <div className="relative h-48 overflow-hidden bg-mcu-pink-soft">
+              {/* Image with ReferrerPolicy & Lightbox Zoom */}
+              <div 
+                onClick={() => {
+                  const urls = [getEmbeddableDriveUrl(news.imageUrl), ...(news.galleryUrls || []).map(getEmbeddableDriveUrl)];
+                  setLightboxUrls(urls);
+                  setLightboxIndex(0);
+                }}
+                className="relative h-48 overflow-hidden bg-mcu-pink-soft cursor-zoom-in group/img"
+              >
                 <img
                   src={getEmbeddableDriveUrl(news.imageUrl)}
                   alt={lang === 'th' ? news.title : news.titleEn}
-                  className="w-full h-full object-cover group-hover:scale-105 duration-500 transition-transform"
+                  className="w-full h-full object-cover group-hover/img:scale-105 duration-500 transition-transform"
                   referrerPolicy="no-referrer"
                   loading="lazy"
                   decoding="async"
@@ -294,6 +301,12 @@ export default function NewsPage({ lang, activeCategory = 'all' }: NewsPageProps
                 <div className="absolute top-3 left-3">
                   <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded border shadow-sm ${getCategoryColor(news.category)}`}>
                     {lang === 'th' ? news.categoryLabel : news.category.toUpperCase()}
+                  </span>
+                </div>
+                <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/30 transition-all flex items-center justify-center">
+                  <span className="bg-black/60 text-white text-[10px] font-bold px-2.5 py-1 rounded-full opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center gap-1 border border-white/20">
+                    <LucideIcon name="Maximize2" size={12} />
+                    <span>คลิกเพื่อขยายรูปภาพ</span>
                   </span>
                 </div>
               </div>
@@ -577,7 +590,7 @@ export default function NewsPage({ lang, activeCategory = 'all' }: NewsPageProps
       {lightboxIndex !== null && lightboxUrls.length > 0 && (
         <div 
           onClick={() => setLightboxIndex(null)}
-          className="fixed inset-0 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center z-[100] animate-fade-in cursor-zoom-out"
+          className="fixed inset-0 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center z-[999999] animate-fade-in cursor-zoom-out"
         >
           {/* Top Bar with counter and Close */}
           <div className="absolute top-4 left-4 right-4 flex justify-between items-center text-white z-10 font-sans">

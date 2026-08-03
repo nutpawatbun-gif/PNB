@@ -223,17 +223,30 @@ export default function NewsSection({
               className="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-border-mcu dark:border-slate-800 shadow-mcu-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full group"
             >
               {/* Image */}
-              <div className="relative h-48 overflow-hidden bg-mcu-pink-soft">
+              <div 
+                onClick={() => {
+                  const urls = [getEmbeddableDriveUrl(news.imageUrl), ...(news.galleryUrls || []).map(getEmbeddableDriveUrl)];
+                  setLightboxUrls(urls);
+                  setLightboxIndex(0);
+                }}
+                className="relative h-48 overflow-hidden bg-mcu-pink-soft cursor-zoom-in group/img"
+              >
                 <img
                   src={getEmbeddableDriveUrl(news.imageUrl)}
                   alt={lang === 'th' ? news.title : news.titleEn}
-                  className="w-full h-full object-cover group-hover:scale-105 duration-500 transition-transform"
+                  className="w-full h-full object-cover group-hover/img:scale-105 duration-500 transition-transform"
                   referrerPolicy="no-referrer"
                   loading="lazy"
                 />
                 <div className="absolute top-3 left-3">
                   <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded border shadow-sm ${getCategoryColor(news.category)}`}>
                     {lang === 'th' ? news.categoryLabel : news.category.toUpperCase()}
+                  </span>
+                </div>
+                <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/30 transition-all flex items-center justify-center">
+                  <span className="bg-black/60 text-white text-[10px] font-bold px-2.5 py-1 rounded-full opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center gap-1 border border-white/20">
+                    <LucideIcon name="Maximize2" size={12} />
+                    <span>คลิกเพื่อขยายรูปภาพ</span>
                   </span>
                 </div>
               </div>
@@ -290,18 +303,28 @@ export default function NewsSection({
           <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border-2 border-mcu-gold max-w-3xl w-full max-h-[90vh] overflow-y-auto my-6 animate-slide-up">
             
             {/* Cover Image & Overlay */}
-            <div className="relative h-64 sm:h-80 bg-mcu-pink-soft shrink-0">
+            <div 
+              onClick={() => {
+                const urls = [getEmbeddableDriveUrl(selectedNews.imageUrl), ...(selectedNews.galleryUrls || []).map(getEmbeddableDriveUrl)];
+                setLightboxUrls(urls);
+                setLightboxIndex(0);
+              }}
+              className="relative h-64 sm:h-80 bg-mcu-pink-soft shrink-0 cursor-zoom-in group"
+            >
               <img
                 src={getEmbeddableDriveUrl(selectedNews.imageUrl)}
                 alt={selectedNews.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
                 referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent"></div>
               
               <button 
-                onClick={() => setSelectedNews(null)}
-                className="absolute top-4 right-4 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full cursor-pointer focus:outline-none transition-all shadow-md"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedNews(null);
+                }}
+                className="absolute top-4 right-4 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full cursor-pointer focus:outline-none transition-all shadow-md z-10"
                 aria-label="Close article"
               >
                 <LucideIcon name="X" size={20} />
@@ -322,6 +345,10 @@ export default function NewsSection({
                 <h3 className="text-lg sm:text-2xl font-bold text-white drop-shadow leading-snug">
                   {lang === 'th' ? selectedNews.title : selectedNews.titleEn}
                 </h3>
+                <div className="text-[10px] text-amber-300 flex items-center font-medium opacity-80 group-hover:opacity-100 transition-opacity">
+                  <LucideIcon name="Maximize2" size={11} className="mr-1" />
+                  <span>คลิกที่ภาพเพื่อเปิดดูรูปขนาดใหญ่ (Pop-up Zoom)</span>
+                </div>
               </div>
             </div>
 
@@ -537,7 +564,7 @@ export default function NewsSection({
       {lightboxIndex !== null && lightboxUrls.length > 0 && (
         <div 
           onClick={() => setLightboxIndex(null)}
-          className="fixed inset-0 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center z-[100] animate-fade-in cursor-zoom-out"
+          className="fixed inset-0 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center z-[999999] animate-fade-in cursor-zoom-out"
         >
           <div className="absolute top-4 left-4 right-4 flex justify-between items-center text-white z-10 font-sans">
             <span className="text-xs sm:text-sm font-bold bg-black/50 px-3 py-1.5 rounded-full border border-white/20">

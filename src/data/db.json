@@ -22,7 +22,7 @@
       "googleSub": "104352531616051270269",
       "createdAt": "2026-07-29T14:59:04.711Z",
       "updatedAt": "2026-07-29T15:02:14.809Z",
-      "lastLoginAt": "2026-08-03T06:34:04.536Z",
+      "lastLoginAt": "2026-08-03T06:55:21.379Z",
       "mustChangePassword": false,
       "is2FAEnabled": false,
       "approvedAt": "2026-07-29T15:02:14.809Z"
@@ -39,7 +39,7 @@
       "mustChangePassword": false,
       "is2FAEnabled": false,
       "createdAt": "2026-07-22T11:12:05.118Z",
-      "lastLoginAt": "2026-08-03T06:20:22.245Z",
+      "lastLoginAt": "2026-08-03T06:48:58.634Z",
       "failedLoginAttempts": 0,
       "updatedAt": "2026-07-26T08:16:02.718Z",
       "customPermissions": [
@@ -443,46 +443,42 @@
   ],
   "news": [
     {
-      "id": "n_1785007848544",
-      "title": "ทดสอบอัพโหลดภาพ",
-      "summary": "ทดสอบอัพโหลดภาพ",
-      "content": "วิทยาลัยสงฆ์พ่อขุนผาเมือง เพชรบูรณ์ มุ่งมั่นที่จะจัดการศึกษาระดับอุดมศึกษาทางพระพุทธศาสนาบูรณาการกับศาสตร์สมัยใหม่ เพื่อพัฒนาบัณฑิตให้เป็นผู้มีปัญญา ศีลธรรม และความเชี่ยวชาญในวิชาชีพ นำหลักธรรมทางพระพุทธศาสนาไปประยุกต์ใช้ในการขับเคลื่อนสังคมให้เกิดความสงบสุขร่มเย็น”",
+      "id": "n_1785740021763",
+      "title": "พุทธศาสนิกชนทั่วไทยคึกคัก ร่วมทำบุญ-หล่อเทียน เนื่องในวันเข้าพรรษา",
+      "summary": "พุทธศาสนิกชนทั่วไทยคึกคัก ร่วมทำบุญ-หล่อเทียน เนื่องในวันเข้าพรรษา",
+      "content": "(กรุงเทพฯ) – เมื่อช่วงเช้าที่ผ่านมา ประชาชนและพุทธศาสนิกชนทั่วประเทศต่างพาครอบครัวเดินทางไปวัด เพื่อร่วมทำบุญตักบาตร ถวายผ้าอาบน้ำฝน และร่วมกิจกรรมหล่อเทียนพรรษา เนื่องในเทศกาลวันเข้าพรรษาประจำปี เพื่อสืบสานประเพณีอันดีงามและเสริมความเป็นสิริมงคล\n\nบรรยากาศตามวัดต่างๆ ทั่วประเทศเป็นไปอย่างคึกคัก โดยนอกจากกิจกรรมทางศาสนาแล้ว หลายหน่วยงานยังได้ร่วมกันจัดกิจกรรมรณรงค์ \"งดเหล้าเข้าพรรษา\" เพื่อเชิญชวนให้ประชาชน ลด ละ เลิก การดื่มเครื่องดื่มแอลกอฮอล์ตลอดระยะเวลา 3 เดือน ซึ่งนอกจากจะได้บุญกุศลแล้ว ยังถือเป็นการฟื้นฟูสุขภาพกายและใจของตนเองอีกด้วย",
       "category": "ข่าวประชาสัมพันธ์",
-      "imageUrl": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&q=80&w=800",
+      "imageUrl": "https://drive.google.com/file/d/1nk2sUrDbH3vpjsHdFSyILF8f4BsDu5jT/view?usp=drive_link",
       "author": "ฝ่ายประชาสัมพันธ์",
       "status": "Published",
       "isPinned": false,
       "views": 0,
-      "publishedAt": "2026-07-25",
-      "createdAt": "2026-07-25T19:30:48.544Z",
-      "updatedAt": "2026-07-25T19:34:15.145Z",
+      "publishedAt": "2026-08-03",
+      "createdAt": "2026-08-03T06:53:41.763Z",
+      "updatedAt": "2026-08-03T06:56:36.401Z",
       "titleEn": "",
       "categoryLabel": "ข่าวประชาสัมพันธ์",
       "isFeatured": false,
-      "slug": "news-1785007887451",
+      "slug": "news-1785740169846",
       "tags": [
         "#รับสมัคร2569",
         "#วิชาการ"
       ],
-      "date": "2026-07-25",
+      "date": "2026-08-03",
       "scheduledAt": "",
       "expiredAt": "",
       "authorName": "งานประชาสัมพันธ์ วิทยาลัยสงฆ์พ่อขุนผาเมือง",
       "authorRole": "เจ้าหน้าที่ประชาสัมพันธ์",
-      "excerpt": "ทดสอบอัพโหลดภาพ",
+      "excerpt": "พุทธศาสนิกชนทั่วไทยคึกคัก ร่วมทำบุญ-หล่อเทียน เนื่องในวันเข้าพรรษา",
       "galleryUrls": [
-        "https://drive.google.com/file/d/1qMQBCb71QDx6kvT-of1Yqk6EuL5cuk5e/view?usp=drive_link",
-        "https://drive.google.com/file/d/1qMQBCb71QDx6kvT-of1Yqk6EuL5cuk5e/view?usp=drive_link",
-        "https://drive.google.com/file/d/1qMQBCb71QDx6kvT-of1Yqk6EuL5cuk5e/view?usp=drive_link",
-        "https://drive.google.com/file/d/1qMQBCb71QDx6kvT-of1Yqk6EuL5cuk5e/view?usp=drive_link",
-        "https://drive.google.com/file/d/1qMQBCb71QDx6kvT-of1Yqk6EuL5cuk5e/view?usp=drive_link",
-        "https://drive.google.com/file/d/1qMQBCb71QDx6kvT-of1Yqk6EuL5cuk5e/view?usp=drive_link"
+        "https://drive.google.com/file/d/1BqR4boGbkDLsoGkVB1jDDhTi5lyB2DFG/view?usp=drive_link",
+        "https://drive.google.com/file/d/1e3gppkgEvNhiBy_WHk2CWARoG9-uSZHw/view?usp=drive_link"
       ],
       "videoUrl": "",
       "attachments": [],
-      "seoTitle": "ทดสอบอัพโหลดภาพ",
+      "seoTitle": "พุทธศาสนิกชนทั่วไทยคึกคัก ร่วมทำบุญ-หล่อเทียน เนื่องในวันเข้าพรรษา",
       "seoKeywords": "มจร, รับสมัครนิสิต, ปริญญาตรี, เพชรบูรณ์",
-      "seoDescription": "ทดสอบอัพโหลดภาพ"
+      "seoDescription": ""
     }
   ],
   "events": [
@@ -1356,6 +1352,39 @@
     "updatedAt": "2026-07-30T08:20:41.414Z"
   },
   "audit_logs": [
+    {
+      "id": "audit_1785740196405_744",
+      "timestamp": "2026-08-03T06:56:36.405Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "UPDATE",
+      "module": "NEWS",
+      "targetId": "n_1785740021763",
+      "details": "พุทธศาสนิกชนทั่วไทยคึกคัก ร่วมทำบุญ-หล่อเทียน เนื่องในวันเข้าพรรษา",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785740021767_643",
+      "timestamp": "2026-08-03T06:53:41.767Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "CREATE",
+      "module": "NEWS",
+      "targetId": "n_1785740021763",
+      "details": "พุทธศาสนิกชนทั่วไทยคึกคัก ร่วมทำบุญ-หล่อเทียน เนื่องในวันเข้าพรรษา",
+      "ip": "127.0.0.1"
+    },
+    {
+      "id": "audit_1785739771226_624",
+      "timestamp": "2026-08-03T06:49:31.227Z",
+      "userId": "system",
+      "username": "admin",
+      "action": "DELETE",
+      "module": "NEWS",
+      "targetId": "n_1785007848544",
+      "details": "",
+      "ip": "127.0.0.1"
+    },
     {
       "id": "audit_1785472500327_122",
       "timestamp": "2026-07-31T04:35:00.327Z",
@@ -4403,6 +4432,16 @@
     }
   ],
   "login_history": [
+    {
+      "id": "log_hist_1785739717551_0",
+      "userId": "u0",
+      "username": "akkharadet",
+      "timestamp": "2026-08-03T06:48:37.551Z",
+      "ip": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0",
+      "device": "Windows PC",
+      "status": "failed_password"
+    },
     {
       "id": "log_hist_1785738824758_382",
       "userId": "u0",
