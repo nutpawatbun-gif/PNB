@@ -558,13 +558,14 @@ export default function Navbar({
 
         {/* ROW 2: Main Menu Navigation Bar */}
         <div className="hidden lg:block bg-slate-50/70 dark:bg-slate-900/80 border-t border-slate-100 dark:border-slate-800">
-          <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 flex items-center justify-between py-1.5">
+          <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 flex items-center justify-between py-1.5 relative">
             <div className="flex items-center gap-0.5 xl:gap-1.5 justify-between w-full">
               {displayNavLinks.map((link) => {
                 const isActive = currentPage === link.page;
                 const isDropdownOpen = activeDropdownPage === link.page;
                 const subList = link.subItems || [];
                 const isRightAligned = link.align === 'right';
+                const isMegaMenu = link.page === 'courses' || link.page === 'eservices' || link.page === 'about';
                 
                 if (link.hasDropdown && subList.length > 0) {
                   return (
@@ -594,8 +595,8 @@ export default function Navbar({
                       {isDropdownOpen && (
                         <div 
                           className={`absolute top-full ${
-                            link.page === 'courses' || link.page === 'eservices' || link.page === 'about'
-                              ? 'left-1/2 -translate-x-1/2 w-[90vw] max-w-5xl'
+                            isMegaMenu
+                              ? 'left-1/2 -translate-x-1/2 w-[calc(100vw-2.5rem)] max-w-6xl'
                               : isRightAligned ? 'right-0 w-64 sm:w-72' : 'left-0 w-64 sm:w-72'
                           } pt-1.5 z-[9999]`}
                           onMouseEnter={() => handleMouseEnter(link.page)}
@@ -623,7 +624,7 @@ export default function Navbar({
                                   </button>
                                 </div>
 
-                                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
                                   <div className="bg-slate-50/80 dark:bg-slate-900/60 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
                                     <div className="text-[11px] font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5 uppercase tracking-wider">
                                       <span className="w-2 h-2 rounded-full bg-amber-500"></span>
@@ -736,7 +737,7 @@ export default function Navbar({
                                   </button>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
                                   <div className="bg-slate-50/80 dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
                                     <div className="text-[11px] font-bold text-sky-700 dark:text-sky-400 flex items-center gap-1.5 uppercase tracking-wider">
                                       <span className="w-2.5 h-2.5 rounded-full bg-sky-500"></span> บริการสำหรับนิสิต
@@ -855,7 +856,7 @@ export default function Navbar({
                                   </button>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
                                   <div className="bg-slate-50/80 dark:bg-slate-900/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
                                     <div className="text-[11px] font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5 uppercase tracking-wider">
                                       <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span> ข้อมูลสถาบัน
