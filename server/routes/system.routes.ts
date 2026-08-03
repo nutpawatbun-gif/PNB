@@ -1091,10 +1091,9 @@ systemRouter.get('/contact/departments', (req: Request, res: Response) => {
   let depts = db.contact_departments || [];
   if (depts.length === 0) {
     depts = [
-      { id: 'dept_academic', nameTh: 'ฝ่ายวิชาการและงานวิจัย', nameEn: 'Academic & Research', phone: '081-462-5663 ต่อ 101', email: 'academic@mcu-pkpm.ac.th', officerName: 'ผศ.ดร.อัครเดช บุนนาค', officerRole: 'รองผู้อำนวยการฝ่ายวิชาการ', iconName: 'GraduationCap' },
-      { id: 'dept_reg', nameTh: 'ฝ่ายทะเบียนและวัดผล', nameEn: 'Registrar & Admissions', phone: '081-462-5663 ต่อ 102', email: 'reg@mcu-pkpm.ac.th', officerName: 'พระมหาจำนงค์ อภิปุญโญ, ดร.', officerRole: 'หัวหน้าฝ่ายทะเบียน', iconName: 'FileCheck' },
-      { id: 'dept_finance', nameTh: 'ฝ่ายบริหารงานคลังและพัสดุ', nameEn: 'Finance & Procurement', phone: '081-462-5663 ต่อ 103', email: 'finance@mcu-pkpm.ac.th', officerName: 'อาจารย์สิริภัทร ชาญวุฒิ', officerRole: 'หัวหน้างานคลังและพัสดุ', iconName: 'Building' },
-      { id: 'dept_student', nameTh: 'ฝ่ายกิจการนิสิตและทำนุบำรุงศิลปวัฒนธรรม', nameEn: 'Student Affairs', phone: '081-462-5663 ต่อ 104', email: 'student@mcu-pkpm.ac.th', officerName: 'พระมหาปรีชา ญาณวิสุทโธ', officerRole: 'ผู้ช่วยผู้อำนวยการฝ่ายกิจการนิสิต', iconName: 'Users' }
+      { id: 'dept_reg', nameTh: 'ฝ่ายทะเบียนและวัดผล', nameEn: 'Academic Registry & Evaluation', phone: '081-462-5663', email: 'registry@mcu-pkpm.ac.th', officerName: 'นางสาววิมลพรรณ ปัทมวิชัย', officerRole: 'เจ้าหน้าที่หลัก', iconName: 'FileCheck', imageUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200' },
+      { id: 'dept_pr', nameTh: 'ฝ่ายประชาสัมพันธ์สมัครนิสิต', nameEn: 'Student PR & Admissions', phone: '081-462-5663', email: 'admission@mcu-pkpm.ac.th', officerName: 'นายรัฐศาสตร์ มโนธรรม', officerRole: 'เจ้าหน้าที่แนะแนว', iconName: 'UserPlus', imageUrl: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200' },
+      { id: 'dept_finance', nameTh: 'ฝ่ายการเงินและงบประมาณ', nameEn: 'Financial & Tuition Office', phone: '081-462-5663', email: 'finance@mcu-pkpm.ac.th', officerName: 'นางสมศรี รัตนเรือง', officerRole: 'เจ้าหน้าที่การเงิน', iconName: 'Building', imageUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=200' }
     ];
     db.contact_departments = depts;
     writeDB(db);

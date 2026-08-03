@@ -521,8 +521,12 @@ export default function MessagesManager({ onNotify }: MessagesManagerProps) {
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start space-x-3">
-                    <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-600 flex items-center justify-center font-bold shrink-0">
-                      <Building size={22} />
+                    <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-600 flex items-center justify-center font-bold shrink-0 overflow-hidden border border-amber-200/50">
+                      {dept.imageUrl ? (
+                        <img src={dept.imageUrl} alt={dept.nameTh} className="w-full h-full object-cover" />
+                      ) : (
+                        <Building size={22} />
+                      )}
                     </div>
                     <div className="space-y-1">
                       <h4 className="text-sm font-bold text-slate-900 dark:text-white font-sans">{dept.nameTh}</h4>
@@ -654,6 +658,61 @@ export default function MessagesManager({ onNotify }: MessagesManagerProps) {
                     placeholder="เช่น รองผู้อำนวยการฝ่ายวิชาการ"
                     className="w-full px-3.5 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50 dark:bg-slate-950 focus:ring-1 focus:ring-amber-500"
                   />
+                </div>
+              </div>
+
+              {/* Officer Avatar Image Upload & URL input */}
+              <div className="space-y-2 p-3 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-200/80 dark:border-slate-800">
+                <label className="font-bold text-slate-700 dark:text-slate-300 block">รูปภาพประจำตัวเจ้าหน้าที่ / รูปตราสัญลักษณ์แผนก</label>
+                <div className="flex items-center gap-3">
+                  <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-amber-500/40 bg-white shrink-0 flex items-center justify-center shadow-xs">
+                    {deptForm.imageUrl ? (
+                      <img src={deptForm.imageUrl} alt="Officer Preview" className="w-full h-full object-cover" />
+                    ) : (
+                      <User size={24} className="text-slate-400" />
+                    )}
+                  </div>
+
+                  <div className="flex-1 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <label className="px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-[11px] font-bold cursor-pointer transition-colors shadow-xs">
+                        📷 อัปโหลดรูปภาพเจ้าหน้าที่
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              const reader = new FileReader();
+                              reader.onload = () => {
+                                setDeptForm({ ...deptForm, imageUrl: reader.result as string });
+                              };
+                              reader.readAsDataURL(file);
+                            }
+                          }}
+                        />
+                      </label>
+
+                      {deptForm.imageUrl && (
+                        <button
+                          type="button"
+                          onClick={() => setDeptForm({ ...deptForm, imageUrl: '' })}
+                          className="px-2.5 py-1.5 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl text-[10px] font-bold transition-colors"
+                        >
+                          ลบรูป
+                        </button>
+                      )}
+                    </div>
+
+                    <input
+                      type="text"
+                      value={deptForm.imageUrl}
+                      onChange={(e) => setDeptForm({ ...deptForm, imageUrl: e.target.value })}
+                      placeholder="หรือวาง URL รูปภาพที่นี่ (https://...)"
+                      className="w-full px-3 py-1.5 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-[11px] font-mono focus:ring-1 focus:ring-amber-500"
+                    />
+                  </div>
                 </div>
               </div>
 
