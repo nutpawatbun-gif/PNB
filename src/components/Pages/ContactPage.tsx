@@ -267,7 +267,7 @@ export default function ContactPage({ lang }: ContactPageProps) {
                       {/* Contact Details */}
                       <div className="flex-1 text-center sm:text-left space-y-1 w-full">
                         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-                          <h4 className="text-xs sm:text-sm font-bold text-mcu-pink-deep font-sans">{dept.name}</h4>
+                          <h4 className="text-xs sm:text-sm font-bold text-mcu-pink-deep font-sans">{deptName}</h4>
                           <span className={`inline-block self-center sm:self-start px-1.5 py-0.5 rounded text-[9px] font-medium ${
                             isOnline ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600'
                           }`}>
@@ -276,7 +276,7 @@ export default function ContactPage({ lang }: ContactPageProps) {
                               : (lang === 'th' ? '○ พักสาย/นอกเวลา' : '○ Offline')}
                           </span>
                         </div>
-                        <p className="text-[11px] text-muted-text-mcu font-light">{dept.officer}</p>
+                        {officerName && <p className="text-[11px] text-muted-text-mcu font-light">{officerName}</p>}
                         
                         {/* Action buttons */}
                         <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1.5">
