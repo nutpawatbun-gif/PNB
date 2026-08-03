@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import logoImg from '../assets/images/regenerated_image_1784349405698.png';
 import { api } from '../lib/api';
+import { coursesStore } from '../data/coursesStore';
+import { Course } from '../types';
 import AdminLoginModal from './AdminLoginModal';
 import LucideIcon from './LucideIcon';
 import { useTheme, THEME_OPTIONS } from '../context/ThemeContext';
@@ -37,6 +39,7 @@ export default function Navbar({
   const [isThemeDropdownOpen, setIsThemeDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [dbMenus, setDbMenus] = useState<any[]>([]);
+  const [realCourses, setRealCourses] = useState<Course[]>(() => coursesStore.getCourses());
 
   // Active Dropdown States
   const [activeDropdownPage, setActiveDropdownPage] = useState<string | null>(null);
@@ -89,11 +92,36 @@ export default function Navbar({
       .catch(() => {});
   };
 
+  const loadCourses = () => {
+    api.getCourses()
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setRealCourses(data);
+        }
+      })
+      .catch(() => {});
+  };
+
   useEffect(() => {
     loadMenus();
+    loadCourses();
+    const unsubCourses = coursesStore.subscribe(() => {
+      const updated = coursesStore.getCourses();
+      if (Array.isArray(updated) && updated.length > 0) {
+        setRealCourses(updated);
+      }
+    });
     window.addEventListener('mcu_menus_updated', loadMenus);
-    return () => window.removeEventListener('mcu_menus_updated', loadMenus);
+    return () => {
+      window.removeEventListener('mcu_menus_updated', loadMenus);
+      unsubCourses();
+    };
   }, []);
+
+  const bachelorList = useMemo(() => realCourses.filter((c) => (c.degreeLevel || c.level) === 'bachelor'), [realCourses]);
+  const masterList = useMemo(() => realCourses.filter((c) => (c.degreeLevel || c.level) === 'master'), [realCourses]);
+  const doctorList = useMemo(() => realCourses.filter((c) => (c.degreeLevel || c.level) === 'doctor'), [realCourses]);
+  const certList = useMemo(() => realCourses.filter((c) => (c.degreeLevel || c.level) === 'certificate'), [realCourses]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -625,93 +653,107 @@ export default function Navbar({
                                 </div>
 
                                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+                                  {/* ปริญญาตรี (Bachelor) */}
                                   <div className="bg-slate-50/80 dark:bg-slate-900/60 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
                                     <div className="text-[11px] font-bold text-amber-700 dark:text-amber-400 flex items-center gap-1.5 uppercase tracking-wider">
                                       <span className="w-2 h-2 rounded-full bg-amber-500"></span>
                                       {lang === 'th' ? 'ปริญญาตรี (Bachelor)' : 'Bachelor Degree'}
                                     </div>
                                     <div className="space-y-1">
-                                      <button onClick={() => handleNav('courses', 'bachelor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
-                                        <div className="p-1 rounded bg-amber-500/10 text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition-colors">
-                                          <LucideIcon name="BookOpen" size={13} />
-                                        </div>
-                                        <span>สาขาวิชาพระพุทธศาสนา</span>
-                                      </button>
-                                      <button onClick={() => handleNav('courses', 'bachelor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
-                                        <div className="p-1 rounded bg-rose-500/10 text-rose-600 group-hover:bg-rose-500 group-hover:text-white transition-colors">
-                                          <LucideIcon name="Languages" size={13} />
-                                        </div>
-                                        <span>สาขาวิชาการสอนภาษาไทย</span>
-                                      </button>
-                                      <button onClick={() => handleNav('courses', 'bachelor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
-                                        <div className="p-1 rounded bg-sky-500/10 text-sky-600 group-hover:bg-sky-500 group-hover:text-white transition-colors">
-                                          <LucideIcon name="Landmark" size={13} />
-                                        </div>
-                                        <span>สาขาวิชารัฐศาสตร์</span>
-                                      </button>
-                                      <button onClick={() => handleNav('courses', 'bachelor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
-                                        <div className="p-1 rounded bg-emerald-500/10 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
-                                          <LucideIcon name="Globe" size={13} />
-                                        </div>
-                                        <span>สาขาวิชาสังคมศึกษา</span>
-                                      </button>
+                                      {bachelorList.length > 0 ? (
+                                        bachelorList.map((course) => (
+                                          <button
+                                            key={course.id}
+                                            onClick={() => handleNav('courses', 'bachelor', `?program=${course.id}`)}
+                                            className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group cursor-pointer"
+                                          >
+                                            <div className="p-1 rounded bg-amber-500/10 text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition-colors shrink-0">
+                                              <LucideIcon name="BookOpen" size={13} />
+                                            </div>
+                                            <span className="line-clamp-2">{lang === 'th' ? (course.name || course.nameTh) : (course.nameEn || course.name)}</span>
+                                          </button>
+                                        ))
+                                      ) : (
+                                        <div className="text-xs text-slate-400 p-1.5">{lang === 'th' ? 'ไม่มีข้อมูลหลักสูตร' : 'No programs available'}</div>
+                                      )}
                                     </div>
                                   </div>
 
+                                  {/* ปริญญาโท (Master) */}
                                   <div className="bg-slate-50/80 dark:bg-slate-900/60 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
                                     <div className="text-[11px] font-bold text-rose-700 dark:text-rose-400 flex items-center gap-1.5 uppercase tracking-wider">
                                       <span className="w-2 h-2 rounded-full bg-rose-500"></span>
                                       {lang === 'th' ? 'ปริญญาโท (Master)' : 'Master Degree'}
                                     </div>
                                     <div className="space-y-1">
-                                      <button onClick={() => handleNav('courses', 'master')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
-                                        <div className="p-1 rounded bg-amber-500/10 text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition-colors">
-                                          <LucideIcon name="Award" size={13} />
-                                        </div>
-                                        <span>พระพุทธศาสนา (พธ.ม.)</span>
-                                      </button>
-                                      <button onClick={() => handleNav('courses', 'master')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
-                                        <div className="p-1 rounded bg-indigo-500/10 text-indigo-600 group-hover:bg-indigo-500 group-hover:text-white transition-colors">
-                                          <LucideIcon name="GraduationCap" size={13} />
-                                        </div>
-                                        <span>การบริหารการศึกษา (ค.ม.)</span>
-                                      </button>
+                                      {masterList.length > 0 ? (
+                                        masterList.map((course) => (
+                                          <button
+                                            key={course.id}
+                                            onClick={() => handleNav('courses', 'master', `?program=${course.id}`)}
+                                            className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group cursor-pointer"
+                                          >
+                                            <div className="p-1 rounded bg-rose-500/10 text-rose-600 group-hover:bg-rose-500 group-hover:text-white transition-colors shrink-0">
+                                              <LucideIcon name="Award" size={13} />
+                                            </div>
+                                            <span className="line-clamp-2">{lang === 'th' ? (course.name || course.nameTh) : (course.nameEn || course.name)}</span>
+                                          </button>
+                                        ))
+                                      ) : (
+                                        <div className="text-xs text-slate-400 p-1.5">{lang === 'th' ? 'ไม่มีข้อมูลหลักสูตร' : 'No programs available'}</div>
+                                      )}
                                     </div>
                                   </div>
 
+                                  {/* ปริญญาเอก (Doctoral) */}
                                   <div className="bg-slate-50/80 dark:bg-slate-900/60 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
                                     <div className="text-[11px] font-bold text-purple-700 dark:text-purple-400 flex items-center gap-1.5 uppercase tracking-wider">
                                       <span className="w-2 h-2 rounded-full bg-purple-500"></span>
                                       {lang === 'th' ? 'ปริญญาเอก (Doctoral)' : 'Doctoral Degree'}
                                     </div>
                                     <div className="space-y-1">
-                                      <button onClick={() => handleNav('courses', 'doctor')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
-                                        <div className="p-1 rounded bg-purple-500/10 text-purple-600 group-hover:bg-purple-500 group-hover:text-white transition-colors">
-                                          <LucideIcon name="Sparkles" size={13} />
-                                        </div>
-                                        <span>พระพุทธศาสนา (พธ.ด.)</span>
-                                      </button>
+                                      {doctorList.length > 0 ? (
+                                        doctorList.map((course) => (
+                                          <button
+                                            key={course.id}
+                                            onClick={() => handleNav('courses', 'doctor', `?program=${course.id}`)}
+                                            className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group cursor-pointer"
+                                          >
+                                            <div className="p-1 rounded bg-purple-500/10 text-purple-600 group-hover:bg-purple-500 group-hover:text-white transition-colors shrink-0">
+                                              <LucideIcon name="Sparkles" size={13} />
+                                            </div>
+                                            <span className="line-clamp-2">{lang === 'th' ? (course.name || course.nameTh) : (course.nameEn || course.name)}</span>
+                                          </button>
+                                        ))
+                                      ) : (
+                                        <div className="text-xs text-slate-400 p-1.5">{lang === 'th' ? 'ไม่มีข้อมูลหลักสูตร' : 'No programs available'}</div>
+                                      )}
                                     </div>
                                   </div>
 
+                                  {/* ประกาศนียบัตร (Certificate) */}
                                   <div className="bg-slate-50/80 dark:bg-slate-900/60 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 space-y-2">
                                     <div className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5 uppercase tracking-wider">
                                       <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
                                       {lang === 'th' ? 'ประกาศนียบัตร (Cert)' : 'Certificates'}
                                     </div>
                                     <div className="space-y-1">
-                                      <button onClick={() => handleNav('courses', 'certificate')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
-                                        <div className="p-1 rounded bg-blue-500/10 text-blue-600 group-hover:bg-blue-500 group-hover:text-white transition-colors">
-                                          <LucideIcon name="Briefcase" size={13} />
-                                        </div>
-                                        <span>ประกาศนียบัตรบริหารธุรกิจ</span>
-                                      </button>
-                                      <button onClick={() => handleNav('courses', 'certificate')} className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group">
-                                        <div className="p-1 rounded bg-emerald-500/10 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
-                                          <LucideIcon name="Scroll" size={13} />
-                                        </div>
-                                        <span>ประกาศนียบัตรพระพุทธศาสนา</span>
-                                      </button>
+                                      {certList.length > 0 ? (
+                                        certList.map((course) => (
+                                          <button
+                                            key={course.id}
+                                            onClick={() => handleNav('courses', 'certificate', `?program=${course.id}`)}
+                                            className="w-full text-left p-1.5 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-white dark:hover:bg-slate-800 hover:text-mcu-pink transition-all flex items-center gap-2 group cursor-pointer"
+                                          >
+                                            <div className="p-1 rounded bg-emerald-500/10 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition-colors shrink-0">
+                                              <LucideIcon name="Scroll" size={13} />
+                                            </div>
+                                            <span className="line-clamp-2">{lang === 'th' ? (course.name || course.nameTh) : (course.nameEn || course.name)}</span>
+                                          </button>
+                                        ))
+                                      ) : (
+                                        <div className="text-xs text-slate-400 p-1.5">{lang === 'th' ? 'ไม่มีข้อมูลหลักสูตร' : 'No programs available'}</div>
+                                      )}
                                     </div>
                                   </div>
                                 </div>
